@@ -1,0 +1,8 @@
+{
+  "name": "openui-dioxus-real-mcp-oracle",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@openuidev/lang-core": "0.2.15"
+  }
+}
