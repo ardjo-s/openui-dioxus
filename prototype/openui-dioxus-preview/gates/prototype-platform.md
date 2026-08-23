@@ -5,17 +5,17 @@ Scope: One Dioxus renderer for the eight-node projection, tri-platform compile c
 - [x] P1: The Dioxus Desktop feature compiles.
   CHECK: cargo check --no-default-features --features desktop
   EXPECT: Finished
-  EVIDENCE: Checking openui-dioxus-preview v0.0.0 | Finished `dev` profile [unoptimized + debuginfo] target(s) in 5.59s
+  EVIDENCE: Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.51s
 
 - [x] P2: The Dioxus Web feature compiles for WASM.
   CHECK: cargo check --target wasm32-unknown-unknown --no-default-features --features web
   EXPECT: Finished
-  EVIDENCE: Checking openui-dioxus-preview v0.0.0 | Finished `dev` profile [unoptimized + debuginfo] target(s) in 4.21s
+  EVIDENCE: Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.18s
 
 - [x] P3: The Dioxus Mobile feature compiles at the available host-toolchain rung.
   CHECK: cargo check --no-default-features --features mobile
   EXPECT: Finished
-  EVIDENCE: Checking openui-dioxus-preview v0.0.0 | Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.00s
+  EVIDENCE: Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.13s
 
 - [x] P4: The renderer has one explicit branch for every catalog component.
   CHECK: sh -c "rg -o 'Node::(Text|Stack|Card|Table|Input|Select|Button|Alert)' src/app.rs | sort -u | wc -l"
@@ -35,7 +35,7 @@ Scope: One Dioxus renderer for the eight-node projection, tri-platform compile c
 - [x] P7: The comparison names A2UI and MCP Apps, cites official sources, and gives a falsifiable prototype verdict.
   CHECK: rg -n "a2ui.org|modelcontextprotocol.io|Falsif|NO-GO|GO" COMPARISON.md
   EXPECT: modelcontextprotocol.io
-  EVIDENCE: 22:## Falsifiable prototype verdict: CONDITIONAL GO | 28:improves action/replay correctness. Otherwise the result is a **NO-GO** for
+  EVIDENCE: 29:**PRODUCT NO-DECISION — and NO-GO for a v0.1 commitment:** A2UI is the closest | 33:**Falsification condition:** stop this direction and choose the simpler
 
 - [x] P8: One script runs all three platform checks and emits a measured summary.
   CHECK: ./scripts/verify-platforms.sh

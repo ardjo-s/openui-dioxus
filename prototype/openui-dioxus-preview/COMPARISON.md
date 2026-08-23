@@ -19,11 +19,18 @@ MCP Apps is an official extension in which a tool declares a `ui://` resource;
 hosts fetch HTML, typically sandbox it in an iframe, and bridge through
 JSON-RPC/postMessage, with host support varying ([MCP Apps overview](https://modelcontextprotocol.io/extensions/apps/overview), [MCP Apps API overview](https://apps.extensions.modelcontextprotocol.io/api/documents/Overview.html)).
 
-## Falsifiable prototype verdict: CONDITIONAL GO
+## Falsifiable prototype verdict: TECHNICAL GO; PRODUCT NO-DECISION
 
-A2UI is the closest simpler baseline. MCP Apps is likely simpler when the
-target is only chat-hosted HTML. Continue OpenUI-Dioxus only if a measured
-comparison of this workflow shows that the compact proposal plus Rust host
-boundary plus inert replay reduces implementation/maintenance burden or
-improves action/replay correctness. Otherwise the result is a **NO-GO** for
-this direction, while the eight-type adapter remains useful as evidence.
+**TECHNICAL GO:** the compile gates establish that one accepted projection can
+use one Dioxus component tree across the three platform feature targets. They
+do not establish A2UI/OpenUI conformance, runtime UX, device behavior, or a
+maintenance advantage.
+
+**PRODUCT NO-DECISION — and NO-GO for a v0.1 commitment:** A2UI is the closest
+simpler protocol baseline, while MCP Apps is likely simpler for chat-host-only
+HTML. Do not commit to v0.1 before comparing the same workflow at runtime.
+
+**Falsification condition:** stop this direction and choose the simpler
+baseline if compact proposal + Rust host boundary + inert replay does not show
+a measured advantage in action/replay correctness or implementation and
+maintenance burden during the conformance, UX, and runtime comparison.
