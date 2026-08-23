@@ -1,0 +1,25 @@
+{
+  "capturedAt": "2026-08-22T22:12:00+02:00",
+  "sources": [
+    {
+      "name": "OpenUI",
+      "repository": "https://github.com/thesysdev/openui",
+      "branch": "main",
+      "headAtFetch": "c3c0d1b7cf1d58e01846e86b7e9706f54afb2511",
+      "languageSpec": "v0.5",
+      "langCoreVersion": "0.2.15"
+    },
+    {
+      "name": "Dioxus stable target",
+      "repository": "https://github.com/DioxusLabs/dioxus",
+      "tag": "v0.7.10",
+      "headAtFetch": "57d6794ad60b949e5bd8aa282f6f8c3dc97a365e"
+    },
+    {
+      "name": "Dioxus upstream main reference",
+      "repository": "https://github.com/DioxusLabs/dioxus",
+      "branch": "main",
+      "headAtFetch": "24f6a829df0dfa203961a98ea4cae21c2ff27e28"
+    }
+  ]
+}

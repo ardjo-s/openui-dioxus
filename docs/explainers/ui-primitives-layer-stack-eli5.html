@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenUI × Dioxus · Les couches de primitives UI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --paper: #f5f5f5;
+      --paper-2: #ececec;
+      --white: #ffffff;
+      --ink: #2d3142;
+      --muted: #4f5d75;
+      --soft: #7a8399;
+      --rule: rgba(45, 49, 66, 0.12);
+      --rule-strong: #bfc0c0;
+      --accent: #eb6c36;
+      --accent-tint: rgba(235, 108, 54, 0.08);
+      --link: #2e5aa8;
+      --sans: 'Geist', system-ui, sans-serif;
+      --serif: 'Instrument Serif', Georgia, serif;
+      --mono: 'Geist Mono', ui-monospace, monospace;
+    }
+
+    body {
+      min-height: 100vh;
+      padding: 48px 32px;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+    }
+
+    .frame {
+      width: min(1280px, 100%);
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 960px;
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.04;
+    }
+
+    .lede {
+      max-width: 920px;
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .diagram-shell {
+      margin-top: 32px;
+      overflow-x: auto;
+      scrollbar-color: var(--rule-strong) transparent;
+    }
+
+    svg {
+      display: block;
+      width: 100%;
+      min-width: 1040px;
+      height: auto;
+    }
+
+    .sources {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid var(--rule);
+      color: var(--soft);
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    @media (max-width: 720px) {
+      body { padding: 32px 16px; }
+      h1 { font-size: 36px; }
+      .lede { font-size: 16px; }
+    }
+
+    @media print {
+      body { padding: 24px; }
+      .diagram-shell { overflow: visible; }
+      svg { min-width: 0; }
+    }
+  </style>
+</head>
+<body>
+  <main class="frame">
+    <p class="eyebrow">Layer stack · OpenUI × Dioxus</p>
+    <h1>Les couches de primitives UI — et la combinaison la plus fidèle</h1>
+    <p class="lede">
+      Le runtime reste le moteur stable. <strong>CatalogAdapter</strong> branche des catalogues Rust compilés ; <strong>PlatformHost</strong> adapte l’UI locale. Les effets externes restent dans <strong>Application host</strong>.
+    </p>
+
+    <div class="diagram-shell">
+      <svg viewBox="0 0 1200 780" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="openui-dioxus-primitives-title openui-dioxus-primitives-desc">
+        <title id="openui-dioxus-primitives-title">OpenUI × Dioxus · Les couches de primitives UI</title>
+        <desc id="openui-dioxus-primitives-desc">Pile de six couches montrant un runtime OpenUI Dioxus stable relié par deux intégrations certifiées : CatalogAdapter pour les catalogues Dioxus compilés, PlatformHost pour les adaptations UI locales Web, Desktop et Mobile. Les primitives restent optionnelles dans les adaptateurs, les effets externes restent dans Application host et les bibliothèques JavaScript restent des sources de conversion.</desc>
+        <defs>
+          <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/>
+          </marker>
+          <marker id="arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#eb6c36"/>
+          </marker>
+          <marker id="arrow-link" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#2e5aa8"/>
+          </marker>
+        </defs>
+
+        <rect width="1200" height="780" fill="#f5f5f5"/>
+
+        <!-- Column labels -->
+        <text x="184" y="88" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.16em">COUCHE</text>
+        <text x="424" y="88" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.16em">CHEMIN OPENUI × DIOXUS</text>
+        <text x="724" y="88" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.16em">RÉFÉRENCES / ALTERNATIVES</text>
+        <text x="1084" y="88" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.16em">INTÉGRATION DIRECTE</text>
+
+        <!-- Direction indicator -->
+        <text x="40" y="88" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.12em">INTENTION</text>
+        <line x1="72" y1="112" x2="72" y2="544" stroke="rgba(45,49,66,0.30)" stroke-width="1"/>
+        <polygon points="68,112 76,112 72,104" fill="#4f5d75"/>
+        <text x="40" y="568" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.12em">PLATEFORME</text>
+
+        <!-- L6 · Protocol -->
+        <rect x="120" y="112" width="1040" height="72" fill="#ffffff"/>
+        <line x1="120" y1="184" x2="1160" y2="184" stroke="rgba(45,49,66,0.12)" stroke-width="1"/>
+        <text x="144" y="152" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.14em">L6</text>
+        <text x="184" y="148" fill="#2d3142" font-size="16" font-weight="600" font-family="'Geist', sans-serif">Protocole génératif</text>
+        <text x="424" y="144" fill="#2d3142" font-size="16" font-weight="600" font-family="'Geist', sans-serif">OpenUI Lang</text>
+        <text x="424" y="164" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace">Surface · LibrarySpec · streaming</text>
+        <text x="724" y="144" fill="#2d3142" font-size="12" font-weight="500" font-family="'Geist', sans-serif">JSON Schema · sorties d’outils</text>
+        <text x="724" y="164" fill="#7a8399" font-size="8" font-family="'Geist Mono', monospace">la grammaire décrit l’intention</text>
+        <rect x="1032" y="132" width="104" height="32" rx="4" fill="rgba(45,49,66,0.03)" stroke="rgba(45,49,66,0.30)" stroke-width="0.8"/>
+        <text x="1084" y="152" fill="#4f5d75" font-size="8" font-weight="600" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.08em">CONSERVER</text>
+
+        <!-- L5 · Semantic contract -->
+        <rect x="120" y="184" width="1040" height="72" fill="#f5f5f5"/>
+        <line x1="120" y1="256" x2="1160" y2="256" stroke="rgba(45,49,66,0.12)" stroke-width="1"/>
+        <text x="144" y="224" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.14em">L5</text>
+        <text x="184" y="220" fill="#2d3142" font-size="16" font-weight="600" font-family="'Geist', sans-serif">Contrat sémantique</text>
+        <text x="424" y="216" fill="#2d3142" font-size="16" font-weight="600" font-family="'Geist', sans-serif">Catalogue OpenUI-Dioxus</text>
+        <text x="424" y="236" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace">props sérialisables · prop_order · validation</text>
+        <text x="724" y="216" fill="#2d3142" font-size="12" font-weight="500" font-family="'Geist', sans-serif">CatalogAdapter API · catalog![]</text>
+        <text x="724" y="236" fill="#7a8399" font-size="8" font-family="'Geist Mono', monospace">static_rust_v1 · aucune ABI binaire promise</text>
+        <rect x="1032" y="204" width="104" height="32" rx="4" fill="rgba(45,49,66,0.03)" stroke="#2d3142" stroke-width="0.8"/>
+        <text x="1084" y="224" fill="#2d3142" font-size="8" font-weight="600" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.08em">POSSÉDER</text>
+
+        <!-- L4 · Deterministic runtime (focal) -->
+        <rect x="120" y="256" width="1040" height="72" fill="rgba(235,108,54,0.08)"/>
+        <rect x="120" y="256" width="1040" height="72" fill="none" stroke="#eb6c36" stroke-width="1.2"/>
+        <text x="144" y="296" fill="#eb6c36" font-size="8" font-weight="600" font-family="'Geist Mono', monospace" letter-spacing="0.14em">L4</text>
+        <text x="184" y="292" fill="#2d3142" font-size="16" font-weight="600" font-family="'Geist', sans-serif">Runtime déterministe</text>
+        <text x="424" y="288" fill="#2d3142" font-size="16" font-weight="600" font-family="'Geist', sans-serif">OpenUI-Dioxus Runtime</text>
+        <text x="424" y="308" fill="#eb6c36" font-size="8" font-family="'Geist Mono', monospace">état · actions typées · stabilisation · replay</text>
+        <text x="724" y="288" fill="#2d3142" font-size="12" font-weight="500" font-family="'Geist', sans-serif">Zag.js · statecharts</text>
+        <text x="724" y="308" fill="#7a8399" font-size="8" font-family="'Geist Mono', monospace">référence de comportement, pas dépendance JS</text>
+        <rect x="1032" y="276" width="104" height="32" rx="4" fill="#ffffff" stroke="#eb6c36" stroke-width="1"/>
+        <text x="1084" y="296" fill="#eb6c36" font-size="8" font-weight="600" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.08em">MOTEUR</text>
+
+        <!-- L3 · Styled design system -->
+        <rect x="120" y="328" width="1040" height="72" fill="#ffffff"/>
+        <line x1="120" y1="400" x2="1160" y2="400" stroke="rgba(45,49,66,0.12)" stroke-width="1"/>
+        <text x="144" y="368" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.14em">L3</text>
+        <text x="184" y="364" fill="#2d3142" font-size="16" font-weight="600" font-family="'Geist', sans-serif">Design systems</text>
+        <text x="424" y="360" fill="#2d3142" font-size="16" font-weight="600" font-family="'Geist', sans-serif">Catalogues Dioxus certifiés</text>
+        <text x="424" y="380" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace">Dioxus Components · Rust/UI · système privé</text>
+        <text x="724" y="360" fill="#2d3142" font-size="12" font-weight="500" font-family="'Geist', sans-serif">shadcn/ui · Park UI · Figma / JSON</text>
+        <text x="724" y="380" fill="#7a8399" font-size="8" font-family="'Geist Mono', monospace">conversion → brouillon → revue → compilation</text>
+        <rect x="1032" y="348" width="104" height="32" rx="4" fill="rgba(45,49,66,0.03)" stroke="#2d3142" stroke-width="0.8"/>
+        <text x="1084" y="368" fill="#2d3142" font-size="8" font-weight="600" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.08em">CATALOG</text>
+
+        <!-- L2 · Headless primitives (focal) -->
+        <rect x="120" y="400" width="1040" height="72" fill="rgba(235,108,54,0.08)"/>
+        <rect x="120" y="400" width="1040" height="72" fill="none" stroke="#eb6c36" stroke-width="1.2"/>
+        <text x="144" y="440" fill="#eb6c36" font-size="8" font-weight="600" font-family="'Geist Mono', monospace" letter-spacing="0.14em">L2</text>
+        <text x="184" y="436" fill="#2d3142" font-size="16" font-weight="600" font-family="'Geist', sans-serif">Primitives headless</text>
+        <text x="424" y="432" fill="#2d3142" font-size="16" font-weight="600" font-family="'Geist', sans-serif">Option interne aux adaptateurs</text>
+        <text x="424" y="452" fill="#eb6c36" font-size="8" font-family="'Geist Mono', monospace">Dioxus Primitives · focus · clavier · ARIA</text>
+        <text x="724" y="424" fill="#2d3142" font-size="12" font-weight="500" font-family="'Geist', sans-serif">Radix · Base UI · React Aria · Ariakit</text>
+        <text x="724" y="444" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace">Ark UI · Headless UI · Reka · Kobalte</text>
+        <text x="724" y="460" fill="#7a8399" font-size="8" font-family="'Geist Mono', monospace">références à porter, pas dépendances directes</text>
+        <rect x="1032" y="420" width="104" height="32" rx="4" fill="#ffffff" stroke="#eb6c36" stroke-width="1"/>
+        <text x="1084" y="440" fill="#eb6c36" font-size="8" font-weight="600" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.08em">OPTION</text>
+
+        <!-- L1 · Platform -->
+        <rect x="120" y="472" width="1040" height="72" fill="#ececec"/>
+        <text x="144" y="512" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.14em">L1</text>
+        <text x="184" y="508" fill="#2d3142" font-size="16" font-weight="600" font-family="'Geist', sans-serif">Plateforme &amp; utilitaires</text>
+        <text x="424" y="504" fill="#2d3142" font-size="16" font-weight="600" font-family="'Geist', sans-serif">Dioxus renderer + PlatformHost</text>
+        <text x="424" y="524" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace">Web · Desktop · Mobile</text>
+        <text x="724" y="504" fill="#2d3142" font-size="12" font-weight="500" font-family="'Geist', sans-serif">DOM · WAI-ARIA · Floating UI · APIs plateforme</text>
+        <text x="724" y="524" fill="#7a8399" font-size="8" font-family="'Geist Mono', monospace">UI locale bornée · effets externes → Application host</text>
+        <rect x="1032" y="492" width="104" height="32" rx="4" fill="rgba(45,49,66,0.03)" stroke="rgba(45,49,66,0.30)" stroke-width="0.8"/>
+        <text x="1084" y="512" fill="#4f5d75" font-size="8" font-weight="600" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.08em">PLATFORM</text>
+
+        <!-- Stack guides, painted above layer fills -->
+        <line x1="120" y1="112" x2="1160" y2="112" stroke="#bfc0c0" stroke-width="1"/>
+        <line x1="120" y1="544" x2="1160" y2="544" stroke="#bfc0c0" stroke-width="1"/>
+        <line x1="400" y1="112" x2="400" y2="544" stroke="rgba(45,49,66,0.12)" stroke-width="1"/>
+        <line x1="696" y1="112" x2="696" y2="544" stroke="rgba(45,49,66,0.12)" stroke-width="1"/>
+        <line x1="1016" y1="112" x2="1016" y2="544" stroke="rgba(45,49,66,0.12)" stroke-width="1"/>
+
+        <!-- Decision cards -->
+        <rect x="120" y="584" width="680" height="104" rx="8" fill="#ffffff" stroke="rgba(45,49,66,0.12)" stroke-width="1"/>
+        <text x="144" y="612" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.16em">COMBINAISON RECOMMANDÉE</text>
+        <text x="144" y="644" fill="#2d3142" font-size="20" font-weight="600" font-family="'Geist', sans-serif">Le moteur ne change pas.</text>
+        <text x="144" y="668" fill="#4f5d75" font-size="12" font-family="'Geist', sans-serif">CatalogAdapter et PlatformHost absorbent les différences.</text>
+
+        <rect x="824" y="584" width="336" height="104" rx="8" fill="rgba(45,49,66,0.03)" stroke="rgba(45,49,66,0.20)" stroke-width="1"/>
+        <text x="848" y="612" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.16em">DEUX INTÉGRATIONS VERSIONNÉES</text>
+        <text x="848" y="640" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', sans-serif">CatalogAdapter → Rust compilé</text>
+        <text x="848" y="664" fill="#4f5d75" font-size="12" font-family="'Geist', sans-serif">PlatformHost → adaptation UI locale</text>
+
+        <!-- Legend -->
+        <line x1="120" y1="720" x2="1160" y2="720" stroke="rgba(45,49,66,0.12)" stroke-width="0.8"/>
+        <text x="120" y="748" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.16em">LÉGENDE</text>
+        <rect x="232" y="740" width="12" height="12" rx="4" fill="rgba(235,108,54,0.08)" stroke="#eb6c36" stroke-width="1"/>
+        <text x="256" y="752" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace">couche décisive à posséder ou certifier</text>
+        <rect x="560" y="740" width="12" height="12" rx="4" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+        <text x="584" y="752" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace">intégration directe Dioxus</text>
+        <rect x="800" y="740" width="12" height="12" rx="4" fill="rgba(45,49,66,0.03)" stroke="rgba(45,49,66,0.30)" stroke-width="0.8"/>
+        <text x="824" y="752" fill="#4f5d75" font-size="8" font-family="'Geist Mono', monospace">référence externe, sans dépendance directe</text>
+      </svg>
+    </div>
+
+    <p class="sources">
+      Références vérifiées : Dioxus Components · Rust/UI for Dioxus · Radix UI · Base UI · React Aria · Ariakit · Ark UI · Zag.js · Headless UI · Floating UI · WAI-ARIA APG
+    </p>
+  </main>
+</body>
+</html>

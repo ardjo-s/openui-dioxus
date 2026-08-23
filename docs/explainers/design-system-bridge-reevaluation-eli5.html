@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenUI–Dioxus : quelle architecture choisir ?</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: Inter, ui-rounded, system-ui, sans-serif;
+      background: #0d1117;
+      color: #f7f8fc;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: radial-gradient(circle at top, #1d2940 0, #0d1117 42rem); }
+    main { width: min(920px, 100%); margin: auto; padding: 36px 18px 80px; }
+    h1 { margin: 14px 0 18px; font-size: clamp(2.7rem, 8vw, 5.8rem); line-height: .92; letter-spacing: -.05em; }
+    h2 { margin: 18px 0 8px; font-size: clamp(1.6rem, 5vw, 2.2rem); }
+    p { margin: 8px 0; font-size: clamp(1.05rem, 3vw, 1.25rem); line-height: 1.5; }
+    .eyebrow { color: #9cb8ff; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .lead { max-width: 700px; color: #c8d0df; font-size: clamp(1.25rem, 3.4vw, 1.55rem); }
+    .decision { display: inline-block; padding: 8px 12px; border: 1px solid #4fc98a; border-radius: 999px; color: #c8f8db; background: #183b2d; font-weight: 750; }
+    .card { margin-top: 24px; padding: clamp(22px, 5vw, 34px); border: 1px solid #354159; border-radius: 28px; background: rgba(24, 30, 43, .94); box-shadow: 0 18px 60px rgba(0, 0, 0, .22); }
+    .picture { font-size: clamp(4rem, 14vw, 7rem); line-height: 1; letter-spacing: .04em; }
+    .versus { display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: center; text-align: center; }
+    .versus strong { display: block; margin-top: 10px; font-size: 1.15rem; }
+    .vs { color: #8390a8; font-weight: 900; }
+    .answer { margin-top: 18px; padding: 16px 18px; border-radius: 16px; background: #183b2d; color: #c8f8db; font-weight: 800; }
+    .warning { background: #3b2916; color: #ffe0a3; }
+    .flow { display: grid; gap: 10px; margin-top: 20px; text-align: center; }
+    .flow div { padding: 15px 12px; border-radius: 16px; background: #232c3d; font-size: 1.1rem; font-weight: 800; }
+    .arrow { color: #92a9db; font-size: 1.8rem; }
+    .platforms { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; margin: 24px 0 8px; font-size: clamp(3.5rem, 12vw, 6.5rem); }
+    .columns { display: grid; gap: 16px; margin-top: 18px; }
+    .mini { padding: 20px; border-radius: 20px; background: #222a39; }
+    .mini .icon { font-size: 3.2rem; }
+    .mini h3 { margin: 12px 0 6px; font-size: 1.35rem; }
+    .mini p { color: #cbd2df; font-size: 1.05rem; }
+    .now { border: 2px solid #4fc98a; }
+    .next { border: 2px solid #e7b850; }
+    .later { border: 2px solid #7182a5; }
+    .summary { background: linear-gradient(135deg, #f2ce62, #f1a968); color: #17130b; border: 0; }
+    .summary .picture { font-size: clamp(4.5rem, 16vw, 8rem); }
+    .summary p { font-weight: 750; }
+    .evidence { margin-top: 28px; color: #8e9ab0; font-size: .88rem; line-height: 1.55; }
+    code { color: #bcd0ff; }
+    @media (min-width: 720px) {
+      main { padding-top: 54px; }
+      .columns { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <span class="decision">Décision 07 validée</span>
+  <p class="eyebrow">OpenUI + Dioxus</p>
+  <h1>Un petit pont.<br>Pas un château.</h1>
+  <p class="lead">Le bon choix mélange les deux propositions : facile à adopter au-dessus, rigoureux en dessous.</p>
+
+  <section class="card">
+    <div class="versus">
+      <div>
+        <div class="picture">🏰</div>
+        <strong>Trop strict</strong>
+      </div>
+      <div class="vs">VS</div>
+      <div>
+        <div class="picture">🛴</div>
+        <strong>Trop léger</strong>
+      </div>
+    </div>
+    <div class="answer">Choix : 🌉 une API minuscule + des contrôles solides.</div>
+  </section>
+
+  <section class="card">
+    <div class="picture">🧩🔌</div>
+    <h2>OpenUI a déjà la prise</h2>
+    <p>Nom + schéma + description + renderer.</p>
+    <div class="flow">
+      <div>defineComponent</div>
+      <div class="arrow">↓</div>
+      <div>createLibrary</div>
+      <div class="arrow">↓</div>
+      <div>Prompt + JSON Schema + rendu</div>
+    </div>
+    <div class="answer">Dioxus doit garder cette forme simple.</div>
+  </section>
+
+  <section class="card">
+    <div class="picture">🎁⚠️</div>
+    <h2>Mais le cadeau peut cacher des fils</h2>
+    <p>Une prop Dioxus peut contenir un callback ou un signal.</p>
+    <p>OpenUI doit recevoir seulement des données simples.</p>
+    <div class="answer warning">Donc : props OpenUI propres → adapter → composant Dioxus.</div>
+  </section>
+
+  <section class="card">
+    <div class="picture">🚂1️⃣2️⃣3️⃣</div>
+    <h2>Garder l’ordre des wagons</h2>
+    <p>OpenUI lit les arguments dans un ordre précis.</p>
+    <p>Le catalogue doit écrire cet ordre noir sur blanc.</p>
+    <div class="answer">prop_order explicite. Toujours.</div>
+  </section>
+
+  <section class="card">
+    <div class="platforms" aria-label="Web, ordinateur et téléphone">🌐 🖥️ 📱</div>
+    <h2>Un écran, trois fenêtres</h2>
+    <p>Dioxus 0.7 utilise HTML/CSS sur Web, Desktop et Mobile WebView.</p>
+    <div class="answer">Un même catalogue et un même thème peuvent servir les trois.</div>
+  </section>
+
+  <section class="card">
+    <div class="picture">🛠️✨</div>
+    <h2>Ce que la machine fabrique</h2>
+    <div class="flow">
+      <div>Composant approuvé</div>
+      <div class="arrow">↓</div>
+      <div>Catalogue + prompt + docs</div>
+      <div class="arrow">↓</div>
+      <div>Registry Dioxus + hash</div>
+    </div>
+    <div class="answer">La liste est automatique. Le sens reste humain.</div>
+  </section>
+
+  <section class="card">
+    <div class="picture">🗓️</div>
+    <h2>Le bon ordre</h2>
+    <div class="columns">
+      <div class="mini now">
+        <div class="icon">🟢</div>
+        <h3>Maintenant</h3>
+        <p>8–12 composants</p>
+        <p>30–50 scénarios</p>
+        <p>1 design system enveloppé</p>
+        <p>Web · Desktop · Mobile</p>
+      </div>
+      <div class="mini next">
+        <div class="icon">🟡</div>
+        <h3>Juste après</h3>
+        <p>DTCG → thème/CSS</p>
+        <p>Import de tokens</p>
+        <p>Après le premier rendu</p>
+      </div>
+      <div class="mini later">
+        <div class="icon">⚪</div>
+        <h3>Plus tard</h3>
+        <p>React · Figma</p>
+        <p>JSON libre · images</p>
+        <p>Preuves et signatures</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="card summary">
+    <div class="picture">🌉</div>
+    <h2>Recommandation finale</h2>
+    <p>Copier la petite API publique d’OpenUI.</p>
+    <p>Compiler vers un registry Dioxus fermé.</p>
+    <p>Reporter les gros convertisseurs après la preuve du pont.</p>
+  </section>
+
+  <p class="evidence">
+    Sources OpenSRC vérifiées : OpenUI Lang Core 0.2.15, snapshot <code>c3c0d1b</code> ; Dioxus 0.7.10, snapshot <code>57d6794</code> ; Dioxus main de référence <code>24f6a82</code>. L’exemple Material UI d’OpenUI confirme que porter un design system demande des wrappers et règles explicites. Cette recommandation a été validée et consignée dans le ticket 07.
+  </p>
+</main>
+</body>
+</html>

@@ -1,0 +1,2 @@
+title = Text("Approve expense")
+screen = Stack([title, missing])

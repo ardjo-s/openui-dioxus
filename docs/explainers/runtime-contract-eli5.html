@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenUI–Dioxus : le runtime, simplement</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: Inter, ui-rounded, system-ui, sans-serif;
+      background: #10131a;
+      color: #f6f7fb;
+    }
+    body { margin: 0; }
+    main { max-width: 880px; margin: auto; padding: 48px 20px 80px; }
+    h1 { margin: 0 0 20px; font-size: clamp(2.5rem, 8vw, 5.2rem); line-height: .95; }
+    .lead { max-width: 680px; color: #c7ccda; font-size: 1.35rem; line-height: 1.5; }
+    .card { margin-top: 28px; padding: 28px; border: 1px solid #343b4d; border-radius: 24px; background: #181d28; }
+    .picture { font-size: 4.5rem; line-height: 1; }
+    h2 { margin: 18px 0 8px; font-size: 1.75rem; }
+    p { margin: 8px 0; font-size: 1.13rem; line-height: 1.55; }
+    .answer { margin-top: 16px; padding: 14px 18px; border-radius: 14px; background: #243d31; color: #c6f6d5; font-weight: 750; }
+    .open { border-color: #9b7f30; background: #292515; }
+    .open .answer { background: #3c3317; color: #ffe796; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Le runtime,<br>sans jargon</h1>
+  <p class="lead">L’IA propose une interface. Rust garde l’histoire, vérifie les règles et contrôle chaque porte vers le monde extérieur. Dioxus affiche.</p>
+
+  <section class="card">
+    <div class="picture">📝 + 🗺️</div>
+    <h2>1. Garder la recette et la carte</h2>
+    <p>OpenUI est la recette publique. Rust garde aussi une carte vérifiée pour l’affichage. La recette sert aux futurs patchs ; la carte sert à exécuter. Elles ne se remplacent pas.</p>
+    <div class="answer">Décidé : programme OpenUI pour modifier ; Surface Rust pour afficher et agir.</div>
+  </section>
+
+  <section class="card">
+    <div class="picture">🧠 🚦 🎨 🔌</div>
+    <h2>2. Chacun son métier</h2>
+    <p>Rust vérifie et décide. Dioxus affiche. Le catalogue fournit des pièces sans accès secret à Internet. L’application seule ouvre une URL, appelle un outil ou récupère une ressource, après autorisation.</p>
+    <div class="answer">Décidé : tout effet extérieur passe par une seule porte contrôlée et enregistrée.</div>
+  </section>
+
+  <section class="card">
+    <div class="picture">📦🔒</div>
+    <h2>3. La boîte exacte</h2>
+    <p>Une interface garde la référence exacte de la boîte et du moteur de composants utilisés. Dans six mois, le même nom de bouton ne doit pas cacher un comportement différent.</p>
+    <div class="answer">Décidé : schémas, règles, code du renderer et capacités sont tous épinglés.</div>
+  </section>
+
+  <section class="card">
+    <div class="picture">🎮💾</div>
+    <h2>4. Des sauvegardes utiles</h2>
+    <p>Chaque structure réellement affichée reçoit un numéro, un parent et une empreinte. Taper dans un champ change l’état, pas le numéro de la structure.</p>
+    <div class="answer">Décidé : on peut compacter le contenu inutile, jamais effacer la trace qui prouve la chronologie.</div>
+  </section>
+
+  <section class="card">
+    <div class="picture">🏗️👀</div>
+    <h2>5. Montrer une interface encore en construction ?</h2>
+    <p>Tout montrer peut produire des morceaux cassés. Rust montre seulement un bloc entier dont toutes les pièces nécessaires sont déjà présentes. Ce bloc provisoire ne peut encore rien déclencher.</p>
+    <div class="answer">Décidé : bloc complet, autonome, valide et inoffensif ; l’attente reste une décoration de l’application.</div>
+  </section>
+
+  <section class="card">
+    <div class="picture">🏷️🧩</div>
+    <h2>6. Donner un numéro à chaque pièce</h2>
+    <p>OpenUI nomme une recette, mais plusieurs objets peuvent l’utiliser. Rust donne un numéro durable aux objets qui mémorisent ou agissent. Dioxus utilise aussi de petites étiquettes pour ranger l’écran, mais ce ne sont pas les mêmes numéros.</p>
+    <div class="answer">Décidé : identité métier et clé d’affichage séparées ; aucune cible devinée.</div>
+  </section>
+
+  <section class="card">
+    <div class="picture">✍️🔐</div>
+    <h2>7. Protéger ce que la personne a déjà écrit</h2>
+    <p>Si l’IA redessine le formulaire, un email déjà saisi ne doit pas disparaître. Même si le champ disparaît un moment du texte OpenUI, sa valeur reste dans cette session et cette Surface.</p>
+    <div class="answer">Décidé : valeur utilisateur prioritaire ; remise au défaut autorisée ; pas de suppression inventée au v0.1.</div>
+  </section>
+
+  <section class="card">
+    <div class="picture">🚧🔌</div>
+    <h2>8. Cliquer pendant les travaux ?</h2>
+    <p>Une interface incomplète peut encore changer de sens. Au v0.1, ses boutons et champs générés restent donc désactivés jusqu’à la validation finale.</p>
+    <div class="answer">Décidé : aucun contrôle généré ni appel externe avant le commit. Les modes anticipés seront des options séparées plus tard.</div>
+  </section>
+
+  <section class="card">
+    <div class="picture">🕰️👆</div>
+    <h2>9. Un clic venu d’un ancien écran</h2>
+    <p>Si l’écran change juste après le clic, Rust compare la cible, les données, le plan et la permission, puis réserve officiellement cette intention avant d’agir.</p>
+    <div class="answer">Décidé : comparaison et réservation atomiques ; sinon demander un nouveau clic.</div>
+  </section>
+
+  <section class="card">
+    <div class="picture">🎟️×2</div>
+    <h2>10. Éviter une commande en double</h2>
+    <p>Une action peut modifier un état, lancer une commande, puis lire un résultat. Chaque étape extérieure reçoit son propre ticket avant de partir et son propre reçu au retour.</p>
+    <div class="answer">Décidé : reçu par étape. Un résultat incertain arrête la suite et n’est jamais relancé automatiquement.</div>
+  </section>
+
+  <section class="card">
+    <div class="picture">🧱❌🛡️</div>
+    <h2>11. Une nouvelle version est cassée</h2>
+    <p>Un patch OpenUI peut relier plusieurs blocs. En sauver un morceau et rejeter l’autre fabriquerait une interface que personne n’a vraiment proposée.</p>
+    <div class="answer">Décidé : au v0.1, rejeter toute la mise à jour cassée et garder le dernier écran validé.</div>
+  </section>
+
+  <section class="card">
+    <div class="picture">🚦⚠️🛑</div>
+    <h2>12. Toutes les erreurs doivent-elles tout bloquer ?</h2>
+    <p>Un feu rouge empêche la sauvegarde finale. Un avertissement orange permet de continuer. Chaque problème reçoit aussi une empreinte stable pour reconnaître le même défaut après une correction.</p>
+    <div class="answer">Décidé : deux niveaux ; les règles essentielles ne peuvent jamais être affaiblies.</div>
+  </section>
+
+  <section class="card">
+    <div class="picture">📼➡️💿</div>
+    <h2>13. Rouvrir une ancienne interface</h2>
+    <p>Une migration doit connaître toute la combinaison de versions de départ et d’arrivée. Elle crée une copie vérifiée ; elle ne mélange pas plusieurs petites traductions en supposant qu’elles fonctionneront ensemble.</p>
+    <div class="answer">Décidé : conserver l’original. Archive et aperçu inerte garantis ; exécution éternelle non garantie.</div>
+  </section>
+
+  <section class="card">
+    <div class="picture">🏗️✅📦</div>
+    <h2>14. Quand l’interface est-elle vraiment finie ?</h2>
+    <p>Une structure peut être validée sans être entièrement rejouable. Un replay complet doit aussi posséder chaque donnée, résultat et ressource qui change le comportement. Sinon, il s’arrête honnêtement à l’élément manquant.</p>
+    <div class="answer">Décidé : tampon « structure prête », puis checkpoints complets ou checkpoints d’audit avec liste des omissions.</div>
+  </section>
+
+  <section class="card">
+    <div class="picture">🧑‍⚖️📋🤖</div>
+    <h2>15. Qui demande à l’IA de réparer ?</h2>
+    <p>L’inspecteur Rust décrit précisément le problème. L’application peut demander une correction à l’IA, mais cette proposition reste sur la table d’inspection : elle n’est jamais affichée comme vraie interface.</p>
+    <div class="answer">Décidé : maximum 2 essais par défaut, arrêt si les erreurs rouges ne diminuent pas, aucun effet possible.</div>
+  </section>
+
+  <section class="card">
+    <div class="picture">📜🔍📦</div>
+    <h2>16. Que doit croire le replay ?</h2>
+    <p>Le replay utilise la Surface et les événements déjà vérifiés. Il n’ouvre aucune URL, ne télécharge aucune image et ne rappelle aucun outil. Le texte OpenUI sert seulement à contrôler l’histoire.</p>
+    <div class="answer">Décidé : même sens et mêmes résultats capturés ; pas la promesse des mêmes pixels sur tous les appareils.</div>
+  </section>
+
+  <section class="card">
+    <div class="picture">📄🔁🩹</div>
+    <h2>17. Comment modifier une interface existante ?</h2>
+    <p>L’IA peut envoyer une nouvelle page entière ou un patch nommé. Le patch modifie la recette OpenUI complète, jamais directement la carte Rust.</p>
+    <div class="answer">Décidé : nouvelle recette et nouvelle Surface deviennent officielles ensemble, ou aucune des deux.</div>
+  </section>
+
+  <section class="card">
+    <div class="picture">✍️⚔️✍️</div>
+    <h2>18. Deux modifications arrivent ensemble</h2>
+    <p>Au v0.1, une seule file numérote les modifications, l’état, les clics, les départs d’effets, leurs reçus et les sauvegardes. Une demande fondée sur une ancienne recette est refusée.</p>
+    <div class="answer">Décidé : une histoire ordonnée par Surface ; aucun écrasement ou mélange silencieux.</div>
+  </section>
+
+  <section class="card">
+    <div class="picture">🔐📦👀</div>
+    <h2>19. Quelles données garder dans un replay ?</h2>
+    <p>Le formulaire brut n’est jamais copié dans les journaux. Rust extrait d’abord le minimum nécessaire pour agir, puis fabrique séparément une version autorisée pour la sauvegarde.</p>
+    <div class="answer">Décidé : classer avant d’écrire ; donnée non classée non gardée ; secrets techniques toujours exclus.</div>
+  </section>
+
+  <section class="card">
+    <div class="picture">⌨️🌊💎</div>
+    <h2>20. Faut-il enregistrer chaque petit geste ?</h2>
+    <p>Les mouvements de souris et chaque lettre créent du bruit. Rust peut compacter des changements seulement tant que rien ne les a observés. Un clic, une règle, un appel, une erreur ou une sauvegarde ferme cette fenêtre.</p>
+    <div class="answer">Décidé : journal sémantique exact ; télémétrie fine séparée et facultative.</div>
+  </section>
+
+  <section class="card">
+    <div class="picture">📦❓🛑</div>
+    <h2>21. Une version inconnue arrive</h2>
+    <p>Une interface dépend de plusieurs versions à la fois : langue, composants, Dioxus, plateforme, politiques et replay. Une seule étiquette « v1 » ne suffit pas.</p>
+    <div class="answer">Décidé : combinaison complète supportée ou migrée ; comportement inconnu toujours bloquant.</div>
+  </section>
+</main>
+</body>
+</html>
