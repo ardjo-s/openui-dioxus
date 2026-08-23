@@ -28,3 +28,25 @@ cargo check --manifest-path prototype/openui-a2ui-cloud-eval/Cargo.toml --featur
 The cloud workflow is intentionally the only path that spends API credits. It
 requires the protected `prototype-cloud-eval` GitHub Environment and a commit
 message containing `[cloud-eval]` on the exact prototype branch.
+
+## Fixed evaluation contract
+
+- 20 paired passages, alternating protocol order.
+- `gpt-5.6-luna`, low reasoning, no storage, 8,192 output-token ceiling.
+- One repair maximum per invalid payload; 80 calls and $2 estimated cost maximum.
+- 256 KiB raw-output and 64-node execution limits.
+- Official OpenUI parser and A2UI `MessageProcessor`; project-owned Rust adapters.
+- Dioxus SSR for first usable render latency, then actual Desktop and Chromium
+  traversal of every accepted Surface.
+- Conditional Dioxus iOS simulator gate only after a pre-mobile OpenUI win.
+
+## Evidence
+
+The workflow emits `records.jsonl`, raw payloads, official diagnostics,
+normalized Surfaces, platform traces, screenshots, `summary.json`,
+`summary.md`, and `SHA256SUMS`. Generated payloads are data only: no model output
+is compiled, evaluated, sourced, or executed as code.
+
+The automatic result is one of `OPENUI_WIN_MOBILE_PASS`,
+`OPENUI_WIN_MOBILE_FAIL`, `PIVOT_OR_STOP`, or `INVALID_EVAL`. A protocol win is
+not a Mobile support claim when the simulator gate fails.

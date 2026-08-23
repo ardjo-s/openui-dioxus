@@ -1,0 +1,18 @@
+INTENT
+Build one expense-review interface for the two expenses returned below. The reviewer must be able to enter a note, filter by status, approve expense exp-001, and see a result alert. Preserve every supplied value exactly.
+
+MCP TOOL SCHEMA — list_expenses
+{"name":"list_expenses","description":"Return expenses awaiting review","inputSchema":{"type":"object","properties":{"status":{"type":"string","enum":["pending"]}},"required":["status"],"additionalProperties":false}}
+
+MCP TOOL RESULT — list_expenses
+{"content":[{"type":"text","text":"{\"expenses\":[{\"expense_id\":\"exp-001\",\"merchant\":\"Acme Air\",\"amount\":\"EUR 420.00\",\"status\":\"pending\"},{\"expense_id\":\"exp-002\",\"merchant\":\"Northwind Hotel\",\"amount\":\"EUR 280.00\",\"status\":\"pending\"}]}"}],"isError":false}
+
+MCP ACTION SCHEMA — ApproveExpense
+{"name":"ApproveExpense","description":"Approve exactly one reviewed expense","inputSchema":{"type":"object","properties":{"expense_id":{"type":"string"}},"required":["expense_id"],"additionalProperties":false}}
+
+REQUIRED SEMANTICS
+- Use exactly these state keys: review_note and status_filter.
+- The only action is ApproveExpense { expense_id }.
+- Every interactive component has a stable id.
+- Use all eight catalog components exactly once.
+- Return only the protocol payload, with no explanation.

@@ -1,5 +1,6 @@
 mod a2ui;
 mod domain;
+mod eval;
 mod openui;
 mod runtime;
 
@@ -8,6 +9,7 @@ pub mod catalog;
 
 pub use a2ui::A2UiAdapter;
 pub use domain::{ActionSpec, Protocol, Surface, TypedNode};
+pub use eval::{EvalLatency, EvalRecord, EvalTokenUsage};
 pub use openui::OpenUiAdapter;
 pub use runtime::{ActionInvocation, ActionReceipt, ReplayProjection, ReplaySnapshot, Runtime};
 

@@ -1,0 +1,15 @@
+[application]
+name = "openui-a2ui-cloud-eval"
+out_dir = "web-dist"
+
+[web.app]
+title = "OpenUI vs A2UI Dioxus evaluation"
+
+[web.watcher]
+index_on_404 = true
+
+[bundle]
+identifier = "com.ardjo.openui-dioxus-cloud-eval"
+publisher = "OpenUI-Dioxus prototype"
+short_description = "Throwaway OpenUI versus A2UI Dioxus evaluation"
+long_description = "One-day falsification prototype. Not a product release."

@@ -168,6 +168,15 @@ pub fn App() -> Element {
         }
     });
 
+    #[cfg(feature = "mobile")]
+    use_effect(move || {
+        if let Some(items) = surfaces.value().as_ref() {
+            if mobile_runtime_check(&items) {
+                println!("IOS_EVAL_PASS surfaces={}", items.len());
+            }
+        }
+    });
+
     rsx! {
         style { "{STYLE}" }
         main {
@@ -183,6 +192,18 @@ pub fn App() -> Element {
                     }
                 },
             }
+        }
+    }
+}
+
+#[component]
+pub fn StaticSurface(surface: Surface) -> Element {
+    let state = surface.fields.clone();
+    let on_field: EventHandler<(String, String)> = Callback::new(|_| {});
+    let on_action: EventHandler<ActionSpec> = Callback::new(|_| {});
+    rsx! {
+        section { class: "surface", "data-fingerprint": "{surface.fingerprint()}",
+            {render_node(&surface, &state, &surface.root, false, on_field, on_action)}
         }
     }
 }
@@ -351,11 +372,37 @@ async fn load_surfaces() -> Result<Vec<Surface>, String> {
         let json: String = eval.recv().await.map_err(|error| error.to_string())?;
         serde_json::from_str(&json).map_err(|error| error.to_string())
     }
-    #[cfg(not(feature = "web"))]
+    #[cfg(feature = "mobile")]
+    {
+        serde_json::from_str(include_str!("../fixtures/mobile-pair.surfaces.json"))
+            .map_err(|error| error.to_string())
+    }
+    #[cfg(all(not(feature = "web"), not(feature = "mobile")))]
     {
         let path = std::env::var("EVAL_SURFACES_PATH")
             .map_err(|_| "EVAL_SURFACES_PATH is required".to_owned())?;
         let bytes = std::fs::read(path).map_err(|error| error.to_string())?;
         serde_json::from_slice(&bytes).map_err(|error| error.to_string())
     }
+}
+
+#[cfg(feature = "mobile")]
+fn mobile_runtime_check(surfaces: &[Surface]) -> bool {
+    surfaces.iter().all(|surface| {
+        let mut runtime = Runtime::new(surface.clone());
+        runtime.set_field("review_note", "mobile-check").is_ok()
+            && runtime.set_field("status_filter", "all").is_ok()
+            && runtime
+                .invoke(ActionInvocation {
+                    invocation_id: "mobile-exp-001".into(),
+                    action: "ApproveExpense".into(),
+                    expense_id: "exp-001".into(),
+                })
+                .is_ok()
+            && runtime.effect_count() == 1
+            && runtime
+                .snapshot()
+                .replay()
+                .is_ok_and(|replay| replay.effect_count == 0)
+    })
 }

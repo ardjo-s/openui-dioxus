@@ -1,0 +1,150 @@
+name: Prototype OpenUI vs A2UI cloud evaluation
+
+on:
+  push:
+    branches:
+      - codex/prototype-openui-a2ui-cloud-eval
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prototype-openui-a2ui-cloud-eval
+  cancel-in-progress: false
+
+jobs:
+  evaluate:
+    if: contains(github.event.head_commit.message, '[cloud-eval]')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    environment: prototype-cloud-eval
+    outputs:
+      openui_wins: ${{ steps.decision.outputs.openui_wins }}
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      EVAL_RESULTS_DIR: ${{ github.workspace }}/prototype/openui-a2ui-cloud-eval/results
+      EVAL_BIN_DIR: ${{ github.workspace }}/prototype/openui-a2ui-cloud-eval/target/release
+      EVAL_PAIRS: '20'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: prototype/openui-a2ui-cloud-eval/oracles/package-lock.json
+      - name: Select stable Rust and WebAssembly target
+        run: |
+          rustup toolchain install stable --profile minimal
+          rustup default stable
+          rustup target add wasm32-unknown-unknown
+      - name: Install Linux runtime dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libgtk-3-dev libasound2-dev libudev-dev libayatana-appindicator3-dev libxdo-dev libglib2.0-dev xvfb imagemagick
+      - name: Install pinned Node dependencies
+        working-directory: prototype/openui-a2ui-cloud-eval/oracles
+        run: npm ci
+      - name: Run contract tests
+        run: |
+          npm test --prefix prototype/openui-a2ui-cloud-eval/oracles
+          cargo test --manifest-path prototype/openui-a2ui-cloud-eval/Cargo.toml
+      - name: Build normalization and first-render probes
+        run: cargo build --release --manifest-path prototype/openui-a2ui-cloud-eval/Cargo.toml --features ssr --bins
+      - name: Generate 20 paired evaluations
+        continue-on-error: true
+        run: node prototype/openui-a2ui-cloud-eval/oracles/src/run-eval.mjs
+      - name: Build and exercise real Dioxus Desktop
+        run: |
+          cargo build --release --manifest-path prototype/openui-a2ui-cloud-eval/Cargo.toml --features desktop --bin eval-app
+          prototype/openui-a2ui-cloud-eval/scripts/run-desktop.sh
+      - name: Install Dioxus CLI and Chromium
+        run: |
+          cargo install dioxus-cli --version 0.7.10 --locked
+          npm exec --prefix prototype/openui-a2ui-cloud-eval/oracles -- playwright install --with-deps chromium
+      - name: Build and exercise real Dioxus Web
+        working-directory: prototype/openui-a2ui-cloud-eval
+        run: scripts/run-web.sh
+      - name: Score the pre-mobile decision
+        id: decision
+        working-directory: prototype/openui-a2ui-cloud-eval
+        run: |
+          jq -s '{desktop:.[0],web:.[1]}' "$EVAL_RESULTS_DIR/desktop.json" "$EVAL_RESULTS_DIR/web.json" > "$EVAL_RESULTS_DIR/platform.json"
+          scripts/measure-code.sh
+          node oracles/src/summarize.mjs "$EVAL_RESULTS_DIR"
+          printf 'openui_wins=%s\n' "$(jq -r '.openui_wins' "$EVAL_RESULTS_DIR/summary.json")" >> "$GITHUB_OUTPUT"
+      - name: Hash evidence
+        if: always()
+        run: |
+          cd "$EVAL_RESULTS_DIR"
+          find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS
+      - name: Upload Linux evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cloud-eval-linux
+          path: prototype/openui-a2ui-cloud-eval/results
+          if-no-files-found: error
+          retention-days: 30
+
+  ios:
+    needs: evaluate
+    if: needs.evaluate.outputs.openui_wins == 'true'
+    continue-on-error: true
+    runs-on: macos-15
+    timeout-minutes: 120
+    env:
+      EVAL_RESULTS_DIR: ${{ github.workspace }}/prototype/openui-a2ui-cloud-eval/results-mobile
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select stable Rust and iOS simulator target
+        run: |
+          rustup toolchain install stable --profile minimal
+          rustup default stable
+          rustup target add aarch64-apple-ios-sim
+      - name: Install Dioxus CLI
+        run: cargo install dioxus-cli --version 0.7.10 --locked
+      - name: Build and run the iOS simulator gate
+        working-directory: prototype/openui-a2ui-cloud-eval
+        run: scripts/run-ios.sh
+      - name: Upload iOS evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cloud-eval-ios
+          path: prototype/openui-a2ui-cloud-eval/results-mobile
+          if-no-files-found: error
+          retention-days: 30
+
+  finalize:
+    needs: [evaluate, ios]
+    if: always() && needs.evaluate.result != 'skipped'
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/download-artifact@v4
+        with:
+          name: cloud-eval-linux
+          path: final/linux
+      - uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: cloud-eval-ios
+          path: final/ios
+      - name: Finalize outcome without spending API credits
+        run: |
+          mkdir -p final/result
+          node prototype/openui-a2ui-cloud-eval/oracles/src/finalize.mjs final/linux/summary.json final/ios/mobile.json final/result/summary-final.json
+          sha256sum final/result/summary-final.json > final/result/SHA256SUMS
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cloud-eval-final
+          path: final/result
+          if-no-files-found: error
+          retention-days: 30

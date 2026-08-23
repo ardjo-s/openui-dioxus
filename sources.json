@@ -20,6 +20,13 @@
       "repository": "https://github.com/DioxusLabs/dioxus",
       "branch": "main",
       "headAtFetch": "24f6a829df0dfa203961a98ea4cae21c2ff27e28"
+    },
+    {
+      "name": "A2UI protocol and web core",
+      "repository": "https://github.com/a2ui-project/a2ui",
+      "headAtFetch": "f5baf760d23a5b21ba05a97f7d16d6db73fb8af6",
+      "protocolVersion": "v0.9.1",
+      "webCoreVersion": "0.10.6"
     }
   ]
 }
