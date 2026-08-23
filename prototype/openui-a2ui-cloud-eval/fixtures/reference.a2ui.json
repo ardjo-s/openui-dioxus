@@ -1,0 +1,44 @@
+{
+  "messages": [
+    {
+      "version": "v0.9.1",
+      "createSurface": {
+        "surfaceId": "expense-review",
+        "catalogId": "openui-dioxus-expense-review@0.0.0",
+        "sendDataModel": true
+      }
+    },
+    {
+      "version": "v0.9.1",
+      "updateComponents": {
+        "surfaceId": "expense-review",
+        "components": [
+          { "id": "title", "component": "Text", "text": "Expense review" },
+          {
+            "id": "expenses",
+            "component": "Table",
+            "columns": ["ID", "Merchant", "Amount", "Status"],
+            "rows": [
+              { "expense_id": "exp-001", "merchant": "Acme Air", "amount": "EUR 420.00", "status": "pending" },
+              { "expense_id": "exp-002", "merchant": "Northwind Hotel", "amount": "EUR 280.00", "status": "pending" }
+            ]
+          },
+          { "id": "review-note", "component": "Input", "label": "Reviewer note", "state_key": "review_note", "value": "" },
+          { "id": "status-filter", "component": "Select", "label": "Status", "state_key": "status_filter", "options": ["all", "pending", "approved"], "value": "pending" },
+          { "id": "approve-exp-001", "component": "Button", "label": "Approve Acme Air", "action": { "name": "ApproveExpense", "expense_id": "exp-001" } },
+          { "id": "result", "component": "Alert", "tone": "info", "message": "No expense approved yet." },
+          { "id": "review-stack", "component": "Stack", "children": ["title", "expenses", "review-note", "status-filter", "approve-exp-001", "result"] },
+          { "id": "review-card", "component": "Card", "title": "Expense review", "child": "review-stack" }
+        ]
+      }
+    },
+    {
+      "version": "v0.9.1",
+      "updateDataModel": {
+        "surfaceId": "expense-review",
+        "path": "/",
+        "value": { "review_note": "", "status_filter": "pending" }
+      }
+    }
+  ]
+}

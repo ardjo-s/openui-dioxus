@@ -12,6 +12,10 @@ name = "normalize-openui"
 path = "src/bin/normalize-openui.rs"
 
 [[bin]]
+name = "normalize-a2ui"
+path = "src/bin/normalize-a2ui.rs"
+
+[[bin]]
 name = "eval-app"
 path = "src/bin/eval-app.rs"
 required-features = ["ui"]

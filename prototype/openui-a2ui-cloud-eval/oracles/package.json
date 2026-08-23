@@ -6,7 +6,9 @@
     "test": "node --test test/*.test.mjs"
   },
   "dependencies": {
+    "@a2ui/web_core": "0.10.6",
     "@openuidev/lang-core": "0.2.15",
-    "zod": "4.1.12"
+    "zod": "4.1.12",
+    "zod3": "npm:zod@3.25.76"
   }
 }

@@ -1,3 +1,4 @@
+mod a2ui;
 mod domain;
 mod openui;
 mod runtime;
@@ -5,6 +6,7 @@ mod runtime;
 #[cfg(feature = "ui")]
 pub mod catalog;
 
+pub use a2ui::A2UiAdapter;
 pub use domain::{ActionSpec, Protocol, Surface, TypedNode};
 pub use openui::OpenUiAdapter;
 pub use runtime::{ActionInvocation, ActionReceipt, ReplayProjection, ReplaySnapshot, Runtime};
