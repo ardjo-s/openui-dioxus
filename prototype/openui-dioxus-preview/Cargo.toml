@@ -1,0 +1,21 @@
+[package]
+name = "openui-dioxus-preview"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "prototype-self-check"
+path = "src/bin/prototype-self-check.rs"
+
+[features]
+default = []
+web = ["dioxus/web"]
+desktop = ["dioxus/desktop"]
+mobile = ["dioxus/mobile"]
+
+[dependencies]
+dioxus = { version = "=0.7.10", optional = true, default-features = false, features = ["minimal"] }
