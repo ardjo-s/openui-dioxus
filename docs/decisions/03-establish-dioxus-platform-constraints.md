@@ -14,7 +14,7 @@ Dioxus `v0.7.10` can share components, state, HTML attributes, CSS, and events a
 
 The runtime must stay platform-independent. Portable catalog components can share implementation, while filesystem, URLs, clipboard, notifications, permissions, and MCP execution pass through typed host actions. Claims for desktop, web, and mobile require separate builds and end-to-end interaction checks, including Android and iOS.
 
-Research asset: [`docs/research/dioxus-platform-constraints.md`](../../../docs/research/dioxus-platform-constraints.md).
+Research asset: [`docs/research/dioxus-platform-constraints.md`](../research/dioxus-platform-constraints.md).
 
 ## Adapter and platform implication
 

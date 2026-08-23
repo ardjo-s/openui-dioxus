@@ -14,7 +14,7 @@ A Dioxus renderer alone is not a durable differentiator. OpenUI React, JSON Rend
 
 The defensible scope is full OpenUI Lang conformance in Rust, a versioned replayable surface model, typed Rust/MCP action mediation, state reconciliation, a cross-platform Dioxus catalog, a design-system manifest, and a reusable conformance/evaluation corpus. The prototype must beat a small JSON Render or A2UI-style Dioxus adapter on at least one measured dimension or the project should stop or reposition.
 
-Research asset: [`docs/research/differentiation.md`](../../../docs/research/differentiation.md).
+Research asset: [`docs/research/differentiation.md`](../research/differentiation.md).
 
 ## Adapter and platform implication
 

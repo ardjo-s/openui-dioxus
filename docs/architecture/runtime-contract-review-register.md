@@ -2,7 +2,7 @@
 
 Status: active for `v0.1`
 
-Normative contract: [ticket 06](../../.scratch/openui-dioxus/issues/06-define-runtime-domain-contract.md)
+Normative contract: [decision 06](../decisions/06-define-runtime-domain-contract.md)
 
 This register says when the runtime decisions should be questioned during implementation. It does not duplicate or override their normative wording. A trigger opens a review; it does not change the decision automatically.
 

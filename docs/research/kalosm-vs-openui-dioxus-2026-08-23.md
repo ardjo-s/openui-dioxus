@@ -35,7 +35,7 @@ Scope: primary Kalosm repository sources and the local OpenUI-Dioxus planning re
 | Tool/MCP actions | No MCP action mediation was found in the consulted root README, manifest, or public facade. Provider adapters are model backends, not a tool-effect protocol. | MCP Query/Mutation plus all external effects go through typed, policy-checked, recorded host invocations. | OpenUI-Dioxus owns the effect boundary. |
 | Runtime/deployment | Native Rust inference; README describes local acceleration and remote adapters. Fusor targets native accelerators and browser WebGPU, but is explicitly early/non-production. | One platform-independent runtime contract; Dioxus web/desktop/mobile renderers and host capabilities are separately verified. | Same application can choose Kalosm inference placement and OpenUI-Dioxus surface placement independently. |
 
-OpenUI-Dioxus evidence: [route map](../../.scratch/openui-dioxus/map.md), [runtime contract](../../.scratch/openui-dioxus/issues/06-define-runtime-domain-contract.md), [MCP prototype question](../../.scratch/openui-dioxus/issues/09-prototype-the-mcp-vertical.md), [Dioxus constraints](dioxus-platform-constraints.md), [differentiation boundary](differentiation.md).
+OpenUI-Dioxus evidence: [decision trail](../decisions/README.md), [runtime contract](../decisions/06-define-runtime-domain-contract.md), [MCP prototype question](../decisions/09-prototype-the-mcp-vertical.md), [Dioxus constraints](dioxus-platform-constraints.md), [differentiation boundary](differentiation.md).
 
 ## Composition pattern
 
@@ -61,10 +61,10 @@ Kalosm’s constrained generation may reduce malformed OpenUI candidates; it doe
 
 ### Local OpenUI-Dioxus sources
 
-- `.scratch/openui-dioxus/map.md`
-- `.scratch/openui-dioxus/issues/03-establish-dioxus-platform-constraints.md`
-- `.scratch/openui-dioxus/issues/06-define-runtime-domain-contract.md`
-- `.scratch/openui-dioxus/issues/09-prototype-the-mcp-vertical.md`
+- `docs/decisions/README.md`
+- `docs/decisions/03-establish-dioxus-platform-constraints.md`
+- `docs/decisions/06-define-runtime-domain-contract.md`
+- `docs/decisions/09-prototype-the-mcp-vertical.md`
 - `docs/research/openui-capabilities.md`
 - `docs/research/differentiation.md`
 - `docs/research/dioxus-platform-constraints.md`

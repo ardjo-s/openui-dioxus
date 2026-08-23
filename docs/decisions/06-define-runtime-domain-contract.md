@@ -40,7 +40,7 @@ OpenUI remains the public language. Rust keeps two different records on purpose:
 
 ## Review during implementation
 
-These are the active `v0.1` rules, not eternal assumptions. The [runtime contract decision-review register](../../../docs/architecture/runtime-contract-review-register.md) records the evidence required to reopen each decision. In particular, Q8 must be measured from first provisional display to committed interaction; a slow stream does not silently relax the effect boundary.
+These are the active `v0.1` rules, not eternal assumptions. The [runtime contract decision-review register](../architecture/runtime-contract-review-register.md) records the evidence required to reopen each decision. In particular, Q8 must be measured from first provisional display to committed interaction; a slow stream does not silently relax the effect boundary.
 
 ## OpenUI v0.5 constraints
 

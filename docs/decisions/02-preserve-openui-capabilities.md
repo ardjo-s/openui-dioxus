@@ -14,7 +14,7 @@ Target full OpenUI Lang `v0.5` semantic compatibility while versioning component
 
 The Rust implementation should preserve streaming and partial parsing, schemas and prompt generation, reactive state, built-ins, Query/Mutation, declarative actions, incremental merging, validation, and structured errors. Differential tests against pinned upstream snapshots become the compatibility oracle. The internal `Surface` is a replay representation, not a new wire protocol.
 
-Research asset: [`docs/research/openui-capabilities.md`](../../../docs/research/openui-capabilities.md).
+Research asset: [`docs/research/openui-capabilities.md`](../research/openui-capabilities.md).
 
 ## Adapter and platform implication
 

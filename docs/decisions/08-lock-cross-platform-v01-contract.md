@@ -87,7 +87,7 @@ Do not ban a binary boundary forever. Reopen it only when real adopters need to 
 - The [Rust Reference](https://doc.rust-lang.org/reference/items/external-blocks.html#abi) does not promise stability for Rust's own ABI. A plain dynamically loaded Rust library would therefore create a compatibility claim the project cannot honestly maintain.
 - [`abi_stable`](https://github.com/rodrimati1992/abi_stable_crates) demonstrates that a Rust plug-in system is possible only by adopting an explicit FFI-safe type system and lifecycle constraints. That is a real architecture choice, not a free property of Rust code.
 - The [WebAssembly Component Model and WIT](https://component-model.bytecodealliance.org/design/wit.html) provide machine-readable interfaces and a canonical ABI, but a future adapter would still need a deliberately designed rendering and event boundary instead of passing a Dioxus `Element` directly.
-- The pinned Dioxus platform evidence remains in [the platform constraints research](../../../docs/research/dioxus-platform-constraints.md). The `v0.1` contract targets Dioxus's Web/WebView path; it does not generalize untested behavior from one renderer to every Dioxus target.
+- The pinned Dioxus platform evidence remains in [the platform constraints research](../research/dioxus-platform-constraints.md). The `v0.1` contract targets Dioxus's Web/WebView path; it does not generalize untested behavior from one renderer to every Dioxus target.
 
 ## Review during implementation
 
