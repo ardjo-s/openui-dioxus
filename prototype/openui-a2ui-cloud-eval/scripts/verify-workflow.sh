@@ -8,6 +8,8 @@ grep -q 'codex/prototype-openui-a2ui-cloud-eval' "$WORKFLOW"
 grep -q "contains(github.event.head_commit.message, '\[cloud-eval\]')" "$WORKFLOW"
 grep -q 'contents: read' "$WORKFLOW"
 grep -q 'environment: prototype-cloud-eval' "$WORKFLOW"
+grep -q '^          cd final/result$' "$WORKFLOW"
+grep -q '^          sha256sum summary-final.json > SHA256SUMS$' "$WORKFLOW"
 if grep -q 'pull_request:' "$WORKFLOW"; then
   echo 'pull_request trigger is forbidden' >&2
   exit 1

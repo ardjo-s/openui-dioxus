@@ -20,6 +20,9 @@ const summary = scoreEvaluation({
   loc: await readJson("adapter-loc.json"),
   runtimeDiff: (await readJson("runtime-diff.json")).lines_modified,
 });
+const tokenAdvantage = Number.isFinite(summary.median_raw_token_advantage)
+  ? `${(summary.median_raw_token_advantage * 100).toFixed(1)}%`
+  : "n/a";
 await writeFile(path.join(resultsDir, "summary.json"), JSON.stringify(summary, null, 2));
 await writeFile(
   path.join(resultsDir, "summary.md"),
@@ -29,7 +32,7 @@ await writeFile(
     `**Pre-mobile outcome:** ${summary.pre_mobile_outcome}`,
     "",
     `- Complete pairs: ${summary.pairs_complete}/20`,
-    `- OpenUI median raw-token advantage: ${(summary.median_raw_token_advantage * 100).toFixed(1)}%`,
+    `- OpenUI median raw-token advantage: ${tokenAdvantage}`,
     `- First-pass validity: OpenUI ${summary.first_pass_validity.openui}/20; A2UI ${summary.first_pass_validity.a2ui}/20`,
     `- Post-repair validity: OpenUI ${summary.post_repair_validity.openui}/20; A2UI ${summary.post_repair_validity.a2ui}/20`,
     `- Estimated cost: $${summary.estimated_cost_usd.toFixed(4)}`,

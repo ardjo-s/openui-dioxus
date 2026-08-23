@@ -141,7 +141,8 @@ jobs:
         run: |
           mkdir -p final/result
           node prototype/openui-a2ui-cloud-eval/oracles/src/finalize.mjs final/linux/summary.json final/ios/mobile.json final/result/summary-final.json
-          sha256sum final/result/summary-final.json > final/result/SHA256SUMS
+          cd final/result
+          sha256sum summary-final.json > SHA256SUMS
       - uses: actions/upload-artifact@v4
         with:
           name: cloud-eval-final
