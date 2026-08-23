@@ -34,3 +34,9 @@ Can one OpenUI-shaped preview proposal be parsed, validated, atomically committe
 - 2026-08-23 plan written; contract fixed; no implementation started.
 - 2026-08-23 runtime leaf parent-verified: 6/6 gates and 5/5 self-checks; duplicate-control fixture defect corrected.
 - 2026-08-23 integration blocker found: platform renderers lacked Dioxus base APIs; contract amended with optional `dioxus/minimal`, runtime remains 5/5.
+- 2026-08-23 platform leaf parent-reviewed: 8/8 gates; A2UI v0.9 envelope corrected; strategic verdict remains uncommitted.
+- 2026-08-23 parent ledger reset before publication; integration evidence rerun independently from the final tree.
+- 2026-08-23 parent integration rerun completed; the later user request for a Git PR superseded the earlier no-publication boundary, while `main` remained a one-commit bootstrap base.
+- 2026-08-23 Desktop smoke exposed ambiguous `cargo run`; app set as the explicit default binary.
+- 2026-08-23 Desktop smoke passed: event loop remained live until deliberate Ctrl-C.
+- 2026-08-23 explicit user request created public PR #1; publication remained feature-branch-only with a one-commit `main` base.

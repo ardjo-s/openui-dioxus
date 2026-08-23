@@ -3,6 +3,7 @@ name = "openui-dioxus-preview"
 version = "0.0.0"
 edition = "2021"
 publish = false
+default-run = "openui-dioxus-preview"
 
 [lib]
 path = "src/lib.rs"
