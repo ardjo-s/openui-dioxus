@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenUI Dioxus · Un moteur, deux prises</title>
+  <style>
+    * { box-sizing: border-box; }
+    :root {
+      --paper: #f4f2ed;
+      --card: #fffdf8;
+      --ink: #25272f;
+      --muted: #666a75;
+      --line: #c9c7c0;
+      --orange: #e86f3a;
+      --orange-soft: #fbe9df;
+      --blue: #355c9a;
+      --blue-soft: #e8eef8;
+      --green: #25745a;
+      --green-soft: #e1f1eb;
+    }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    main {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 56px 0 72px;
+    }
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--orange);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    h1 {
+      max-width: 900px;
+      margin: 0;
+      font-size: clamp(44px, 8vw, 88px);
+      letter-spacing: -.06em;
+      line-height: .94;
+    }
+    .intro {
+      max-width: 760px;
+      margin: 24px 0 0;
+      color: var(--muted);
+      font-size: clamp(20px, 2.4vw, 28px);
+      line-height: 1.35;
+    }
+    .flow {
+      display: grid;
+      grid-template-columns: 1fr 48px 1.3fr 48px 1fr;
+      align-items: center;
+      margin-top: 48px;
+    }
+    .step {
+      min-height: 138px;
+      padding: 24px;
+      border: 2px solid var(--line);
+      border-radius: 18px;
+      background: var(--card);
+    }
+    .step strong { display: block; font-size: 24px; }
+    .step span { display: block; margin-top: 8px; color: var(--muted); font-size: 17px; }
+    .step.engine { border-color: var(--orange); background: var(--orange-soft); }
+    .arrow { color: var(--muted); font-size: 36px; text-align: center; }
+    .architecture {
+      margin-top: 48px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      overflow: hidden;
+      background: var(--card);
+    }
+    .architecture svg { display: block; width: 100%; height: auto; }
+    .mobile-seams { display: none; }
+    .rules {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .rule {
+      min-height: 164px;
+      padding: 24px;
+      border-radius: 18px;
+      background: var(--card);
+      border: 1px solid var(--line);
+    }
+    .rule .number {
+      color: var(--orange);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .rule h2 { margin: 14px 0 8px; font-size: 24px; }
+    .rule p { margin: 0; color: var(--muted); font-size: 17px; line-height: 1.45; }
+    .conversion {
+      margin-top: 24px;
+      padding: 28px;
+      border-radius: 20px;
+      background: var(--blue-soft);
+      border: 1px solid #b8c7df;
+    }
+    .conversion h2 { margin: 0 0 18px; font-size: 28px; }
+    .conversion-flow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      font-size: 17px;
+      font-weight: 750;
+    }
+    .pill {
+      padding: 10px 14px;
+      border: 1px solid #9fb3d2;
+      border-radius: 999px;
+      background: #fff;
+    }
+    .separator { color: var(--blue); font-size: 24px; }
+    .verdict {
+      margin-top: 24px;
+      padding: 30px;
+      border-radius: 20px;
+      background: var(--green-soft);
+      border: 1px solid #9bc6b5;
+    }
+    .verdict strong { display: block; font-size: clamp(28px, 4vw, 44px); }
+    .verdict span { display: block; margin-top: 8px; color: #315b4c; font-size: 19px; }
+    @media (max-width: 760px) {
+      main { padding-top: 36px; }
+      .flow { grid-template-columns: 1fr; gap: 10px; }
+      .arrow { transform: rotate(90deg); }
+      .rules { grid-template-columns: 1fr; }
+      .architecture { padding: 18px; }
+      .architecture svg { display: none; }
+      .mobile-seams { display: grid; gap: 12px; }
+      .mobile-plug {
+        padding: 22px;
+        border: 2px solid var(--line);
+        border-radius: 18px;
+        text-align: center;
+      }
+      .mobile-plug span {
+        display: block;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+      }
+      .mobile-plug strong { display: block; margin-top: 8px; font-size: 25px; }
+      .mobile-plug small { display: block; margin-top: 8px; color: var(--muted); font-size: 15px; line-height: 1.45; }
+      .mobile-plug.catalog { border-color: var(--blue); background: var(--blue-soft); }
+      .mobile-plug.engine-card { border-color: var(--orange); background: var(--orange-soft); }
+      .mobile-plug.platform { border-color: var(--green); background: var(--green-soft); }
+      .mobile-connector { color: var(--muted); font-size: 32px; text-align: center; line-height: 1; }
+      .conversion-flow { flex-direction: column; align-items: flex-start; }
+      .conversion-flow .separator { margin-left: 62px; line-height: .7; transform: rotate(90deg); }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">OpenUI × Dioxus · ELI5</p>
+    <h1>Le moteur ne change pas.</h1>
+    <p class="intro">L’IA propose. Rust vérifie. Dioxus affiche. Deux prises absorbent les différences.</p>
+
+    <section class="flow" aria-label="Flux principal">
+      <div class="step">
+        <strong>1 · L’IA propose</strong>
+        <span>Une interface OpenUI</span>
+      </div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="step engine">
+        <strong>2 · Le moteur décide</strong>
+        <span>Valide · refuse · stabilise · rejoue</span>
+      </div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="step">
+        <strong>3 · Dioxus affiche</strong>
+        <span>Web · Desktop · Mobile</span>
+      </div>
+    </section>
+
+    <section class="architecture" aria-label="Un moteur et deux prises">
+      <svg viewBox="0 0 1120 610" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="seams-title seams-desc">
+        <title id="seams-title">Un moteur OpenUI Dioxus et deux prises certifiées</title>
+        <desc id="seams-desc">La prise composants, CatalogAdapter, relie des catalogues Dioxus compilés au runtime. La prise plateforme, PlatformHost, adapte les mécanismes UI locaux Web, Desktop et Mobile. Les effets externes restent dans l’Application host.</desc>
+        <rect width="1120" height="610" fill="#fffdf8"/>
+
+        <text x="560" y="52" text-anchor="middle" fill="#666a75" font-size="14" font-family="ui-monospace, monospace" font-weight="700" letter-spacing="2">UN MOTEUR · DEUX PRISES CERTIFIÉES</text>
+
+        <rect x="390" y="154" width="340" height="278" rx="28" fill="#fbe9df" stroke="#e86f3a" stroke-width="3"/>
+        <text x="560" y="218" text-anchor="middle" fill="#e86f3a" font-size="15" font-family="ui-monospace, monospace" font-weight="800" letter-spacing="2">MOTEUR STABLE</text>
+        <text x="560" y="272" text-anchor="middle" fill="#25272f" font-size="30" font-family="ui-sans-serif, system-ui" font-weight="800">OpenUI-Dioxus</text>
+        <text x="560" y="306" text-anchor="middle" fill="#25272f" font-size="30" font-family="ui-sans-serif, system-ui" font-weight="800">Runtime</text>
+        <line x1="450" y1="338" x2="670" y2="338" stroke="#e86f3a" stroke-width="2"/>
+        <text x="560" y="374" text-anchor="middle" fill="#666a75" font-size="17" font-family="ui-sans-serif, system-ui">sens · état · actions · replay</text>
+
+        <rect x="38" y="112" width="296" height="362" rx="24" fill="#e8eef8" stroke="#355c9a" stroke-width="2"/>
+        <text x="186" y="158" text-anchor="middle" fill="#355c9a" font-size="14" font-family="ui-monospace, monospace" font-weight="800" letter-spacing="2">PRISE COMPOSANTS</text>
+        <text x="186" y="202" text-anchor="middle" fill="#25272f" font-size="25" font-family="ui-sans-serif, system-ui" font-weight="800">CatalogAdapter</text>
+        <rect x="72" y="236" width="228" height="48" rx="12" fill="#fff"/>
+        <text x="186" y="267" text-anchor="middle" fill="#25272f" font-size="16" font-family="ui-sans-serif, system-ui" font-weight="700">Dioxus Components</text>
+        <rect x="72" y="296" width="228" height="48" rx="12" fill="#fff"/>
+        <text x="186" y="327" text-anchor="middle" fill="#25272f" font-size="16" font-family="ui-sans-serif, system-ui" font-weight="700">Rust/UI · système privé</text>
+        <rect x="72" y="356" width="228" height="48" rx="12" fill="#fff"/>
+        <text x="186" y="387" text-anchor="middle" fill="#25272f" font-size="16" font-family="ui-sans-serif, system-ui" font-weight="700">Primitives en option interne</text>
+        <text x="186" y="440" text-anchor="middle" fill="#355c9a" font-size="15" font-family="ui-sans-serif, system-ui" font-weight="700">Seulement après certification</text>
+
+        <line x1="334" y1="293" x2="390" y2="293" stroke="#355c9a" stroke-width="8"/>
+        <circle cx="346" cy="293" r="14" fill="#fffdf8" stroke="#355c9a" stroke-width="6"/>
+
+        <rect x="786" y="112" width="296" height="362" rx="24" fill="#e1f1eb" stroke="#25745a" stroke-width="2"/>
+        <text x="934" y="158" text-anchor="middle" fill="#25745a" font-size="14" font-family="ui-monospace, monospace" font-weight="800" letter-spacing="2">PRISE PLATEFORME</text>
+        <text x="934" y="202" text-anchor="middle" fill="#25272f" font-size="25" font-family="ui-sans-serif, system-ui" font-weight="800">PlatformHost</text>
+        <rect x="820" y="236" width="228" height="48" rx="12" fill="#fff"/>
+        <text x="934" y="267" text-anchor="middle" fill="#25272f" font-size="16" font-family="ui-sans-serif, system-ui" font-weight="700">Web · Desktop · Mobile</text>
+        <rect x="820" y="296" width="228" height="70" rx="12" fill="#fff"/>
+        <text x="934" y="324" text-anchor="middle" fill="#25272f" font-size="16" font-family="ui-sans-serif, system-ui" font-weight="700">Adaptation UI locale</text>
+        <text x="934" y="348" text-anchor="middle" fill="#666a75" font-size="14" font-family="ui-sans-serif, system-ui">focus · clavier · position</text>
+        <rect x="820" y="378" width="228" height="70" rx="12" fill="#fff"/>
+        <text x="934" y="406" text-anchor="middle" fill="#25272f" font-size="16" font-family="ui-sans-serif, system-ui" font-weight="700">Aucun effet externe</text>
+        <text x="934" y="430" text-anchor="middle" fill="#666a75" font-size="14" font-family="ui-sans-serif, system-ui">ils passent par Application host</text>
+
+        <line x1="730" y1="293" x2="786" y2="293" stroke="#25745a" stroke-width="8"/>
+        <circle cx="774" cy="293" r="14" fill="#fffdf8" stroke="#25745a" stroke-width="6"/>
+
+        <line x1="38" y1="520" x2="1082" y2="520" stroke="#c9c7c0" stroke-width="1"/>
+        <circle cx="66" cy="558" r="7" fill="#e86f3a"/>
+        <text x="84" y="564" fill="#666a75" font-size="15" font-family="ui-sans-serif, system-ui">Même sens partout</text>
+        <circle cx="346" cy="558" r="7" fill="#355c9a"/>
+        <text x="364" y="564" fill="#666a75" font-size="15" font-family="ui-sans-serif, system-ui">Catalogue remplaçable</text>
+        <circle cx="650" cy="558" r="7" fill="#25745a"/>
+        <text x="668" y="564" fill="#666a75" font-size="15" font-family="ui-sans-serif, system-ui">Plateforme adaptable</text>
+        <circle cx="918" cy="558" r="7" fill="#25272f"/>
+        <text x="936" y="564" fill="#666a75" font-size="15" font-family="ui-sans-serif, system-ui">Replay fiable</text>
+      </svg>
+      <div class="mobile-seams" aria-label="Un moteur et deux prises, version mobile">
+        <div class="mobile-plug catalog">
+          <span>Prise composants</span>
+          <strong>CatalogAdapter</strong>
+          <small>Dioxus Components · Rust/UI · design systems<br>Primitives en option interne</small>
+        </div>
+        <div class="mobile-connector" aria-hidden="true">↓</div>
+        <div class="mobile-plug engine-card">
+          <span>Moteur stable</span>
+          <strong>OpenUI-Dioxus Runtime</strong>
+          <small>sens · état · actions · replay</small>
+        </div>
+        <div class="mobile-connector" aria-hidden="true">↓</div>
+        <div class="mobile-plug platform">
+          <span>Prise plateforme</span>
+          <strong>PlatformHost</strong>
+          <small>Web · Desktop · Mobile<br>Adaptation UI locale · aucun effet externe</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="rules" aria-label="Trois règles simples">
+      <article class="rule">
+        <div class="number">RÈGLE 01</div>
+        <h2>Le sens reste identique.</h2>
+        <p>Une action garde la même intention sur chaque plateforme.</p>
+      </article>
+      <article class="rule">
+        <div class="number">RÈGLE 02</div>
+        <h2>La forme peut s’adapter.</h2>
+        <p>Souris, tactile, clavier, fenêtre et écran ne sont pas identiques.</p>
+      </article>
+      <article class="rule">
+        <div class="number">RÈGLE 03</div>
+        <h2>Aucun raccourci caché.</h2>
+        <p>Fichier, réseau ou navigation passent par une action typée et contrôlée.</p>
+      </article>
+    </section>
+
+    <section class="conversion">
+      <h2>Et React, Radix, Figma ou un screenshot ?</h2>
+      <div class="conversion-flow" aria-label="Pipeline de conversion">
+        <span class="pill">Source externe</span>
+        <span class="separator" aria-hidden="true">→</span>
+        <span class="pill">Brouillon inerte</span>
+        <span class="separator" aria-hidden="true">→</span>
+        <span class="pill">Revue humaine</span>
+        <span class="separator" aria-hidden="true">→</span>
+        <span class="pill">Compilation</span>
+        <span class="separator" aria-hidden="true">→</span>
+        <span class="pill">CatalogAdapter certifié</span>
+      </div>
+    </section>
+
+    <section class="verdict">
+      <strong>“Direct” = adaptateur Rust compilé + certification.</strong>
+      <span>Pas de magie, de plug-in binaire ni d’ABI Rust stable en v0.1.</span>
+    </section>
+  </main>
+</body>
+</html>

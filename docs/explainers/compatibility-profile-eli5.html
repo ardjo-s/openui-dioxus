@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenUI–Dioxus : les 6 choix, simplement</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      font-family: Inter, ui-rounded, system-ui, sans-serif;
+      background: #10131a;
+      color: #f6f7fb;
+    }
+    body { margin: 0; }
+    main { max-width: 880px; margin: auto; padding: 48px 20px 80px; }
+    h1 { font-size: clamp(2.3rem, 7vw, 5rem); line-height: .95; margin: 0 0 24px; }
+    .lead { font-size: 1.35rem; color: #c7ccda; max-width: 650px; }
+    .card { margin-top: 28px; padding: 28px; border: 1px solid #343b4d; border-radius: 24px; background: #181d28; }
+    .picture { font-size: 4.5rem; line-height: 1; }
+    h2 { margin: 18px 0 8px; font-size: 1.7rem; }
+    p { font-size: 1.13rem; line-height: 1.55; margin: 8px 0; }
+    .choice { color: #9ba5bb; }
+    .answer { margin-top: 16px; padding: 14px 18px; border-radius: 14px; background: #243d31; color: #c6f6d5; font-weight: 750; }
+    .danger { background: #42272b; color: #ffd0d6; }
+    .summary { margin-top: 36px; padding: 32px; border-radius: 28px; background: #f5d76e; color: #19170e; }
+    .summary h2 { font-size: 2rem; margin-top: 0; }
+    .summary p { font-weight: 650; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>OpenUI–Dioxus,<br>comme un jeu vidéo</h1>
+  <p class="lead">OpenUI écrit les règles du jeu. Dioxus construit une nouvelle console capable de faire tourner ce jeu.</p>
+
+  <section class="card">
+    <div class="picture">✅🎮</div>
+    <h2>1. Quand dire « compatible » ?</h2>
+    <p>Une console ne peut pas dire « je fais tourner ce jeu » si certains niveaux plantent.</p>
+    <p class="choice">Choix : accepter quelques erreurs, ou réussir tous les tests importants.</p>
+    <div class="answer">Recommandation : badge « compatible » uniquement si tous les tests obligatoires passent.</div>
+  </section>
+
+  <section class="card">
+    <div class="picture">📕📌</div>
+    <h2>2. Quelle version des règles copier ?</h2>
+    <p>OpenUI change. Il faut noter exactement quelle édition du livre de règles nous suivons.</p>
+    <p class="choice">Sinon OpenUI peut changer demain et casser notre travail sans prévenir.</p>
+    <div class="answer">Recommandation : photographier précisément la version, le code source et les tests utilisés.</div>
+  </section>
+
+  <section class="card">
+    <div class="picture">🧪⚖️</div>
+    <h2>3. Comment vérifier notre copie ?</h2>
+    <p>On donne les mêmes exercices à OpenUI original et à notre version Rust.</p>
+    <p>Si les deux donnent les mêmes éléments, les mêmes erreurs et les mêmes réactions, notre copie est correcte.</p>
+    <div class="answer">Recommandation : comparer les résultats visibles, pas la façon interne de réfléchir.</div>
+  </section>
+
+  <section class="card">
+    <div class="picture">🪪🧩</div>
+    <h2>4. Compatible avec quoi exactement ?</h2>
+    <p>Parler la langue OpenUI ne veut pas dire posséder tous les boutons, graphiques ou permissions.</p>
+    <p>Il faut une carte d’identité indiquant séparément :</p>
+    <p>langue comprise · composants disponibles · actions autorisées · plateformes testées · version des sauvegardes.</p>
+    <div class="answer">Recommandation : une fiche claire. Jamais prétendre qu’une fonction existe si elle manque.</div>
+  </section>
+
+  <section class="card">
+    <div class="picture">💾⏪</div>
+    <h2>5. Que signifie « rejouer » une interface ?</h2>
+    <p>Comme charger une sauvegarde : tu dois retrouver le même sens, le même état et les mêmes résultats capturés. Les pixels peuvent varier selon l’appareil.</p>
+    <p>Le jeu ne doit pas rappeler Internet ou l’IA en secret et produire autre chose.</p>
+    <div class="answer">Recommandation : replay hors ligne, fidèle et inerte. Reconnexion au vivant seulement sur demande explicite.</div>
+  </section>
+
+  <section class="card">
+    <div class="picture">🌉🤝</div>
+    <h2>6. Copier OpenUI ou inventer notre propre monde ?</h2>
+    <p>Inventer une autre langue isolerait le projet. Rester compatible crée un pont vers tous les utilisateurs OpenUI.</p>
+    <div class="answer">Recommandation : porter OpenUI en Rust et Dioxus, puis partager nos tests avec OpenUI.</div>
+    <div class="answer danger">À éviter : modifier la langue et appeler quand même cela OpenUI.</div>
+  </section>
+
+  <section class="summary">
+    <h2>Le choix global</h2>
+    <p>Construire une nouvelle console fidèle au jeu OpenUI.</p>
+    <p>Dire précisément quels accessoires sont disponibles.</p>
+    <p>Garantir le même comportement capturé, sans promettre les mêmes pixels.</p>
+  </section>
+</main>
+</body>
+</html>
