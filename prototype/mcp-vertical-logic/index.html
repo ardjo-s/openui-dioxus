@@ -1,0 +1,986 @@
+<!doctype html>
+<!--
+  PROTOTYPE — THROWAWAY.
+  Question: Does the proposed MCP-to-Surface state flow make the runtime's
+  extra guarantees understandable and useful compared with a thin Dioxus adapter?
+  Assumption: this is a logic/state question, not a visual-design question.
+  No network, persistence, real MCP transport, OpenUI parser, or Dioxus renderer.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PROTOTYPE — MCP vertical logic lab</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f4f1ea;
+      --panel: #fffdf8;
+      --ink: #1f2430;
+      --muted: #687083;
+      --line: #d8d2c5;
+      --accent: #d95d39;
+      --accent-soft: #f7e2d8;
+      --good: #18794e;
+      --good-soft: #dff3e8;
+      --warn: #9a6700;
+      --warn-soft: #fff1c2;
+      --bad: #b42318;
+      --bad-soft: #fee4e2;
+      --blue: #2457a6;
+      --blue-soft: #e4ecfb;
+      --shadow: 0 10px 30px rgba(31, 36, 48, 0.08);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    button { font: inherit; }
+
+    .shell {
+      width: min(1500px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 24px 0 48px;
+    }
+
+    .prototype-banner {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 18px;
+      padding: 10px 14px;
+      border: 1px solid #e7b8a5;
+      border-radius: 10px;
+      background: var(--accent-soft);
+      color: #7a2e19;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { margin-bottom: 8px; font-size: clamp(28px, 4vw, 48px); line-height: 1.05; }
+    h2 { margin-bottom: 12px; font-size: 20px; }
+    h3 { margin-bottom: 8px; font-size: 15px; }
+
+    .question {
+      max-width: 980px;
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.55;
+    }
+
+    .status-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .pill {
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--panel);
+      font-size: 12px;
+    }
+
+    .pill strong { font-weight: 750; }
+    .pill[data-tone="good"] { border-color: #9fcfb7; background: var(--good-soft); color: #125d3c; }
+    .pill[data-tone="warn"] { border-color: #e4c05d; background: var(--warn-soft); color: #6d4900; }
+    .pill[data-tone="bad"] { border-color: #efaaa5; background: var(--bad-soft); color: #8f1d14; }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 4px 2px 10px;
+      scrollbar-width: thin;
+    }
+
+    .tab {
+      flex: 0 0 auto;
+      padding: 9px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 253, 248, 0.65);
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    .tab[aria-selected="true"] {
+      border-color: var(--ink);
+      background: var(--ink);
+      color: white;
+    }
+
+    .walkthrough {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: center;
+      margin-bottom: 18px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .walkthrough p { margin-bottom: 4px; color: var(--muted); line-height: 1.45; }
+    .walkthrough .expected { color: var(--ink); font-size: 13px; }
+
+    .walkthrough-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .primary, .secondary, .danger, .surface-action {
+      border: 0;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .primary { padding: 10px 14px; background: var(--accent); color: white; }
+    .secondary { padding: 10px 14px; border: 1px solid var(--line); background: white; color: var(--ink); }
+    .danger { padding: 10px 14px; border: 1px solid #efaaa5; background: var(--bad-soft); color: var(--bad); }
+    .surface-action { padding: 7px 10px; background: var(--ink); color: white; }
+    button:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+    button:focus-visible { outline: 3px solid rgba(36, 87, 166, 0.35); outline-offset: 2px; }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(340px, 0.75fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .stack { display: grid; gap: 18px; }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .panel-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      padding: 16px 16px 0;
+    }
+
+    .panel-body { padding: 16px; }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .control {
+      padding: 9px 11px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: white;
+      color: var(--ink);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    .control:hover { border-color: #9a9386; transform: translateY(-1px); }
+    .control[data-kind="risk"] { border-color: #efaaa5; color: var(--bad); }
+    .control[data-kind="profile"] { border-color: #9cb4df; background: var(--blue-soft); color: #173f7e; }
+
+    .surface-frame {
+      min-height: 300px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 16px;
+      background: #f8f9fb;
+    }
+
+    .surface-frame[data-catalog="rust-ui"] {
+      border-color: #2e6f63;
+      background: #eff8f5;
+    }
+
+    .empty {
+      display: grid;
+      min-height: 260px;
+      place-items: center;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .surface-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: start;
+      margin-bottom: 14px;
+    }
+
+    .surface-header p { color: var(--muted); font-size: 13px; }
+
+    .expense-list { display: grid; gap: 10px; }
+
+    .expense {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(90px, 0.5fr) auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: white;
+    }
+
+    .expense strong, .expense span { display: block; }
+    .expense small { color: var(--muted); }
+
+    .status {
+      width: fit-content;
+      padding: 4px 7px;
+      border-radius: 999px;
+      background: var(--warn-soft);
+      color: var(--warn);
+      font-size: 11px;
+      font-weight: 750;
+      text-transform: uppercase;
+    }
+
+    .status.approved { background: var(--good-soft); color: var(--good); }
+
+    .diagnostics {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .diagnostic {
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: var(--bad-soft);
+      color: var(--bad);
+      font-size: 13px;
+    }
+
+    .replay-banner {
+      margin-bottom: 12px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: var(--blue-soft);
+      color: #173f7e;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .comparison-card {
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: white;
+    }
+
+    .comparison-card.active { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft); }
+    .comparison-card ul { margin: 8px 0 0; padding-left: 18px; color: var(--muted); font-size: 13px; line-height: 1.55; }
+
+    .verdict {
+      margin-top: 12px;
+      padding: 12px;
+      border-left: 4px solid var(--accent);
+      background: var(--accent-soft);
+      color: #6e2d1a;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .inspector {
+      position: sticky;
+      top: 12px;
+      overflow: hidden;
+    }
+
+    pre {
+      max-height: 560px;
+      margin: 0;
+      overflow: auto;
+      padding: 16px;
+      background: #171a22;
+      color: #e6edf7;
+      font: 12px/1.55 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .event-log {
+      max-height: 280px;
+      overflow: auto;
+      margin: 0;
+      padding: 0 16px 16px;
+      list-style: none;
+    }
+
+    .event-log li {
+      padding: 9px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .event-log li:last-child { border-bottom: 0; }
+    .event-id { color: var(--muted); font-family: ui-monospace, monospace; }
+
+    .footnote {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 980px) {
+      .layout { grid-template-columns: 1fr; }
+      .inspector { position: static; }
+      pre { max-height: 420px; }
+    }
+
+    @media (max-width: 640px) {
+      .shell { width: min(100% - 20px, 1500px); padding-top: 12px; }
+      .prototype-banner, .walkthrough, .surface-header { align-items: stretch; flex-direction: column; }
+      .walkthrough { grid-template-columns: 1fr; }
+      .walkthrough-actions { flex-wrap: wrap; }
+      .comparison-grid { grid-template-columns: 1fr; }
+      .expense { grid-template-columns: 1fr; }
+      .surface-action { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="prototype-banner">
+      <span>PROTOTYPE — THROWAWAY LOGIC PROBE</span>
+      <span>No network · no persistence · no real MCP/OpenUI/Dioxus</span>
+    </div>
+
+    <h1>MCP vertical logic lab</h1>
+    <p class="question">
+      Does the MCP → proposal → validated Surface → typed effect → inert replay flow make the runtime's extra guarantees understandable and useful compared with a thin Dioxus adapter?
+    </p>
+
+    <div class="status-row" id="status-row" aria-live="polite"></div>
+
+    <div class="tabs" role="tablist" aria-label="Guided walkthroughs" id="walkthrough-tabs"></div>
+    <section class="walkthrough" id="walkthrough-panel" aria-live="polite"></section>
+
+    <div class="layout">
+      <div class="stack">
+        <section class="panel">
+          <div class="panel-head">
+            <h2>Free play</h2>
+            <button class="danger" id="reset-button" type="button">Reset state</button>
+          </div>
+          <div class="panel-body">
+            <div class="controls" id="controls"></div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>Rendered projection</h2>
+              <p style="margin:0;color:var(--muted);font-size:13px">Same semantics, current catalog presentation.</p>
+            </div>
+          </div>
+          <div class="panel-body">
+            <div class="surface-frame" id="surface-frame"></div>
+            <div class="diagnostics" id="diagnostics"></div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head"><h2>What the two profiles promise</h2></div>
+          <div class="panel-body">
+            <div class="comparison-grid" id="comparison-grid"></div>
+            <div class="verdict">
+              <strong>Bounded verdict:</strong> the reducer makes atomic rejection, adapter invariance, effect receipts, and inert replay separately observable. The thin adapter remains materially simpler. Human comprehension still needs manual driving; this supports a real comparative MCP prototype, not a product GO.
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <aside class="stack inspector">
+        <section class="panel">
+          <div class="panel-head"><h2>Complete state</h2></div>
+          <div class="panel-body" style="padding:16px 16px 0;color:var(--muted);font-size:12px">
+            Replaced after every action. Domain state only; UI walkthrough progress is separate.
+          </div>
+          <pre id="state-json" aria-live="polite"></pre>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head"><h2>Ordered semantic events</h2></div>
+          <ul class="event-log" id="event-log"></ul>
+        </section>
+      </aside>
+    </div>
+
+    <p class="footnote">
+      This file deliberately simulates transport and rendering. Ticket 09 stays open until real MCP schemas/results, OpenUI compatibility, a Dioxus catalog swap, runtime comparison, and platform evidence are measured.
+    </p>
+  </main>
+
+  <script>
+    const TOOL = {
+      name: "expense.list_pending",
+      description: "List expenses that need a reviewer decision.",
+      inputSchema: {
+        type: "object",
+        properties: {
+          team: { type: "string" },
+          minimumAmount: { type: "number" }
+        },
+        required: ["team"]
+      }
+    };
+
+    const TOOL_RESULT = {
+      request: { team: "Product", minimumAmount: 100 },
+      expenses: [
+        { id: "exp-104", merchant: "Figma", owner: "Lina", amount: 288, currency: "EUR", status: "pending" },
+        { id: "exp-108", merchant: "Trainline", owner: "Noah", amount: 146, currency: "EUR", status: "pending" }
+      ]
+    };
+
+    const VALID_COMPONENTS = ["Stack", "Heading", "Text", "ExpenseTable", "Button", "Alert"];
+
+    const VALID_PROPOSAL = {
+      source: "$review = Stack(children: [$title, $summary, $table, $approve])",
+      nodes: [
+        { name: "title", component: "Heading", props: { text: "Pending expenses" } },
+        { name: "summary", component: "Text", props: { text: "Review MCP results before dispatch." } },
+        { name: "table", component: "ExpenseTable", props: { rows: "$result.expenses" } },
+        { name: "approve", component: "Button", props: { label: "Approve", action: "ApproveExpense" } }
+      ]
+    };
+
+    const INVALID_PROPOSAL = {
+      source: "$review = Stack(children: [$table, $script])",
+      nodes: [
+        { name: "table", component: "ExpenseTable", props: { rows: "$result.expenses" } },
+        { name: "script", component: "ArbitraryScript", props: { code: "approveAllWithoutPolicy()" } }
+      ]
+    };
+
+    const WALKTHROUGHS = [
+      {
+        id: "happy",
+        label: "1 · Happy path",
+        title: "From MCP schema to one receipted approval",
+        description: "Drive every guarded transition in order.",
+        expected: "Expected: the Surface commits once; approval creates one typed action and one effect receipt.",
+        actions: ["RESET_RUNTIME", "LOAD_TOOL", "RECEIVE_RESULT", "GENERATE_VALID", "VALIDATE_COMMIT", "APPROVE_FIRST"]
+      },
+      {
+        id: "rejection",
+        label: "2 · Atomic rejection",
+        title: "A broken candidate must not replace accepted UI",
+        description: "Commit a valid Surface, then submit an unknown executable component.",
+        expected: "Expected: revision and fingerprint remain unchanged; the whole candidate is rejected.",
+        actions: ["RESET_RUNTIME", "LOAD_TOOL", "RECEIVE_RESULT", "GENERATE_VALID", "VALIDATE_COMMIT", "GENERATE_INVALID", "VALIDATE_COMMIT"]
+      },
+      {
+        id: "adapter",
+        label: "3 · Catalog swap",
+        title: "Change presentation without changing runtime semantics",
+        description: "Commit once, then swap the compiled catalog identity.",
+        expected: "Expected: catalog changes; Surface revision and semantic fingerprint do not.",
+        actions: ["RESET_RUNTIME", "LOAD_TOOL", "RECEIVE_RESULT", "GENERATE_VALID", "VALIDATE_COMMIT", "SWAP_CATALOG"]
+      },
+      {
+        id: "replay",
+        label: "4 · Inert replay",
+        title: "Replay what happened without doing it again",
+        description: "Approve once, checkpoint the state, then replay the checkpoint.",
+        expected: "Expected: replay has the same fingerprint and effect count; no new effect appears.",
+        actions: ["RESET_RUNTIME", "LOAD_TOOL", "RECEIVE_RESULT", "GENERATE_VALID", "VALIDATE_COMMIT", "APPROVE_FIRST", "CHECKPOINT", "REPLAY"]
+      },
+      {
+        id: "thin",
+        label: "5 · Thin adapter",
+        title: "Feel the simpler path and its explicit gaps",
+        description: "The thin profile maps MCP data directly and approves with less ceremony.",
+        expected: "Expected: fewer steps, but no candidate gate, action claim, effect receipt, or replay checkpoint.",
+        actions: ["RESET_THIN", "LOAD_TOOL", "RECEIVE_RESULT", "APPROVE_FIRST", "CHECKPOINT"]
+      }
+    ];
+
+    const CONTROL_ACTIONS = [
+      ["LOAD_TOOL", "Load MCP schema"],
+      ["RECEIVE_RESULT", "Receive MCP result"],
+      ["GENERATE_VALID", "Generate valid proposal"],
+      ["VALIDATE_COMMIT", "Validate + commit"],
+      ["SWAP_CATALOG", "Swap catalog"],
+      ["APPROVE_FIRST", "Approve first expense"],
+      ["CHECKPOINT", "Create checkpoint"],
+      ["REPLAY", "Replay inertly"],
+      ["GENERATE_INVALID", "Generate invalid proposal", "risk"],
+      ["SWITCH_PROFILE", "Switch runtime / thin", "profile"]
+    ];
+
+    function copy(value) {
+      return JSON.parse(JSON.stringify(value));
+    }
+
+    function fingerprint(value) {
+      const input = JSON.stringify(value);
+      let hash = 2166136261;
+      for (let index = 0; index < input.length; index += 1) {
+        hash ^= input.charCodeAt(index);
+        hash = Math.imul(hash, 16777619);
+      }
+      return `surface-${(hash >>> 0).toString(16).padStart(8, "0")}`;
+    }
+
+    function initialState(profile = "runtime") {
+      return {
+        prototype: "MCP vertical logic probe",
+        profile,
+        phase: "empty",
+        tool: null,
+        result: null,
+        candidate: null,
+        committedSurface: null,
+        catalog: "dioxus-components",
+        catalogContract: profile === "runtime" ? "static_rust_v1" : null,
+        actions: [],
+        effects: [],
+        unreceiptedEffects: 0,
+        checkpoint: null,
+        replay: null,
+        diagnostics: [],
+        events: [],
+        invariants: {
+          lastCommittedFingerprintPreserved: null,
+          catalogSwapChangedRuntime: null,
+          replayAddedEffects: null
+        },
+        lastAction: "RESET"
+      };
+    }
+
+    function appendEvent(state, type, summary) {
+      state.events.push({
+        sequence: state.events.length + 1,
+        type,
+        summary
+      });
+    }
+
+    function appendDiagnostic(state, code, message) {
+      state.diagnostics.push({ code, message });
+    }
+
+    function requireValue(state, field, code, message) {
+      if (state[field]) return true;
+      appendDiagnostic(state, code, message);
+      return false;
+    }
+
+    function makeSurface(state, nodes) {
+      const priorRevision = state.committedSurface?.revision || 0;
+      const expenses = copy(state.result.expenses);
+      return {
+        id: "expense-review",
+        revision: priorRevision + 1,
+        fingerprint: fingerprint({ nodes, expenses }),
+        nodes: copy(nodes),
+        semanticState: { expenses }
+      };
+    }
+
+    function reduce(current, action) {
+      if (action.type === "RESET_RUNTIME") return initialState("runtime");
+      if (action.type === "RESET_THIN") return initialState("thin");
+      if (action.type === "RESET") return initialState(current.profile);
+
+      if (action.type === "SWITCH_PROFILE") {
+        return initialState(current.profile === "runtime" ? "thin" : "runtime");
+      }
+
+      const state = copy(current);
+      state.lastAction = action.type;
+      state.diagnostics = [];
+      state.replay = action.type === "REPLAY" ? state.replay : null;
+
+      switch (action.type) {
+        case "LOAD_TOOL": {
+          state.tool = copy(TOOL);
+          state.phase = "schema_ready";
+          appendEvent(state, "mcp.schema.loaded", "Loaded expense.list_pending input schema.");
+          break;
+        }
+
+        case "RECEIVE_RESULT": {
+          if (!requireValue(state, "tool", "MCP_SCHEMA_REQUIRED", "Load the MCP schema before receiving its result.")) break;
+          state.result = copy(TOOL_RESULT);
+          if (state.profile === "thin") {
+            state.committedSurface = {
+              id: "thin-expense-list",
+              revision: null,
+              fingerprint: null,
+              nodes: null,
+              semanticState: { expenses: copy(TOOL_RESULT.expenses) }
+            };
+            state.phase = "rendered_directly";
+            appendEvent(state, "thin.rendered", "Mapped MCP result directly to Dioxus view data.");
+          } else {
+            state.phase = "result_ready";
+            appendEvent(state, "mcp.result.received", "Captured two pending expense rows.");
+          }
+          break;
+        }
+
+        case "GENERATE_VALID": {
+          if (state.profile === "thin") {
+            appendDiagnostic(state, "NO_PROPOSAL_LAYER", "Thin profile maps the result directly; it has no independent generated candidate.");
+            break;
+          }
+          if (!requireValue(state, "result", "MCP_RESULT_REQUIRED", "Receive the MCP result before generating a proposal.")) break;
+          state.candidate = copy(VALID_PROPOSAL);
+          state.phase = "candidate_ready";
+          appendEvent(state, "proposal.generated", "Generated an OpenUI-shaped candidate from MCP data.");
+          break;
+        }
+
+        case "GENERATE_INVALID": {
+          if (state.profile === "thin") {
+            appendDiagnostic(state, "NO_CANDIDATE_GATE", "Thin profile has no separate candidate to reject atomically.");
+            break;
+          }
+          if (!requireValue(state, "result", "MCP_RESULT_REQUIRED", "Receive the MCP result before generating a proposal.")) break;
+          state.candidate = copy(INVALID_PROPOSAL);
+          state.phase = "candidate_ready";
+          appendEvent(state, "proposal.generated", "Generated a candidate containing ArbitraryScript.");
+          break;
+        }
+
+        case "VALIDATE_COMMIT": {
+          if (state.profile === "thin") {
+            appendDiagnostic(state, "NO_VALIDATION_GATE", "Thin profile has no independent candidate validation or atomic commit boundary.");
+            break;
+          }
+          if (!requireValue(state, "candidate", "CANDIDATE_REQUIRED", "Generate a candidate before validating it.")) break;
+          const rejected = state.candidate.nodes.filter((node) => !VALID_COMPONENTS.includes(node.component));
+          if (rejected.length > 0) {
+            const preserved = state.committedSurface?.fingerprint || null;
+            state.phase = "candidate_rejected";
+            appendDiagnostic(state, "UNKNOWN_COMPONENT", `Rejected ${rejected.map((node) => node.component).join(", ")}.`);
+            state.invariants.lastCommittedFingerprintPreserved = preserved
+              ? preserved === (state.committedSurface?.fingerprint || null)
+              : null;
+            appendEvent(state, "proposal.rejected", "Rejected the whole candidate; preserved the committed Surface.");
+            break;
+          }
+          state.committedSurface = makeSurface(state, state.candidate.nodes);
+          state.candidate = null;
+          state.phase = "committed";
+          appendEvent(state, "surface.committed", `Committed Surface revision ${state.committedSurface.revision}.`);
+          break;
+        }
+
+        case "SWAP_CATALOG": {
+          if (!requireValue(state, "committedSurface", "SURFACE_REQUIRED", "Commit or directly render a Surface before swapping catalogs.")) break;
+          const before = state.committedSurface.fingerprint;
+          state.catalog = state.catalog === "dioxus-components" ? "rust-ui" : "dioxus-components";
+          const after = state.committedSurface.fingerprint;
+          state.invariants.catalogSwapChangedRuntime = before !== after;
+          appendEvent(
+            state,
+            "catalog.swapped",
+            state.profile === "runtime"
+              ? `Swapped certified adapter to ${state.catalog}; semantic fingerprint stayed fixed.`
+              : `Swapped view implementation to ${state.catalog}; no semantic identity exists to compare.`
+          );
+          break;
+        }
+
+        case "APPROVE_FIRST": {
+          if (!requireValue(state, "committedSurface", "SURFACE_REQUIRED", "Render a Surface before approving an expense.")) break;
+          const expense = state.committedSurface.semanticState.expenses[0];
+          if (expense.status === "approved") {
+            appendDiagnostic(state, "ALREADY_APPROVED", "The first expense is already approved.");
+            break;
+          }
+          expense.status = "approved";
+          if (state.profile === "runtime") {
+            const actionId = `action-${state.actions.length + 1}`;
+            const effectId = `effect-${state.effects.length + 1}`;
+            state.actions.push({
+              id: actionId,
+              type: "ApproveExpense",
+              surfaceRevision: state.committedSurface.revision,
+              target: expense.id,
+              status: "claimed"
+            });
+            state.effects.push({
+              id: effectId,
+              actionId,
+              policy: "allowed",
+              status: "succeeded",
+              externalEffect: "expense.approve"
+            });
+            appendEvent(state, "effect.receipted", `Approved ${expense.id} through ${actionId} and ${effectId}.`);
+          } else {
+            state.unreceiptedEffects += 1;
+            appendEvent(state, "thin.effect", `Approved ${expense.id} directly without an action claim or receipt.`);
+          }
+          break;
+        }
+
+        case "CHECKPOINT": {
+          if (state.profile === "thin") {
+            appendDiagnostic(state, "REPLAY_NOT_MODELED", "Thin profile is simpler because this prototype gives it no canonical replay contract.");
+            break;
+          }
+          if (!requireValue(state, "committedSurface", "SURFACE_REQUIRED", "Commit a Surface before checkpointing it.")) break;
+          state.checkpoint = {
+            surfaceFingerprint: state.committedSurface.fingerprint,
+            semanticState: copy(state.committedSurface.semanticState),
+            effectReceipts: copy(state.effects),
+            eventWatermark: state.events.length
+          };
+          appendEvent(state, "checkpoint.created", `Sealed events through sequence ${state.checkpoint.eventWatermark}.`);
+          break;
+        }
+
+        case "REPLAY": {
+          if (state.profile === "thin") {
+            appendDiagnostic(state, "REPLAY_NOT_MODELED", "Thin profile has no canonical replay contract in this probe.");
+            break;
+          }
+          if (!requireValue(state, "checkpoint", "CHECKPOINT_REQUIRED", "Create a checkpoint before replaying it.")) break;
+          const effectsBefore = state.effects.length;
+          state.replay = {
+            surfaceFingerprint: state.checkpoint.surfaceFingerprint,
+            semanticState: copy(state.checkpoint.semanticState),
+            inert: true,
+            effectsBefore,
+            effectsAfter: state.effects.length
+          };
+          state.invariants.replayAddedEffects = state.replay.effectsAfter - state.replay.effectsBefore;
+          appendEvent(state, "replay.rendered", "Rendered checkpoint semantics without dispatching an effect.");
+          break;
+        }
+
+        default:
+          appendDiagnostic(state, "UNKNOWN_ACTION", `Unknown prototype action: ${action.type}`);
+      }
+
+      return state;
+    }
+
+    let state = initialState();
+    let activeWalkthrough = WALKTHROUGHS[0];
+    let walkthroughStep = 0;
+
+    function dispatch(type, source = "free-play") {
+      state = reduce(state, { type });
+      if (source === "free-play") walkthroughStep = 0;
+      render();
+    }
+
+    function selectWalkthrough(id) {
+      activeWalkthrough = WALKTHROUGHS.find((walkthrough) => walkthrough.id === id);
+      walkthroughStep = 0;
+      state = initialState(activeWalkthrough.id === "thin" ? "thin" : "runtime");
+      render();
+    }
+
+    function runNextWalkthroughStep() {
+      if (walkthroughStep >= activeWalkthrough.actions.length) return;
+      state = reduce(state, { type: activeWalkthrough.actions[walkthroughStep] });
+      walkthroughStep += 1;
+      render();
+    }
+
+    function catalogLabel(value) {
+      return value === "rust-ui" ? "Rust/UI adapter" : "Dioxus Components adapter";
+    }
+
+    function toneForPhase(phase) {
+      if (["committed", "rendered_directly"].includes(phase)) return "good";
+      if (phase === "candidate_rejected") return "bad";
+      if (phase === "empty") return "warn";
+      return "";
+    }
+
+    function renderStatus() {
+      const status = [
+        ["profile", state.profile === "runtime" ? "OpenUI-Dioxus runtime" : "Thin adapter", state.profile === "runtime" ? "good" : "warn"],
+        ["phase", state.phase, toneForPhase(state.phase)],
+        ["catalog", catalogLabel(state.catalog), ""],
+        ["revision", state.committedSurface?.revision ?? "none", ""],
+        ["receipts", state.effects.length, state.effects.length ? "good" : ""],
+        ["unreceipted", state.unreceiptedEffects, state.unreceiptedEffects ? "warn" : ""]
+      ];
+      document.querySelector("#status-row").innerHTML = status
+        .map(([label, value, tone]) => `<span class="pill" data-tone="${tone}"><strong>${label}</strong> ${value}</span>`)
+        .join("");
+    }
+
+    function renderTabs() {
+      document.querySelector("#walkthrough-tabs").innerHTML = WALKTHROUGHS.map((walkthrough) => `
+        <button
+          class="tab"
+          type="button"
+          role="tab"
+          aria-selected="${walkthrough.id === activeWalkthrough.id}"
+          data-walkthrough="${walkthrough.id}"
+        >${walkthrough.label}</button>
+      `).join("");
+
+      document.querySelectorAll("[data-walkthrough]").forEach((button) => {
+        button.addEventListener("click", () => selectWalkthrough(button.dataset.walkthrough));
+      });
+    }
+
+    function renderWalkthrough() {
+      const complete = walkthroughStep >= activeWalkthrough.actions.length;
+      const nextAction = activeWalkthrough.actions[walkthroughStep];
+      document.querySelector("#walkthrough-panel").innerHTML = `
+        <div>
+          <h2>${activeWalkthrough.title}</h2>
+          <p>${activeWalkthrough.description}</p>
+          <p class="expected">${activeWalkthrough.expected}</p>
+        </div>
+        <div class="walkthrough-actions">
+          <span class="pill"><strong>step</strong> ${walkthroughStep}/${activeWalkthrough.actions.length}</span>
+          <button class="secondary" type="button" id="restart-walkthrough">Restart</button>
+          <button class="primary" type="button" id="next-step" ${complete ? "disabled" : ""}>
+            ${complete ? "Walkthrough complete" : `Run ${nextAction.toLowerCase().replaceAll("_", " ")}`}
+          </button>
+        </div>
+      `;
+      document.querySelector("#restart-walkthrough").addEventListener("click", () => selectWalkthrough(activeWalkthrough.id));
+      document.querySelector("#next-step").addEventListener("click", runNextWalkthroughStep);
+    }
+
+    function renderControls() {
+      document.querySelector("#controls").innerHTML = CONTROL_ACTIONS.map(([type, label, kind = ""]) => `
+        <button class="control" data-action="${type}" data-kind="${kind}" type="button">${label}</button>
+      `).join("");
+      document.querySelectorAll("[data-action]").forEach((button) => {
+        button.addEventListener("click", () => dispatch(button.dataset.action));
+      });
+      document.querySelector("#reset-button").onclick = () => dispatch("RESET");
+    }
+
+    function renderSurface() {
+      const frame = document.querySelector("#surface-frame");
+      frame.dataset.catalog = state.catalog;
+      const surface = state.replay || state.committedSurface;
+      if (!surface) {
+        frame.innerHTML = `
+          <div class="empty">
+            <div><strong>No committed projection</strong><br>Load a schema and drive a walkthrough.</div>
+          </div>
+        `;
+        return;
+      }
+
+      const semanticState = surface.semanticState;
+      const rows = semanticState.expenses.map((expense, index) => `
+        <article class="expense">
+          <div><strong>${expense.merchant}</strong><small>${expense.owner} · ${expense.id}</small></div>
+          <div><strong>${expense.amount} ${expense.currency}</strong><span class="status ${expense.status}">${expense.status}</span></div>
+          <button class="surface-action" type="button" data-approve-index="${index}" ${expense.status === "approved" || index > 0 ? "disabled" : ""}>Approve</button>
+        </article>
+      `).join("");
+
+      frame.innerHTML = `
+        ${state.replay ? `<div class="replay-banner">INERT REPLAY · fingerprint ${state.replay.surfaceFingerprint}</div>` : ""}
+        <div class="surface-header">
+          <div><h3>Pending expenses</h3><p>${catalogLabel(state.catalog)} · ${state.profile} profile</p></div>
+          <span class="pill"><strong>semantic ID</strong> ${state.committedSurface?.fingerprint || "not modeled"}</span>
+        </div>
+        <div class="expense-list">${rows}</div>
+      `;
+      frame.querySelectorAll("[data-approve-index='0']").forEach((button) => {
+        button.addEventListener("click", () => dispatch("APPROVE_FIRST"));
+      });
+    }
+
+    function renderDiagnostics() {
+      document.querySelector("#diagnostics").innerHTML = state.diagnostics
+        .map((diagnostic) => `<div class="diagnostic"><strong>${diagnostic.code}</strong> — ${diagnostic.message}</div>`)
+        .join("");
+    }
+
+    function renderComparison() {
+      const cards = [
+        {
+          id: "runtime",
+          title: "OpenUI-Dioxus runtime",
+          points: ["Candidate validation + atomic commit", "Pinned catalog identity", "Typed action claim + effect receipt", "Inert semantic replay"]
+        },
+        {
+          id: "thin",
+          title: "Thin Dioxus adapter",
+          points: ["Direct MCP result mapping", "Fewer concepts and transitions", "No independent candidate history in this probe", "No canonical receipts or replay in this probe"]
+        }
+      ];
+      document.querySelector("#comparison-grid").innerHTML = cards.map((card) => `
+        <article class="comparison-card ${state.profile === card.id ? "active" : ""}">
+          <h3>${card.title}</h3>
+          <ul>${card.points.map((point) => `<li>${point}</li>`).join("")}</ul>
+        </article>
+      `).join("");
+    }
+
+    function renderInspector() {
+      document.querySelector("#state-json").textContent = JSON.stringify(state, null, 2);
+      const events = [...state.events].reverse();
+      document.querySelector("#event-log").innerHTML = events.length
+        ? events.map((event) => `<li><span class="event-id">E${String(event.sequence).padStart(2, "0")} · ${event.type}</span><br>${event.summary}</li>`).join("")
+        : "<li>No semantic event yet.</li>";
+    }
+
+    function render() {
+      renderStatus();
+      renderTabs();
+      renderWalkthrough();
+      renderControls();
+      renderSurface();
+      renderDiagnostics();
+      renderComparison();
+      renderInspector();
+    }
+
+    render();
+  </script>
+</body>
+</html>
