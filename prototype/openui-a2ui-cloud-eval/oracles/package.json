@@ -1,0 +1,12 @@
+{
+  "name": "openui-a2ui-cloud-eval-oracles",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "@openuidev/lang-core": "0.2.15",
+    "zod": "4.1.12"
+  }
+}

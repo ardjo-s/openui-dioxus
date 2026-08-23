@@ -1,0 +1,8 @@
+title = Text("title", "Expense review")
+expenses = Table("expenses", ["ID", "Merchant", "Amount", "Status"], [{"expense_id":"exp-001","merchant":"Acme Air","amount":"EUR 420.00","status":"pending"},{"expense_id":"exp-002","merchant":"Northwind Hotel","amount":"EUR 280.00","status":"pending"}])
+review_note = Input("review-note", "Reviewer note", "review_note", "")
+status_filter = Select("status-filter", "Status", "status_filter", ["all", "pending", "approved"], "pending")
+approve = Button("approve-exp-001", "Approve Acme Air", {"name":"ApproveExpense","expense_id":"exp-001"})
+result = Alert("result", "info", "No expense approved yet.")
+body = Stack("review-stack", [title, expenses, review_note, status_filter, approve, result])
+screen = Card("review-card", "Expense review", body)

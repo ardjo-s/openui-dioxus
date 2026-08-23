@@ -1,0 +1,53 @@
+# Cloud comparator acceptance gates
+
+This directory is a throwaway ticket-09 prototype. It must never be merged into
+`main`; the branch and closed Draft PR are the primary source.
+
+## Contract gates
+
+- [ ] One typed Dioxus catalog exposes exactly `Text`, `Stack`, `Card`, `Table`,
+  `Input`, `Select`, `Button`, and `Alert` as real RSX components.
+- [ ] OpenUI `@openuidev/lang-core@0.2.15` and A2UI
+  `@a2ui/web_core@0.10.6` are pinned and used as reference validators.
+- [ ] Both protocol adapters normalize the same expense-review intent into one
+  canonical Rust `Surface` and the reference fixtures have the same fingerprint.
+- [ ] Unknown component, unknown action, broken reference, oversized output,
+  node-limit, and one-repair fixtures are rejected or repaired as specified.
+- [ ] State, exactly-once typed action receipt, update preservation, and inert
+  replay are exercised through public runtime interfaces.
+
+## Execution gates
+
+- [ ] The cloud runner performs 20 alternating paired passages, with at most one
+  repair per invalid output, at most 80 OpenAI calls, and a hard estimated $2 cap.
+- [ ] Every record contains visible/raw and API token counts, cache/reasoning
+  tokens, estimated cost, validation diagnostics, and full-response latency.
+- [ ] Accepted surfaces render through Dioxus Desktop under Xvfb and Dioxus Web
+  in Chromium; Playwright exercises fields, action, update, and replay.
+- [ ] iOS simulator execution is conditional on the pre-mobile OpenUI win and
+  cannot create a Mobile support claim when it fails.
+- [ ] `records.jsonl`, `summary.json`, `summary.md`, raw outputs, diagnostics,
+  traces, screenshots, and SHA-256 manifests are uploaded as artifacts.
+
+## Decision gates
+
+- [ ] `openui_wins` is computed only from the thresholds recorded in the plan;
+  infrastructure/provider incompleteness produces `INVALID_EVAL`.
+- [ ] Two comparable commits exist: shared runtime + OpenUI, then A2UI adapter;
+  the report measures adapter LOC and shared-runtime diff between them.
+- [ ] A separate read-only Standards review and intent review complete before
+  results are published.
+- [ ] The workflow is branch- and marker-gated, has `contents: read`, never runs
+  model output, and uses only the `prototype-cloud-eval` environment secret.
+- [ ] A Draft PR is opened as explicitly non-mergeable; verified artifacts are
+  committed without `[cloud-eval]`, then the secret and dedicated key are removed.
+
+## Runnable evidence
+
+```bash
+npm ci --prefix prototype/openui-a2ui-cloud-eval/oracles
+npm test --prefix prototype/openui-a2ui-cloud-eval/oracles
+cargo test --manifest-path prototype/openui-a2ui-cloud-eval/Cargo.toml
+cargo clippy --manifest-path prototype/openui-a2ui-cloud-eval/Cargo.toml --all-targets -- -D warnings
+prototype/openui-a2ui-cloud-eval/scripts/verify-workflow.sh
+```

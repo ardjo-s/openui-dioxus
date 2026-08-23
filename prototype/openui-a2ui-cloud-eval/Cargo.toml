@@ -1,0 +1,37 @@
+[package]
+name = "openui-a2ui-cloud-eval"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "normalize-openui"
+path = "src/bin/normalize-openui.rs"
+
+[[bin]]
+name = "eval-app"
+path = "src/bin/eval-app.rs"
+required-features = ["ui"]
+
+[features]
+default = []
+ui = ["dep:dioxus"]
+desktop = ["ui", "dioxus/desktop"]
+web = ["ui", "dioxus/web", "dep:web-sys"]
+mobile = ["ui", "dioxus/mobile"]
+
+[dependencies]
+anyhow = "1.0"
+dioxus = { version = "=0.7.10", optional = true, default-features = false, features = ["minimal", "document"] }
+hex = "0.4"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+sha2 = "0.10"
+thiserror = "2.0"
+web-sys = { version = "0.3", optional = true, features = ["Window", "Location"] }
+
+[dev-dependencies]
+tempfile = "3.23"

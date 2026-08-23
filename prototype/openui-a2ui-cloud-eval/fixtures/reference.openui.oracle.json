@@ -1,0 +1,125 @@
+{
+  "ok": true,
+  "protocol": "openui",
+  "version": "lang-v0.5/@openuidev/lang-core@0.2.15",
+  "diagnostics": [],
+  "parse": {
+    "root": {
+      "type": "element",
+      "typeName": "Card",
+      "props": {
+        "id": "review-card",
+        "title": "Expense review",
+        "child": {
+          "type": "element",
+          "typeName": "Stack",
+          "props": {
+            "id": "review-stack",
+            "children": [
+              {
+                "type": "element",
+                "typeName": "Text",
+                "props": { "id": "title", "text": "Expense review" },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "title"
+              },
+              {
+                "type": "element",
+                "typeName": "Table",
+                "props": {
+                  "id": "expenses",
+                  "columns": ["ID", "Merchant", "Amount", "Status"],
+                  "rows": [
+                    {
+                      "expense_id": "exp-001",
+                      "merchant": "Acme Air",
+                      "amount": "EUR 420.00",
+                      "status": "pending"
+                    },
+                    {
+                      "expense_id": "exp-002",
+                      "merchant": "Northwind Hotel",
+                      "amount": "EUR 280.00",
+                      "status": "pending"
+                    }
+                  ]
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "expenses"
+              },
+              {
+                "type": "element",
+                "typeName": "Input",
+                "props": {
+                  "id": "review-note",
+                  "label": "Reviewer note",
+                  "state_key": "review_note",
+                  "value": ""
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "review_note"
+              },
+              {
+                "type": "element",
+                "typeName": "Select",
+                "props": {
+                  "id": "status-filter",
+                  "label": "Status",
+                  "state_key": "status_filter",
+                  "options": ["all", "pending", "approved"],
+                  "value": "pending"
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "status_filter"
+              },
+              {
+                "type": "element",
+                "typeName": "Button",
+                "props": {
+                  "id": "approve-exp-001",
+                  "label": "Approve Acme Air",
+                  "action": { "name": "ApproveExpense", "expense_id": "exp-001" }
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "approve"
+              },
+              {
+                "type": "element",
+                "typeName": "Alert",
+                "props": {
+                  "id": "result",
+                  "tone": "info",
+                  "message": "No expense approved yet."
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "result"
+              }
+            ]
+          },
+          "partial": false,
+          "hasDynamicProps": false,
+          "statementId": "body"
+        }
+      },
+      "partial": false,
+      "hasDynamicProps": false,
+      "statementId": "screen"
+    },
+    "meta": {
+      "incomplete": false,
+      "unresolved": [],
+      "orphaned": [],
+      "statementCount": 8,
+      "errors": []
+    },
+    "stateDeclarations": {},
+    "queryStatements": [],
+    "mutationStatements": []
+  }
+}
