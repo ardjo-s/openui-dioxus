@@ -1,0 +1,1 @@
+root = ExpenseReview("Pending expenses", [{ id: "exp-001", merchant: "Acme Rail", amount_cents: 4280, currency: "EUR", status: "pending" }, { id: "exp-002", merchant: "Cafe Compile", amount_cents: 1860, currency: "EUR", status: "pending" }], "Approve exp-001")
