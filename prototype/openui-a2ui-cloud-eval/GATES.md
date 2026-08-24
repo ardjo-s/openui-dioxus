@@ -61,7 +61,7 @@ This directory is a throwaway ticket-09 prototype. It must never be merged into
   results are published.
 - [x] The workflow is branch- and marker-gated, has `contents: read`, never runs
   model output, and uses only the `prototype-cloud-eval` environment secret.
-- [ ] A Draft PR is opened as explicitly non-mergeable; verified artifacts are
+- [x] A Draft PR is opened as explicitly non-mergeable; verified artifacts are
   committed without `[cloud-eval]`, then the secret and dedicated key are removed.
 
 ## Runnable evidence
