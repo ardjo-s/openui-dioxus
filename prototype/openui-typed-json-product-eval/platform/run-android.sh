@@ -69,7 +69,15 @@ for _ in $(seq 1 90); do
   sleep 1
 done
 adb exec-out screencap -p > "$evidence/screenshots/android-emulator.png"
-if [ "$status" != PASS ]; then error="runtime marker not observed"; exit 1; fi
+if [ "$status" != PASS ]; then
+  if grep -Eq 'ANR in com\.android\.(phone|systemui)|System UI.*not responding' "$evidence/traces/android-logcat.log"; then
+    status=INVALID_EVAL
+    error="Android system image became unresponsive"
+  else
+    error="runtime marker not observed"
+  fi
+  exit 1
+fi
 if [ ! -s "$evidence/screenshots/android-emulator.png" ]; then status=INVALID_EVAL; error="Android screenshot missing"; exit 1; fi
 dimensions=$(python3 -c 'import struct,sys; data=open(sys.argv[1],"rb").read(24); print(*struct.unpack(">II",data[16:24]))' "$evidence/screenshots/android-emulator.png")
 width=${dimensions%% *}

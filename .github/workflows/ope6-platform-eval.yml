@@ -113,10 +113,11 @@ jobs:
         continue-on-error: true
         uses: reactivecircus/android-emulator-runner@v2.38.0
         with:
-          api-level: 35
+          api-level: 34
           arch: x86_64
-          profile: pixel_6
+          profile: pixel_3a
           disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -memory 4096 -cores 2
           script: prototype/openui-typed-json-product-eval/platform/run-android.sh
         env:
           OPE6_EVIDENCE_DIR: ${{ github.workspace }}/prototype/openui-typed-json-product-eval/platform/evidence/android
