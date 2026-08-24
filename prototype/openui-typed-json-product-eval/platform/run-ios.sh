@@ -42,8 +42,10 @@ if ! xcrun simctl launch --terminate-running-process "$device" "$bundle" > "$con
   exit 1
 fi
 marker="PLATFORM_SELF_TEST_PASS surfaces=40 families=5"
+container=$(xcrun simctl get_app_container "$device" "$bundle" data)
+marker_file="$container/tmp/openui-dioxus-platform.marker"
 for _ in $(seq 1 90); do
-  if grep -q "$marker" "$console" || grep -q "$marker" "$system_log"; then status=PASS; break; fi
+  if grep -q "$marker" "$marker_file" 2>/dev/null || grep -q "$marker" "$console" || grep -q "$marker" "$system_log"; then status=PASS; break; fi
   sleep 1
 done
 xcrun simctl io "$device" screenshot "$evidence/screenshots/ios-simulator.png"

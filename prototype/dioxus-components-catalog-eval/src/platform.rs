@@ -201,10 +201,9 @@ pub fn App() -> Element {
             }
         }
         println!("PLATFORM_RENDERED surfaces={count} families={family_count}");
-        println!("PLATFORM_SELF_TEST_PASS surfaces={passed} families={family_count}");
-        dioxus_logger::tracing::info!(
-            "PLATFORM_SELF_TEST_PASS surfaces={passed} families={family_count}"
-        );
+        let marker = format!("PLATFORM_SELF_TEST_PASS surfaces={passed} families={family_count}");
+        println!("{marker}");
+        publish_mobile_marker(&marker);
     });
     let index = current().min(count.saturating_sub(1));
     let entry = entries[index].clone();
@@ -239,6 +238,18 @@ pub fn App() -> Element {
             }
         }
     }
+}
+
+fn publish_mobile_marker(marker: &str) {
+    #[cfg(any(target_os = "ios", target_os = "android"))]
+    std::fs::write(
+        std::env::temp_dir().join("openui-dioxus-platform.marker"),
+        marker,
+    )
+    .expect("mobile runtime marker must be persisted");
+
+    #[cfg(not(any(target_os = "ios", target_os = "android")))]
+    let _ = marker;
 }
 
 #[component]
