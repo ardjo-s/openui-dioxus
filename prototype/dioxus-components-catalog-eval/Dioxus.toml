@@ -1,0 +1,16 @@
+[application]
+name = "openui-dioxus-platform-eval"
+out_dir = "web-dist"
+default_platform = "web"
+
+[web.app]
+title = "OpenUI-Dioxus platform evaluation"
+
+[web.watcher]
+index_on_404 = true
+
+[bundle]
+identifier = "com.ardjo.openui-dioxus-platform-eval"
+publisher = "OpenUI-Dioxus prototype"
+short_description = "OPE-6 platform evaluation"
+long_description = "Disposable Web, Desktop, iOS, and Android platform proof."

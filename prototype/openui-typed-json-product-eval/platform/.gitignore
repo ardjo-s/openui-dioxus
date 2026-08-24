@@ -1,0 +1,4 @@
+evidence/*
+!evidence/README.md
+!evidence/published/
+!evidence/published/**
