@@ -1,0 +1,34 @@
+{
+  "messages": [
+    {
+      "version": "v0.9.1",
+      "createSurface": {
+        "surfaceId": "envelope-example",
+        "catalogId": "openui-dioxus-expense-review@0.0.0",
+        "sendDataModel": true
+      }
+    },
+    {
+      "version": "v0.9.1",
+      "updateComponents": {
+        "surfaceId": "envelope-example",
+        "components": [
+          {
+            "id": "example-text",
+            "component": "Text",
+            "text": "Envelope example"
+          }
+        ]
+      }
+    },
+    {
+      "version": "v0.9.1",
+      "updateDataModel": {
+        "surfaceId": "envelope-example",
+        "path": "/",
+        "value": {}
+      }
+    }
+  ]
+}
+

@@ -74,3 +74,34 @@ cargo clippy --manifest-path prototype/openui-a2ui-cloud-eval/Cargo.toml --all-t
 prototype/openui-a2ui-cloud-eval/scripts/verify-workflow.sh
 prototype/openui-a2ui-cloud-eval/scripts/test-local-provider-e2e.sh
 ```
+
+## OPE-1 controlled-evaluation gates
+
+- [x] Eval 0 evidence remains byte-for-byte unchanged and is explicitly labeled
+  as an out-of-the-box promptability experiment, not a general protocol win.
+- [x] Five frozen scenario families with four deterministic variants each define
+  shared intent, catalog semantics, state, typed actions, MCP fixtures, coverage,
+  updates, and replay expectations.
+- [x] OpenUI and A2UI prompt packs isolate byte-identical shared content from
+  protocol syntax; the A2UI pack includes the pinned v0.9.1 envelope and one
+  official-valid minimal example.
+- [x] Prompt packs, scenarios, fixtures, dependency locks, source pins, and
+  scoring rules are hashed before generation; drift makes the run invalid.
+- [x] Official reference payloads normalize through `ProtocolAdapter` into the
+  same canonical `Surface` fingerprint before any model call.
+- [x] The controlled scorer is symmetric and returns
+  `CONTROLLED_OPENUI_WIN`, `CONTROLLED_A2UI_WIN`, `CONTROLLED_TIE`, or
+  `INVALID_EVAL` from the pre-registered thresholds.
+- [x] First-attempt and cumulative passage tokens/latency are reported
+  separately, and invalid completed passages remain in protocol metrics.
+- [x] A fake-provider run proves 20 paired scenarios, alternating order, one
+  repair maximum, 80 calls maximum, prompt hashes, diagnostics, and artifacts.
+- [x] Independent standards and intent reviews approve the frozen methodology
+  before the one real 20-pair Luna-low run begins.
+- [ ] Every accepted `Surface` passes shared state, typed action, update, replay,
+  Desktop, and Web checks without canonical-runtime changes.
+- [ ] Raw payloads, diagnostics, records, normalized Surfaces, traces,
+  screenshots, reviews, summaries, manifests, and SHA-256 checks are archived
+  on the OPE-1 branch without credentials.
+- [ ] OPE-1 remains distinct from the typed-JSON product baseline in OPE-2; the
+  controlled result updates decision evidence but does not resolve product go/no-go.

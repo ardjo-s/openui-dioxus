@@ -1,0 +1,213 @@
+{
+  "version": "controlled-scenarios-v1",
+  "catalog_id": "openui-dioxus-expense-review@0.0.0",
+  "state_keys": ["review_note", "status_filter"],
+  "filter_options": ["all", "pending", "approved"],
+  "action": {
+    "name": "ApproveExpense",
+    "expense_id": "exp-001"
+  },
+  "required_components": ["Alert", "Button", "Card", "Input", "Select", "Stack", "Table", "Text"],
+  "tool_schema": {
+    "name": "list_expenses",
+    "description": "Return expenses awaiting review",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["pending"]
+        }
+      },
+      "required": ["status"],
+      "additionalProperties": false
+    }
+  },
+  "action_schema": {
+    "name": "ApproveExpense",
+    "description": "Approve exactly one reviewed expense",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "expense_id": {
+          "type": "string"
+        }
+      },
+      "required": ["expense_id"],
+      "additionalProperties": false
+    }
+  },
+  "families": [
+    {
+      "id": "routine-review",
+      "intent": "Review routine operating expenses and make the pending approval action obvious.",
+      "variants": [
+        {
+          "id": "air-hotel",
+          "rows": [
+            {"expense_id": "exp-001", "merchant": "Acme Air", "amount": "EUR 420.00", "status": "pending"},
+            {"expense_id": "exp-002", "merchant": "Northwind Hotel", "amount": "EUR 280.00", "status": "pending"}
+          ]
+        },
+        {
+          "id": "rail-meals",
+          "rows": [
+            {"expense_id": "exp-001", "merchant": "Contoso Rail", "amount": "EUR 164.50", "status": "pending"},
+            {"expense_id": "exp-002", "merchant": "Tailspin Meals", "amount": "EUR 86.20", "status": "pending"}
+          ]
+        },
+        {
+          "id": "software-office",
+          "rows": [
+            {"expense_id": "exp-001", "merchant": "Fabrikam Software", "amount": "EUR 199.00", "status": "pending"},
+            {"expense_id": "exp-002", "merchant": "Adventure Office", "amount": "EUR 74.90", "status": "pending"}
+          ]
+        },
+        {
+          "id": "courier-print",
+          "rows": [
+            {"expense_id": "exp-001", "merchant": "Wide World Courier", "amount": "EUR 58.40", "status": "pending"},
+            {"expense_id": "exp-002", "merchant": "City Print", "amount": "EUR 112.00", "status": "pending"}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "travel-policy",
+      "intent": "Review travel expenses with enough context to spot policy-sensitive lodging and transport costs.",
+      "variants": [
+        {
+          "id": "paris",
+          "rows": [
+            {"expense_id": "exp-001", "merchant": "Paris Central Hotel", "amount": "EUR 690.00", "status": "pending"},
+            {"expense_id": "exp-002", "merchant": "Metro Mobility", "amount": "EUR 43.60", "status": "pending"}
+          ]
+        },
+        {
+          "id": "berlin",
+          "rows": [
+            {"expense_id": "exp-001", "merchant": "Berlin Business Stay", "amount": "EUR 540.00", "status": "pending"},
+            {"expense_id": "exp-002", "merchant": "Bahn Connect", "amount": "EUR 128.00", "status": "pending"}
+          ]
+        },
+        {
+          "id": "lisbon",
+          "rows": [
+            {"expense_id": "exp-001", "merchant": "Lisbon Riverside Rooms", "amount": "EUR 465.00", "status": "pending"},
+            {"expense_id": "exp-002", "merchant": "Atlantic Air", "amount": "EUR 312.40", "status": "pending"}
+          ]
+        },
+        {
+          "id": "milan",
+          "rows": [
+            {"expense_id": "exp-001", "merchant": "Milan Expo Hotel", "amount": "EUR 735.00", "status": "pending"},
+            {"expense_id": "exp-002", "merchant": "Italia Rail", "amount": "EUR 146.80", "status": "pending"}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "duplicate-risk",
+      "intent": "Review expenses where similar merchants and amounts make duplicate-risk inspection important.",
+      "variants": [
+        {
+          "id": "cloud-monthly",
+          "rows": [
+            {"expense_id": "exp-001", "merchant": "Cloud Harbor", "amount": "EUR 249.00", "status": "pending"},
+            {"expense_id": "exp-002", "merchant": "Cloud Harbor EU", "amount": "EUR 249.00", "status": "pending"}
+          ]
+        },
+        {
+          "id": "rides",
+          "rows": [
+            {"expense_id": "exp-001", "merchant": "City Ride", "amount": "EUR 37.80", "status": "pending"},
+            {"expense_id": "exp-002", "merchant": "City Ride", "amount": "EUR 38.10", "status": "pending"}
+          ]
+        },
+        {
+          "id": "catering",
+          "rows": [
+            {"expense_id": "exp-001", "merchant": "Northwind Catering", "amount": "EUR 320.00", "status": "pending"},
+            {"expense_id": "exp-002", "merchant": "Northwind Caterers", "amount": "EUR 320.00", "status": "pending"}
+          ]
+        },
+        {
+          "id": "licenses",
+          "rows": [
+            {"expense_id": "exp-001", "merchant": "Dev Tools Pro", "amount": "EUR 89.00", "status": "pending"},
+            {"expense_id": "exp-002", "merchant": "DevTools Pro", "amount": "EUR 89.00", "status": "pending"}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "high-value",
+      "intent": "Review high-value expenses and make the approval consequence and current pending state unambiguous.",
+      "variants": [
+        {
+          "id": "conference",
+          "rows": [
+            {"expense_id": "exp-001", "merchant": "Global Tech Conference", "amount": "EUR 2,450.00", "status": "pending"},
+            {"expense_id": "exp-002", "merchant": "Conference Hotel", "amount": "EUR 1,180.00", "status": "pending"}
+          ]
+        },
+        {
+          "id": "equipment",
+          "rows": [
+            {"expense_id": "exp-001", "merchant": "Pro Workstations", "amount": "EUR 3,890.00", "status": "pending"},
+            {"expense_id": "exp-002", "merchant": "Studio Displays", "amount": "EUR 1,640.00", "status": "pending"}
+          ]
+        },
+        {
+          "id": "consulting",
+          "rows": [
+            {"expense_id": "exp-001", "merchant": "Strategy Partners", "amount": "EUR 4,800.00", "status": "pending"},
+            {"expense_id": "exp-002", "merchant": "Research Associates", "amount": "EUR 2,200.00", "status": "pending"}
+          ]
+        },
+        {
+          "id": "venue",
+          "rows": [
+            {"expense_id": "exp-001", "merchant": "Riverside Venue", "amount": "EUR 5,250.00", "status": "pending"},
+            {"expense_id": "exp-002", "merchant": "Event Production", "amount": "EUR 2,975.00", "status": "pending"}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vendor-compliance",
+      "intent": "Review vendor expenses while emphasizing clear identity, pending status, and an auditable reviewer note.",
+      "variants": [
+        {
+          "id": "new-vendor",
+          "rows": [
+            {"expense_id": "exp-001", "merchant": "New Horizon Supplies", "amount": "EUR 610.00", "status": "pending"},
+            {"expense_id": "exp-002", "merchant": "Trusted Office Group", "amount": "EUR 185.00", "status": "pending"}
+          ]
+        },
+        {
+          "id": "international",
+          "rows": [
+            {"expense_id": "exp-001", "merchant": "Baltic Components", "amount": "EUR 920.00", "status": "pending"},
+            {"expense_id": "exp-002", "merchant": "Local Parts Depot", "amount": "EUR 275.00", "status": "pending"}
+          ]
+        },
+        {
+          "id": "renewal",
+          "rows": [
+            {"expense_id": "exp-001", "merchant": "Secure Archive Renewal", "amount": "EUR 1,260.00", "status": "pending"},
+            {"expense_id": "exp-002", "merchant": "Records Storage", "amount": "EUR 340.00", "status": "pending"}
+          ]
+        },
+        {
+          "id": "contractor",
+          "rows": [
+            {"expense_id": "exp-001", "merchant": "Independent Research Lab", "amount": "EUR 1,875.00", "status": "pending"},
+            {"expense_id": "exp-002", "merchant": "Compliance Review Ltd", "amount": "EUR 760.00", "status": "pending"}
+          ]
+        }
+      ]
+    }
+  ]
+}
+

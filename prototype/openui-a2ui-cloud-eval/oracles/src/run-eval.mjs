@@ -11,6 +11,8 @@ import { get_encoding } from "tiktoken";
 
 import { buildA2UiPrompt, validateA2Ui } from "./a2ui.mjs";
 import { generateWithCodex } from "./codex-provider.mjs";
+import { buildControlledPromptPack } from "./controlled-prompt-pack.mjs";
+import { controlledScenarios } from "./controlled-scenarios.mjs";
 import { buildOpenUiPrompt, validateOpenUi } from "./openui.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -19,6 +21,10 @@ const resultsDir = path.resolve(process.env.EVAL_RESULTS_DIR ?? path.join(root, 
 const binDir = path.resolve(process.env.EVAL_BIN_DIR ?? path.join(root, "target/release"));
 const pairsRequested = Number(process.env.EVAL_PAIRS ?? 20);
 const provider = process.env.EVAL_PROVIDER ?? "api";
+const evaluationMode = process.env.EVAL_MODE ?? "eval0";
+if (!["eval0", "controlled"].includes(evaluationMode)) {
+  throw new Error(`unknown EVAL_MODE: ${evaluationMode}`);
+}
 if (!["api", "codex"].includes(provider)) throw new Error(`unknown EVAL_PROVIDER: ${provider}`);
 const model = "gpt-5.6-luna";
 const maxOutputTokens = provider === "api" ? 8192 : null;
@@ -29,6 +35,7 @@ if (!Number.isInteger(maxResponseBytes) || maxResponseBytes < 1) {
   throw new Error(`invalid EVAL_MAX_RESPONSE_BYTES: ${process.env.EVAL_MAX_RESPONSE_BYTES}`);
 }
 const sharedIntent = await readFile(path.join(root, "fixtures/shared-intent.txt"), "utf8");
+const controlledPromptPack = evaluationMode === "controlled" ? buildControlledPromptPack() : null;
 const encoding = get_encoding("o200k_base");
 const client = provider === "api" ? new OpenAI({ apiKey: process.env.OPENAI_API_KEY }) : null;
 const codexHome = process.env.EVAL_CODEX_HOME;
@@ -48,6 +55,12 @@ await mkdir(path.join(resultsDir, "diagnostics"), { recursive: true });
 await mkdir(path.join(resultsDir, "surfaces"), { recursive: true });
 await mkdir(path.join(resultsDir, "provider-events"), { recursive: true });
 await mkdir(path.join(resultsDir, "provider-stderr"), { recursive: true });
+if (controlledPromptPack) {
+  await writeFile(
+    path.join(resultsDir, "preregistration.json"),
+    JSON.stringify(controlledPromptPack, null, 2),
+  );
+}
 
 for (let passage = 1; passage <= pairsRequested && !providerError; passage += 1) {
   const order = passage % 2 === 1 ? ["openui", "a2ui"] : ["a2ui", "openui"];
@@ -79,6 +92,9 @@ await writeFile(
       max_output_tokens: maxOutputTokens,
       max_response_bytes: maxResponseBytes,
       pairs_requested: pairsRequested,
+      evaluation_mode: evaluationMode,
+      preregistration_verified: controlledPromptPack !== null,
+      prompt_pack_hash: controlledPromptPack?.hash ?? null,
       calls,
       max_calls: maxCalls,
       estimated_cost_usd: estimatedCostUsd,
@@ -112,14 +128,25 @@ runBinary("validate-records", [path.join(resultsDir, "records.jsonl")]);
 console.log(JSON.stringify({ status: providerError ? "provider-error" : "complete", calls, accepted: acceptedSurfaces.length }));
 
 async function runProtocol(passage, protocol) {
-  const systemPrompt = protocol === "openui" ? buildOpenUiPrompt() : buildA2UiPrompt();
+  const scenario = evaluationMode === "controlled" ? controlledScenarios[passage - 1] : null;
+  if (evaluationMode === "controlled" && !scenario) {
+    return { providerError: `missing controlled scenario for passage ${passage}` };
+  }
+  const systemPrompt = controlledPromptPack
+    ? controlledPromptPack.protocols[protocol].instructions
+    : protocol === "openui"
+      ? buildOpenUiPrompt()
+      : buildA2UiPrompt();
+  const scenarioPrompt = controlledPromptPack
+    ? controlledPromptPack.scenarios[passage - 1].shared_prompt
+    : sharedIntent;
   let repairContext = null;
   for (let attempt = 1; attempt <= 2; attempt += 1) {
     const userPrompt =
       attempt === 1
-        ? sharedIntent
+        ? scenarioPrompt
         : [
-            sharedIntent,
+            scenarioPrompt,
             "REPAIR THE PREVIOUS INVALID PAYLOAD.",
             "Previous payload:",
             repairContext.output,
@@ -245,7 +272,7 @@ async function runProtocol(passage, protocol) {
         firstRenderMs = performance.now() - renderStarted;
         surface = JSON.parse(await readFile(surfacePath, "utf8"));
         fingerprint = render.fingerprint;
-        coverage = coverageFor(surface, render);
+        coverage = coverageFor(surface, render, scenario);
         runtimeProbe = JSON.parse(runBinary("runtime-probe", [surfacePath]));
       } catch (error) {
         validation = {
@@ -265,6 +292,9 @@ async function runProtocol(passage, protocol) {
       protocol,
       provider,
       passage,
+      scenario_id: scenario?.id ?? `eval0-${passage}`,
+      scenario_family: scenario?.family ?? "eval0",
+      scenario_variant: scenario?.variant ?? passage,
       attempt,
       accepted: Boolean(validation.ok && coverage?.passed && runtimeProbePassed(runtimeProbe)),
       repaired: attempt === 2,
@@ -391,18 +421,33 @@ function runBinary(name, args) {
   return result.stdout.trim();
 }
 
-function coverageFor(surface, render) {
+function coverageFor(surface, render, scenario) {
   const kinds = [...new Set(Object.values(surface.nodes).map((node) => node.kind))].sort();
   const expected = ["Alert", "Button", "Card", "Input", "Select", "Stack", "Table", "Text"];
   const table = Object.values(surface.nodes).find((node) => node.kind === "Table");
   const expenseIds = (table?.rows ?? []).map((row) => row.expense_id).sort();
+  const expectedRows = scenario?.expected?.rows ?? null;
+  const rowsMatch = expectedRows
+    ? expectedRows.length === (table?.rows ?? []).length &&
+      expectedRows.every((expected, index) =>
+        ["expense_id", "merchant", "amount", "status"].every(
+          (key) => table.rows[index]?.[key] === expected[key],
+        ),
+      )
+    : JSON.stringify(expenseIds) === JSON.stringify(["exp-001", "exp-002"]);
   const passed =
     JSON.stringify(kinds) === JSON.stringify(expected) &&
-    JSON.stringify(expenseIds) === JSON.stringify(["exp-001", "exp-002"]) &&
+    rowsMatch &&
     surface.fields.review_note === "" &&
     surface.fields.status_filter === "pending" &&
     render.has_all_components === true;
-  return { passed, kinds, expense_ids: expenseIds, node_count: Object.keys(surface.nodes).length };
+  return {
+    passed,
+    kinds,
+    expense_ids: expenseIds,
+    expected_rows_match: rowsMatch,
+    node_count: Object.keys(surface.nodes).length,
+  };
 }
 
 function runtimeProbePassed(probe) {

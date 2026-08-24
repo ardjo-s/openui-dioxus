@@ -3,6 +3,7 @@ set -euo pipefail
 
 ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 RESULTS=${EVAL_RESULTS_DIR:-$ROOT/results-local}
+EVALUATION_MODE=${EVAL_MODE:-eval0}
 SOURCE_CODEX_HOME=${EVAL_SOURCE_CODEX_HOME:-${CODEX_HOME:-$HOME/.codex}}
 CODEX_BIN=${EVAL_CODEX_BIN:-$(command -v codex)}
 DIOXUS_CLI_ROOT=${EVAL_DIOXUS_CLI_ROOT:-$ROOT/target/dioxus-cli-0.7.10}
@@ -37,6 +38,7 @@ cargo build --release --manifest-path "$ROOT/Cargo.toml" --features ssr --bins
 
 env -u OPENAI_API_KEY \
   EVAL_PROVIDER=codex \
+  EVAL_MODE="$EVALUATION_MODE" \
   EVAL_CODEX_BIN="$CODEX_BIN" \
   EVAL_CODEX_HOME="$TASK_CODEX_HOME" \
   EVAL_CODEX_WORKDIR="$TASK_CODEX_WORKDIR" \
@@ -69,13 +71,17 @@ EVAL_RESULTS_DIR="$RESULTS" "$ROOT/scripts/measure-code.sh"
 node "$ROOT/oracles/src/summarize.mjs" "$RESULTS"
 
 MOBILE_PATH="$RESULTS/mobile/mobile.json"
-if [ "$(jq -r '.openui_wins' "$RESULTS/summary.json")" = "true" ]; then
+if [ "$EVALUATION_MODE" = "eval0" ] && [ "$(jq -r '.openui_wins' "$RESULTS/summary.json")" = "true" ]; then
   mkdir -p "$RESULTS/mobile"
   PATH="$DIOXUS_CLI_ROOT/bin:$PATH" EVAL_RESULTS_DIR="$RESULTS/mobile" \
     "$ROOT/scripts/run-ios.sh"
 fi
-node "$ROOT/oracles/src/finalize.mjs" "$RESULTS/summary.json" "$MOBILE_PATH" \
-  "$RESULTS/summary-final.json"
+if [ "$EVALUATION_MODE" = "eval0" ]; then
+  node "$ROOT/oracles/src/finalize.mjs" "$RESULTS/summary.json" "$MOBILE_PATH" \
+    "$RESULTS/summary-final.json"
+else
+  cp "$RESULTS/summary.json" "$RESULTS/summary-final.json"
+fi
 
 jq -n \
   --arg codex "$($CODEX_BIN --version)" \
@@ -90,5 +96,5 @@ jq -n \
   find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 shasum -a 256 > SHA256SUMS
 )
 
-jq '{outcome,mobile_status,pairs_complete,calls,estimated_cost_usd,first_pass_validity,post_repair_validity,protocol_metrics,median_raw_token_advantage,criteria}' \
+jq '{outcome,winner,mobile_status,pairs_complete,calls,estimated_cost_usd,first_pass_validity,post_repair_validity,protocol_metrics,median_raw_token_advantage,criteria,common_criteria,candidate_criteria}' \
   "$RESULTS/summary-final.json"

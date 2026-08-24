@@ -42,7 +42,31 @@ Codex CLI usage, latency, normalization, runtime, Desktop, Web, and conditional
 iOS checks. It cannot report API billing cost: `estimated_cost_usd` is `null`,
 and every artifact labels the billing mode as `chatgpt-plan`.
 
-## Fixed evaluation contract
+## Eval 0: historical promptability experiment
+
+The archived 2026-08-24 run repeated one intent and did not teach A2UI's current
+message envelope. Its result measures out-of-the-box promptability under those
+prompts. It is not evidence that OpenUI is generally superior to A2UI. Its
+evidence directory is immutable.
+
+## OPE-1: controlled protocol evaluation
+
+The controlled runner uses five scenario families with four deterministic
+variants each. Shared intent, MCP data, catalog semantics, state, and action are
+protocol-neutral. OpenUI receives its official generated instructions; A2UI
+receives the exact pinned v0.9.1 envelope plus one validator-accepted syntax
+example. Prompts, fixtures, locks, source pins, and scoring rules are hashed
+before generation.
+
+```bash
+prototype/openui-a2ui-cloud-eval/scripts/run-controlled-eval.sh
+```
+
+The symmetric result is `CONTROLLED_OPENUI_WIN`, `CONTROLLED_A2UI_WIN`,
+`CONTROLLED_TIE`, or `INVALID_EVAL`. Mobile and the direct typed-JSON product
+baseline are outside OPE-1; the latter remains OPE-2.
+
+## Eval 0 contract
 
 - 20 paired passages, alternating protocol order.
 - `gpt-5.6-luna`, low reasoning, no storage. The API route has an 8,192-token
@@ -66,7 +90,7 @@ The automatic result is one of `OPENUI_WIN_MOBILE_PASS`,
 `OPENUI_WIN_MOBILE_FAIL`, `PIVOT_OR_STOP`, or `INVALID_EVAL`. A protocol win is
 not a Mobile support claim when the simulator gate fails.
 
-## Completed local run
+## Completed Eval 0 local run
 
 The 2026-08-24 ChatGPT-plan run is archived under
 [`evidence/local-run-2026-08-24`](evidence/local-run-2026-08-24). Start with

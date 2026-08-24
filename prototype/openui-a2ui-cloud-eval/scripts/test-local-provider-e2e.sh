@@ -13,21 +13,25 @@ trap cleanup EXIT
 
 cargo build --release --manifest-path "$ROOT/Cargo.toml" --features ssr --bins
 EVAL_PROVIDER=codex \
+  EVAL_MODE=controlled \
   EVAL_CODEX_BIN="$ROOT/oracles/test/fixtures/fake-eval-codex.mjs" \
   EVAL_CODEX_HOME="$SMOKE_RESULTS" \
   EVAL_CODEX_WORKDIR="$SMOKE_RESULTS" \
   EVAL_RESULTS_DIR="$SMOKE_RESULTS/results" \
   EVAL_BIN_DIR="$ROOT/target/release" \
-  EVAL_PAIRS=1 \
+  EVAL_PAIRS=2 \
   node "$ROOT/oracles/src/run-eval.mjs"
 
-test "$(jq 'length' "$SMOKE_RESULTS/results/surfaces.json")" -eq 2
-test "$(wc -l < "$SMOKE_RESULTS/results/records.jsonl" | tr -d ' ')" -eq 2
-jq -e '.provider == "codex" and .billing_mode == "chatgpt-plan" and .estimated_cost_usd == null' \
+test "$(jq 'length' "$SMOKE_RESULTS/results/surfaces.json")" -eq 4
+test "$(wc -l < "$SMOKE_RESULTS/results/records.jsonl" | tr -d ' ')" -eq 4
+jq -e '.provider == "codex" and .evaluation_mode == "controlled" and .preregistration_verified == true and .billing_mode == "chatgpt-plan" and .estimated_cost_usd == null' \
   "$SMOKE_RESULTS/results/generation.json" >/dev/null
+jq -e '.[2].nodes | to_entries | map(select(.value.kind == "Table"))[0].value.rows[0].merchant == "Contoso Rail"' \
+  "$SMOKE_RESULTS/results/surfaces.json" >/dev/null
 
 FAKE_CODEX_OUTPUT_BYTES=5 \
   EVAL_PROVIDER=codex \
+  EVAL_MODE=controlled \
   EVAL_CODEX_BIN="$ROOT/oracles/test/fixtures/fake-eval-codex.mjs" \
   EVAL_CODEX_HOME="$SMOKE_RESULTS" \
   EVAL_CODEX_WORKDIR="$SMOKE_RESULTS" \

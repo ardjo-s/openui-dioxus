@@ -3,6 +3,7 @@ import {
   Catalog,
   MessageProcessor,
 } from "@a2ui/web_core/v0_9";
+import { readFileSync } from "node:fs";
 import { z } from "zod3";
 
 const components = [
@@ -59,6 +60,10 @@ export const a2uiCatalog = new Catalog(
   components,
 );
 
+const minimalEnvelope = JSON.parse(
+  readFileSync(new URL("../../fixtures/minimal-envelope.a2ui.json", import.meta.url), "utf8"),
+);
+
 export function buildA2UiPrompt() {
   const processor = new MessageProcessor([a2uiCatalog], undefined, { version: "v0.9.1" });
   const capabilities = processor.getClientCapabilities({
@@ -67,6 +72,12 @@ export function buildA2UiPrompt() {
   });
   return [
     "Return only one A2UI v0.9.1 JSON object with a messages array.",
+    "The messages array must contain, in order:",
+    "1. A version v0.9.1 createSurface message with surfaceId, catalogId, and sendDataModel true.",
+    "2. A version v0.9.1 updateComponents message with the same surfaceId and one components array.",
+    "3. A version v0.9.1 updateDataModel message with the same surfaceId, path /, and the state object in value.",
+    "Put id, component, and component props directly on each component object.",
+    "Put version on every message and nowhere at the top level.",
     "Create exactly one surface with catalogId openui-dioxus-expense-review@0.0.0.",
     "Use every catalog component exactly once and stable ids for all components.",
     "Use only review_note and status_filter as state keys.",
@@ -75,6 +86,8 @@ export function buildA2UiPrompt() {
     "The Card and Stack child values are component ids. Produce one unreferenced root.",
     "Client capabilities and inline catalog:",
     JSON.stringify(capabilities),
+    "Minimal envelope example (syntax only; do not copy its content):",
+    JSON.stringify(minimalEnvelope),
   ].join("\n");
 }
 
