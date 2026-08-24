@@ -343,3 +343,33 @@ A new execution that may reconnect tools or external data, distinct from determi
 ## Adopter
 
 A Rust/Dioxus product team combining three roles: Dioxus integrator, agent or MCP tool builder, and design-system maintainer.
+
+## Runtime-uncertain workflow
+
+A workflow whose interface structure, data shape, allowed actions, or revisions cannot be fully fixed when the application is compiled and must arrive as validated non-executable data at runtime.
+
+_Avoid_: Any workflow that merely contains dynamic values
+
+## Compile-known workflow
+
+A workflow whose interface structure, actions, and design-system bindings are known when the application is compiled, even if its ordinary data values change later.
+
+_Avoid_: Static screenshot, runtime-generated Surface
+
+## Primary product baseline
+
+The strict typed-JSON Dioxus representation derived from the same catalog source and normalized through the same canonical runtime boundary as OpenUI. It is the simplest credible control for product-value claims.
+
+_Avoid_: A2UI, direct RSX, React/TypeScript ecosystem baseline
+
+## Canary evaluation
+
+A small, fast, non-decision run that proves evaluation infrastructure and detects drift before the complete evaluation. It can block a full run but can never emit a product verdict.
+
+_Avoid_: Reduced decision-grade sample
+
+## Decision-grade evaluation
+
+A preregistered complete run whose frozen cohorts, sources, prompts, reviewers, platform evidence, maintenance drills, costs, and checksums satisfy every validity gate required for a product verdict.
+
+_Avoid_: Canary, fake-provider preflight, protocol-only benchmark

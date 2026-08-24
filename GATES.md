@@ -1,5 +1,16 @@
 # Acceptance gates
 
+## OPE-9 ecosystem-relative product-value evaluation design
+
+- [ ] Current primary-source research is recorded with facts, inferences, unknowns, and source/version pins; no new model benchmark is run.
+- [ ] The evaluation keeps protocol promptability, constrained-runtime value, design-system onboarding/maintenance, and cross-platform leverage as four separate questions.
+- [ ] Typed JSON Dioxus is the primary product baseline; A2UI remains protocol context; direct Dioxus/RSX and React/TypeScript are evaluated only in their strongest fair scopes.
+- [ ] A fast non-decision canary and a complete decision-grade cadence define validity, repair, human correction, blind UI quality, accessibility, platform, change-drill, replay/migration, LOC/files, wall-time, and total-cost measurements with explicit thresholds.
+- [ ] Repository decisions and an implementation-ready specification state whether React/TypeScript belongs in OPE-7 or a separate ticket without changing OPE-7 while OPE-6 blocks it.
+- [ ] Only necessary implementation tickets are created in Linear, with vertical outcomes, acceptance criteria, parentage, and explicit blocking edges; OPE-9 stays synchronized at every transition.
+- [ ] Documentary review passes internal-link, terminology, scope, whitespace, and acceptance-coverage checks.
+- [ ] Owned changes are committed and pushed on `codex/ope-9-ecosystem-value-eval`; a Draft PR targets `codex/ope-6-platform-accessibility`; nothing is merged.
+
 ## Open-source decision trail
 
 - [x] The canonical Wayfinder map and all 12 decision records live under `docs/decisions/`; no tracked documentation depends on hidden scratch paths.
