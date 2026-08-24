@@ -81,6 +81,7 @@ This is a contract target, not yet a released compatibility claim. The current p
 | [Prototype](prototype/openui-dioxus-preview/README.md) | The runnable eight-component proof, its checks, and its explicit limitations. |
 | [Three-arm protocol evaluation](prototype/openui-a2ui-cloud-eval/README.md) | The controlled OpenUI, A2UI, and strict typed-JSON comparison and its archived evidence. |
 | [Dioxus Components catalog evaluation](prototype/dioxus-components-catalog-eval/README.md) | The frozen 12-component manifest, generated artifacts, static adapter, fixtures, and evidence. |
+| [Product-evaluation harness](prototype/openui-typed-json-product-eval/README.md) | The preregistered 20-pair OpenUI-versus-typed-JSON harness, fake preflight, final scorer, and explicit evidence boundary. |
 
 The five visual explainers are also available directly:
 
@@ -95,6 +96,12 @@ The five visual explainers are also available directly:
 The controlled three-arm run found OpenUI more efficient and reliable than A2UI, while strict typed JSON remained statistically tied with OpenUI. This is a protocol-generation result, not a product GO.
 
 The frozen catalog proof now derives an official OpenUI-compatible LibrarySpec, strict JSON Schema, prompt, documentation, static Rust registry, and release identity from one reviewed 12-component Dioxus Components manifest. Five workflows preserve canonical fingerprints, and a thin second catalog swaps without runtime changes.
+
+The product-evaluation harness now freezes five workflow families with four
+variants, charges all guidance tokens, alternates paired order, allows one
+repair, and sends both validated representations through the same Rust catalog
+normalizer. Its committed 20-pair fake-provider run is only a pipeline preflight;
+it is not product evidence.
 
 The remaining evaluation must compare generated interface quality, correction and maintenance cost, accessibility, and real web, desktop, and mobile behavior before the project claims product value or begins a production runtime.
 

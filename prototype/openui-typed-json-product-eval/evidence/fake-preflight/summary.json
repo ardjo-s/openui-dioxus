@@ -1,0 +1,70 @@
+{
+  "evidence_status": "FAKE_PREFLIGHT_NON_DECISION_GRADE",
+  "pairs_complete": 20,
+  "calls": 44,
+  "first_pass_validity": {
+    "openui": 18,
+    "typed-json": 18
+  },
+  "post_repair_validity": {
+    "openui": 20,
+    "typed-json": 20
+  },
+  "cumulative_raw_tokens": {
+    "openui": 39744,
+    "typed-json": 47401
+  },
+  "median_full_response_ms": {
+    "openui": 21.291082999999958,
+    "typed-json": 23.843166499999995
+  },
+  "cumulative_response_bytes": {
+    "openui": 6111,
+    "typed-json": 12784
+  },
+  "mechanical_repair_count": {
+    "openui": 2,
+    "typed-json": 2
+  },
+  "human_correction_count": {
+    "openui": 0,
+    "typed-json": 0
+  },
+  "human_correction_ms": {
+    "openui": 0,
+    "typed-json": 0
+  },
+  "semantic_coverage_passages": {
+    "openui": 20,
+    "typed-json": 20
+  },
+  "diagnostic_classes": {
+    "openui": {
+      "unknown-component": 2,
+      "missing-root": 2
+    },
+    "typed-json": {
+      "additionalProperties": 2
+    }
+  },
+  "identical_pair_fingerprints": true,
+  "provider": "deterministic-fake-provider",
+  "real_provider": false,
+  "model_configuration": {
+    "model": "gpt-5.6-luna",
+    "reasoning_effort": "low",
+    "provider": "codex-chatgpt-plan-local",
+    "fresh_ephemeral_process_per_attempt": true,
+    "tools_disabled": true,
+    "output_executed": false,
+    "maximum_response_bytes": 262144,
+    "maximum_calls": 80,
+    "maximum_repairs_per_arm": 1
+  },
+  "preregistration_hash": "eeb6e6f857c2ecc5531edac8fb50ff405989ce16bdac717aba1beed5f0b6b0a6",
+  "adapter_loc": {
+    "openui": 28,
+    "typed-json": 3
+  },
+  "shared_runtime_behavior_diff_lines": 0
+}

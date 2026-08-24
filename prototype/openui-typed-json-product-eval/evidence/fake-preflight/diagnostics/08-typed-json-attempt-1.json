@@ -1,0 +1,10 @@
+{
+  "ok": false,
+  "diagnostics": [
+    {
+      "code": "additionalProperties",
+      "path": "",
+      "message": "must NOT have additional properties"
+    }
+  ]
+}
