@@ -41,7 +41,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libwebkit2gtk-4.1-dev libxdo-dev libayatana-appindicator3-dev librsvg2-dev patchelf xvfb imagemagick jq
       - name: Install Dioxus CLI
-        run: cargo install dioxus-cli --version 0.7.10 --locked
+        run: prototype/openui-typed-json-product-eval/platform/install-dioxus-cli.sh
       - name: Install Node dependencies and Chromium
         run: |
           npm ci --prefix prototype/dioxus-components-catalog-eval/generator --ignore-scripts
@@ -57,7 +57,6 @@ jobs:
         continue-on-error: true
         env:
           OPE6_EVIDENCE_DIR: ${{ github.workspace }}/prototype/openui-typed-json-product-eval/platform/evidence/web-desktop
-          DIOXUS_CLI_BIN: /home/runner/.cargo/bin/dx
         run: prototype/openui-typed-json-product-eval/platform/run-web.sh
       - name: Run Dioxus Desktop evaluation
         id: desktop
@@ -82,12 +81,11 @@ jobs:
       - name: Select Xcode
         run: sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
       - name: Install Dioxus CLI
-        run: cargo install dioxus-cli --version 0.7.10 --locked
+        run: prototype/openui-typed-json-product-eval/platform/install-dioxus-cli.sh
       - name: Run iOS Simulator evaluation
         continue-on-error: true
         env:
           OPE6_EVIDENCE_DIR: ${{ github.workspace }}/prototype/openui-typed-json-product-eval/platform/evidence/ios
-          DIOXUS_CLI_BIN: /Users/runner/.cargo/bin/dx
         run: prototype/openui-typed-json-product-eval/platform/run-ios.sh
       - name: Upload iOS evidence
         if: always()
@@ -104,7 +102,7 @@ jobs:
       - uses: actions/checkout@v7.0.1
       - uses: dtolnay/rust-toolchain@stable
       - name: Install Dioxus CLI
-        run: cargo install dioxus-cli --version 0.7.10 --locked
+        run: prototype/openui-typed-json-product-eval/platform/install-dioxus-cli.sh
       - name: Configure Android NDK
         run: |
           ndk_home=$(find "$ANDROID_HOME/ndk" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -1)
@@ -122,7 +120,6 @@ jobs:
           script: prototype/openui-typed-json-product-eval/platform/run-android.sh
         env:
           OPE6_EVIDENCE_DIR: ${{ github.workspace }}/prototype/openui-typed-json-product-eval/platform/evidence/android
-          DIOXUS_CLI_BIN: /home/runner/.cargo/bin/dx
       - name: Upload Android evidence
         if: always()
         uses: actions/upload-artifact@v7.0.1

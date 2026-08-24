@@ -35,8 +35,32 @@ if [ -z "$package" ] && [ -n "${ANDROID_HOME:-}" ]; then
 fi
 if [ -z "$package" ]; then error="Android package id unavailable"; exit 1; fi
 
-adb install -r "$apk" > "$evidence/traces/android-install.log"
-adb logcat -c
+package_manager_ready=false
+for _ in $(seq 1 60); do
+  if adb shell cmd package list packages >/dev/null 2>&1; then package_manager_ready=true; break; fi
+  sleep 2
+done
+if [ "$package_manager_ready" != true ]; then status=INVALID_EVAL; error="Android package manager unavailable"; exit 1; fi
+
+install_log="$evidence/traces/android-install.log"
+: > "$install_log"
+installed=false
+for attempt in 1 2 3; do
+  if adb install -r "$apk" >> "$install_log" 2>&1; then installed=true; break; fi
+  printf 'install attempt %s failed\n' "$attempt" >> "$install_log"
+  adb wait-for-device || true
+  sleep 5
+done
+if [ "$installed" != true ]; then
+  if grep -Eq 'Broken pipe|device offline|no devices|service package' "$install_log"; then
+    status=INVALID_EVAL
+    error="Android package-manager transport failed"
+  else
+    error="Android APK installation failed"
+  fi
+  exit 1
+fi
+if ! adb logcat -c; then status=INVALID_EVAL; error="Android logcat unavailable"; exit 1; fi
 adb shell monkey -p "$package" -c android.intent.category.LAUNCHER 1 > "$evidence/traces/android-launch.log"
 marker="PLATFORM_SELF_TEST_PASS surfaces=40 families=5"
 for _ in $(seq 1 90); do
