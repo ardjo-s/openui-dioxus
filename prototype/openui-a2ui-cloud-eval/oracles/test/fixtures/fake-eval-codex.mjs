@@ -5,7 +5,11 @@ import { fileURLToPath } from "node:url";
 const args = process.argv.slice(2);
 const outputPath = args[args.indexOf("-o") + 1];
 const prompt = readFileSync(0, "utf8");
-const fixture = prompt.includes("OpenUI Lang") ? "reference.openui" : "reference.a2ui.json";
+const fixture = prompt.includes("OpenUI Lang")
+  ? "reference.openui"
+  : prompt.includes("strict typed-JSON")
+    ? "reference.typed-json.json"
+    : "reference.a2ui.json";
 const fixturePath = fileURLToPath(new URL(`../../../fixtures/${fixture}`, import.meta.url));
 const scenarioManifestPath = fileURLToPath(
   new URL("../../../fixtures/controlled-scenarios.json", import.meta.url),
@@ -37,11 +41,13 @@ function findScenarioRows(id) {
 }
 
 function controlledFixture(name, fixtureFile, rows) {
-  if (name === "reference.a2ui.json") {
+  if (name.endsWith(".json")) {
     const value = JSON.parse(readFileSync(fixtureFile, "utf8"));
-    const table = value.messages[1].updateComponents.components.find(
-      (component) => component.component === "Table",
-    );
+    const table = name === "reference.a2ui.json"
+      ? value.messages[1].updateComponents.components.find(
+          (component) => component.component === "Table",
+        )
+      : value.nodes.find((component) => component.kind === "Table");
     table.rows = rows;
     return JSON.stringify(value);
   }

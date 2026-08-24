@@ -12,6 +12,8 @@ pub const MAX_NODES: usize = 64;
 pub enum Protocol {
     OpenUi,
     A2ui,
+    #[serde(rename = "typed-json")]
+    TypedJson,
 }
 
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]

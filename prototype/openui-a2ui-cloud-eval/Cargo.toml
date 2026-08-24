@@ -17,6 +17,10 @@ name = "normalize-a2ui"
 path = "src/bin/normalize-a2ui.rs"
 
 [[bin]]
+name = "normalize-typed-json"
+path = "src/bin/normalize-typed-json.rs"
+
+[[bin]]
 name = "eval-app"
 path = "src/bin/eval-app.rs"
 required-features = ["ui"]

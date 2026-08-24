@@ -105,3 +105,49 @@ prototype/openui-a2ui-cloud-eval/scripts/test-local-provider-e2e.sh
   on the OPE-1 branch without credentials.
 - [x] OPE-1 remains distinct from the typed-JSON product baseline in OPE-2; the
   controlled result updates decision evidence but does not resolve product go/no-go.
+
+## OPE-3 three-arm controlled-evaluation gates
+
+- [x] The archived OPE-1 report and checksum manifest remain byte-for-byte valid;
+  OPE-3 writes only to a new immutable evidence directory.
+- [x] The strict typed-JSON schema is derived from the same closed eight-component
+  catalog semantics, forbids extra properties, and rejects unknown components,
+  props, actions, state keys, duplicate identifiers, broken references, wrong
+  roots, oversized sources, and node overflow before normalization.
+- [x] OpenUI, A2UI, and typed-JSON reference fixtures pass their pinned validators,
+  normalize through the same `ProtocolAdapter -> Surface` seam, expose the same
+  eight component kinds, and produce one semantic fingerprint.
+- [x] The shared prompt bytes are identical across all arms; complete syntax
+  instructions and minimal examples are isolated, pinned, validated, and counted.
+- [x] A frozen 20-scenario schedule contains every arm exactly once per scenario,
+  balances every pairwise relative order 10/10, and limits execution to 60 first
+  attempts plus at most one repair per failed arm (120 calls maximum).
+- [x] Preregistration hashes scenarios, prompts, schemas, examples, source pins,
+  dependency locks, model configuration, schedule, validators, and scorer before
+  generation; any drift invalidates the run.
+- [x] One parameterized symmetric scorer emits independent `openui_vs_a2ui` and
+  `openui_vs_typed_json` outcomes, retains failed-attempt cost, and has fixtures
+  for both directional wins, tie, and invalid evidence.
+- [x] A fake-provider 20x3 run proves attempt topology, process isolation, repair,
+  artifacts, validation, normalization, runtime probes, metrics, and checksums
+  before any Luna call.
+- [ ] One frozen real `gpt-5.6-luna` low run regenerates all three arms together;
+  no prompt, validator, schedule, threshold, or scorer changes occur afterward.
+- [ ] Every accepted Surface passes shared state, typed action, update, replay,
+  Desktop, and Chromium Web checks without canonical-runtime behavior changes.
+- [ ] The final archive contains raw payloads, diagnostics, records, Surfaces,
+  traces, screenshots, metrics, reviews, report, and verified SHA-256 checksums,
+  with no credentials.
+- [ ] The report includes one three-arm table, both primary pairwise verdicts,
+  secondary A2UI-vs-JSON context, paired uncertainty intervals, OPE-1 replication
+  comparison, and the explicit eight-component/OPE-2 scope boundary.
+
+## OPE-3 runnable evidence
+
+```bash
+npm test --prefix prototype/openui-a2ui-cloud-eval/oracles
+cargo test --manifest-path prototype/openui-a2ui-cloud-eval/Cargo.toml
+cargo clippy --manifest-path prototype/openui-a2ui-cloud-eval/Cargo.toml --all-targets -- -D warnings
+prototype/openui-a2ui-cloud-eval/scripts/test-local-provider-e2e.sh
+prototype/openui-a2ui-cloud-eval/scripts/run-three-arm-controlled-eval.sh --fake
+```

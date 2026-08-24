@@ -21,3 +21,9 @@ test("official OpenUI parser reports an unknown component", () => {
   assert.equal(result.ok, false);
   assert.match(JSON.stringify(result.diagnostics), /unknown-component|root/i);
 });
+
+test("official OpenUI parser rejects excess component properties", () => {
+  const result = validateOpenUi('root = Text("root", "hello", "extra")');
+  assert.equal(result.ok, false);
+  assert.match(JSON.stringify(result.diagnostics), /excess-args/);
+});

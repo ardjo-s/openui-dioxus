@@ -38,6 +38,7 @@ pub struct EvalLatency {
 #[derive(Clone, Debug, Deserialize, PartialEq, Serialize)]
 pub struct EvalRecord {
     pub protocol: Protocol,
+    pub order_position: usize,
     pub provider: EvalProvider,
     pub passage: u32,
     pub attempt: u8,

@@ -10,10 +10,15 @@ import OpenAI from "openai";
 import { get_encoding } from "tiktoken";
 
 import { buildA2UiPrompt, validateA2Ui } from "./a2ui.mjs";
+import { buildCodexPrompt, buildRepairPrompt } from "./attempt-prompt.mjs";
 import { generateWithCodex } from "./codex-provider.mjs";
+import { coverageFor } from "./controlled-coverage.mjs";
 import { buildControlledPromptPack } from "./controlled-prompt-pack.mjs";
 import { controlledScenarios } from "./controlled-scenarios.mjs";
 import { buildOpenUiPrompt, validateOpenUi } from "./openui.mjs";
+import { buildThreeArmPromptPack } from "./three-arm-prompt-pack.mjs";
+import { threeArmOrder } from "./three-arm-schedule.mjs";
+import { buildTypedJsonPrompt, validateTypedJson } from "./typed-json.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "../..");
@@ -22,20 +27,26 @@ const binDir = path.resolve(process.env.EVAL_BIN_DIR ?? path.join(root, "target/
 const pairsRequested = Number(process.env.EVAL_PAIRS ?? 20);
 const provider = process.env.EVAL_PROVIDER ?? "api";
 const evaluationMode = process.env.EVAL_MODE ?? "eval0";
-if (!["eval0", "controlled"].includes(evaluationMode)) {
+if (!["eval0", "controlled", "controlled-three-arm"].includes(evaluationMode)) {
   throw new Error(`unknown EVAL_MODE: ${evaluationMode}`);
 }
+const isControlled = evaluationMode !== "eval0";
+const isThreeArm = evaluationMode === "controlled-three-arm";
 if (!["api", "codex"].includes(provider)) throw new Error(`unknown EVAL_PROVIDER: ${provider}`);
 const model = "gpt-5.6-luna";
 const maxOutputTokens = provider === "api" ? 8192 : null;
-const maxCalls = 80;
+const maxCalls = isThreeArm ? 120 : 80;
 const budgetUsd = provider === "api" ? 2 : null;
 const maxResponseBytes = Number(process.env.EVAL_MAX_RESPONSE_BYTES ?? 256 * 1024);
 if (!Number.isInteger(maxResponseBytes) || maxResponseBytes < 1) {
   throw new Error(`invalid EVAL_MAX_RESPONSE_BYTES: ${process.env.EVAL_MAX_RESPONSE_BYTES}`);
 }
 const sharedIntent = await readFile(path.join(root, "fixtures/shared-intent.txt"), "utf8");
-const controlledPromptPack = evaluationMode === "controlled" ? buildControlledPromptPack() : null;
+const controlledPromptPack = isThreeArm
+  ? buildThreeArmPromptPack()
+  : evaluationMode === "controlled"
+    ? buildControlledPromptPack()
+    : null;
 const encoding = get_encoding("o200k_base");
 const client = provider === "api" ? new OpenAI({ apiKey: process.env.OPENAI_API_KEY }) : null;
 const codexHome = process.env.EVAL_CODEX_HOME;
@@ -63,9 +74,13 @@ if (controlledPromptPack) {
 }
 
 for (let passage = 1; passage <= pairsRequested && !providerError; passage += 1) {
-  const order = passage % 2 === 1 ? ["openui", "a2ui"] : ["a2ui", "openui"];
-  for (const protocol of order) {
-    const final = await runProtocol(passage, protocol);
+  const order = isThreeArm
+    ? threeArmOrder(passage)
+    : passage % 2 === 1
+      ? ["openui", "a2ui"]
+      : ["a2ui", "openui"];
+  for (const [orderPosition, protocol] of order.entries()) {
+    const final = await runProtocol(passage, protocol, orderPosition);
     if (final?.surface) acceptedSurfaces.push(final.surface);
     if (final?.providerError) {
       providerError = final.providerError;
@@ -93,6 +108,7 @@ await writeFile(
       max_response_bytes: maxResponseBytes,
       pairs_requested: pairsRequested,
       evaluation_mode: evaluationMode,
+      fake_provider: process.env.EVAL_FAKE_PROVIDER === "true",
       preregistration_verified: controlledPromptPack !== null,
       prompt_pack_hash: controlledPromptPack?.hash ?? null,
       calls,
@@ -116,6 +132,7 @@ await writeFile(
       source_pins: {
         openui: "c3c0d1b7cf1d58e01846e86b7e9706f54afb2511/@openuidev/lang-core@0.2.15",
         a2ui: "f5baf760d23a5b21ba05a97f7d16d6db73fb8af6/v0.9.1/@a2ui/web_core@0.10.6",
+        typed_json: isThreeArm ? controlledPromptPack.source_pins.typed_json : null,
         dioxus: "57d6794ad60b949e5bd8aa282f6f8c3dc97a365e/0.7.10",
       },
     },
@@ -127,16 +144,18 @@ await writeFile(
 runBinary("validate-records", [path.join(resultsDir, "records.jsonl")]);
 console.log(JSON.stringify({ status: providerError ? "provider-error" : "complete", calls, accepted: acceptedSurfaces.length }));
 
-async function runProtocol(passage, protocol) {
-  const scenario = evaluationMode === "controlled" ? controlledScenarios[passage - 1] : null;
-  if (evaluationMode === "controlled" && !scenario) {
+async function runProtocol(passage, protocol, orderPosition) {
+  const scenario = isControlled ? controlledScenarios[passage - 1] : null;
+  if (isControlled && !scenario) {
     return { providerError: `missing controlled scenario for passage ${passage}` };
   }
   const systemPrompt = controlledPromptPack
     ? controlledPromptPack.protocols[protocol].instructions
     : protocol === "openui"
       ? buildOpenUiPrompt()
-      : buildA2UiPrompt();
+      : protocol === "a2ui"
+        ? buildA2UiPrompt()
+        : buildTypedJsonPrompt();
   const scenarioPrompt = controlledPromptPack
     ? controlledPromptPack.scenarios[passage - 1].shared_prompt
     : sharedIntent;
@@ -145,15 +164,7 @@ async function runProtocol(passage, protocol) {
     const userPrompt =
       attempt === 1
         ? scenarioPrompt
-        : [
-            scenarioPrompt,
-            "REPAIR THE PREVIOUS INVALID PAYLOAD.",
-            "Previous payload:",
-            repairContext.output,
-            "Official diagnostics:",
-            JSON.stringify(repairContext.diagnostics),
-            "Return only the corrected protocol payload.",
-          ].join("\n\n");
+        : buildRepairPrompt(scenarioPrompt, repairContext.output, repairContext.diagnostics);
     const providerPrompt =
       provider === "codex" ? buildCodexPrompt(systemPrompt, userPrompt) : null;
     const promptTokens =
@@ -167,7 +178,9 @@ async function runProtocol(passage, protocol) {
       (provider === "api" && estimatedCostUsd + worstNextCost > budgetUsd)
     ) {
       const message = "hard call or cost cap reached before request";
-      records.push(providerFailureRecord(protocol, passage, attempt, promptTokens, message));
+      records.push(
+        providerFailureRecord(protocol, passage, orderPosition, attempt, promptTokens, message),
+      );
       return { providerError: message };
     }
 
@@ -232,7 +245,9 @@ async function runProtocol(passage, protocol) {
         diagnosticsPath,
         JSON.stringify({ ok: false, diagnostics: [{ code: "provider-error", message }] }, null, 2),
       );
-      records.push(providerFailureRecord(protocol, passage, attempt, promptTokens, message));
+      records.push(
+        providerFailureRecord(protocol, passage, orderPosition, attempt, promptTokens, message),
+      );
       return { providerError: message };
     }
     const rawOutputTokens = tokenCount(output);
@@ -248,7 +263,9 @@ async function runProtocol(passage, protocol) {
           }
         : protocol === "openui"
           ? validateOpenUi(output)
-          : validateA2Ui(output);
+          : protocol === "a2ui"
+            ? validateA2Ui(output)
+            : validateTypedJson(output);
     const validationMs = performance.now() - validationStarted;
 
     if (provider === "api") await writeFile(rawPath, output);
@@ -260,9 +277,10 @@ async function runProtocol(passage, protocol) {
     let coverage = null;
     let runtimeProbe = null;
     let surface = null;
+    let surfacePath = null;
     if (validation.ok) {
       try {
-        const surfacePath = path.join(resultsDir, "surfaces", `${String(passage).padStart(2, "0")}-${protocol}.json`);
+        surfacePath = path.join(resultsDir, "surfaces", `${stem}.json`);
         const normalizationStarted = performance.now();
         const oraclePath = diagnosticsPath;
         runBinary(`normalize-${protocol}`, [oraclePath, rawPath, surfacePath]);
@@ -288,8 +306,15 @@ async function runProtocol(passage, protocol) {
       }
     }
 
+    const artifactHashes = {
+      raw_output_sha256: sha256(await readFile(rawPath)),
+      diagnostics_sha256: sha256(await readFile(diagnosticsPath)),
+      surface_sha256: surfacePath && surface ? sha256(await readFile(surfacePath)) : null,
+    };
+
     const record = {
       protocol,
+      order_position: orderPosition,
       provider,
       passage,
       scenario_id: scenario?.id ?? `eval0-${passage}`,
@@ -318,6 +343,13 @@ async function runProtocol(passage, protocol) {
       coverage,
       runtime_probe: runtimeProbe,
       provider_error: null,
+      prompt_hashes: {
+        system_prompt_sha256: sha256(systemPrompt),
+        shared_prompt_sha256: sha256(scenarioPrompt),
+        user_prompt_sha256: sha256(userPrompt),
+        provider_prompt_sha256: providerPrompt ? sha256(providerPrompt) : null,
+      },
+      artifact_hashes: artifactHashes,
     };
     records.push(record);
     console.log(JSON.stringify({ passage, protocol, attempt, accepted: record.accepted }));
@@ -329,9 +361,10 @@ async function runProtocol(passage, protocol) {
   return { record: records.at(-1), surface: null };
 }
 
-function providerFailureRecord(protocol, passage, attempt, promptTokens, message) {
+function providerFailureRecord(protocol, passage, orderPosition, attempt, promptTokens, message) {
   return {
     protocol,
+    order_position: orderPosition,
     provider,
     passage,
     attempt,
@@ -363,18 +396,6 @@ function providerFailureRecord(protocol, passage, attempt, promptTokens, message
     runtime_probe: null,
     provider_error: message,
   };
-}
-
-function buildCodexPrompt(systemPrompt, userPrompt) {
-  return [
-    "Produce only the requested protocol payload. Do not use tools. Do not add Markdown fences or commentary.",
-    "<protocol-instructions>",
-    systemPrompt,
-    "</protocol-instructions>",
-    "<request>",
-    userPrompt,
-    "</request>",
-  ].join("\n\n");
 }
 
 function normalizeUsage(usage, fallbackInput, fallbackOutput) {
@@ -419,35 +440,6 @@ function runBinary(name, args) {
     throw new Error(`${name} failed: ${result.stderr.trim()}`);
   }
   return result.stdout.trim();
-}
-
-function coverageFor(surface, render, scenario) {
-  const kinds = [...new Set(Object.values(surface.nodes).map((node) => node.kind))].sort();
-  const expected = ["Alert", "Button", "Card", "Input", "Select", "Stack", "Table", "Text"];
-  const table = Object.values(surface.nodes).find((node) => node.kind === "Table");
-  const expenseIds = (table?.rows ?? []).map((row) => row.expense_id).sort();
-  const expectedRows = scenario?.expected?.rows ?? null;
-  const rowsMatch = expectedRows
-    ? expectedRows.length === (table?.rows ?? []).length &&
-      expectedRows.every((expected, index) =>
-        ["expense_id", "merchant", "amount", "status"].every(
-          (key) => table.rows[index]?.[key] === expected[key],
-        ),
-      )
-    : JSON.stringify(expenseIds) === JSON.stringify(["exp-001", "exp-002"]);
-  const passed =
-    JSON.stringify(kinds) === JSON.stringify(expected) &&
-    rowsMatch &&
-    surface.fields.review_note === "" &&
-    surface.fields.status_filter === "pending" &&
-    render.has_all_components === true;
-  return {
-    passed,
-    kinds,
-    expense_ids: expenseIds,
-    expected_rows_match: rowsMatch,
-    node_count: Object.keys(surface.nodes).length,
-  };
 }
 
 function runtimeProbePassed(probe) {
