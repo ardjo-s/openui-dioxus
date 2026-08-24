@@ -7,7 +7,7 @@
       "description": "Accessible text label associated with a known control."
     },
     "Toolbar": {
-      "signature": "Toolbar(id: string, orientation: \"horizontal\" | \"vertical\", children: string[])",
+      "signature": "Toolbar(id: string, orientation: \"horizontal\" | \"vertical\", children: Component[])",
       "description": "Ordered action and content container used as the catalog root."
     },
     "Avatar": {
@@ -39,7 +39,7 @@
       "description": "Local navigation between a closed set of panels."
     },
     "Dialog": {
-      "signature": "Dialog(id: string, title: string, open_state_key: string, children: string[])",
+      "signature": "Dialog(id: string, title: string, open_state_key: string, children: Component[])",
       "description": "Modal overlay with runtime-owned open state."
     },
     "Progress": {
@@ -137,8 +137,44 @@
           "children": {
             "type": "array",
             "items": {
-              "type": "string",
-              "format": "component-ref"
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/Label"
+                },
+                {
+                  "$ref": "#/$defs/Toolbar"
+                },
+                {
+                  "$ref": "#/$defs/Avatar"
+                },
+                {
+                  "$ref": "#/$defs/Input"
+                },
+                {
+                  "$ref": "#/$defs/Select"
+                },
+                {
+                  "$ref": "#/$defs/Checkbox"
+                },
+                {
+                  "$ref": "#/$defs/Switch"
+                },
+                {
+                  "$ref": "#/$defs/Button"
+                },
+                {
+                  "$ref": "#/$defs/Tabs"
+                },
+                {
+                  "$ref": "#/$defs/Dialog"
+                },
+                {
+                  "$ref": "#/$defs/Progress"
+                },
+                {
+                  "$ref": "#/$defs/Toast"
+                }
+              ]
             }
           }
         },
@@ -342,8 +378,44 @@
                   "type": "string"
                 },
                 "child": {
-                  "type": "string",
-                  "format": "component-ref"
+                  "oneOf": [
+                    {
+                      "$ref": "#/$defs/Label"
+                    },
+                    {
+                      "$ref": "#/$defs/Toolbar"
+                    },
+                    {
+                      "$ref": "#/$defs/Avatar"
+                    },
+                    {
+                      "$ref": "#/$defs/Input"
+                    },
+                    {
+                      "$ref": "#/$defs/Select"
+                    },
+                    {
+                      "$ref": "#/$defs/Checkbox"
+                    },
+                    {
+                      "$ref": "#/$defs/Switch"
+                    },
+                    {
+                      "$ref": "#/$defs/Button"
+                    },
+                    {
+                      "$ref": "#/$defs/Tabs"
+                    },
+                    {
+                      "$ref": "#/$defs/Dialog"
+                    },
+                    {
+                      "$ref": "#/$defs/Progress"
+                    },
+                    {
+                      "$ref": "#/$defs/Toast"
+                    }
+                  ]
                 }
               }
             }
@@ -373,8 +445,44 @@
           "children": {
             "type": "array",
             "items": {
-              "type": "string",
-              "format": "component-ref"
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/Label"
+                },
+                {
+                  "$ref": "#/$defs/Toolbar"
+                },
+                {
+                  "$ref": "#/$defs/Avatar"
+                },
+                {
+                  "$ref": "#/$defs/Input"
+                },
+                {
+                  "$ref": "#/$defs/Select"
+                },
+                {
+                  "$ref": "#/$defs/Checkbox"
+                },
+                {
+                  "$ref": "#/$defs/Switch"
+                },
+                {
+                  "$ref": "#/$defs/Button"
+                },
+                {
+                  "$ref": "#/$defs/Tabs"
+                },
+                {
+                  "$ref": "#/$defs/Dialog"
+                },
+                {
+                  "$ref": "#/$defs/Progress"
+                },
+                {
+                  "$ref": "#/$defs/Toast"
+                }
+              ]
             }
           }
         },

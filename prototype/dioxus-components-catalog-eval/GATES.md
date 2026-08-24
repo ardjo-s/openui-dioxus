@@ -14,6 +14,9 @@ does not make a product GO decision and must remain a stacked Draft PR.
   props, descriptions, usage rules, semantics, typed events, accessibility,
   platform adaptations, implementation bindings, and source pins.
 - [x] Preserve `prop_order` byte-for-byte through every generated artifact.
+- [x] Parse non-empty structural composition with the official OpenUI parser,
+  with zero orphaned nodes, then flatten it to the same stable-ID Surface used
+  by the strict typed-JSON form.
 
 ## Generated bridge artifacts
 

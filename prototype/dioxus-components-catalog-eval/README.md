@@ -12,6 +12,9 @@ changing canonical runtime behavior.
 - Ten bindings compile against the upstream `dioxus-primitives` crate. The
   styled `Input` and `Button` follow the upstream copy-into-your-project model.
 - Five workflow fixtures normalize into frozen canonical fingerprints.
+- OpenUI structural component values are nested language elements, while the
+  typed-JSON wire form uses stable component IDs; the generated bridge flattens
+  both forms into the same canonical Surface.
 - The primary and thin adapters have distinct release identities but produce
   the same semantic fingerprint and typed event for the swap fixture.
 - Dioxus SSR renders the union of all 12 catalog components. Dialog uses the

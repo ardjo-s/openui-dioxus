@@ -16,7 +16,7 @@ Generate only an OpenUI Lang program using this closed Dioxus Components catalog
 Arguments marked with ? are optional. Sub-components can be inline or referenced; prefer references for better streaming.
 
 Label(id: string, for_id: string, text: string) — Accessible text label associated with a known control.
-Toolbar(id: string, orientation: "horizontal" | "vertical", children: string[]) — Ordered action and content container used as the catalog root.
+Toolbar(id: string, orientation: "horizontal" | "vertical", children: Component[]) — Ordered action and content container used as the catalog root.
 Avatar(id: string, alt: string, fallback: string) — Identity image fallback with deterministic alternative text.
 Input(id: string, label: string, state_key: string, value: string, placeholder: string) — Single-line text input bound to an allowlisted runtime state key.
 Select(id: string, label: string, state_key: string, options: string[], value: string) — Single-value selection from a closed option list.
@@ -24,7 +24,7 @@ Checkbox(id: string, label: string, state_key: string, checked: boolean) — Ind
 Switch(id: string, label: string, state_key: string, checked: boolean) — Immediate on/off setting bound to runtime state.
 Button(id: string, label: string, action: "SubmitProfile" | "ApplyFilter", target_id: string) — Invokes one allowlisted typed host action.
 Tabs(id: string, state_key: string, value: string, items: object[]) — Local navigation between a closed set of panels.
-Dialog(id: string, title: string, open_state_key: string, children: string[]) — Modal overlay with runtime-owned open state.
+Dialog(id: string, title: string, open_state_key: string, children: Component[]) — Modal overlay with runtime-owned open state.
 Progress(id: string, label: string, value: number, max: number) — Determinate progress with explicit value and maximum.
 Toast(id: string, tone: "info" | "success" | "warning" | "error", title: string, message: string) — Bounded status feedback that never performs a host effect.
 

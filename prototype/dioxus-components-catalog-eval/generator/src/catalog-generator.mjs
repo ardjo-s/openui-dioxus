@@ -12,6 +12,7 @@ export async function loadManifest(url = manifestUrl) {
 }
 
 function typeName(schema) {
+  if (schema.format === "component-ref") return "Component";
   if (schema.enum) return schema.enum.map((value) => JSON.stringify(value)).join(" | ");
   if (schema.type === "array") return `${typeName(schema.items)}[]`;
   if (schema.type === "object") return "object";
@@ -61,10 +62,10 @@ function componentSchema(component) {
   };
 }
 
-function openUiComponentSchema(component) {
+function openUiComponentSchema(component, componentNames) {
   const properties = {};
   for (const name of component.prop_order) {
-    properties[name] = jsonSchemaForProp(component.props[name]);
+    properties[name] = openUiSchemaForProp(component.props[name], componentNames);
   }
   return {
     type: "object",
@@ -73,6 +74,29 @@ function openUiComponentSchema(component) {
     properties,
     description: component.description,
   };
+}
+
+function openUiSchemaForProp(prop, componentNames) {
+  if (prop.format === "component-ref") {
+    return { oneOf: componentNames.map((name) => ({ $ref: `#/$defs/${name}` })) };
+  }
+  if (prop.type === "array") {
+    return { type: "array", items: openUiSchemaForProp(prop.items, componentNames) };
+  }
+  if (prop.type === "object") {
+    return {
+      type: "object",
+      additionalProperties: prop.additionalProperties ?? false,
+      required: [...(prop.required ?? [])],
+      properties: Object.fromEntries(
+        Object.entries(prop.properties ?? {}).map(([name, child]) => [
+          name,
+          openUiSchemaForProp(child, componentNames),
+        ]),
+      ),
+    };
+  }
+  return jsonSchemaForProp(prop);
 }
 
 function typedJsonSchema(manifest) {
@@ -136,6 +160,7 @@ function promptMaterial(manifest, components) {
 }
 
 export function deriveArtifacts(manifest) {
+  const componentNames = manifest.components.map((component) => component.name);
   const components = Object.fromEntries(
     manifest.components.map((component) => [
       component.name,
@@ -160,7 +185,7 @@ export function deriveArtifacts(manifest) {
         $defs: Object.fromEntries(
           manifest.components.map((component) => [
             component.name,
-            openUiComponentSchema(component),
+            openUiComponentSchema(component, componentNames),
           ]),
         ),
       },
@@ -174,6 +199,38 @@ export function deriveArtifacts(manifest) {
       implementation: component.implementation,
     })),
   };
+}
+
+export function flattenOpenUiTree(root, state) {
+  const nodes = [];
+
+  function flattenElement(element) {
+    if (element?.type !== "element" || typeof element.typeName !== "string") {
+      throw new Error("OpenUI value is not a component element");
+    }
+    const id = element.props?.id;
+    if (typeof id !== "string" || id.length === 0) {
+      throw new Error(`${element.typeName} has no stable id`);
+    }
+    const node = { kind: element.typeName };
+    nodes.push(node);
+    for (const [name, value] of Object.entries(element.props)) {
+      node[name] = flattenValue(value);
+    }
+    return id;
+  }
+
+  function flattenValue(value) {
+    if (value?.type === "element") return flattenElement(value);
+    if (Array.isArray(value)) return value.map(flattenValue);
+    if (value && typeof value === "object") {
+      return Object.fromEntries(Object.entries(value).map(([key, child]) => [key, flattenValue(child)]));
+    }
+    return value;
+  }
+
+  const rootId = flattenElement(root);
+  return { root: rootId, nodes, state: structuredClone(state) };
 }
 
 function stableJson(value) {

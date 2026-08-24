@@ -16,6 +16,10 @@ files. Standards and intent were reviewed in two separate passes.
   compiled adapter. Fixed with explicit copied-source adapters and SSR markers.
 - `OPE4-R5` — Select and Tabs events could carry undeclared values. Fixed with
   event-time allowlist validation and invalid-event tests.
+- `OPE4-R6` — Structural props were initially serialized as string IDs in both
+  protocols, making non-root OpenUI statements orphaned. Fixed by generating
+  nested OpenUI component refs, retaining string IDs only in typed JSON, and
+  proving profile and nested Tabs composition with the official parser.
 
 ## Final verdict
 

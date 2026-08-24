@@ -16,9 +16,9 @@
   "manifest_hash": "30ff6bec145d0a08325b9c25ed4872913c104374a2638a4e0ed82e8e7d7c7f9d",
   "schema_hash": "e976c87658c1d988b862fe71fd8940c0445793ef300f74e2e50b610118a40c8a",
   "semantics_hash": "83e6959184cb983b1daa5601424a738029961e5ae70b76449d090abc2808519e",
-  "openui_library_hash": "6522419d4310cc86439698f4f50ff7a2ac33845e3e44b86d01d3b5d2685abe9f",
-  "prompt_hash": "b77508f2e19799cab13ec592c490897e86ca75e4c6ad06d673933c8476cfc4a2",
+  "openui_library_hash": "8146db5a196c6cbfdedf2780484738f77b503c5d3d145f8c0295fd833961c8fa",
+  "prompt_hash": "e882150caa1346665abcf3f084ab4dfe3392e733c5f6045f159953a4e08af783",
   "adapter_source_hash": "e84583e0143bfbbd535dbef5f7d696e8bf66eee597abec3b505668fe1a5d3c67",
   "adapter_build_id": "ope4-e84583e0143bfbbd-34b1b1dd",
-  "catalog_release_hash": "b2563ed0c7f6ea6c3b533fc084d98306c0f1ddd65584e6b4c96b8f7f08134768"
+  "catalog_release_hash": "2bf7df132bc99576fb431e2fb8cd40cf35731e3fd2ee29e2d6d7f6bed45a5ae7"
 }
