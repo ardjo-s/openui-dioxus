@@ -7,6 +7,7 @@ on:
       - ".github/workflows/ope6-platform-eval.yml"
       - "prototype/dioxus-components-catalog-eval/**"
       - "prototype/openui-typed-json-product-eval/**"
+      - "!prototype/openui-typed-json-product-eval/platform/evidence/published/**"
 
 permissions:
   contents: read
