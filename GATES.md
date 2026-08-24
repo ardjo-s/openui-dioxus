@@ -2,14 +2,23 @@
 
 ## OPE-9 ecosystem-relative product-value evaluation design
 
-- [ ] Current primary-source research is recorded with facts, inferences, unknowns, and source/version pins; no new model benchmark is run.
-- [ ] The evaluation keeps protocol promptability, constrained-runtime value, design-system onboarding/maintenance, and cross-platform leverage as four separate questions.
-- [ ] Typed JSON Dioxus is the primary product baseline; A2UI remains protocol context; direct Dioxus/RSX and React/TypeScript are evaluated only in their strongest fair scopes.
-- [ ] A fast non-decision canary and a complete decision-grade cadence define validity, repair, human correction, blind UI quality, accessibility, platform, change-drill, replay/migration, LOC/files, wall-time, and total-cost measurements with explicit thresholds.
-- [ ] Repository decisions and an implementation-ready specification state whether React/TypeScript belongs in OPE-7 or a separate ticket without changing OPE-7 while OPE-6 blocks it.
-- [ ] Only necessary implementation tickets are created in Linear, with vertical outcomes, acceptance criteria, parentage, and explicit blocking edges; OPE-9 stays synchronized at every transition.
-- [ ] Documentary review passes internal-link, terminology, scope, whitespace, and acceptance-coverage checks.
-- [ ] Owned changes are committed and pushed on `codex/ope-9-ecosystem-value-eval`; a Draft PR targets `codex/ope-6-platform-accessibility`; nothing is merged.
+- [x] Current primary-source research is recorded with facts, inferences, unknowns, and source/version pins; no new model benchmark is run.
+- [x] The evaluation keeps protocol promptability, constrained-runtime value, design-system onboarding/maintenance, and cross-platform leverage as four separate questions.
+- [x] Typed JSON Dioxus is the primary product baseline; A2UI remains protocol context; direct Dioxus/RSX and React/TypeScript are evaluated only in their strongest fair scopes.
+- [x] A fast non-decision canary and a complete decision-grade cadence define validity, repair, human correction, blind UI quality, accessibility, platform, change-drill, replay/migration, LOC/files, wall-time, and total-cost measurements with explicit thresholds.
+- [x] Repository decisions and an implementation-ready specification state whether React/TypeScript belongs in OPE-7 or a separate ticket without changing OPE-7 while OPE-6 blocks it.
+- [x] Only necessary implementation tickets are created in Linear, with vertical outcomes, acceptance criteria, parentage, and explicit blocking edges; OPE-9 stays synchronized at every transition.
+- [x] Documentary review passes internal-link, terminology, scope, whitespace, and acceptance-coverage checks.
+- [x] Owned changes are committed and pushed on `codex/ope-9-ecosystem-value-eval`; a Draft PR targets `codex/ope-6-platform-accessibility`; nothing is merged.
+
+Verification evidence:
+
+- Research has exactly four numbered questions; 20 cited primary-source URLs returned HTTP 200 on 2026-08-25.
+- Headless documentary review integrated 11 findings across coherence, feasibility, product, design, security, scope, and adversarial lenses, including ecosystem vetoes, route neutrality, cost horizons, operator crossover, review agreement, and trust-boundary controls.
+- Six changed or indexing Markdown files passed the local-link checker with zero broken links; staged and post-rebase `git diff --check` passed.
+- Linear was reread live after publication: OPE-10 is blocked by OPE-9; OPE-11 by OPE-6 and OPE-10; OPE-12 by OPE-11 and blocks OPE-7; OPE-7 remains `Todo` and is also blocked by OPE-6.
+- Documentation commit `37ba319` was rebased onto OPE-6 commit `76203c3`, pushed to `codex/ope-9-ecosystem-value-eval`, and opened as stacked Draft PR #11 against `codex/ope-6-platform-accessibility`.
+- The owned diff contains documentation only; no provider benchmark or runtime implementation command ran.
 
 ## Open-source decision trail
 
