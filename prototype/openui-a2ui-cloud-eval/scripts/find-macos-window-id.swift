@@ -4,7 +4,7 @@ import Foundation
 guard CommandLine.arguments.count == 2, let pid = Int32(CommandLine.arguments[1]) else {
     exit(2)
 }
-let options: CGWindowListOption = [.optionOnScreenOnly, .excludeDesktopElements]
+let options: CGWindowListOption = [.optionAll, .excludeDesktopElements]
 guard let windows = CGWindowListCopyWindowInfo(options, kCGNullWindowID) as? [[String: Any]] else {
     exit(1)
 }

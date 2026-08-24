@@ -1,0 +1,140 @@
+{
+  "ok": true,
+  "protocol": "openui",
+  "version": "lang-v0.5/@openuidev/lang-core@0.2.15",
+  "diagnostics": [],
+  "parse": {
+    "root": {
+      "type": "element",
+      "typeName": "Card",
+      "props": {
+        "id": "expense_review",
+        "title": "High-value expense review",
+        "child": {
+          "type": "element",
+          "typeName": "Stack",
+          "props": {
+            "id": "review_content",
+            "children": [
+              {
+                "type": "element",
+                "typeName": "Text",
+                "props": {
+                  "id": "review_context",
+                  "text": "Two pending expenses await review. Approval will approve exp-001 only."
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "context"
+              },
+              {
+                "type": "element",
+                "typeName": "Select",
+                "props": {
+                  "id": "status_filter_control",
+                  "label": "Status",
+                  "state_key": "status_filter",
+                  "options": [
+                    "all",
+                    "pending",
+                    "approved"
+                  ],
+                  "value": "pending"
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "status_filter"
+              },
+              {
+                "type": "element",
+                "typeName": "Table",
+                "props": {
+                  "id": "expense_table",
+                  "columns": [
+                    "expense_id",
+                    "merchant",
+                    "amount",
+                    "status"
+                  ],
+                  "rows": [
+                    {
+                      "expense_id": "exp-001",
+                      "merchant": "Strategy Partners",
+                      "amount": "EUR 4,800.00",
+                      "status": "pending"
+                    },
+                    {
+                      "expense_id": "exp-002",
+                      "merchant": "Research Associates",
+                      "amount": "EUR 2,200.00",
+                      "status": "pending"
+                    }
+                  ]
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "expenses"
+              },
+              {
+                "type": "element",
+                "typeName": "Input",
+                "props": {
+                  "id": "review_note_input",
+                  "label": "Reviewer note",
+                  "state_key": "review_note",
+                  "value": ""
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "review_note"
+              },
+              {
+                "type": "element",
+                "typeName": "Button",
+                "props": {
+                  "id": "approve_expense_button",
+                  "label": "Approve exp-001",
+                  "action": {
+                    "name": "ApproveExpense",
+                    "expense_id": "exp-001"
+                  }
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "approve_expense"
+              },
+              {
+                "type": "element",
+                "typeName": "Alert",
+                "props": {
+                  "id": "approval_result",
+                  "tone": "info",
+                  "message": "Pending review: exp-001 is ready for approval. exp-002 remains pending."
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "result"
+              }
+            ]
+          },
+          "partial": false,
+          "hasDynamicProps": false,
+          "statementId": "content"
+        }
+      },
+      "partial": false,
+      "hasDynamicProps": false,
+      "statementId": "root"
+    },
+    "meta": {
+      "incomplete": false,
+      "unresolved": [],
+      "orphaned": [],
+      "statementCount": 8,
+      "errors": []
+    },
+    "stateDeclarations": {},
+    "queryStatements": [],
+    "mutationStatements": []
+  }
+}

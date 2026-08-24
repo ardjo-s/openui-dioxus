@@ -1,0 +1,140 @@
+{
+  "ok": true,
+  "protocol": "openui",
+  "version": "lang-v0.5/@openuidev/lang-core@0.2.15",
+  "diagnostics": [],
+  "parse": {
+    "root": {
+      "type": "element",
+      "typeName": "Card",
+      "props": {
+        "id": "expense_review",
+        "title": "Travel Expense Review — Paris",
+        "child": {
+          "type": "element",
+          "typeName": "Stack",
+          "props": {
+            "id": "review_content",
+            "children": [
+              {
+                "type": "element",
+                "typeName": "Text",
+                "props": {
+                  "id": "context_text",
+                  "text": "Review lodging and transport costs for policy-sensitive expenses."
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "context_text"
+              },
+              {
+                "type": "element",
+                "typeName": "Select",
+                "props": {
+                  "id": "status_select",
+                  "label": "Filter by status",
+                  "state_key": "status_filter",
+                  "options": [
+                    "all",
+                    "pending",
+                    "approved"
+                  ],
+                  "value": "pending"
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "status_select"
+              },
+              {
+                "type": "element",
+                "typeName": "Input",
+                "props": {
+                  "id": "review_note_input",
+                  "label": "Reviewer note",
+                  "state_key": "review_note",
+                  "value": ""
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "review_note_input"
+              },
+              {
+                "type": "element",
+                "typeName": "Table",
+                "props": {
+                  "id": "expense_table",
+                  "columns": [
+                    "expense_id",
+                    "merchant",
+                    "amount",
+                    "status"
+                  ],
+                  "rows": [
+                    {
+                      "expense_id": "exp-001",
+                      "merchant": "Paris Central Hotel",
+                      "amount": "EUR 690.00",
+                      "status": "pending"
+                    },
+                    {
+                      "expense_id": "exp-002",
+                      "merchant": "Metro Mobility",
+                      "amount": "EUR 43.60",
+                      "status": "pending"
+                    }
+                  ]
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "expense_table"
+              },
+              {
+                "type": "element",
+                "typeName": "Button",
+                "props": {
+                  "id": "approve_expense",
+                  "label": "Approve exp-001",
+                  "action": {
+                    "name": "ApproveExpense",
+                    "expense_id": "exp-001"
+                  }
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "approve_button"
+              },
+              {
+                "type": "element",
+                "typeName": "Alert",
+                "props": {
+                  "id": "result_alert",
+                  "tone": "success",
+                  "message": "Expense exp-001 approved."
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "result_alert"
+              }
+            ]
+          },
+          "partial": false,
+          "hasDynamicProps": false,
+          "statementId": "review_content"
+        }
+      },
+      "partial": false,
+      "hasDynamicProps": false,
+      "statementId": "root"
+    },
+    "meta": {
+      "incomplete": false,
+      "unresolved": [],
+      "orphaned": [],
+      "statementCount": 8,
+      "errors": []
+    },
+    "stateDeclarations": {},
+    "queryStatements": [],
+    "mutationStatements": []
+  }
+}

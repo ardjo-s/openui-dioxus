@@ -1,0 +1,92 @@
+{
+  "protocol": "openui",
+  "root": "expense_review",
+  "nodes": {
+    "approval_result": {
+      "kind": "Alert",
+      "id": "approval_result",
+      "tone": "info",
+      "message": "Expense exp-001 is ready for approval."
+    },
+    "approve_expense": {
+      "kind": "Button",
+      "id": "approve_expense",
+      "label": "Approve exp-001",
+      "action": {
+        "name": "ApproveExpense",
+        "expense_id": "exp-001"
+      }
+    },
+    "expense_review": {
+      "kind": "Card",
+      "id": "expense_review",
+      "title": "Expense Review",
+      "child": "review_content"
+    },
+    "expense_table": {
+      "kind": "Table",
+      "id": "expense_table",
+      "columns": [
+        "expense_id",
+        "merchant",
+        "amount",
+        "status"
+      ],
+      "rows": [
+        {
+          "amount": "EUR 199.00",
+          "expense_id": "exp-001",
+          "merchant": "Fabrikam Software",
+          "status": "pending"
+        },
+        {
+          "amount": "EUR 74.90",
+          "expense_id": "exp-002",
+          "merchant": "Adventure Office",
+          "status": "pending"
+        }
+      ]
+    },
+    "review_content": {
+      "kind": "Stack",
+      "id": "review_content",
+      "children": [
+        "review_intro",
+        "status_filter_select",
+        "expense_table",
+        "review_note_input",
+        "approve_expense",
+        "approval_result"
+      ]
+    },
+    "review_intro": {
+      "kind": "Text",
+      "id": "review_intro",
+      "text": "Review routine operating expenses and approve the pending action."
+    },
+    "review_note_input": {
+      "kind": "Input",
+      "id": "review_note_input",
+      "label": "Reviewer note",
+      "state_key": "review_note",
+      "value": ""
+    },
+    "status_filter_select": {
+      "kind": "Select",
+      "id": "status_filter_select",
+      "label": "Status",
+      "state_key": "status_filter",
+      "options": [
+        "all",
+        "pending",
+        "approved"
+      ],
+      "value": "pending"
+    }
+  },
+  "fields": {
+    "review_note": "",
+    "status_filter": "pending"
+  },
+  "source_hash": "afd451523e6885ac22b9d9277b8f308806a251c2c9c5c372c9d617a6bac37b99"
+}

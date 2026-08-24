@@ -1,0 +1,140 @@
+{
+  "ok": true,
+  "protocol": "openui",
+  "version": "lang-v0.5/@openuidev/lang-core@0.2.15",
+  "diagnostics": [],
+  "parse": {
+    "root": {
+      "type": "element",
+      "typeName": "Card",
+      "props": {
+        "id": "expense-review",
+        "title": "Vendor Expense Review",
+        "child": {
+          "type": "element",
+          "typeName": "Stack",
+          "props": {
+            "id": "review-content",
+            "children": [
+              {
+                "type": "element",
+                "typeName": "Text",
+                "props": {
+                  "id": "vendor-identity",
+                  "text": "International vendor compliance review"
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "identity"
+              },
+              {
+                "type": "element",
+                "typeName": "Select",
+                "props": {
+                  "id": "status-filter",
+                  "label": "Status",
+                  "state_key": "status_filter",
+                  "options": [
+                    "all",
+                    "pending",
+                    "approved"
+                  ],
+                  "value": "pending"
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "status_filter"
+              },
+              {
+                "type": "element",
+                "typeName": "Table",
+                "props": {
+                  "id": "expense-table",
+                  "columns": [
+                    "Expense ID",
+                    "Merchant",
+                    "Amount",
+                    "Status"
+                  ],
+                  "rows": [
+                    {
+                      "expense_id": "exp-001",
+                      "merchant": "Baltic Components",
+                      "amount": "EUR 920.00",
+                      "status": "pending"
+                    },
+                    {
+                      "expense_id": "exp-002",
+                      "merchant": "Local Parts Depot",
+                      "amount": "EUR 275.00",
+                      "status": "pending"
+                    }
+                  ]
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "expenses"
+              },
+              {
+                "type": "element",
+                "typeName": "Input",
+                "props": {
+                  "id": "reviewer-note",
+                  "label": "Reviewer note",
+                  "state_key": "review_note",
+                  "value": ""
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "reviewer_note"
+              },
+              {
+                "type": "element",
+                "typeName": "Button",
+                "props": {
+                  "id": "approve-expense",
+                  "label": "Approve exp-001",
+                  "action": {
+                    "name": "ApproveExpense",
+                    "expense_id": "exp-001"
+                  }
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "approve_expense"
+              },
+              {
+                "type": "element",
+                "typeName": "Alert",
+                "props": {
+                  "id": "approval-result",
+                  "tone": "success",
+                  "message": "Expense exp-001 approved successfully."
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "result_alert"
+              }
+            ]
+          },
+          "partial": false,
+          "hasDynamicProps": false,
+          "statementId": "content"
+        }
+      },
+      "partial": false,
+      "hasDynamicProps": false,
+      "statementId": "root"
+    },
+    "meta": {
+      "incomplete": false,
+      "unresolved": [],
+      "orphaned": [],
+      "statementCount": 8,
+      "errors": []
+    },
+    "stateDeclarations": {},
+    "queryStatements": [],
+    "mutationStatements": []
+  }
+}

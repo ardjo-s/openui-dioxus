@@ -1,0 +1,140 @@
+{
+  "ok": true,
+  "protocol": "openui",
+  "version": "lang-v0.5/@openuidev/lang-core@0.2.15",
+  "diagnostics": [],
+  "parse": {
+    "root": {
+      "type": "element",
+      "typeName": "Card",
+      "props": {
+        "id": "review_card",
+        "title": "High-Value Expense Review",
+        "child": {
+          "type": "element",
+          "typeName": "Stack",
+          "props": {
+            "id": "content_stack",
+            "children": [
+              {
+                "type": "element",
+                "typeName": "Select",
+                "props": {
+                  "id": "status_filter",
+                  "label": "Status",
+                  "state_key": "status_filter",
+                  "options": [
+                    "all",
+                    "pending",
+                    "approved"
+                  ],
+                  "value": "pending"
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "status_filter"
+              },
+              {
+                "type": "element",
+                "typeName": "Input",
+                "props": {
+                  "id": "review_note",
+                  "label": "Reviewer note",
+                  "state_key": "review_note",
+                  "value": ""
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "review_note"
+              },
+              {
+                "type": "element",
+                "typeName": "Table",
+                "props": {
+                  "id": "expense_table",
+                  "columns": [
+                    "expense_id",
+                    "merchant",
+                    "amount",
+                    "status"
+                  ],
+                  "rows": [
+                    {
+                      "expense_id": "exp-001",
+                      "merchant": "Pro Workstations",
+                      "amount": "EUR 3,890.00",
+                      "status": "pending"
+                    },
+                    {
+                      "expense_id": "exp-002",
+                      "merchant": "Studio Displays",
+                      "amount": "EUR 1,640.00",
+                      "status": "pending"
+                    }
+                  ]
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "expense_table"
+              },
+              {
+                "type": "element",
+                "typeName": "Button",
+                "props": {
+                  "id": "approval_button",
+                  "label": "Approve exp-001",
+                  "action": {
+                    "name": "ApproveExpense",
+                    "expense_id": "exp-001"
+                  }
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "approval_button"
+              },
+              {
+                "type": "element",
+                "typeName": "Alert",
+                "props": {
+                  "id": "result_alert",
+                  "tone": "info",
+                  "message": "Approval submitted for exp-001. The expense is currently pending review."
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "result_alert"
+              },
+              {
+                "type": "element",
+                "typeName": "Text",
+                "props": {
+                  "id": "pending_text",
+                  "text": "Both expenses are currently pending."
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "pending_text"
+              }
+            ]
+          },
+          "partial": false,
+          "hasDynamicProps": false,
+          "statementId": "content_stack"
+        }
+      },
+      "partial": false,
+      "hasDynamicProps": false,
+      "statementId": "root"
+    },
+    "meta": {
+      "incomplete": false,
+      "unresolved": [],
+      "orphaned": [],
+      "statementCount": 8,
+      "errors": []
+    },
+    "stateDeclarations": {},
+    "queryStatements": [],
+    "mutationStatements": []
+  }
+}

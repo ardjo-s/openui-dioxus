@@ -1,0 +1,92 @@
+{
+  "protocol": "openui",
+  "root": "expense-review",
+  "nodes": {
+    "approval-result": {
+      "kind": "Alert",
+      "id": "approval-result",
+      "tone": "success",
+      "message": "Expense exp-001 approved."
+    },
+    "approve-exp-001": {
+      "kind": "Button",
+      "id": "approve-exp-001",
+      "label": "Approve Contoso Rail",
+      "action": {
+        "name": "ApproveExpense",
+        "expense_id": "exp-001"
+      }
+    },
+    "expense-review": {
+      "kind": "Card",
+      "id": "expense-review",
+      "title": "Expense Review",
+      "child": "review-content"
+    },
+    "expense-table": {
+      "kind": "Table",
+      "id": "expense-table",
+      "columns": [
+        "expense_id",
+        "merchant",
+        "amount",
+        "status"
+      ],
+      "rows": [
+        {
+          "amount": "EUR 164.50",
+          "expense_id": "exp-001",
+          "merchant": "Contoso Rail",
+          "status": "pending"
+        },
+        {
+          "amount": "EUR 86.20",
+          "expense_id": "exp-002",
+          "merchant": "Tailspin Meals",
+          "status": "pending"
+        }
+      ]
+    },
+    "review-content": {
+      "kind": "Stack",
+      "id": "review-content",
+      "children": [
+        "review-intro",
+        "status-filter",
+        "review-note",
+        "expense-table",
+        "approve-exp-001",
+        "approval-result"
+      ]
+    },
+    "review-intro": {
+      "kind": "Text",
+      "id": "review-intro",
+      "text": "Review routine operating expenses and approve the pending rail expense."
+    },
+    "review-note": {
+      "kind": "Input",
+      "id": "review-note",
+      "label": "Reviewer note",
+      "state_key": "review_note",
+      "value": ""
+    },
+    "status-filter": {
+      "kind": "Select",
+      "id": "status-filter",
+      "label": "Status",
+      "state_key": "status_filter",
+      "options": [
+        "all",
+        "pending",
+        "approved"
+      ],
+      "value": "pending"
+    }
+  },
+  "fields": {
+    "review_note": "",
+    "status_filter": "pending"
+  },
+  "source_hash": "0fef78bb2e86ea6dc0d8781e30cc48b27133a8acbea93db012e2b2fccb6edf4b"
+}

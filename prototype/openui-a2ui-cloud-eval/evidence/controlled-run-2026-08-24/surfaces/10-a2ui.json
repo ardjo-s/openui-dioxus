@@ -1,0 +1,92 @@
+{
+  "protocol": "a2ui",
+  "root": "expense-review-card",
+  "nodes": {
+    "approval-alert": {
+      "kind": "Alert",
+      "id": "approval-alert",
+      "tone": "success",
+      "message": "Expense exp-001 approved."
+    },
+    "approve-expense-button": {
+      "kind": "Button",
+      "id": "approve-expense-button",
+      "label": "Approve exp-001",
+      "action": {
+        "name": "ApproveExpense",
+        "expense_id": "exp-001"
+      }
+    },
+    "expense-review-card": {
+      "kind": "Card",
+      "id": "expense-review-card",
+      "title": "Expense Review",
+      "child": "expense-review-stack"
+    },
+    "expense-review-stack": {
+      "kind": "Stack",
+      "id": "expense-review-stack",
+      "children": [
+        "review-heading",
+        "expense-table",
+        "review-note-input",
+        "status-filter-select",
+        "approve-expense-button",
+        "approval-alert"
+      ]
+    },
+    "expense-table": {
+      "kind": "Table",
+      "id": "expense-table",
+      "columns": [
+        "expense_id",
+        "merchant",
+        "amount",
+        "status"
+      ],
+      "rows": [
+        {
+          "amount": "EUR 37.80",
+          "expense_id": "exp-001",
+          "merchant": "City Ride",
+          "status": "pending"
+        },
+        {
+          "amount": "EUR 38.10",
+          "expense_id": "exp-002",
+          "merchant": "City Ride",
+          "status": "pending"
+        }
+      ]
+    },
+    "review-heading": {
+      "kind": "Text",
+      "id": "review-heading",
+      "text": "Review expenses for duplicate risk"
+    },
+    "review-note-input": {
+      "kind": "Input",
+      "id": "review-note-input",
+      "label": "Review note",
+      "state_key": "review_note",
+      "value": ""
+    },
+    "status-filter-select": {
+      "kind": "Select",
+      "id": "status-filter-select",
+      "label": "Status filter",
+      "state_key": "status_filter",
+      "options": [
+        "all",
+        "pending",
+        "approved"
+      ],
+      "value": "pending"
+    }
+  },
+  "fields": {
+    "review_note": "",
+    "status_filter": "pending"
+  },
+  "source_hash": "fc5e0e82cb83456052c77becaf83b5d15d3612343ca87293e27e9f67f6253a1c"
+}

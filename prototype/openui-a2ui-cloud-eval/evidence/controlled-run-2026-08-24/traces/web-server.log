@@ -1,0 +1,5 @@
+127.0.0.1 - - [24/Aug/2026 13:17:25] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [24/Aug/2026 13:17:27] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [24/Aug/2026 13:17:27] "GET /assets/eval-app-dxh3625ed4621c75eec.js HTTP/1.1" 200 -
+127.0.0.1 - - [24/Aug/2026 13:17:27] "GET /assets/eval-app_bg-dxhdd81552f5ffdb297.wasm HTTP/1.1" 200 -
+127.0.0.1 - - [24/Aug/2026 13:17:27] "GET /surfaces.json HTTP/1.1" 200 -

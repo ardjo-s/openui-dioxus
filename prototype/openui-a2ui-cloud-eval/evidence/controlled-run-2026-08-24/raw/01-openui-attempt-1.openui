@@ -1,0 +1,8 @@
+root = Card("expense_review", "Expense Review", content)
+content = Stack("review_content", [intro, filter, expenses, note, approve, result])
+intro = Text("review_prompt", "Review routine operating expenses and approve the pending expense.")
+filter = Select("status_filter_select", "Status", "status_filter", ["all", "pending", "approved"], "pending")
+expenses = Table("expense_table", ["expense_id", "merchant", "amount", "status"], [{"expense_id":"exp-001","merchant":"Acme Air","amount":"EUR 420.00","status":"pending"}, {"expense_id":"exp-002","merchant":"Northwind Hotel","amount":"EUR 280.00","status":"pending"}])
+note = Input("review_note_input", "Reviewer note", "review_note", "")
+approve = Button("approve_exp001", "Approve exp-001", {"name":"ApproveExpense","expense_id":"exp-001"})
+result = Alert("approval_result", "success", "Expense exp-001 approved.")

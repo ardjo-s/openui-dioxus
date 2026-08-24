@@ -1,0 +1,92 @@
+{
+  "protocol": "a2ui",
+  "root": "review-card",
+  "nodes": {
+    "approve-button": {
+      "kind": "Button",
+      "id": "approve-button",
+      "label": "Approve exp-001",
+      "action": {
+        "name": "ApproveExpense",
+        "expense_id": "exp-001"
+      }
+    },
+    "expense-table": {
+      "kind": "Table",
+      "id": "expense-table",
+      "columns": [
+        "expense_id",
+        "merchant",
+        "amount",
+        "status"
+      ],
+      "rows": [
+        {
+          "amount": "EUR 249.00",
+          "expense_id": "exp-001",
+          "merchant": "Cloud Harbor",
+          "status": "pending"
+        },
+        {
+          "amount": "EUR 249.00",
+          "expense_id": "exp-002",
+          "merchant": "Cloud Harbor EU",
+          "status": "pending"
+        }
+      ]
+    },
+    "note-input": {
+      "kind": "Input",
+      "id": "note-input",
+      "label": "Review note",
+      "state_key": "review_note",
+      "value": ""
+    },
+    "result-alert": {
+      "kind": "Alert",
+      "id": "result-alert",
+      "tone": "success",
+      "message": "Expense exp-001 approved"
+    },
+    "review-card": {
+      "kind": "Card",
+      "id": "review-card",
+      "title": "Expense Review",
+      "child": "review-stack"
+    },
+    "review-heading": {
+      "kind": "Text",
+      "id": "review-heading",
+      "text": "Review expenses for duplicate risk"
+    },
+    "review-stack": {
+      "kind": "Stack",
+      "id": "review-stack",
+      "children": [
+        "review-heading",
+        "expense-table",
+        "note-input",
+        "status-select",
+        "approve-button",
+        "result-alert"
+      ]
+    },
+    "status-select": {
+      "kind": "Select",
+      "id": "status-select",
+      "label": "Status filter",
+      "state_key": "status_filter",
+      "options": [
+        "all",
+        "pending",
+        "approved"
+      ],
+      "value": "pending"
+    }
+  },
+  "fields": {
+    "review_note": "",
+    "status_filter": "pending"
+  },
+  "source_hash": "d6c88ae92f94baaf38da7546087ff850929b09b9dfce20232706efd438964135"
+}

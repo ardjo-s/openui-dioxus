@@ -98,10 +98,10 @@ prototype/openui-a2ui-cloud-eval/scripts/test-local-provider-e2e.sh
   repair maximum, 80 calls maximum, prompt hashes, diagnostics, and artifacts.
 - [x] Independent standards and intent reviews approve the frozen methodology
   before the one real 20-pair Luna-low run begins.
-- [ ] Every accepted `Surface` passes shared state, typed action, update, replay,
+- [x] Every accepted `Surface` passes shared state, typed action, update, replay,
   Desktop, and Web checks without canonical-runtime changes.
-- [ ] Raw payloads, diagnostics, records, normalized Surfaces, traces,
+- [x] Raw payloads, diagnostics, records, normalized Surfaces, traces,
   screenshots, reviews, summaries, manifests, and SHA-256 checks are archived
   on the OPE-1 branch without credentials.
-- [ ] OPE-1 remains distinct from the typed-JSON product baseline in OPE-2; the
+- [x] OPE-1 remains distinct from the typed-JSON product baseline in OPE-2; the
   controlled result updates decision evidence but does not resolve product go/no-go.

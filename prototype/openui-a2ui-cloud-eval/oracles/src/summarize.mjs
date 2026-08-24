@@ -6,6 +6,7 @@ import process from "node:process";
 import { scoreEvaluation } from "./score.mjs";
 import { scoreControlledEvaluation } from "./controlled-score.mjs";
 import { buildControlledPromptPack } from "./controlled-prompt-pack.mjs";
+import { validateControlledRecordTopology } from "./controlled-record-topology.mjs";
 
 const [resultsDir] = process.argv.slice(2);
 if (!resultsDir) throw new Error("usage: summarize.mjs <results-dir>");
@@ -22,6 +23,10 @@ const records = (await readFile(path.join(resultsDir, "records.jsonl"), "utf8"))
   .split("\n")
   .filter(Boolean)
   .map(JSON.parse);
+if (generation.evaluation_mode === "controlled") {
+  const topology = validateControlledRecordTopology(records, generation);
+  if (!topology.ok) throw new Error(`invalid controlled record topology: ${topology.diagnostics.join("; ")}`);
+}
 const score = generation.evaluation_mode === "controlled" ? scoreControlledEvaluation : scoreEvaluation;
 const summary = score({
   records,
@@ -30,8 +35,14 @@ const summary = score({
   loc: await readJson("adapter-loc.json"),
   runtimeDiff: (await readJson("runtime-diff.json")).lines_modified,
 });
-const tokenAdvantage = Number.isFinite(summary.median_raw_token_advantage)
-  ? `${(summary.median_raw_token_advantage * 100).toFixed(1)}%`
+const controlled = generation.evaluation_mode === "controlled";
+const rawTokenAdvantage = controlled
+  ? 1 -
+    summary.protocol_metrics.openui.cumulative_raw_tokens /
+      summary.protocol_metrics.a2ui.cumulative_raw_tokens
+  : summary.median_raw_token_advantage;
+const tokenAdvantage = Number.isFinite(rawTokenAdvantage)
+  ? `${(rawTokenAdvantage * 100).toFixed(1)}%`
   : "n/a";
 const estimatedCost = Number.isFinite(summary.estimated_cost_usd)
   ? `$${summary.estimated_cost_usd.toFixed(4)}`
@@ -41,12 +52,14 @@ await writeFile(path.join(resultsDir, "summary.json"), JSON.stringify(summary, n
 await writeFile(
   path.join(resultsDir, "summary.md"),
   [
-    `# OpenUI vs A2UI ${generation.provider === "codex" ? "local ChatGPT-plan" : "cloud API"} evaluation`,
+    controlled
+      ? "# OPE-1 controlled protocol-generation evaluation"
+      : `# OpenUI vs A2UI ${generation.provider === "codex" ? "local ChatGPT-plan" : "cloud API"} evaluation`,
     "",
     `**Outcome:** ${summary.outcome ?? summary.pre_mobile_outcome}`,
     "",
     `- Complete pairs: ${summary.pairs_complete}/20`,
-    `- OpenUI median raw-token advantage: ${tokenAdvantage}`,
+    `- OpenUI ${controlled ? "cumulative" : "median"} raw-token advantage: ${tokenAdvantage}`,
     `- First-pass validity: OpenUI ${summary.first_pass_validity.openui}/20; A2UI ${summary.first_pass_validity.a2ui}/20`,
     `- Post-repair validity: OpenUI ${summary.post_repair_validity.openui}/20; A2UI ${summary.post_repair_validity.a2ui}/20`,
     `- Estimated cost: ${estimatedCost}`,
@@ -55,6 +68,13 @@ await writeFile(
     `- Shared runtime lines changed by A2UI: ${summary.shared_runtime_lines_modified}`,
     "",
     "The reference semantics are official. Both Dioxus adapters are project-owned prototype code.",
+    ...(controlled
+      ? [
+          "",
+          "Scope: one closed eight-component Dioxus catalog with gpt-5.6-luna at low reasoning.",
+          "This is a protocol-generation result, not a product verdict; direct typed JSON remains OPE-2.",
+        ]
+      : []),
     "",
   ].join("\n"),
 );

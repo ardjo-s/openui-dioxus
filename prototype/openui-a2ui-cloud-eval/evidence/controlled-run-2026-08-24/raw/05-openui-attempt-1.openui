@@ -1,0 +1,8 @@
+root = Card("expense_review", "Travel Expense Review — Paris", review_content)
+review_content = Stack("review_content", [context_text, status_select, review_note_input, expense_table, approve_button, result_alert])
+context_text = Text("context_text", "Review lodging and transport costs for policy-sensitive expenses.")
+status_select = Select("status_select", "Filter by status", "status_filter", ["all", "pending", "approved"], "pending")
+review_note_input = Input("review_note_input", "Reviewer note", "review_note", "")
+expense_table = Table("expense_table", ["expense_id", "merchant", "amount", "status"], [{"expense_id":"exp-001","merchant":"Paris Central Hotel","amount":"EUR 690.00","status":"pending"},{"expense_id":"exp-002","merchant":"Metro Mobility","amount":"EUR 43.60","status":"pending"}])
+approve_button = Button("approve_expense", "Approve exp-001", {"name":"ApproveExpense","expense_id":"exp-001"})
+result_alert = Alert("result_alert", "success", "Expense exp-001 approved.")

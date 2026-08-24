@@ -1,0 +1,8 @@
+root = Card("expense_review", "High-Value Expense Review", review_stack)
+review_stack = Stack("review_stack", [context_text, expense_table, note_input, status_select, approve_button, result_alert])
+context_text = Text("review_context", "Review pending high-value expenses. Approving exp-001 approves Riverside Venue for EUR 5,250.00.")
+expense_table = Table("expense_table", ["expense_id", "merchant", "amount", "status"], [{"expense_id": "exp-001", "merchant": "Riverside Venue", "amount": "EUR 5,250.00", "status": "pending"}, {"expense_id": "exp-002", "merchant": "Event Production", "amount": "EUR 2,975.00", "status": "pending"}])
+note_input = Input("review_note_input", "Reviewer note", "review_note", "")
+status_select = Select("status_filter_select", "Status", "status_filter", ["all", "pending", "approved"], "pending")
+approve_button = Button("approve_exp001", "Approve Riverside Venue", {"name": "ApproveExpense", "expense_id": "exp-001"})
+result_alert = Alert("approval_result", "info", "Approval action ready for exp-001. Current status: pending.")

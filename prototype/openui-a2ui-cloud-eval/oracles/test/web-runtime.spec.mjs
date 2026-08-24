@@ -18,8 +18,11 @@ test("all accepted Surfaces preserve state, action, update and replay in Dioxus 
       [...new Set(nodes.map((node) => node.getAttribute("data-component")))].sort(),
     );
     expect(kinds).toEqual(["Alert", "Button", "Card", "Input", "Select", "Stack", "Table", "Text"]);
-    await expect(panel).toContainText("Acme Air");
-    await expect(panel).toContainText("Northwind Hotel");
+    const table = Object.values(surfaces[index].nodes).find((node) => node.kind === "Table");
+    for (const row of table.rows) {
+      await expect(panel).toContainText(row.merchant);
+      await expect(panel).toContainText(row.amount);
+    }
 
     const note = panel.locator('[data-state-key="review_note"]');
     const filter = panel.locator('[data-state-key="status_filter"]');

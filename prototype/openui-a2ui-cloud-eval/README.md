@@ -66,6 +66,13 @@ The symmetric result is `CONTROLLED_OPENUI_WIN`, `CONTROLLED_A2UI_WIN`,
 `CONTROLLED_TIE`, or `INVALID_EVAL`. Mobile and the direct typed-JSON product
 baseline are outside OPE-1; the latter remains OPE-2.
 
+The completed controlled run is archived under
+[`evidence/controlled-run-2026-08-24`](evidence/controlled-run-2026-08-24).
+Its outcome is `CONTROLLED_OPENUI_WIN`; read
+[`RUN-REPORT.md`](evidence/controlled-run-2026-08-24/RUN-REPORT.md) before using
+the result. The conclusion is deliberately limited to protocol generation and
+does not resolve the direct typed-JSON product baseline.
+
 ## Eval 0 contract
 
 - 20 paired passages, alternating protocol order.

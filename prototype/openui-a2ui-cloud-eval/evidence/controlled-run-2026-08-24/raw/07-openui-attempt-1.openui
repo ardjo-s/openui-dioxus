@@ -1,0 +1,8 @@
+root = Card("review_card", "Travel Expense Review", body)
+body = Stack("review_body", [context, expenses, note, filter, approve, result])
+context = Text("review_context", "Review lodging and transport costs for Lisbon travel policy sensitivity.")
+expenses = Table("expense_table", ["expense_id", "merchant", "amount", "status"], [{"expense_id":"exp-001","merchant":"Lisbon Riverside Rooms","amount":"EUR 465.00","status":"pending"},{"expense_id":"exp-002","merchant":"Atlantic Air","amount":"EUR 312.40","status":"pending"}])
+note = Input("review_note_input", "Reviewer note", "review_note", "")
+filter = Select("status_filter_select", "Status", "status_filter", ["all", "pending", "approved"], "pending")
+approve = Button("approve_expense", "Approve exp-001", {"name":"ApproveExpense","expense_id":"exp-001"})
+result = Alert("approval_result", "success", "Expense exp-001 approved successfully.")

@@ -1,0 +1,92 @@
+{
+  "protocol": "openui",
+  "root": "review_card",
+  "nodes": {
+    "approval_result": {
+      "kind": "Alert",
+      "id": "approval_result",
+      "tone": "success",
+      "message": "Expense exp-001 approved successfully."
+    },
+    "approve_expense": {
+      "kind": "Button",
+      "id": "approve_expense",
+      "label": "Approve exp-001",
+      "action": {
+        "name": "ApproveExpense",
+        "expense_id": "exp-001"
+      }
+    },
+    "expense_table": {
+      "kind": "Table",
+      "id": "expense_table",
+      "columns": [
+        "expense_id",
+        "merchant",
+        "amount",
+        "status"
+      ],
+      "rows": [
+        {
+          "amount": "EUR 465.00",
+          "expense_id": "exp-001",
+          "merchant": "Lisbon Riverside Rooms",
+          "status": "pending"
+        },
+        {
+          "amount": "EUR 312.40",
+          "expense_id": "exp-002",
+          "merchant": "Atlantic Air",
+          "status": "pending"
+        }
+      ]
+    },
+    "review_body": {
+      "kind": "Stack",
+      "id": "review_body",
+      "children": [
+        "review_context",
+        "expense_table",
+        "review_note_input",
+        "status_filter_select",
+        "approve_expense",
+        "approval_result"
+      ]
+    },
+    "review_card": {
+      "kind": "Card",
+      "id": "review_card",
+      "title": "Travel Expense Review",
+      "child": "review_body"
+    },
+    "review_context": {
+      "kind": "Text",
+      "id": "review_context",
+      "text": "Review lodging and transport costs for Lisbon travel policy sensitivity."
+    },
+    "review_note_input": {
+      "kind": "Input",
+      "id": "review_note_input",
+      "label": "Reviewer note",
+      "state_key": "review_note",
+      "value": ""
+    },
+    "status_filter_select": {
+      "kind": "Select",
+      "id": "status_filter_select",
+      "label": "Status",
+      "state_key": "status_filter",
+      "options": [
+        "all",
+        "pending",
+        "approved"
+      ],
+      "value": "pending"
+    }
+  },
+  "fields": {
+    "review_note": "",
+    "status_filter": "pending"
+  },
+  "source_hash": "ef1d6a4e10d7afca909a25da16bab48c3bb88e986477fb0076d90a0fc1e7f4c5"
+}

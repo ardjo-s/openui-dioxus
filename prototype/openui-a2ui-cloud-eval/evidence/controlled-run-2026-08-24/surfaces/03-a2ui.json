@@ -1,0 +1,92 @@
+{
+  "protocol": "a2ui",
+  "root": "expense-review-card",
+  "nodes": {
+    "expense-review-alert": {
+      "kind": "Alert",
+      "id": "expense-review-alert",
+      "tone": "info",
+      "message": "Expense exp-001 is ready for approval."
+    },
+    "expense-review-approve": {
+      "kind": "Button",
+      "id": "expense-review-approve",
+      "label": "Approve exp-001",
+      "action": {
+        "name": "ApproveExpense",
+        "expense_id": "exp-001"
+      }
+    },
+    "expense-review-card": {
+      "kind": "Card",
+      "id": "expense-review-card",
+      "title": "Expense Review",
+      "child": "expense-review-stack"
+    },
+    "expense-review-filter": {
+      "kind": "Select",
+      "id": "expense-review-filter",
+      "label": "Status filter",
+      "state_key": "status_filter",
+      "options": [
+        "all",
+        "pending",
+        "approved"
+      ],
+      "value": "pending"
+    },
+    "expense-review-note": {
+      "kind": "Input",
+      "id": "expense-review-note",
+      "label": "Review note",
+      "state_key": "review_note",
+      "value": ""
+    },
+    "expense-review-stack": {
+      "kind": "Stack",
+      "id": "expense-review-stack",
+      "children": [
+        "expense-review-text",
+        "expense-review-table",
+        "expense-review-note",
+        "expense-review-filter",
+        "expense-review-approve",
+        "expense-review-alert"
+      ]
+    },
+    "expense-review-table": {
+      "kind": "Table",
+      "id": "expense-review-table",
+      "columns": [
+        "expense_id",
+        "merchant",
+        "amount",
+        "status"
+      ],
+      "rows": [
+        {
+          "amount": "EUR 199.00",
+          "expense_id": "exp-001",
+          "merchant": "Fabrikam Software",
+          "status": "pending"
+        },
+        {
+          "amount": "EUR 74.90",
+          "expense_id": "exp-002",
+          "merchant": "Adventure Office",
+          "status": "pending"
+        }
+      ]
+    },
+    "expense-review-text": {
+      "kind": "Text",
+      "id": "expense-review-text",
+      "text": "Review routine operating expenses and make the pending approval action obvious."
+    }
+  },
+  "fields": {
+    "review_note": "",
+    "status_filter": "pending"
+  },
+  "source_hash": "4ede9ce54b4f357abdec66b19bb0f3f3d56dfbe30ae67df74db3cf5634d358ec"
+}

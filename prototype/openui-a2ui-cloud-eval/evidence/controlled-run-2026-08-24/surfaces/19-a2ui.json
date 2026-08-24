@@ -1,0 +1,92 @@
+{
+  "protocol": "a2ui",
+  "root": "expense-review-card",
+  "nodes": {
+    "approve-expense": {
+      "kind": "Button",
+      "id": "approve-expense",
+      "label": "Approve exp-001",
+      "action": {
+        "name": "ApproveExpense",
+        "expense_id": "exp-001"
+      }
+    },
+    "expense-review-card": {
+      "kind": "Card",
+      "id": "expense-review-card",
+      "title": "Vendor Compliance Renewal",
+      "child": "expense-review-stack"
+    },
+    "expense-review-stack": {
+      "kind": "Stack",
+      "id": "expense-review-stack",
+      "children": [
+        "identity-text",
+        "status-filter",
+        "expense-table",
+        "review-note",
+        "approve-expense",
+        "result-alert"
+      ]
+    },
+    "expense-table": {
+      "kind": "Table",
+      "id": "expense-table",
+      "columns": [
+        "expense_id",
+        "merchant",
+        "amount",
+        "status"
+      ],
+      "rows": [
+        {
+          "amount": "EUR 1,260.00",
+          "expense_id": "exp-001",
+          "merchant": "Secure Archive Renewal",
+          "status": "pending"
+        },
+        {
+          "amount": "EUR 340.00",
+          "expense_id": "exp-002",
+          "merchant": "Records Storage",
+          "status": "pending"
+        }
+      ]
+    },
+    "identity-text": {
+      "kind": "Text",
+      "id": "identity-text",
+      "text": "Reviewing vendor expenses for clear identity and pending status."
+    },
+    "result-alert": {
+      "kind": "Alert",
+      "id": "result-alert",
+      "tone": "info",
+      "message": "Expense exp-001 is ready for approval."
+    },
+    "review-note": {
+      "kind": "Input",
+      "id": "review-note",
+      "label": "Reviewer note",
+      "state_key": "review_note",
+      "value": ""
+    },
+    "status-filter": {
+      "kind": "Select",
+      "id": "status-filter",
+      "label": "Status",
+      "state_key": "status_filter",
+      "options": [
+        "all",
+        "pending",
+        "approved"
+      ],
+      "value": "pending"
+    }
+  },
+  "fields": {
+    "review_note": "",
+    "status_filter": "pending"
+  },
+  "source_hash": "98b36e84b6453f0fcab3dbb1b1b943710fc83735e746b2c2b06bb74a20a5507a"
+}

@@ -1,0 +1,92 @@
+{
+  "protocol": "a2ui",
+  "root": "review-card",
+  "nodes": {
+    "approve-expense-button": {
+      "kind": "Button",
+      "id": "approve-expense-button",
+      "label": "Approve exp-001",
+      "action": {
+        "name": "ApproveExpense",
+        "expense_id": "exp-001"
+      }
+    },
+    "expense-table": {
+      "kind": "Table",
+      "id": "expense-table",
+      "columns": [
+        "expense_id",
+        "merchant",
+        "amount",
+        "status"
+      ],
+      "rows": [
+        {
+          "amount": "EUR 920.00",
+          "expense_id": "exp-001",
+          "merchant": "Baltic Components",
+          "status": "pending"
+        },
+        {
+          "amount": "EUR 275.00",
+          "expense_id": "exp-002",
+          "merchant": "Local Parts Depot",
+          "status": "pending"
+        }
+      ]
+    },
+    "identity-text": {
+      "kind": "Text",
+      "id": "identity-text",
+      "text": "vendor-compliance-international · Pending expenses awaiting review"
+    },
+    "result-alert": {
+      "kind": "Alert",
+      "id": "result-alert",
+      "tone": "info",
+      "message": "Approval result will appear here after reviewing and approving exp-001."
+    },
+    "review-card": {
+      "kind": "Card",
+      "id": "review-card",
+      "title": "Vendor Expense Review",
+      "child": "review-stack"
+    },
+    "review-note-input": {
+      "kind": "Input",
+      "id": "review-note-input",
+      "label": "Reviewer note",
+      "state_key": "review_note",
+      "value": ""
+    },
+    "review-stack": {
+      "kind": "Stack",
+      "id": "review-stack",
+      "children": [
+        "identity-text",
+        "expense-table",
+        "review-note-input",
+        "status-filter-select",
+        "approve-expense-button",
+        "result-alert"
+      ]
+    },
+    "status-filter-select": {
+      "kind": "Select",
+      "id": "status-filter-select",
+      "label": "Status filter",
+      "state_key": "status_filter",
+      "options": [
+        "all",
+        "pending",
+        "approved"
+      ],
+      "value": "pending"
+    }
+  },
+  "fields": {
+    "review_note": "",
+    "status_filter": "pending"
+  },
+  "source_hash": "5ab86c99a8fbd3b2ecaffd40d4e39fad3d03f0c8725b632aae48d72c39a0035c"
+}

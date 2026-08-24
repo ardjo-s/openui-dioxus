@@ -1,0 +1,124 @@
+{
+  "generated_at": "2026-08-24T12:39:02.267Z",
+  "outcome": "CONTROLLED_OPENUI_WIN",
+  "winner": "openui",
+  "invalid": false,
+  "calls": 57,
+  "estimated_cost_usd": null,
+  "pairs_complete": 20,
+  "first_pass_validity": {
+    "openui": 20,
+    "a2ui": 3
+  },
+  "post_repair_validity": {
+    "openui": 20,
+    "a2ui": 13
+  },
+  "protocol_metrics": {
+    "openui": {
+      "first_attempt_raw_tokens": 29073,
+      "median_first_attempt_raw_tokens": 1453,
+      "median_first_attempt_latency_ms": 10677.478165999986,
+      "cumulative_raw_tokens": 29073,
+      "median_passage_raw_tokens": 1453,
+      "median_latency_ms": 10677.478165999986,
+      "p95_latency_ms": 19387.384707000005,
+      "passage_latency_ms": [
+        11170.381041999999,
+        11967.746040999977,
+        19387.384707000005,
+        10606.127750000014,
+        13404.064041000005,
+        10677.478165999986,
+        10300.87425199998,
+        11312.991957999999,
+        9957.278666999948,
+        10545.31683299999,
+        11677.488499000028,
+        8915.799375000002,
+        23306.147041000077,
+        12989.648623000016,
+        10113.99325,
+        10638.738416000037,
+        10687.809666000074,
+        9680.471498999977,
+        10521.488083999953,
+        11362.392207000055
+      ]
+    },
+    "a2ui": {
+      "first_attempt_raw_tokens": 35421,
+      "median_first_attempt_raw_tokens": 1775,
+      "median_first_attempt_latency_ms": 12772.132667000056,
+      "cumulative_raw_tokens": 72947,
+      "median_passage_raw_tokens": 3982,
+      "median_latency_ms": 24967.09316800011,
+      "p95_latency_ms": 28256.396582000074,
+      "passage_latency_ms": [
+        30150.915126,
+        12993.025458000004,
+        26550.430458999996,
+        24028.059666,
+        24321.472457999975,
+        25775.848874999967,
+        13395.25758299997,
+        26179.728125999885,
+        23319.64716699993,
+        23637.818291000032,
+        25160.674748999998,
+        28256.396582000074,
+        24378.818500000052,
+        27018.909958000062,
+        25488.183123999974,
+        25592.513625000138,
+        24967.09316800011,
+        25392.640500000212,
+        12910.535166999907,
+        24160.89149999991
+      ]
+    }
+  },
+  "accepted_surfaces": 33,
+  "common_criteria": {
+    "pairs_complete": true,
+    "preregistration": true,
+    "runtime_semantics": true,
+    "desktop": true,
+    "web": true,
+    "shared_runtime_diff": true
+  },
+  "candidate_criteria": {
+    "openui": {
+      "cumulative_token_advantage": true,
+      "first_pass_validity": true,
+      "repaired_validity": true,
+      "latency": true,
+      "adapter_loc": true
+    },
+    "a2ui": {
+      "cumulative_token_advantage": false,
+      "first_pass_validity": false,
+      "repaired_validity": false,
+      "latency": false,
+      "adapter_loc": true
+    }
+  },
+  "loc": {
+    "openui": 168,
+    "a2ui": 155
+  },
+  "shared_runtime_lines_modified": 0,
+  "platform": {
+    "desktop": {
+      "passed": true,
+      "accepted_count": 33,
+      "marker": "DIOXUS_RENDERED surfaces=33",
+      "evidence_complete": true
+    },
+    "web": {
+      "passed": true,
+      "accepted_count": 33,
+      "evidence_complete": true
+    }
+  }
+}

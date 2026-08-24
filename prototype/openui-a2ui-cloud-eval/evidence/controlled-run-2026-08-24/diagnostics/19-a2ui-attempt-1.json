@@ -1,0 +1,112 @@
+{
+  "ok": true,
+  "protocol": "a2ui",
+  "version": "v0.9.1/@a2ui/web_core@0.10.6",
+  "diagnostics": [],
+  "resolved": {
+    "surface_id": "vendor-compliance-renewal",
+    "components": [
+      {
+        "id": "expense-review-card",
+        "component": "Card",
+        "properties": {
+          "title": "Vendor Compliance Renewal",
+          "child": "expense-review-stack"
+        }
+      },
+      {
+        "id": "expense-review-stack",
+        "component": "Stack",
+        "properties": {
+          "children": [
+            "identity-text",
+            "status-filter",
+            "expense-table",
+            "review-note",
+            "approve-expense",
+            "result-alert"
+          ]
+        }
+      },
+      {
+        "id": "identity-text",
+        "component": "Text",
+        "properties": {
+          "text": "Reviewing vendor expenses for clear identity and pending status."
+        }
+      },
+      {
+        "id": "status-filter",
+        "component": "Select",
+        "properties": {
+          "label": "Status",
+          "state_key": "status_filter",
+          "options": [
+            "all",
+            "pending",
+            "approved"
+          ],
+          "value": "pending"
+        }
+      },
+      {
+        "id": "expense-table",
+        "component": "Table",
+        "properties": {
+          "columns": [
+            "expense_id",
+            "merchant",
+            "amount",
+            "status"
+          ],
+          "rows": [
+            {
+              "expense_id": "exp-001",
+              "merchant": "Secure Archive Renewal",
+              "amount": "EUR 1,260.00",
+              "status": "pending"
+            },
+            {
+              "expense_id": "exp-002",
+              "merchant": "Records Storage",
+              "amount": "EUR 340.00",
+              "status": "pending"
+            }
+          ]
+        }
+      },
+      {
+        "id": "review-note",
+        "component": "Input",
+        "properties": {
+          "label": "Reviewer note",
+          "state_key": "review_note",
+          "value": ""
+        }
+      },
+      {
+        "id": "approve-expense",
+        "component": "Button",
+        "properties": {
+          "label": "Approve exp-001",
+          "action": {
+            "name": "ApproveExpense",
+            "expense_id": "exp-001"
+          }
+        }
+      },
+      {
+        "id": "result-alert",
+        "component": "Alert",
+        "properties": {
+          "tone": "info",
+          "message": "Expense exp-001 is ready for approval."
+        }
+      }
+    ],
+    "data_model": {
+      "review_note": "",
+      "status_filter": "pending"
+    }
+  }
+}

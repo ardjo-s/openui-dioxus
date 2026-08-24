@@ -1,0 +1,92 @@
+{
+  "protocol": "openui",
+  "root": "review-card",
+  "nodes": {
+    "approval-result": {
+      "kind": "Alert",
+      "id": "approval-result",
+      "tone": "info",
+      "message": "Expense exp-001 approval result will appear here."
+    },
+    "approve-expense": {
+      "kind": "Button",
+      "id": "approve-expense",
+      "label": "Approve exp-001",
+      "action": {
+        "name": "ApproveExpense",
+        "expense_id": "exp-001"
+      }
+    },
+    "expense-table": {
+      "kind": "Table",
+      "id": "expense-table",
+      "columns": [
+        "expense_id",
+        "merchant",
+        "amount",
+        "status"
+      ],
+      "rows": [
+        {
+          "amount": "EUR 320.00",
+          "expense_id": "exp-001",
+          "merchant": "Northwind Catering",
+          "status": "pending"
+        },
+        {
+          "amount": "EUR 320.00",
+          "expense_id": "exp-002",
+          "merchant": "Northwind Caterers",
+          "status": "pending"
+        }
+      ]
+    },
+    "review-card": {
+      "kind": "Card",
+      "id": "review-card",
+      "title": "Expense review",
+      "child": "review-content"
+    },
+    "review-content": {
+      "kind": "Stack",
+      "id": "review-content",
+      "children": [
+        "review-intro",
+        "expense-table",
+        "review-note",
+        "status-filter",
+        "approve-expense",
+        "approval-result"
+      ]
+    },
+    "review-intro": {
+      "kind": "Text",
+      "id": "review-intro",
+      "text": "Review similar merchants and amounts for duplicate risk."
+    },
+    "review-note": {
+      "kind": "Input",
+      "id": "review-note",
+      "label": "Reviewer note",
+      "state_key": "review_note",
+      "value": ""
+    },
+    "status-filter": {
+      "kind": "Select",
+      "id": "status-filter",
+      "label": "Status",
+      "state_key": "status_filter",
+      "options": [
+        "all",
+        "pending",
+        "approved"
+      ],
+      "value": "pending"
+    }
+  },
+  "fields": {
+    "review_note": "",
+    "status_filter": "pending"
+  },
+  "source_hash": "f2756a705c6ba6495653c9be932aeb4394005197d43b3d9a806084d4197a5527"
+}

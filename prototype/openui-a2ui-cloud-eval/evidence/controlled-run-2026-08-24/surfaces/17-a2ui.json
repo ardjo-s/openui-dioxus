@@ -1,0 +1,92 @@
+{
+  "protocol": "a2ui",
+  "root": "expense-review-card",
+  "nodes": {
+    "approval-result-alert": {
+      "kind": "Alert",
+      "id": "approval-result-alert",
+      "tone": "success",
+      "message": "Expense exp-001 approved."
+    },
+    "approve-expense-button": {
+      "kind": "Button",
+      "id": "approve-expense-button",
+      "label": "Approve exp-001",
+      "action": {
+        "name": "ApproveExpense",
+        "expense_id": "exp-001"
+      }
+    },
+    "expense-review-card": {
+      "kind": "Card",
+      "id": "expense-review-card",
+      "title": "Vendor Expense Review",
+      "child": "expense-review-stack"
+    },
+    "expense-review-stack": {
+      "kind": "Stack",
+      "id": "expense-review-stack",
+      "children": [
+        "review-title",
+        "expense-table",
+        "review-note-input",
+        "status-filter-select",
+        "approve-expense-button",
+        "approval-result-alert"
+      ]
+    },
+    "expense-table": {
+      "kind": "Table",
+      "id": "expense-table",
+      "columns": [
+        "expense_id",
+        "merchant",
+        "amount",
+        "status"
+      ],
+      "rows": [
+        {
+          "amount": "EUR 610.00",
+          "expense_id": "exp-001",
+          "merchant": "New Horizon Supplies",
+          "status": "pending"
+        },
+        {
+          "amount": "EUR 185.00",
+          "expense_id": "exp-002",
+          "merchant": "Trusted Office Group",
+          "status": "pending"
+        }
+      ]
+    },
+    "review-note-input": {
+      "kind": "Input",
+      "id": "review-note-input",
+      "label": "Reviewer note",
+      "state_key": "review_note",
+      "value": ""
+    },
+    "review-title": {
+      "kind": "Text",
+      "id": "review-title",
+      "text": "Review vendor expenses with clear identity, pending status, and an auditable reviewer note."
+    },
+    "status-filter-select": {
+      "kind": "Select",
+      "id": "status-filter-select",
+      "label": "Status filter",
+      "state_key": "status_filter",
+      "options": [
+        "all",
+        "pending",
+        "approved"
+      ],
+      "value": "pending"
+    }
+  },
+  "fields": {
+    "review_note": "",
+    "status_filter": "pending"
+  },
+  "source_hash": "b40df5728e338ba67ed8b7a1ee19fbdfee1744fcf6cc46d6eda2891821c19f58"
+}
