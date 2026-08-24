@@ -127,13 +127,21 @@ Verification evidence:
 
 ## OPE-8 cloud feedback loop
 
-- [ ] Official Dioxus CLI `0.7.10` release archives for Linux and macOS are used, and the published SHA-256 digest is verified before execution on cold and warm paths.
-- [ ] Rust/Dioxus caches are keyed by runner OS, target, Dioxus version, and the catalog `Cargo.lock`; a cold cache remains a valid reproducible path.
-- [ ] Web, Desktop, iOS Simulator, and Android Emulator have independent full-matrix jobs that upload their evidence before failing honestly when their platform gate fails.
-- [ ] A quick entry point runs bounded checks only and cannot produce or claim the four-platform aggregate; a full entry point retains all four platforms, accessibility, hashes, and aggregate enforcement.
-- [ ] Existing generated fixtures and archived payloads are reused; no model/provider call is introduced.
-- [ ] Runtime, protocol prompts, validators, Surface semantics, platform assertions, and scorer remain unchanged.
-- [ ] Cold and warm timings before/after are measured where the runner permits and documented with the verification commands and limitations.
-- [ ] The stacked branch is committed, pushed, and has one Draft PR targeting `codex/ope-6-platform-accessibility`.
+- [x] Official Dioxus CLI `0.7.10` release archives for Linux and macOS are used, and the published SHA-256 digest is verified before execution on cold and warm paths.
+- [x] Rust/Dioxus caches are keyed by runner OS, target, Dioxus version, and the catalog `Cargo.lock`; a cold cache remains a valid reproducible path.
+- [x] Web, Desktop, iOS Simulator, and Android Emulator have independent full-matrix jobs that upload their evidence before failing honestly when their platform gate fails.
+- [x] A quick entry point runs bounded checks only and cannot produce or claim the four-platform aggregate; a full entry point retains all four platforms, accessibility, hashes, and aggregate enforcement.
+- [x] Existing generated fixtures and archived payloads are reused; no model/provider call is introduced.
+- [x] Runtime, protocol prompts, validators, Surface semantics, platform assertions, and scorer remain unchanged.
+- [x] Cold and warm timings before/after are measured where the runner permits and documented with the verification commands and limitations.
+- [x] The stacked branch is committed, pushed, and has one Draft PR targeting `codex/ope-6-platform-accessibility`.
 
-Verification evidence will be recorded here after implementation and review.
+Verification evidence:
+
+- Official installer locally verified `dx 0.7.10 (57d6794)` with published macOS SHA-256: cold 2.85s, warm 0.94s. The cloud Linux and macOS jobs both passed the official installer step.
+- Cache cold/warm cloud comparison on runs [32785563248](https://github.com/ardjo-s/openui-dioxus/actions/runs/32785563248) and [32786600708](https://github.com/ardjo-s/openui-dioxus/actions/runs/32786600708): Web 3m58s → 2m41s; Desktop 5m53s → 1m50s; iOS 10m30s → 6m08s on the observed runner images.
+- Local proof after rebasing onto the accepted OPE-6 evidence commit `ef2b435`: Node 17/17, `actionlint`, shell syntax, fixture determinism, `git diff --check`, and Rust platform probe 1/1 passed. The cold-path contract also verifies that quick and Desktop install the generator dependency introduced by the completed OPE-6 base.
+- Run [32786600708](https://github.com/ardjo-s/openui-dioxus/actions/runs/32786600708) proved independent uploads and honest Android failure before OPE-6 recovery. OPE-6 later passed all four platforms in accepted run [32847665208](https://github.com/ardjo-s/openui-dioxus/actions/runs/32847665208); the rebased OPE-8 workflow preserves its API 34 `pixel_3a`, prebuilt APK, exact marker, screenshot validation, and aggregate gates.
+- Rebased full run [32940798186](https://github.com/ardjo-s/openui-dioxus/actions/runs/32940798186) passed with five artifacts and a hash-verified aggregate `PASS`: Web 2m17s, Desktop 3m07s, iOS 6m46s, Android 7m07s, aggregate 11s.
+- Quick run [32941462388](https://github.com/ardjo-s/openui-dioxus/actions/runs/32941462388) passed in 1m23s with exactly one `ope6-quick-checks` artifact declaring `verification_scope: quick-only` and `certified_matrix: false`; all platform and aggregate jobs were skipped.
+- Delivery commit after rebase: `1e87d12`; Draft PR [#10](https://github.com/ardjo-s/openui-dioxus/pull/10), stacked on `codex/ope-6-platform-accessibility`.
