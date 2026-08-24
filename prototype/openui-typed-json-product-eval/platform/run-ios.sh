@@ -22,6 +22,7 @@ trap finish EXIT
 if ! xcrun -f simctl >/dev/null 2>&1; then error="simctl unavailable"; exit 1; fi
 device=$(xcrun simctl list devices available -j | jq -r '[.devices[][] | select(.name | startswith("iPhone"))][0].udid // empty')
 if [ -z "$device" ]; then error="no available iPhone Simulator"; exit 1; fi
+status=FAIL
 xcrun simctl boot "$device" 2>/dev/null || true
 xcrun simctl bootstatus "$device" -b
 rustup target add aarch64-apple-ios-sim

@@ -3,19 +3,20 @@ import { createHash } from "node:crypto";
 import { readFile, readdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 
+import { evidenceStatus } from "./evidence-status.mjs";
+
 const root = path.resolve(process.argv[2] ?? "evidence/platform-cloud");
 const platforms = {};
 for (const name of ["web", "desktop", "ios", "android"]) {
   try {
     platforms[name] = JSON.parse(await readFile(path.join(root, `${name}.json`), "utf8"));
   } catch (error) {
-    platforms[name] = { platform: name, passed: false, evidence_complete: false, error: String(error.message) };
+    platforms[name] = { platform: name, status: "INVALID_EVAL", passed: false, evidence_complete: false, error: String(error.message) };
   }
 }
 const allComplete = Object.values(platforms).every((platform) => platform.passed === true && platform.evidence_complete === true);
-const mobileMissing = ["ios", "android"].some((name) => platforms[name].passed !== true || platforms[name].evidence_complete !== true);
 const summary = {
-  evidence_status: allComplete ? "PASS" : mobileMissing ? "INVALID_EVAL" : "FAIL",
+  evidence_status: evidenceStatus(platforms),
   generated_at: new Date().toISOString(),
   platforms,
   claims: {

@@ -19,6 +19,7 @@ trap finish EXIT
 
 if ! command -v adb >/dev/null; then error="adb unavailable"; exit 1; fi
 if ! adb get-state >/dev/null 2>&1; then error="Android Emulator unavailable"; exit 1; fi
+status=FAIL
 rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
 
 cd "$catalog"
