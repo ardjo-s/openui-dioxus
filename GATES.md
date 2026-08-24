@@ -124,3 +124,16 @@ Verification evidence:
 - Tracker structure: 12 adapter-and-platform implication sections; eight tickets `resolved`, four `open`; current frontier exactly ticket 09.
 - Decision-time repository scan: 31 Markdown/HTML files and 31 local links checked, with zero broken links, trailing-whitespace matches, merge markers, or stale positive ABI/native/effect terminology.
 - Diagram Design self-check returned `OK` for the repository ELI5 explainer and the updated layer-stack visualization.
+
+## OPE-8 cloud feedback loop
+
+- [ ] Official Dioxus CLI `0.7.10` release archives for Linux and macOS are used, and the published SHA-256 digest is verified before execution on cold and warm paths.
+- [ ] Rust/Dioxus caches are keyed by runner OS, target, Dioxus version, and the catalog `Cargo.lock`; a cold cache remains a valid reproducible path.
+- [ ] Web, Desktop, iOS Simulator, and Android Emulator have independent full-matrix jobs that upload their evidence before failing honestly when their platform gate fails.
+- [ ] A quick entry point runs bounded checks only and cannot produce or claim the four-platform aggregate; a full entry point retains all four platforms, accessibility, hashes, and aggregate enforcement.
+- [ ] Existing generated fixtures and archived payloads are reused; no model/provider call is introduced.
+- [ ] Runtime, protocol prompts, validators, Surface semantics, platform assertions, and scorer remain unchanged.
+- [ ] Cold and warm timings before/after are measured where the runner permits and documented with the verification commands and limitations.
+- [ ] The stacked branch is committed, pushed, and has one Draft PR targeting `codex/ope-6-platform-accessibility`.
+
+Verification evidence will be recorded here after implementation and review.
