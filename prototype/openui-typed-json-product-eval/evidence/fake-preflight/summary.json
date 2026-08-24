@@ -11,16 +11,16 @@
     "typed-json": 20
   },
   "cumulative_raw_tokens": {
-    "openui": 39200,
-    "typed-json": 46557
+    "openui": 39744,
+    "typed-json": 47401
   },
   "median_full_response_ms": {
-    "openui": 21.467728999999963,
-    "typed-json": 23.986020999999994
+    "openui": 21.291082999999958,
+    "typed-json": 23.843166499999995
   },
   "cumulative_response_bytes": {
-    "openui": 5075,
-    "typed-json": 10769
+    "openui": 6111,
+    "typed-json": 12784
   },
   "mechanical_repair_count": {
     "openui": 2,
@@ -61,7 +61,7 @@
     "maximum_calls": 80,
     "maximum_repairs_per_arm": 1
   },
-  "preregistration_hash": "33707fbfeb8bf126f83e2c1acc1f6546eead51e7fdae483925600f2344a14123",
+  "preregistration_hash": "eeb6e6f857c2ecc5531edac8fb50ff405989ce16bdac717aba1beed5f0b6b0a6",
   "adapter_loc": {
     "openui": 28,
     "typed-json": 3

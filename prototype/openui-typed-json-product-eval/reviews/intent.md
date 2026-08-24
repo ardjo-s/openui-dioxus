@@ -18,6 +18,10 @@ repairs both symmetrically. Its apparent token and latency numbers are pipeline
 fixtures only. They are not evidence that OpenUI is better or worse than typed
 JSON.
 
+The corpus correction made before OPE-6 adds one allowlisted Button action to
+every family. This prevents platform automation from substituting an undeclared
+synthetic action when proving the state/action/update/replay sequence.
+
 The decisive question remains open: after real generation, platform execution,
 blinded review, and maintenance drills, does OpenUI show one material advantage
 without failing a hard gate? Only OPE-7 may answer it.

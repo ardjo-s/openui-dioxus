@@ -3,6 +3,8 @@
 This OPE-5 prototype freezes the generation boundary for the decisive product
 comparison. It uses the OPE-4 12-component Dioxus Components catalog and runs
 20 paired scenarios across five workflow families.
+Every family declares one allowlisted Button action so its representative can
+exercise the host boundary on each platform.
 
 Both arms receive the same scenario prompt and catalog semantics. OpenUI uses
 the pinned official parser and nested component values. Typed JSON uses the

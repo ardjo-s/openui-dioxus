@@ -16,6 +16,7 @@ test("five workflow families produce four deterministic variants each", async ()
     assert.deepEqual(scenario.shared_contract.initial_state, scenario.expected.state);
     assert.equal(scenario.shared_contract.replay.same_fingerprint, true);
     assert.equal(scenario.shared_contract.replay.additional_host_effects, 0);
+    assert.equal(scenario.shared_contract.typed_actions.length, 1);
     assert.deepEqual(scenario.shared_contract.acceptance.required_state, scenario.expected.state);
     assert.equal("exact_wire_surface" in scenario.shared_contract.acceptance, false);
     assert.equal(scenario.shared_prompt.includes(JSON.stringify(scenario.expected)), false);

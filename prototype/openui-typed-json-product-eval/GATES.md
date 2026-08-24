@@ -8,6 +8,7 @@ provider, certify a platform, or issue the final product verdict.
 - [x] Freeze five workflow families with four deterministic variants each.
 - [x] Bind shared intent, data, catalog semantics, state, actions, updates,
   replay rules, scoring rules, source pins, and schedule into one preregistration hash.
+- [x] Require one allowlisted typed host action in every workflow family.
 - [x] Alternate OpenUI/typed-JSON order across 20 paired scenarios and allow at
   most one repair per arm.
 - [x] Record Luna low, fresh ephemeral sessions, disabled tools, bounded output,
