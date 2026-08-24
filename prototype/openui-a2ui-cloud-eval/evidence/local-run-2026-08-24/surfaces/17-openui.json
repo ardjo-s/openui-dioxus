@@ -1,0 +1,91 @@
+{
+  "protocol": "openui",
+  "root": "review-card",
+  "nodes": {
+    "approval-result": {
+      "kind": "Alert",
+      "id": "approval-result",
+      "tone": "info",
+      "message": "Expense exp-001 is ready for approval."
+    },
+    "approve-exp-001": {
+      "kind": "Button",
+      "id": "approve-exp-001",
+      "label": "Approve expense exp-001",
+      "action": {
+        "name": "ApproveExpense",
+        "expense_id": "exp-001"
+      }
+    },
+    "expense-table": {
+      "kind": "Table",
+      "id": "expense-table",
+      "columns": [
+        "expense_id",
+        "merchant",
+        "amount",
+        "status"
+      ],
+      "rows": [
+        {
+          "amount": "EUR 420.00",
+          "expense_id": "exp-001",
+          "merchant": "Acme Air",
+          "status": "pending"
+        },
+        {
+          "amount": "EUR 280.00",
+          "expense_id": "exp-002",
+          "merchant": "Northwind Hotel",
+          "status": "pending"
+        }
+      ]
+    },
+    "review-card": {
+      "kind": "Card",
+      "id": "review-card",
+      "title": "Expense Review",
+      "child": "review-content"
+    },
+    "review-content": {
+      "kind": "Stack",
+      "id": "review-content",
+      "children": [
+        "review-intro",
+        "expense-table",
+        "review-note",
+        "status-filter",
+        "approve-exp-001",
+        "approval-result"
+      ]
+    },
+    "review-intro": {
+      "kind": "Text",
+      "id": "review-intro",
+      "text": "Review the following expenses."
+    },
+    "review-note": {
+      "kind": "Input",
+      "id": "review-note",
+      "label": "Reviewer note",
+      "state_key": "review_note",
+      "value": ""
+    },
+    "status-filter": {
+      "kind": "Select",
+      "id": "status-filter",
+      "label": "Status",
+      "state_key": "status_filter",
+      "options": [
+        "pending",
+        "approved"
+      ],
+      "value": "pending"
+    }
+  },
+  "fields": {
+    "review_note": "",
+    "status_filter": "pending"
+  },
+  "source_hash": "ff4696891f88d424718a39073e3691ee7d89c5875d9f22ead9e64f3018605946"
+}

@@ -65,3 +65,12 @@ is compiled, evaluated, sourced, or executed as code.
 The automatic result is one of `OPENUI_WIN_MOBILE_PASS`,
 `OPENUI_WIN_MOBILE_FAIL`, `PIVOT_OR_STOP`, or `INVALID_EVAL`. A protocol win is
 not a Mobile support claim when the simulator gate fails.
+
+## Completed local run
+
+The 2026-08-24 ChatGPT-plan run is archived under
+[`evidence/local-run-2026-08-24`](evidence/local-run-2026-08-24). Start with
+[`RUN-REPORT.md`](evidence/local-run-2026-08-24/RUN-REPORT.md); `SHA256SUMS`
+verifies all 303 evidence files. Its automatic outcome is
+`OPENUI_WIN_MOBILE_FAIL`: Desktop and Web passed, while iOS could not run because
+`simctl` was unavailable.

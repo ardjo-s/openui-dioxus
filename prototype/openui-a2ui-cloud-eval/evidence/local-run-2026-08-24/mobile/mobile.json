@@ -1,0 +1,5 @@
+{
+  "status": "FAIL",
+  "error": "simctl is unavailable; install or select full Xcode",
+  "pair_count": 2
+}

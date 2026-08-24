@@ -1,0 +1,11 @@
+  0.02s  INFO Building project...
+  1.81s  INFO Bundling app...
+  1.86s  INFO Running wasm-bindgen...
+  2.68s ERROR wasm-opt failed with status code signal: 6 (SIGABRT)
+stderr: 
+stdout: compile unit size was incorrect (this may be an unsupported version of DWARF)
+UNREACHABLE executed at /Users/runner/work/binaryen/binaryen/third_party/llvm-project/DWARFEmitter.cpp:201!
+ 
+  2.68s  INFO Copying asset (1/2): /Users/ardjo/CODE/worktrees/openui-dioxus-openui-a2ui-cloud-eval/prototype/openui-a2ui-cloud-eval/target/dx/eval-app/release/web/public/wasm/eval-app.js
+  2.68s  INFO Copying asset (2/2): /Users/ardjo/CODE/worktrees/openui-dioxus-openui-a2ui-cloud-eval/prototype/openui-a2ui-cloud-eval/target/dx/eval-app/release/web/public/wasm/eval-app_bg.wasm
+  2.68s  INFO Client build completed successfully! 🚀 path="/Users/ardjo/CODE/worktrees/openui-dioxus-openui-a2ui-cloud-eval/prototype/openui-a2ui-cloud-eval/target/dx/eval-app/release/web/public"

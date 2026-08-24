@@ -1,0 +1,1823 @@
+[
+  {
+    "protocol": "openui",
+    "root": "expense-review-card",
+    "nodes": {
+      "approval-result": {
+        "kind": "Alert",
+        "id": "approval-result",
+        "tone": "info",
+        "message": "Expense approval result will appear here."
+      },
+      "approve-exp-001": {
+        "kind": "Button",
+        "id": "approve-exp-001",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review-card": {
+        "kind": "Card",
+        "id": "expense-review-card",
+        "title": "Expense Review",
+        "child": "review-content"
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 420.00",
+            "expense_id": "exp-001",
+            "merchant": "Acme Air",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 280.00",
+            "expense_id": "exp-002",
+            "merchant": "Northwind Hotel",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-content": {
+        "kind": "Stack",
+        "id": "review-content",
+        "children": [
+          "review-heading",
+          "status-filter",
+          "expense-table",
+          "review-note",
+          "approve-exp-001",
+          "approval-result"
+        ]
+      },
+      "review-heading": {
+        "kind": "Text",
+        "id": "review-heading",
+        "text": "Review expenses awaiting approval"
+      },
+      "review-note": {
+        "kind": "Input",
+        "id": "review-note",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter": {
+        "kind": "Select",
+        "id": "status-filter",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "23ce38a40973f6b38fb60571a82d74e634860acf4141a6355fd385f54292a59e"
+  },
+  {
+    "protocol": "openui",
+    "root": "expense-review",
+    "nodes": {
+      "approval-result": {
+        "kind": "Alert",
+        "id": "approval-result",
+        "tone": "info",
+        "message": "Expense review result will appear here."
+      },
+      "approve-exp-001": {
+        "kind": "Button",
+        "id": "approve-exp-001",
+        "label": "Approve expense exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review": {
+        "kind": "Card",
+        "id": "expense-review",
+        "title": "Expense Review",
+        "child": "review-content"
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 420.00",
+            "expense_id": "exp-001",
+            "merchant": "Acme Air",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 280.00",
+            "expense_id": "exp-002",
+            "merchant": "Northwind Hotel",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-content": {
+        "kind": "Stack",
+        "id": "review-content",
+        "children": [
+          "review-intro",
+          "status-filter",
+          "expense-table",
+          "review-note",
+          "approve-exp-001",
+          "approval-result"
+        ]
+      },
+      "review-intro": {
+        "kind": "Text",
+        "id": "review-intro",
+        "text": "Review pending expenses and approve exp-001."
+      },
+      "review-note": {
+        "kind": "Input",
+        "id": "review-note",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter": {
+        "kind": "Select",
+        "id": "status-filter",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "pending"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "932cf7b8542d50524b181e60106214a67a39d271f372ada534d32a645df24e82"
+  },
+  {
+    "protocol": "openui",
+    "root": "expense_review",
+    "nodes": {
+      "approval_result": {
+        "kind": "Alert",
+        "id": "approval_result",
+        "tone": "info",
+        "message": "Expense exp-001 is ready for approval."
+      },
+      "approve_expense": {
+        "kind": "Button",
+        "id": "approve_expense",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense_review": {
+        "kind": "Card",
+        "id": "expense_review",
+        "title": "Expense Review",
+        "child": "review_content"
+      },
+      "expense_table": {
+        "kind": "Table",
+        "id": "expense_table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 420.00",
+            "expense_id": "exp-001",
+            "merchant": "Acme Air",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 280.00",
+            "expense_id": "exp-002",
+            "merchant": "Northwind Hotel",
+            "status": "pending"
+          }
+        ]
+      },
+      "review_content": {
+        "kind": "Stack",
+        "id": "review_content",
+        "children": [
+          "review_title",
+          "status_filter_select",
+          "expense_table",
+          "review_note_input",
+          "approve_expense",
+          "approval_result"
+        ]
+      },
+      "review_note_input": {
+        "kind": "Input",
+        "id": "review_note_input",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "review_title": {
+        "kind": "Text",
+        "id": "review_title",
+        "text": "Review expenses awaiting approval"
+      },
+      "status_filter_select": {
+        "kind": "Select",
+        "id": "status_filter_select",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "pending",
+          "approved",
+          "rejected"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "5e5205a19dad9d0460b41d1d85d4945cc01119684fe4f8e1bfb90bba7511050d"
+  },
+  {
+    "protocol": "openui",
+    "root": "review-card",
+    "nodes": {
+      "approve-exp-001": {
+        "kind": "Button",
+        "id": "approve-exp-001",
+        "label": "Approve expense exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 420.00",
+            "expense_id": "exp-001",
+            "merchant": "Acme Air",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 280.00",
+            "expense_id": "exp-002",
+            "merchant": "Northwind Hotel",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-card": {
+        "kind": "Card",
+        "id": "review-card",
+        "title": "Expense Review",
+        "child": "review-content"
+      },
+      "review-content": {
+        "kind": "Stack",
+        "id": "review-content",
+        "children": [
+          "review-intro",
+          "status-filter",
+          "expense-table",
+          "review-note",
+          "approve-exp-001",
+          "review-result"
+        ]
+      },
+      "review-intro": {
+        "kind": "Text",
+        "id": "review-intro",
+        "text": "Review the pending expenses below."
+      },
+      "review-note": {
+        "kind": "Input",
+        "id": "review-note",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "review-result": {
+        "kind": "Alert",
+        "id": "review-result",
+        "tone": "info",
+        "message": "Expense review result will appear here."
+      },
+      "status-filter": {
+        "kind": "Select",
+        "id": "status-filter",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "15efc06e216ba13ea01b80b091f83c1d3df37d3144249d9aa06967a7930f5ef8"
+  },
+  {
+    "protocol": "openui",
+    "root": "expense-review-card",
+    "nodes": {
+      "approval-result": {
+        "kind": "Alert",
+        "id": "approval-result",
+        "tone": "info",
+        "message": "Expense approval result will appear here."
+      },
+      "approve-exp-001": {
+        "kind": "Button",
+        "id": "approve-exp-001",
+        "label": "Approve Acme Air",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review-card": {
+        "kind": "Card",
+        "id": "expense-review-card",
+        "title": "Expense Review",
+        "child": "review-content"
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 420.00",
+            "expense_id": "exp-001",
+            "merchant": "Acme Air",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 280.00",
+            "expense_id": "exp-002",
+            "merchant": "Northwind Hotel",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-content": {
+        "kind": "Stack",
+        "id": "review-content",
+        "children": [
+          "review-intro",
+          "status-filter",
+          "expense-table",
+          "review-note",
+          "approve-exp-001",
+          "approval-result"
+        ]
+      },
+      "review-intro": {
+        "kind": "Text",
+        "id": "review-intro",
+        "text": "Review pending expenses and approve eligible items."
+      },
+      "review-note": {
+        "kind": "Input",
+        "id": "review-note",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter": {
+        "kind": "Select",
+        "id": "status-filter",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "pending",
+          "approved",
+          "rejected"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "8622b1a003b1a0d57d9773609de29fd245e3daf89a9d3fb2d86e589b0d8ef177"
+  },
+  {
+    "protocol": "openui",
+    "root": "expense_review",
+    "nodes": {
+      "approval_result": {
+        "kind": "Alert",
+        "id": "approval_result",
+        "tone": "info",
+        "message": "Expense approval result will appear here."
+      },
+      "approve_expense_001": {
+        "kind": "Button",
+        "id": "approve_expense_001",
+        "label": "Approve Acme Air",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense_review": {
+        "kind": "Card",
+        "id": "expense_review",
+        "title": "Expense Review",
+        "child": "review_content"
+      },
+      "expense_table": {
+        "kind": "Table",
+        "id": "expense_table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 420.00",
+            "expense_id": "exp-001",
+            "merchant": "Acme Air",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 280.00",
+            "expense_id": "exp-002",
+            "merchant": "Northwind Hotel",
+            "status": "pending"
+          }
+        ]
+      },
+      "review_content": {
+        "kind": "Stack",
+        "id": "review_content",
+        "children": [
+          "review_note_input",
+          "status_filter_select",
+          "expense_table",
+          "approve_expense_001",
+          "approval_result",
+          "review_instructions"
+        ]
+      },
+      "review_instructions": {
+        "kind": "Text",
+        "id": "review_instructions",
+        "text": "Review expenses and approve the selected expense."
+      },
+      "review_note_input": {
+        "kind": "Input",
+        "id": "review_note_input",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status_filter_select": {
+        "kind": "Select",
+        "id": "status_filter_select",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "562d1f560f37789e60c5536244e5aacd4a17b2500ce547c721916be8cb463ed1"
+  },
+  {
+    "protocol": "openui",
+    "root": "expense-review",
+    "nodes": {
+      "approval-result": {
+        "kind": "Alert",
+        "id": "approval-result",
+        "tone": "info",
+        "message": "Expense approval result will appear here."
+      },
+      "approve-expense": {
+        "kind": "Button",
+        "id": "approve-expense",
+        "label": "Approve Acme Air",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review": {
+        "kind": "Card",
+        "id": "expense-review",
+        "title": "Expense Review",
+        "child": "review-content"
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 420.00",
+            "expense_id": "exp-001",
+            "merchant": "Acme Air",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 280.00",
+            "expense_id": "exp-002",
+            "merchant": "Northwind Hotel",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-content": {
+        "kind": "Stack",
+        "id": "review-content",
+        "children": [
+          "status-filter",
+          "expense-table",
+          "review-note",
+          "approve-expense",
+          "approval-result",
+          "review-instruction"
+        ]
+      },
+      "review-instruction": {
+        "kind": "Text",
+        "id": "review-instruction",
+        "text": "Review the pending expenses and approve Acme Air when ready."
+      },
+      "review-note": {
+        "kind": "Input",
+        "id": "review-note",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter": {
+        "kind": "Select",
+        "id": "status-filter",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "pending"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "e7a42134c31db1ebdc2a144484a02ad67b29bc0dacf7df0c83c8f33dc5fa05c9"
+  },
+  {
+    "protocol": "openui",
+    "root": "expense-review",
+    "nodes": {
+      "approval-result": {
+        "kind": "Alert",
+        "id": "approval-result",
+        "tone": "info",
+        "message": "Expense exp-001 is ready for approval."
+      },
+      "approve-exp-001": {
+        "kind": "Button",
+        "id": "approve-exp-001",
+        "label": "Approve expense exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review": {
+        "kind": "Card",
+        "id": "expense-review",
+        "title": "Expense Review",
+        "child": "review-content"
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 420.00",
+            "expense_id": "exp-001",
+            "merchant": "Acme Air",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 280.00",
+            "expense_id": "exp-002",
+            "merchant": "Northwind Hotel",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-content": {
+        "kind": "Stack",
+        "id": "review-content",
+        "children": [
+          "review-instructions",
+          "expense-table",
+          "review-note",
+          "status-filter",
+          "approve-exp-001",
+          "approval-result"
+        ]
+      },
+      "review-instructions": {
+        "kind": "Text",
+        "id": "review-instructions",
+        "text": "Review the expenses below, add a note, filter by status, and approve expense exp-001."
+      },
+      "review-note": {
+        "kind": "Input",
+        "id": "review-note",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter": {
+        "kind": "Select",
+        "id": "status-filter",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "2a2442a0ed7351f62afc204077890cb2dea4b76dc2fefc2efc7eb0295e0c1083"
+  },
+  {
+    "protocol": "openui",
+    "root": "expense_review",
+    "nodes": {
+      "approval_result": {
+        "kind": "Alert",
+        "id": "approval_result",
+        "tone": "info",
+        "message": "Expense exp-001 is ready for approval."
+      },
+      "approve_exp001": {
+        "kind": "Button",
+        "id": "approve_exp001",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense_review": {
+        "kind": "Card",
+        "id": "expense_review",
+        "title": "Expense Review",
+        "child": "review_content"
+      },
+      "expense_table": {
+        "kind": "Table",
+        "id": "expense_table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 420.00",
+            "expense_id": "exp-001",
+            "merchant": "Acme Air",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 280.00",
+            "expense_id": "exp-002",
+            "merchant": "Northwind Hotel",
+            "status": "pending"
+          }
+        ]
+      },
+      "review_content": {
+        "kind": "Stack",
+        "id": "review_content",
+        "children": [
+          "review_intro",
+          "status_filter_select",
+          "expense_table",
+          "review_note_input",
+          "approve_exp001",
+          "approval_result"
+        ]
+      },
+      "review_intro": {
+        "kind": "Text",
+        "id": "review_intro",
+        "text": "Review pending expenses and approve exp-001."
+      },
+      "review_note_input": {
+        "kind": "Input",
+        "id": "review_note_input",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status_filter_select": {
+        "kind": "Select",
+        "id": "status_filter_select",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "pending",
+          "approved",
+          "rejected"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "c540696f8897ff8327d88e23262b6cced0f159aef39c56371cb2e379e086296d"
+  },
+  {
+    "protocol": "openui",
+    "root": "expense_review",
+    "nodes": {
+      "approval_result": {
+        "kind": "Alert",
+        "id": "approval_result",
+        "tone": "info",
+        "message": "Expense exp-001 is ready for approval."
+      },
+      "approve_expense_button": {
+        "kind": "Button",
+        "id": "approve_expense_button",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense_review": {
+        "kind": "Card",
+        "id": "expense_review",
+        "title": "Expense Review",
+        "child": "review_content"
+      },
+      "expense_table": {
+        "kind": "Table",
+        "id": "expense_table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 420.00",
+            "expense_id": "exp-001",
+            "merchant": "Acme Air",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 280.00",
+            "expense_id": "exp-002",
+            "merchant": "Northwind Hotel",
+            "status": "pending"
+          }
+        ]
+      },
+      "review_content": {
+        "kind": "Stack",
+        "id": "review_content",
+        "children": [
+          "review_intro",
+          "status_filter_control",
+          "expense_table",
+          "review_note_input",
+          "approve_expense_button",
+          "approval_result"
+        ]
+      },
+      "review_intro": {
+        "kind": "Text",
+        "id": "review_intro",
+        "text": "Review pending expenses and approve exp-001."
+      },
+      "review_note_input": {
+        "kind": "Input",
+        "id": "review_note_input",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status_filter_control": {
+        "kind": "Select",
+        "id": "status_filter_control",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "pending",
+          "approved",
+          "rejected"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "5d4449729697ab5aad5518d3ddf18844d75011a9b54be6c819bd3fa3b10e9aa6"
+  },
+  {
+    "protocol": "openui",
+    "root": "expense_review",
+    "nodes": {
+      "approval_result": {
+        "kind": "Alert",
+        "id": "approval_result",
+        "tone": "info",
+        "message": "Expense exp-001 is ready for approval."
+      },
+      "approve_expense_001": {
+        "kind": "Button",
+        "id": "approve_expense_001",
+        "label": "Approve Acme Air",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense_review": {
+        "kind": "Card",
+        "id": "expense_review",
+        "title": "Expense Review",
+        "child": "review_content"
+      },
+      "expense_table": {
+        "kind": "Table",
+        "id": "expense_table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 420.00",
+            "expense_id": "exp-001",
+            "merchant": "Acme Air",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 280.00",
+            "expense_id": "exp-002",
+            "merchant": "Northwind Hotel",
+            "status": "pending"
+          }
+        ]
+      },
+      "review_content": {
+        "kind": "Stack",
+        "id": "review_content",
+        "children": [
+          "review_heading",
+          "expense_table",
+          "status_filter_select",
+          "review_note_input",
+          "approve_expense_001",
+          "approval_result"
+        ]
+      },
+      "review_heading": {
+        "kind": "Text",
+        "id": "review_heading",
+        "text": "Review pending expenses"
+      },
+      "review_note_input": {
+        "kind": "Input",
+        "id": "review_note_input",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status_filter_select": {
+        "kind": "Select",
+        "id": "status_filter_select",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "pending",
+          "approved",
+          "rejected"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "2ece572cfa3ab879bb965579404ed633faa0cae0e86d1aebeb632d9193bcc4ac"
+  },
+  {
+    "protocol": "openui",
+    "root": "expense_review",
+    "nodes": {
+      "approval_result": {
+        "kind": "Alert",
+        "id": "approval_result",
+        "tone": "success",
+        "message": "Expense exp-001 approved successfully."
+      },
+      "approve_exp001": {
+        "kind": "Button",
+        "id": "approve_exp001",
+        "label": "Approve Acme Air",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense_review": {
+        "kind": "Card",
+        "id": "expense_review",
+        "title": "Expense Review",
+        "child": "review_content"
+      },
+      "expense_table": {
+        "kind": "Table",
+        "id": "expense_table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 420.00",
+            "expense_id": "exp-001",
+            "merchant": "Acme Air",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 280.00",
+            "expense_id": "exp-002",
+            "merchant": "Northwind Hotel",
+            "status": "pending"
+          }
+        ]
+      },
+      "review_content": {
+        "kind": "Stack",
+        "id": "review_content",
+        "children": [
+          "review_intro",
+          "status_filter_input",
+          "expense_table",
+          "review_note_input",
+          "approve_exp001",
+          "approval_result"
+        ]
+      },
+      "review_intro": {
+        "kind": "Text",
+        "id": "review_intro",
+        "text": "Review the two expenses awaiting approval."
+      },
+      "review_note_input": {
+        "kind": "Input",
+        "id": "review_note_input",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status_filter_input": {
+        "kind": "Select",
+        "id": "status_filter_input",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "e3507d387943fb025794ad3363574bf6a9fc78475c1b9ea7826a4a54ff638a75"
+  },
+  {
+    "protocol": "openui",
+    "root": "expense-review",
+    "nodes": {
+      "approval-result-alert": {
+        "kind": "Alert",
+        "id": "approval-result-alert",
+        "tone": "info",
+        "message": "Expense exp-001 is ready for approval."
+      },
+      "approve-expense-button": {
+        "kind": "Button",
+        "id": "approve-expense-button",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review": {
+        "kind": "Card",
+        "id": "expense-review",
+        "title": "Expense Review",
+        "child": "review-content"
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 420.00",
+            "expense_id": "exp-001",
+            "merchant": "Acme Air",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 280.00",
+            "expense_id": "exp-002",
+            "merchant": "Northwind Hotel",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-content": {
+        "kind": "Stack",
+        "id": "review-content",
+        "children": [
+          "review-intro",
+          "expense-table",
+          "review-note-input",
+          "status-filter-select",
+          "approve-expense-button",
+          "approval-result-alert"
+        ]
+      },
+      "review-intro": {
+        "kind": "Text",
+        "id": "review-intro",
+        "text": "Review the expenses awaiting approval."
+      },
+      "review-note-input": {
+        "kind": "Input",
+        "id": "review-note-input",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter-select": {
+        "kind": "Select",
+        "id": "status-filter-select",
+        "label": "Status filter",
+        "state_key": "status_filter",
+        "options": [
+          "pending"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "17cd9aaf1068aad667f1956a95180b77198ceb807efbaaee6173467aed3843cd"
+  },
+  {
+    "protocol": "openui",
+    "root": "expense-review",
+    "nodes": {
+      "approval-result": {
+        "kind": "Alert",
+        "id": "approval-result",
+        "tone": "info",
+        "message": "Expense approval result will appear here."
+      },
+      "approve-exp-001": {
+        "kind": "Button",
+        "id": "approve-exp-001",
+        "label": "Approve Acme Air",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review": {
+        "kind": "Card",
+        "id": "expense-review",
+        "title": "Expense Review",
+        "child": "review-content"
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 420.00",
+            "expense_id": "exp-001",
+            "merchant": "Acme Air",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 280.00",
+            "expense_id": "exp-002",
+            "merchant": "Northwind Hotel",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-content": {
+        "kind": "Stack",
+        "id": "review-content",
+        "children": [
+          "review-intro",
+          "status-filter",
+          "expense-table",
+          "review-note",
+          "approve-exp-001",
+          "approval-result"
+        ]
+      },
+      "review-intro": {
+        "kind": "Text",
+        "id": "review-intro",
+        "text": "Review the pending expenses below."
+      },
+      "review-note": {
+        "kind": "Input",
+        "id": "review-note",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter": {
+        "kind": "Select",
+        "id": "status-filter",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "24c7de02264dfe28a5a272867c54197dea0c4e7ab9db41aab53b8392ba274fee"
+  },
+  {
+    "protocol": "openui",
+    "root": "expense-review",
+    "nodes": {
+      "approval-result": {
+        "kind": "Alert",
+        "id": "approval-result",
+        "tone": "info",
+        "message": "Expense approval result will appear here."
+      },
+      "approve-exp-001": {
+        "kind": "Button",
+        "id": "approve-exp-001",
+        "label": "Approve expense exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review": {
+        "kind": "Card",
+        "id": "expense-review",
+        "title": "Expense Review",
+        "child": "review-content"
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 420.00",
+            "expense_id": "exp-001",
+            "merchant": "Acme Air",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 280.00",
+            "expense_id": "exp-002",
+            "merchant": "Northwind Hotel",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-content": {
+        "kind": "Stack",
+        "id": "review-content",
+        "children": [
+          "review-instructions",
+          "expense-table",
+          "status-filter",
+          "review-note",
+          "approve-exp-001",
+          "approval-result"
+        ]
+      },
+      "review-instructions": {
+        "kind": "Text",
+        "id": "review-instructions",
+        "text": "Review pending expenses and approve expense exp-001."
+      },
+      "review-note": {
+        "kind": "Input",
+        "id": "review-note",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter": {
+        "kind": "Select",
+        "id": "status-filter",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "pending"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "267aa1d86389a60d568b0e73427ed689fc7c763b126fde88c7e5f17d2b191168"
+  },
+  {
+    "protocol": "openui",
+    "root": "expense_review",
+    "nodes": {
+      "approval_result": {
+        "kind": "Alert",
+        "id": "approval_result",
+        "tone": "info",
+        "message": "Expense review ready."
+      },
+      "approve_expense": {
+        "kind": "Button",
+        "id": "approve_expense",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense_review": {
+        "kind": "Card",
+        "id": "expense_review",
+        "title": "Expense Review",
+        "child": "review_content"
+      },
+      "expense_table": {
+        "kind": "Table",
+        "id": "expense_table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 420.00",
+            "expense_id": "exp-001",
+            "merchant": "Acme Air",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 280.00",
+            "expense_id": "exp-002",
+            "merchant": "Northwind Hotel",
+            "status": "pending"
+          }
+        ]
+      },
+      "review_content": {
+        "kind": "Stack",
+        "id": "review_content",
+        "children": [
+          "status_filter_select",
+          "expense_table",
+          "review_note_input",
+          "approve_expense",
+          "approval_result",
+          "review_summary"
+        ]
+      },
+      "review_note_input": {
+        "kind": "Input",
+        "id": "review_note_input",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "review_summary": {
+        "kind": "Text",
+        "id": "review_summary",
+        "text": "Review the pending expenses below."
+      },
+      "status_filter_select": {
+        "kind": "Select",
+        "id": "status_filter_select",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "c6b7c8f0d40e8ae33724cb0e86163410974791bb9ae4fec62fac320c63e0e0c2"
+  },
+  {
+    "protocol": "openui",
+    "root": "review-card",
+    "nodes": {
+      "approval-result": {
+        "kind": "Alert",
+        "id": "approval-result",
+        "tone": "info",
+        "message": "Expense exp-001 is ready for approval."
+      },
+      "approve-exp-001": {
+        "kind": "Button",
+        "id": "approve-exp-001",
+        "label": "Approve expense exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 420.00",
+            "expense_id": "exp-001",
+            "merchant": "Acme Air",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 280.00",
+            "expense_id": "exp-002",
+            "merchant": "Northwind Hotel",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-card": {
+        "kind": "Card",
+        "id": "review-card",
+        "title": "Expense Review",
+        "child": "review-content"
+      },
+      "review-content": {
+        "kind": "Stack",
+        "id": "review-content",
+        "children": [
+          "review-intro",
+          "expense-table",
+          "review-note",
+          "status-filter",
+          "approve-exp-001",
+          "approval-result"
+        ]
+      },
+      "review-intro": {
+        "kind": "Text",
+        "id": "review-intro",
+        "text": "Review the following expenses."
+      },
+      "review-note": {
+        "kind": "Input",
+        "id": "review-note",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter": {
+        "kind": "Select",
+        "id": "status-filter",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "ff4696891f88d424718a39073e3691ee7d89c5875d9f22ead9e64f3018605946"
+  },
+  {
+    "protocol": "openui",
+    "root": "expense-review",
+    "nodes": {
+      "approval-result": {
+        "kind": "Alert",
+        "id": "approval-result",
+        "tone": "info",
+        "message": "Expense exp-001 is ready for approval."
+      },
+      "approve-exp-001": {
+        "kind": "Button",
+        "id": "approve-exp-001",
+        "label": "Approve expense exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review": {
+        "kind": "Card",
+        "id": "expense-review",
+        "title": "Expense Review",
+        "child": "review-content"
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 420.00",
+            "expense_id": "exp-001",
+            "merchant": "Acme Air",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 280.00",
+            "expense_id": "exp-002",
+            "merchant": "Northwind Hotel",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-content": {
+        "kind": "Stack",
+        "id": "review-content",
+        "children": [
+          "review-intro",
+          "expense-table",
+          "review-note",
+          "status-filter",
+          "approve-exp-001",
+          "approval-result"
+        ]
+      },
+      "review-intro": {
+        "kind": "Text",
+        "id": "review-intro",
+        "text": "Review pending expenses and approve expense exp-001."
+      },
+      "review-note": {
+        "kind": "Input",
+        "id": "review-note",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter": {
+        "kind": "Select",
+        "id": "status-filter",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "687313b91c0c8e734008f3cce8f2eb07e46e88d133ab3e958b423d63643bc4bf"
+  },
+  {
+    "protocol": "openui",
+    "root": "expense_review",
+    "nodes": {
+      "approval_result": {
+        "kind": "Alert",
+        "id": "approval_result",
+        "tone": "info",
+        "message": "Expense exp-001 is ready for approval."
+      },
+      "approve_expense": {
+        "kind": "Button",
+        "id": "approve_expense",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense_review": {
+        "kind": "Card",
+        "id": "expense_review",
+        "title": "Expense Review",
+        "child": "review_content"
+      },
+      "expense_table": {
+        "kind": "Table",
+        "id": "expense_table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 420.00",
+            "expense_id": "exp-001",
+            "merchant": "Acme Air",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 280.00",
+            "expense_id": "exp-002",
+            "merchant": "Northwind Hotel",
+            "status": "pending"
+          }
+        ]
+      },
+      "review_content": {
+        "kind": "Stack",
+        "id": "review_content",
+        "children": [
+          "review_intro",
+          "status_filter",
+          "expense_table",
+          "review_note",
+          "approve_expense",
+          "approval_result"
+        ]
+      },
+      "review_intro": {
+        "kind": "Text",
+        "id": "review_intro",
+        "text": "Review pending expenses and approve exp-001."
+      },
+      "review_note": {
+        "kind": "Input",
+        "id": "review_note",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status_filter": {
+        "kind": "Select",
+        "id": "status_filter",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "pending"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "7b47f86de9e51fdeef95b9ad20e8c91aee7ae574bbf20afd89452550931767c8"
+  },
+  {
+    "protocol": "openui",
+    "root": "expense_review",
+    "nodes": {
+      "approval_result": {
+        "kind": "Alert",
+        "id": "approval_result",
+        "tone": "success",
+        "message": "Expense exp-001 approved successfully."
+      },
+      "approve_exp_001": {
+        "kind": "Button",
+        "id": "approve_exp_001",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense_review": {
+        "kind": "Card",
+        "id": "expense_review",
+        "title": "Expense Review",
+        "child": "review_content"
+      },
+      "expense_table": {
+        "kind": "Table",
+        "id": "expense_table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 420.00",
+            "expense_id": "exp-001",
+            "merchant": "Acme Air",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 280.00",
+            "expense_id": "exp-002",
+            "merchant": "Northwind Hotel",
+            "status": "pending"
+          }
+        ]
+      },
+      "intro": {
+        "kind": "Text",
+        "id": "intro",
+        "text": "Review pending expenses and approve exp-001."
+      },
+      "review_content": {
+        "kind": "Stack",
+        "id": "review_content",
+        "children": [
+          "intro",
+          "status_filter",
+          "expense_table",
+          "review_note",
+          "approve_exp_001",
+          "approval_result"
+        ]
+      },
+      "review_note": {
+        "kind": "Input",
+        "id": "review_note",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status_filter": {
+        "kind": "Select",
+        "id": "status_filter",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "pending",
+          "approved",
+          "rejected"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "152029df6877aa547f8d2b2400af922503e66e64d9c52696aaa20b6754fdb80b"
+  }
+]

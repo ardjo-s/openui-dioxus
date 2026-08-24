@@ -1,0 +1,58 @@
+{
+  "ok": false,
+  "protocol": "a2ui",
+  "version": "v0.9.1/@a2ui/web_core@0.10.6",
+  "diagnostics": [
+    {
+      "code": "invalid_union",
+      "path": "messages/0",
+      "message": "Invalid input"
+    },
+    {
+      "code": "invalid_union",
+      "path": "messages/1",
+      "message": "Invalid input"
+    },
+    {
+      "code": "invalid_union",
+      "path": "messages/2",
+      "message": "Invalid input"
+    },
+    {
+      "code": "invalid_union",
+      "path": "messages/3",
+      "message": "Invalid input"
+    },
+    {
+      "code": "invalid_union",
+      "path": "messages/4",
+      "message": "Invalid input"
+    },
+    {
+      "code": "invalid_union",
+      "path": "messages/5",
+      "message": "Invalid input"
+    },
+    {
+      "code": "invalid_union",
+      "path": "messages/6",
+      "message": "Invalid input"
+    },
+    {
+      "code": "invalid_union",
+      "path": "messages/7",
+      "message": "Invalid input"
+    },
+    {
+      "code": "invalid_union",
+      "path": "messages/8",
+      "message": "Invalid input"
+    },
+    {
+      "code": "invalid_union",
+      "path": "messages/9",
+      "message": "Invalid input"
+    }
+  ],
+  "resolved": null
+}

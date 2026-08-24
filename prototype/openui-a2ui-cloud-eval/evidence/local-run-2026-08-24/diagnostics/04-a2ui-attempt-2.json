@@ -1,0 +1,23 @@
+{
+  "ok": false,
+  "protocol": "a2ui",
+  "version": "v0.9.1/@a2ui/web_core@0.10.6",
+  "diagnostics": [
+    {
+      "code": "invalid_union",
+      "path": "messages/0",
+      "message": "Invalid input"
+    },
+    {
+      "code": "invalid_union",
+      "path": "messages/1",
+      "message": "Invalid input"
+    },
+    {
+      "code": "unrecognized_keys",
+      "path": "",
+      "message": "Unrecognized key(s) in object: 'version'"
+    }
+  ],
+  "resolved": null
+}

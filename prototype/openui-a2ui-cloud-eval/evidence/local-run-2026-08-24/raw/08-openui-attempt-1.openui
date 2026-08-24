@@ -1,0 +1,8 @@
+root = Card("expense-review", "Expense Review", review_stack)
+review_stack = Stack("review-content", [intro_text, expense_table, note_input, status_select, approve_button, result_alert])
+intro_text = Text("review-instructions", "Review the expenses below, add a note, filter by status, and approve expense exp-001.")
+expense_table = Table("expense-table", ["expense_id", "merchant", "amount", "status"], [{"expense_id": "exp-001", "merchant": "Acme Air", "amount": "EUR 420.00", "status": "pending"}, {"expense_id": "exp-002", "merchant": "Northwind Hotel", "amount": "EUR 280.00", "status": "pending"}])
+note_input = Input("review-note", "Reviewer note", "review_note", "")
+status_select = Select("status-filter", "Status", "status_filter", ["pending", "approved"], "pending")
+approve_button = Button("approve-exp-001", "Approve expense exp-001", {name: "ApproveExpense", expense_id: "exp-001"})
+result_alert = Alert("approval-result", "info", "Expense exp-001 is ready for approval.")

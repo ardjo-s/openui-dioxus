@@ -1,0 +1,68 @@
+{
+  "generated_at": "2026-08-24T08:39:09.317Z",
+  "invalid": false,
+  "openui_wins": true,
+  "pre_mobile_outcome": "OPENUI_WIN_PENDING_MOBILE",
+  "pairs_complete": 20,
+  "calls": 64,
+  "estimated_cost_usd": null,
+  "first_pass_validity": {
+    "openui": 16,
+    "a2ui": 0
+  },
+  "post_repair_validity": {
+    "openui": 20,
+    "a2ui": 0
+  },
+  "protocol_metrics": {
+    "openui": {
+      "median_raw_tokens": 1324,
+      "median_latency_ms": 10576.045000999933,
+      "p95_latency_ms": 20657.812666000216
+    },
+    "a2ui": {
+      "median_raw_tokens": 2988,
+      "median_latency_ms": 32012.557291999998,
+      "p95_latency_ms": 41364.65191499994
+    }
+  },
+  "median_raw_token_advantage": 0.5568942436412316,
+  "accepted_surfaces": 20,
+  "loc": {
+    "openui": 168,
+    "a2ui": 155
+  },
+  "shared_runtime_lines_modified": 0,
+  "criteria": {
+    "pairs_complete": true,
+    "token_advantage": true,
+    "first_pass_validity": true,
+    "repaired_validity": true,
+    "latency": true,
+    "runtime_semantics": true,
+    "desktop": true,
+    "web": true,
+    "shared_runtime_diff": true,
+    "adapter_loc": true
+  },
+  "platform": {
+    "desktop": {
+      "passed": true,
+      "accepted_count": 20,
+      "marker": "DIOXUS_RENDERED surfaces=20",
+      "evidence_complete": true
+    },
+    "web": {
+      "passed": true,
+      "accepted_count": 20,
+      "evidence_complete": true
+    }
+  },
+  "mobile_status": "FAIL",
+  "outcome": "OPENUI_WIN_MOBILE_FAIL",
+  "mobile": {
+    "status": "FAIL",
+    "error": "simctl is unavailable; install or select full Xcode",
+    "pair_count": 2
+  }
+}
