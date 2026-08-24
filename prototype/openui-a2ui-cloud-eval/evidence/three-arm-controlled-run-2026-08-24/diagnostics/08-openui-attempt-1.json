@@ -1,0 +1,35 @@
+{
+  "ok": false,
+  "protocol": "openui",
+  "version": "lang-v0.5/@openuidev/lang-core@0.2.15",
+  "diagnostics": [
+    {
+      "code": "adapter-or-render-error",
+      "message": "normalize-openui failed: Error: component must be an OpenUI element object"
+    }
+  ],
+  "parse": {
+    "root": {
+      "type": "element",
+      "typeName": "Card",
+      "props": {
+        "id": "review-card",
+        "title": "Travel Expense Review",
+        "child": "review-content"
+      },
+      "partial": false,
+      "hasDynamicProps": false,
+      "statementId": "root"
+    },
+    "meta": {
+      "incomplete": false,
+      "unresolved": [],
+      "orphaned": [],
+      "statementCount": 1,
+      "errors": []
+    },
+    "stateDeclarations": {},
+    "queryStatements": [],
+    "mutationStatements": []
+  }
+}

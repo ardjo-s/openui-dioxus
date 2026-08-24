@@ -1,0 +1,92 @@
+{
+  "protocol": "a2ui",
+  "root": "expense-review-card",
+  "nodes": {
+    "approval-result": {
+      "kind": "Alert",
+      "id": "approval-result",
+      "tone": "info",
+      "message": "Approval result: exp-001 is currently pending review."
+    },
+    "approve-exp-001": {
+      "kind": "Button",
+      "id": "approve-exp-001",
+      "label": "Approve exp-001",
+      "action": {
+        "name": "ApproveExpense",
+        "expense_id": "exp-001"
+      }
+    },
+    "expense-review-card": {
+      "kind": "Card",
+      "id": "expense-review-card",
+      "title": "High-value expense review",
+      "child": "expense-review-stack"
+    },
+    "expense-review-stack": {
+      "kind": "Stack",
+      "id": "expense-review-stack",
+      "children": [
+        "review-instructions",
+        "status-filter",
+        "review-note",
+        "expense-table",
+        "approve-exp-001",
+        "approval-result"
+      ]
+    },
+    "expense-table": {
+      "kind": "Table",
+      "id": "expense-table",
+      "columns": [
+        "expense_id",
+        "merchant",
+        "amount",
+        "status"
+      ],
+      "rows": [
+        {
+          "amount": "EUR 3,890.00",
+          "expense_id": "exp-001",
+          "merchant": "Pro Workstations",
+          "status": "pending"
+        },
+        {
+          "amount": "EUR 1,640.00",
+          "expense_id": "exp-002",
+          "merchant": "Studio Displays",
+          "status": "pending"
+        }
+      ]
+    },
+    "review-instructions": {
+      "kind": "Text",
+      "id": "review-instructions",
+      "text": "Review high-value expenses. Approving an expense marks it approved."
+    },
+    "review-note": {
+      "kind": "Input",
+      "id": "review-note",
+      "label": "Review note",
+      "state_key": "review_note",
+      "value": ""
+    },
+    "status-filter": {
+      "kind": "Select",
+      "id": "status-filter",
+      "label": "Status filter",
+      "state_key": "status_filter",
+      "options": [
+        "all",
+        "pending",
+        "approved"
+      ],
+      "value": "pending"
+    }
+  },
+  "fields": {
+    "review_note": "",
+    "status_filter": "pending"
+  },
+  "source_hash": "a70819f1c05fa9ac75016936105fa05b572ce36ee7ecb4ead69af2cc45ca4227"
+}

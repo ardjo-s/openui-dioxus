@@ -1,0 +1,92 @@
+{
+  "protocol": "openui",
+  "root": "expense-review",
+  "nodes": {
+    "approval-result": {
+      "kind": "Alert",
+      "id": "approval-result",
+      "tone": "success",
+      "message": "Expense exp-001 approved. The current expense list remains a pending review snapshot until refreshed."
+    },
+    "approve-exp-001": {
+      "kind": "Button",
+      "id": "approve-exp-001",
+      "label": "Approve exp-001",
+      "action": {
+        "name": "ApproveExpense",
+        "expense_id": "exp-001"
+      }
+    },
+    "expense-review": {
+      "kind": "Card",
+      "id": "expense-review",
+      "title": "Expense Review",
+      "child": "review-content"
+    },
+    "expense-table": {
+      "kind": "Table",
+      "id": "expense-table",
+      "columns": [
+        "expense_id",
+        "merchant",
+        "amount",
+        "status"
+      ],
+      "rows": [
+        {
+          "amount": "EUR 5,250.00",
+          "expense_id": "exp-001",
+          "merchant": "Riverside Venue",
+          "status": "pending"
+        },
+        {
+          "amount": "EUR 2,975.00",
+          "expense_id": "exp-002",
+          "merchant": "Event Production",
+          "status": "pending"
+        }
+      ]
+    },
+    "review-content": {
+      "kind": "Stack",
+      "id": "review-content",
+      "children": [
+        "review-context",
+        "status-filter",
+        "expense-table",
+        "review-note",
+        "approve-exp-001",
+        "approval-result"
+      ]
+    },
+    "review-context": {
+      "kind": "Text",
+      "id": "review-context",
+      "text": "Review high-value expenses. Approving exp-001 approves Riverside Venue for EUR 5,250.00."
+    },
+    "review-note": {
+      "kind": "Input",
+      "id": "review-note",
+      "label": "Reviewer note",
+      "state_key": "review_note",
+      "value": ""
+    },
+    "status-filter": {
+      "kind": "Select",
+      "id": "status-filter",
+      "label": "Status",
+      "state_key": "status_filter",
+      "options": [
+        "all",
+        "pending",
+        "approved"
+      ],
+      "value": "pending"
+    }
+  },
+  "fields": {
+    "review_note": "",
+    "status_filter": "pending"
+  },
+  "source_hash": "113df7c1f2ceab34239b7bda7206b12a9201fd2d8dc4a24fd1cb75db31ba51fa"
+}

@@ -73,6 +73,38 @@ Its outcome is `CONTROLLED_OPENUI_WIN`; read
 the result. The conclusion is deliberately limited to protocol generation and
 does not resolve the direct typed-JSON product baseline.
 
+## OPE-3: joint OpenUI, A2UI, and typed-JSON evaluation
+
+OPE-3 does not append JSON samples to the historical OPE-1 run. It regenerates
+all three representations together across the same 20 frozen scenarios so both
+primary comparisons share model date, service conditions, scenario order, and
+downstream runtime evidence.
+
+```bash
+# Full deterministic 20x3 preflight with the fake provider
+prototype/openui-a2ui-cloud-eval/scripts/run-three-arm-controlled-eval.sh --fake
+
+# One frozen real ChatGPT-plan run using gpt-5.6-luna at low reasoning
+prototype/openui-a2ui-cloud-eval/scripts/run-three-arm-controlled-eval.sh
+```
+
+The strict typed-JSON arm is a disposable baseline, not a public wire protocol.
+It uses a closed schema derived from the same eight component semantics and
+normalizes through the same project-owned `ProtocolAdapter -> Surface` seam.
+All accepted Surfaces then share validation limits, state, typed actions,
+receipts, update handling, replay, Dioxus Desktop, and Dioxus Web behavior.
+
+The report emits separate `openui_vs_a2ui` and `openui_vs_typed_json` verdicts.
+This remains an eight-component protocol-generation benchmark. The 12-component
+Dioxus Components product evaluation, blinded review, maintenance drills,
+accessibility, iOS, and Android remain OPE-2.
+
+The completed real run is archived under
+[`evidence/three-arm-controlled-run-2026-08-24`](evidence/three-arm-controlled-run-2026-08-24).
+Its primary outcomes are `OPENUI_WIN` against A2UI and `TIE` against strict
+typed JSON. Start with
+[`RUN-REPORT.md`](evidence/three-arm-controlled-run-2026-08-24/RUN-REPORT.md).
+
 ## Eval 0 contract
 
 - 20 paired passages, alternating protocol order.

@@ -1,0 +1,92 @@
+{
+  "protocol": "typed-json",
+  "root": "expense-review-card",
+  "nodes": {
+    "approval-result": {
+      "kind": "Alert",
+      "id": "approval-result",
+      "tone": "success",
+      "message": "Expense exp-001 approved."
+    },
+    "approve-exp-001": {
+      "kind": "Button",
+      "id": "approve-exp-001",
+      "label": "Approve exp-001",
+      "action": {
+        "name": "ApproveExpense",
+        "expense_id": "exp-001"
+      }
+    },
+    "expense-review-card": {
+      "kind": "Card",
+      "id": "expense-review-card",
+      "title": "Travel Expense Review",
+      "child": "expense-review-stack"
+    },
+    "expense-review-stack": {
+      "kind": "Stack",
+      "id": "expense-review-stack",
+      "children": [
+        "review-context",
+        "expense-table",
+        "review-note",
+        "status-filter",
+        "approve-exp-001",
+        "approval-result"
+      ]
+    },
+    "expense-table": {
+      "kind": "Table",
+      "id": "expense-table",
+      "columns": [
+        "expense_id",
+        "merchant",
+        "amount",
+        "status"
+      ],
+      "rows": [
+        {
+          "amount": "EUR 690.00",
+          "expense_id": "exp-001",
+          "merchant": "Paris Central Hotel",
+          "status": "pending"
+        },
+        {
+          "amount": "EUR 43.60",
+          "expense_id": "exp-002",
+          "merchant": "Metro Mobility",
+          "status": "pending"
+        }
+      ]
+    },
+    "review-context": {
+      "kind": "Text",
+      "id": "review-context",
+      "text": "Review travel expenses for policy-sensitive lodging and transport costs."
+    },
+    "review-note": {
+      "kind": "Input",
+      "id": "review-note",
+      "label": "Review note",
+      "state_key": "review_note",
+      "value": ""
+    },
+    "status-filter": {
+      "kind": "Select",
+      "id": "status-filter",
+      "label": "Status",
+      "state_key": "status_filter",
+      "options": [
+        "all",
+        "pending",
+        "approved"
+      ],
+      "value": "pending"
+    }
+  },
+  "fields": {
+    "review_note": "",
+    "status_filter": "pending"
+  },
+  "source_hash": "6aa6db739934b3a28c809be42061e43c96616bb5efd1dbcde6d46468663b8c90"
+}

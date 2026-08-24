@@ -1,0 +1,8 @@
+root = Card("expense_review", "Vendor Compliance Renewal", body)
+body = Stack("review_content", [identity, filter, expenses, note, approve, result])
+identity = Text("vendor_identity", "Vendor compliance renewal expense review")
+filter = Select("status_filter_select", "Status", "status_filter", ["all", "pending", "approved"], "pending")
+expenses = Table("expense_table", ["expense_id", "merchant", "amount", "status"], [{"expense_id": "exp-001", "merchant": "Secure Archive Renewal", "amount": "EUR 1,260.00", "status": "pending"}, {"expense_id": "exp-002", "merchant": "Records Storage", "amount": "EUR 340.00", "status": "pending"}])
+note = Input("reviewer_note", "Reviewer note", "review_note", "")
+approve = Button("approve_expense", "Approve Secure Archive Renewal", {"name": "ApproveExpense", "expense_id": "exp-001"})
+result = Alert("approval_result", "success", "Expense exp-001 approved.")

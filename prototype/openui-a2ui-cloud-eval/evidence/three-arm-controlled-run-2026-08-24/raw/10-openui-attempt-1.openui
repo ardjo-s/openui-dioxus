@@ -1,0 +1,8 @@
+root = Card("expense-review", "Expense Review", body)
+body = Stack("review-content", [intro, expenses, status, note, approve, result])
+intro = Text("duplicate-risk", "Review similar merchants and amounts for duplicate risk.")
+expenses = Table("expense-table", ["expense_id", "merchant", "amount", "status"], [{"expense_id":"exp-001","merchant":"City Ride","amount":"EUR 37.80","status":"pending"},{"expense_id":"exp-002","merchant":"City Ride","amount":"EUR 38.10","status":"pending"}])
+status = Select("status-filter", "Status", "status_filter", ["all", "pending", "approved"], "pending")
+note = Input("review-note", "Reviewer note", "review_note", "")
+approve = Button("approve-exp-001", "Approve exp-001", {"name":"ApproveExpense","expense_id":"exp-001"})
+result = Alert("approval-result", "success", "Expense exp-001 approved.")

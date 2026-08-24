@@ -1,0 +1,92 @@
+{
+  "protocol": "openui",
+  "root": "review_card",
+  "nodes": {
+    "approval_result": {
+      "kind": "Alert",
+      "id": "approval_result",
+      "tone": "info",
+      "message": "Expense exp-001 is ready for approval."
+    },
+    "approve_button": {
+      "kind": "Button",
+      "id": "approve_button",
+      "label": "Approve exp-001",
+      "action": {
+        "name": "ApproveExpense",
+        "expense_id": "exp-001"
+      }
+    },
+    "expense_table": {
+      "kind": "Table",
+      "id": "expense_table",
+      "columns": [
+        "expense_id",
+        "merchant",
+        "amount",
+        "status"
+      ],
+      "rows": [
+        {
+          "amount": "EUR 1,875.00",
+          "expense_id": "exp-001",
+          "merchant": "Independent Research Lab",
+          "status": "pending"
+        },
+        {
+          "amount": "EUR 760.00",
+          "expense_id": "exp-002",
+          "merchant": "Compliance Review Ltd",
+          "status": "pending"
+        }
+      ]
+    },
+    "review_card": {
+      "kind": "Card",
+      "id": "review_card",
+      "title": "Vendor Expense Review",
+      "child": "review_content"
+    },
+    "review_content": {
+      "kind": "Stack",
+      "id": "review_content",
+      "children": [
+        "vendor_identity",
+        "status_filter",
+        "expense_table",
+        "reviewer_note",
+        "approve_button",
+        "approval_result"
+      ]
+    },
+    "reviewer_note": {
+      "kind": "Input",
+      "id": "reviewer_note",
+      "label": "Reviewer note",
+      "state_key": "review_note",
+      "value": ""
+    },
+    "status_filter": {
+      "kind": "Select",
+      "id": "status_filter",
+      "label": "Status",
+      "state_key": "status_filter",
+      "options": [
+        "all",
+        "pending",
+        "approved"
+      ],
+      "value": "pending"
+    },
+    "vendor_identity": {
+      "kind": "Text",
+      "id": "vendor_identity",
+      "text": "Vendor compliance contractor expense review"
+    }
+  },
+  "fields": {
+    "review_note": "",
+    "status_filter": "pending"
+  },
+  "source_hash": "1a640b3d2148f18c0b78c9146d1ec828e5074b88d8fe8f8926f1246d645280c6"
+}

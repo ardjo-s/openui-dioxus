@@ -1,0 +1,92 @@
+{
+  "protocol": "openui",
+  "root": "expense-review",
+  "nodes": {
+    "approval-result": {
+      "kind": "Alert",
+      "id": "approval-result",
+      "tone": "info",
+      "message": "Expense exp-001 is ready for approval."
+    },
+    "approve-exp-001": {
+      "kind": "Button",
+      "id": "approve-exp-001",
+      "label": "Approve exp-001",
+      "action": {
+        "name": "ApproveExpense",
+        "expense_id": "exp-001"
+      }
+    },
+    "expense-review": {
+      "kind": "Card",
+      "id": "expense-review",
+      "title": "Vendor Expense Review",
+      "child": "review-content"
+    },
+    "expense-table": {
+      "kind": "Table",
+      "id": "expense-table",
+      "columns": [
+        "expense_id",
+        "merchant",
+        "amount",
+        "status"
+      ],
+      "rows": [
+        {
+          "amount": "EUR 610.00",
+          "expense_id": "exp-001",
+          "merchant": "New Horizon Supplies",
+          "status": "pending"
+        },
+        {
+          "amount": "EUR 185.00",
+          "expense_id": "exp-002",
+          "merchant": "Trusted Office Group",
+          "status": "pending"
+        }
+      ]
+    },
+    "review-content": {
+      "kind": "Stack",
+      "id": "review-content",
+      "children": [
+        "vendor-identity",
+        "status-filter",
+        "expense-table",
+        "reviewer-note",
+        "approve-exp-001",
+        "approval-result"
+      ]
+    },
+    "reviewer-note": {
+      "kind": "Input",
+      "id": "reviewer-note",
+      "label": "Reviewer note",
+      "state_key": "review_note",
+      "value": ""
+    },
+    "status-filter": {
+      "kind": "Select",
+      "id": "status-filter",
+      "label": "Status",
+      "state_key": "status_filter",
+      "options": [
+        "all",
+        "pending",
+        "approved"
+      ],
+      "value": "pending"
+    },
+    "vendor-identity": {
+      "kind": "Text",
+      "id": "vendor-identity",
+      "text": "Vendor compliance review: new vendor expenses"
+    }
+  },
+  "fields": {
+    "review_note": "",
+    "status_filter": "pending"
+  },
+  "source_hash": "b1a5bf0d2e08e523f625d2a0952a4d9caf4e01d3e606adac3945dadc126ab6ab"
+}

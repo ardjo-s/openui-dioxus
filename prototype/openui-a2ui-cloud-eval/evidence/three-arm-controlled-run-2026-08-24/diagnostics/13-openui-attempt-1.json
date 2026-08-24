@@ -1,0 +1,140 @@
+{
+  "ok": true,
+  "protocol": "openui",
+  "version": "lang-v0.5/@openuidev/lang-core@0.2.15",
+  "diagnostics": [],
+  "parse": {
+    "root": {
+      "type": "element",
+      "typeName": "Card",
+      "props": {
+        "id": "review_card",
+        "title": "High-Value Expense Review",
+        "child": {
+          "type": "element",
+          "typeName": "Stack",
+          "props": {
+            "id": "review_content",
+            "children": [
+              {
+                "type": "element",
+                "typeName": "Text",
+                "props": {
+                  "id": "review_intro",
+                  "text": "Review high-value expenses. Approval will apply to exp-001."
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "intro_text"
+              },
+              {
+                "type": "element",
+                "typeName": "Select",
+                "props": {
+                  "id": "status_filter_select",
+                  "label": "Status",
+                  "state_key": "status_filter",
+                  "options": [
+                    "all",
+                    "pending",
+                    "approved"
+                  ],
+                  "value": "pending"
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "status_select"
+              },
+              {
+                "type": "element",
+                "typeName": "Table",
+                "props": {
+                  "id": "expense_table",
+                  "columns": [
+                    "expense_id",
+                    "merchant",
+                    "amount",
+                    "status"
+                  ],
+                  "rows": [
+                    {
+                      "expense_id": "exp-001",
+                      "merchant": "Global Tech Conference",
+                      "amount": "EUR 2,450.00",
+                      "status": "pending"
+                    },
+                    {
+                      "expense_id": "exp-002",
+                      "merchant": "Conference Hotel",
+                      "amount": "EUR 1,180.00",
+                      "status": "pending"
+                    }
+                  ]
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "expense_table"
+              },
+              {
+                "type": "element",
+                "typeName": "Input",
+                "props": {
+                  "id": "review_note_input",
+                  "label": "Reviewer note",
+                  "state_key": "review_note",
+                  "value": ""
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "reviewer_note"
+              },
+              {
+                "type": "element",
+                "typeName": "Button",
+                "props": {
+                  "id": "approve_expense_button",
+                  "label": "Approve exp-001",
+                  "action": {
+                    "name": "ApproveExpense",
+                    "expense_id": "exp-001"
+                  }
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "approve_button"
+              },
+              {
+                "type": "element",
+                "typeName": "Alert",
+                "props": {
+                  "id": "approval_result_alert",
+                  "tone": "info",
+                  "message": "Approve action is ready for exp-001. The current filtered list shows both expenses as pending."
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "result_alert"
+              }
+            ]
+          },
+          "partial": false,
+          "hasDynamicProps": false,
+          "statementId": "content_stack"
+        }
+      },
+      "partial": false,
+      "hasDynamicProps": false,
+      "statementId": "root"
+    },
+    "meta": {
+      "incomplete": false,
+      "unresolved": [],
+      "orphaned": [],
+      "statementCount": 8,
+      "errors": []
+    },
+    "stateDeclarations": {},
+    "queryStatements": [],
+    "mutationStatements": []
+  }
+}

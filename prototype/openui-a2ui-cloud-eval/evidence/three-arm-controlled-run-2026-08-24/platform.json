@@ -1,0 +1,13 @@
+{
+  "desktop": {
+    "passed": true,
+    "accepted_count": 51,
+    "marker": "DIOXUS_RENDERED surfaces=51",
+    "evidence_complete": true
+  },
+  "web": {
+    "passed": true,
+    "accepted_count": 51,
+    "evidence_complete": true
+  }
+}

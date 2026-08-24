@@ -1,0 +1,92 @@
+{
+  "protocol": "openui",
+  "root": "root",
+  "nodes": {
+    "approve": {
+      "kind": "Button",
+      "id": "approve",
+      "label": "Approve Berlin Business Stay",
+      "action": {
+        "name": "ApproveExpense",
+        "expense_id": "exp-001"
+      }
+    },
+    "content": {
+      "kind": "Stack",
+      "id": "content",
+      "children": [
+        "context",
+        "filter",
+        "expenses",
+        "note",
+        "approve",
+        "result"
+      ]
+    },
+    "context": {
+      "kind": "Text",
+      "id": "context",
+      "text": "Review policy-sensitive lodging and transport costs."
+    },
+    "expenses": {
+      "kind": "Table",
+      "id": "expenses",
+      "columns": [
+        "expense_id",
+        "merchant",
+        "amount",
+        "status"
+      ],
+      "rows": [
+        {
+          "amount": "EUR 540.00",
+          "expense_id": "exp-001",
+          "merchant": "Berlin Business Stay",
+          "status": "pending"
+        },
+        {
+          "amount": "EUR 128.00",
+          "expense_id": "exp-002",
+          "merchant": "Bahn Connect",
+          "status": "pending"
+        }
+      ]
+    },
+    "filter": {
+      "kind": "Select",
+      "id": "filter",
+      "label": "Status",
+      "state_key": "status_filter",
+      "options": [
+        "all",
+        "pending",
+        "approved"
+      ],
+      "value": "pending"
+    },
+    "note": {
+      "kind": "Input",
+      "id": "note",
+      "label": "Reviewer note",
+      "state_key": "review_note",
+      "value": ""
+    },
+    "result": {
+      "kind": "Alert",
+      "id": "result",
+      "tone": "info",
+      "message": "Expense exp-001 is ready for approval."
+    },
+    "root": {
+      "kind": "Card",
+      "id": "root",
+      "title": "Travel Expense Review",
+      "child": "content"
+    }
+  },
+  "fields": {
+    "review_note": "",
+    "status_filter": "pending"
+  },
+  "source_hash": "5c7b81b22dc6697ee0261fc562a9d697c1fd3de89660de4d1c915d7e7b282640"
+}

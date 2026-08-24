@@ -1,0 +1,92 @@
+{
+  "protocol": "openui",
+  "root": "root",
+  "nodes": {
+    "approve": {
+      "kind": "Button",
+      "id": "approve",
+      "label": "Approve exp-001",
+      "action": {
+        "name": "ApproveExpense",
+        "expense_id": "exp-001"
+      }
+    },
+    "content": {
+      "kind": "Stack",
+      "id": "content",
+      "children": [
+        "intro",
+        "filter",
+        "expenses",
+        "note",
+        "approve",
+        "result"
+      ]
+    },
+    "expenses": {
+      "kind": "Table",
+      "id": "expenses",
+      "columns": [
+        "expense_id",
+        "merchant",
+        "amount",
+        "status"
+      ],
+      "rows": [
+        {
+          "amount": "EUR 164.50",
+          "expense_id": "exp-001",
+          "merchant": "Contoso Rail",
+          "status": "pending"
+        },
+        {
+          "amount": "EUR 86.20",
+          "expense_id": "exp-002",
+          "merchant": "Tailspin Meals",
+          "status": "pending"
+        }
+      ]
+    },
+    "filter": {
+      "kind": "Select",
+      "id": "filter",
+      "label": "Status",
+      "state_key": "status_filter",
+      "options": [
+        "all",
+        "pending",
+        "approved"
+      ],
+      "value": "pending"
+    },
+    "intro": {
+      "kind": "Text",
+      "id": "intro",
+      "text": "Review routine operating expenses and approve the pending rail expense."
+    },
+    "note": {
+      "kind": "Input",
+      "id": "note",
+      "label": "Review note",
+      "state_key": "review_note",
+      "value": ""
+    },
+    "result": {
+      "kind": "Alert",
+      "id": "result",
+      "tone": "success",
+      "message": "Expense exp-001 approved."
+    },
+    "root": {
+      "kind": "Card",
+      "id": "root",
+      "title": "Expense Review",
+      "child": "content"
+    }
+  },
+  "fields": {
+    "review_note": "",
+    "status_filter": "pending"
+  },
+  "source_hash": "4a1c9639013c23162800d6aa915d329718bae24647f1991bea188fcec44a396a"
+}

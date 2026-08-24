@@ -1,0 +1,92 @@
+{
+  "protocol": "openui",
+  "root": "review_card",
+  "nodes": {
+    "approval_result_alert": {
+      "kind": "Alert",
+      "id": "approval_result_alert",
+      "tone": "info",
+      "message": "Approve action is ready for exp-001. The current filtered list shows both expenses as pending."
+    },
+    "approve_expense_button": {
+      "kind": "Button",
+      "id": "approve_expense_button",
+      "label": "Approve exp-001",
+      "action": {
+        "name": "ApproveExpense",
+        "expense_id": "exp-001"
+      }
+    },
+    "expense_table": {
+      "kind": "Table",
+      "id": "expense_table",
+      "columns": [
+        "expense_id",
+        "merchant",
+        "amount",
+        "status"
+      ],
+      "rows": [
+        {
+          "amount": "EUR 2,450.00",
+          "expense_id": "exp-001",
+          "merchant": "Global Tech Conference",
+          "status": "pending"
+        },
+        {
+          "amount": "EUR 1,180.00",
+          "expense_id": "exp-002",
+          "merchant": "Conference Hotel",
+          "status": "pending"
+        }
+      ]
+    },
+    "review_card": {
+      "kind": "Card",
+      "id": "review_card",
+      "title": "High-Value Expense Review",
+      "child": "review_content"
+    },
+    "review_content": {
+      "kind": "Stack",
+      "id": "review_content",
+      "children": [
+        "review_intro",
+        "status_filter_select",
+        "expense_table",
+        "review_note_input",
+        "approve_expense_button",
+        "approval_result_alert"
+      ]
+    },
+    "review_intro": {
+      "kind": "Text",
+      "id": "review_intro",
+      "text": "Review high-value expenses. Approval will apply to exp-001."
+    },
+    "review_note_input": {
+      "kind": "Input",
+      "id": "review_note_input",
+      "label": "Reviewer note",
+      "state_key": "review_note",
+      "value": ""
+    },
+    "status_filter_select": {
+      "kind": "Select",
+      "id": "status_filter_select",
+      "label": "Status",
+      "state_key": "status_filter",
+      "options": [
+        "all",
+        "pending",
+        "approved"
+      ],
+      "value": "pending"
+    }
+  },
+  "fields": {
+    "review_note": "",
+    "status_filter": "pending"
+  },
+  "source_hash": "63f87255e0cda18e3d7d5e25ec5149938eb947d3b1422f2cec428e06c3dfee0c"
+}

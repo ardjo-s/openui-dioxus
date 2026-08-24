@@ -18,6 +18,14 @@ if [ ! -f "$SOURCE_CODEX_HOME/auth.json" ]; then
 fi
 
 mkdir -p "$RESULTS/traces" "$RESULTS/screenshots"
+if [ "$EVALUATION_MODE" = "controlled-three-arm" ]; then
+  mkdir -p "$RESULTS/reviews"
+  cp "$ROOT/reviews/ope-3-standards.md" "$ROOT/reviews/ope-3-intent.md" "$RESULTS/reviews/"
+  (
+    cd "$ROOT/evidence/controlled-run-2026-08-24"
+    shasum -a 256 -c SHA256SUMS
+  ) > "$RESULTS/traces/ope-1-checksum-verification.log"
+fi
 TASK_CODEX_HOME=$(mktemp -d "${TMPDIR:-/tmp}/openui-dioxus-codex-home.XXXXXX")
 TASK_CODEX_WORKDIR=$(mktemp -d "${TMPDIR:-/tmp}/openui-dioxus-codex-work.XXXXXX")
 cleanup() {
@@ -69,6 +77,9 @@ jq -s '{desktop:.[0],web:.[1]}' "$RESULTS/desktop.json" "$RESULTS/web.json" \
   > "$RESULTS/platform.json"
 EVAL_RESULTS_DIR="$RESULTS" "$ROOT/scripts/measure-code.sh"
 node "$ROOT/oracles/src/summarize.mjs" "$RESULTS"
+if [ "$EVALUATION_MODE" = "controlled-three-arm" ]; then
+  node "$ROOT/oracles/src/three-arm-report.mjs" "$RESULTS"
+fi
 
 MOBILE_PATH="$RESULTS/mobile/mobile.json"
 if [ "$EVALUATION_MODE" = "eval0" ] && [ "$(jq -r '.openui_wins' "$RESULTS/summary.json")" = "true" ]; then
@@ -94,7 +105,8 @@ jq -n \
 (
   cd "$RESULTS"
   find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 shasum -a 256 > SHA256SUMS
+  shasum -a 256 -c SHA256SUMS
 )
 
-jq '{outcome,winner,mobile_status,pairs_complete,calls,estimated_cost_usd,first_pass_validity,post_repair_validity,protocol_metrics,median_raw_token_advantage,criteria,common_criteria,candidate_criteria}' \
+jq '{outcome,winner,mobile_status,pairs_complete,calls,estimated_cost_usd,first_pass_validity,post_repair_validity,protocol_metrics,arm_metrics,pairwise,median_raw_token_advantage,criteria,common_criteria,candidate_criteria}' \
   "$RESULTS/summary-final.json"

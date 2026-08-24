@@ -1,0 +1,12 @@
+{
+  "ok": false,
+  "protocol": "a2ui",
+  "version": "v0.9.1/@a2ui/web_core@0.10.6",
+  "diagnostics": [
+    {
+      "code": "processor-error",
+      "message": "Expected ',' or '}' after property value in JSON at position 1567 (line 1 column 1568)"
+    }
+  ],
+  "resolved": null
+}

@@ -1,0 +1,19 @@
+{
+  "ok": true,
+  "protocol": "typed-json",
+  "version": "typed-json-v1",
+  "diagnostics": [],
+  "program": {
+    "root": "review-card",
+    "nodes": [
+      { "kind": "Text", "id": "title", "text": "Expense review" },
+      { "kind": "Table", "id": "expenses", "columns": ["ID", "Merchant", "Amount", "Status"], "rows": [{ "expense_id": "exp-001", "merchant": "Acme Air", "amount": "EUR 420.00", "status": "pending" }, { "expense_id": "exp-002", "merchant": "Northwind Hotel", "amount": "EUR 280.00", "status": "pending" }] },
+      { "kind": "Input", "id": "review-note", "label": "Reviewer note", "state_key": "review_note", "value": "" },
+      { "kind": "Select", "id": "status-filter", "label": "Status", "state_key": "status_filter", "options": ["all", "pending", "approved"], "value": "pending" },
+      { "kind": "Button", "id": "approve-exp-001", "label": "Approve Acme Air", "action": { "name": "ApproveExpense", "expense_id": "exp-001" } },
+      { "kind": "Alert", "id": "result", "tone": "info", "message": "No expense approved yet." },
+      { "kind": "Stack", "id": "review-stack", "children": ["title", "expenses", "review-note", "status-filter", "approve-exp-001", "result"] },
+      { "kind": "Card", "id": "review-card", "title": "Expense review", "child": "review-stack" }
+    ]
+  }
+}

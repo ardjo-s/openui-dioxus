@@ -1,0 +1,92 @@
+{
+  "protocol": "a2ui",
+  "root": "review-card",
+  "nodes": {
+    "approve-expense": {
+      "kind": "Button",
+      "id": "approve-expense",
+      "label": "Approve exp-001",
+      "action": {
+        "name": "ApproveExpense",
+        "expense_id": "exp-001"
+      }
+    },
+    "expense-table": {
+      "kind": "Table",
+      "id": "expense-table",
+      "columns": [
+        "expense_id",
+        "merchant",
+        "amount",
+        "status"
+      ],
+      "rows": [
+        {
+          "amount": "EUR 89.00",
+          "expense_id": "exp-001",
+          "merchant": "Dev Tools Pro",
+          "status": "pending"
+        },
+        {
+          "amount": "EUR 89.00",
+          "expense_id": "exp-002",
+          "merchant": "DevTools Pro",
+          "status": "pending"
+        }
+      ]
+    },
+    "result-alert": {
+      "kind": "Alert",
+      "id": "result-alert",
+      "tone": "info",
+      "message": "Expense exp-001 is ready for approval."
+    },
+    "review-card": {
+      "kind": "Card",
+      "id": "review-card",
+      "title": "Expense Review",
+      "child": "review-stack"
+    },
+    "review-heading": {
+      "kind": "Text",
+      "id": "review-heading",
+      "text": "Review duplicate-risk expenses"
+    },
+    "review-note": {
+      "kind": "Input",
+      "id": "review-note",
+      "label": "Review note",
+      "state_key": "review_note",
+      "value": ""
+    },
+    "review-stack": {
+      "kind": "Stack",
+      "id": "review-stack",
+      "children": [
+        "review-heading",
+        "expense-table",
+        "review-note",
+        "status-filter",
+        "approve-expense",
+        "result-alert"
+      ]
+    },
+    "status-filter": {
+      "kind": "Select",
+      "id": "status-filter",
+      "label": "Status filter",
+      "state_key": "status_filter",
+      "options": [
+        "all",
+        "pending",
+        "approved"
+      ],
+      "value": "pending"
+    }
+  },
+  "fields": {
+    "review_note": "",
+    "status_filter": "pending"
+  },
+  "source_hash": "2ca9a6c23ed1bc867db378a76bc09922c11c5e29e6e4a969933fb85e26c8692e"
+}

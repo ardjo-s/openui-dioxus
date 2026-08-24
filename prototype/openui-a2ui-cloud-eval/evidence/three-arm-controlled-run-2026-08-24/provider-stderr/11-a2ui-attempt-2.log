@@ -1,0 +1,15 @@
+2026-08-24T14:39:09.825666Z ERROR codex_models_manager::manager: failed to refresh available models: unexpected status 401 Unauthorized: Provided authentication token is expired., url: https://chatgpt.com/backend-api/codex/models?client_version=0.146.0, cf-ray: a3031ad65cd07879-CDG, auth error: 401, auth error code: token_expired
+2026-08-24T14:39:10.777734Z  WARN codex_analytics::client: events failed with status 401 Unauthorized: {
+  "error": {
+    "message": "Provided authentication token is expired.",
+    "type": null,
+    "code": "token_expired",
+    "param": null
+  },
+  "status": 401,
+  "detail": {
+    "code": "token_expired",
+    "message": "Provided authentication token is expired."
+  }
+}
+2026-08-24T14:39:10.795704Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: HTTP error: 401 Unauthorized, url: wss://chatgpt.com/backend-api/codex/responses

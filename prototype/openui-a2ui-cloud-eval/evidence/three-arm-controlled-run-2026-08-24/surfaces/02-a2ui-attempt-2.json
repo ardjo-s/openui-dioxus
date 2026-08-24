@@ -1,0 +1,92 @@
+{
+  "protocol": "a2ui",
+  "root": "expense-review-card",
+  "nodes": {
+    "approval-result-alert": {
+      "kind": "Alert",
+      "id": "approval-result-alert",
+      "tone": "success",
+      "message": "Expense exp-001 approved."
+    },
+    "approve-expense-button": {
+      "kind": "Button",
+      "id": "approve-expense-button",
+      "label": "Approve exp-001",
+      "action": {
+        "name": "ApproveExpense",
+        "expense_id": "exp-001"
+      }
+    },
+    "expense-review-card": {
+      "kind": "Card",
+      "id": "expense-review-card",
+      "title": "Expense Review",
+      "child": "expense-review-stack"
+    },
+    "expense-review-stack": {
+      "kind": "Stack",
+      "id": "expense-review-stack",
+      "children": [
+        "review-heading",
+        "expense-table",
+        "review-note-input",
+        "status-filter-select",
+        "approve-expense-button",
+        "approval-result-alert"
+      ]
+    },
+    "expense-table": {
+      "kind": "Table",
+      "id": "expense-table",
+      "columns": [
+        "expense_id",
+        "merchant",
+        "amount",
+        "status"
+      ],
+      "rows": [
+        {
+          "amount": "EUR 164.50",
+          "expense_id": "exp-001",
+          "merchant": "Contoso Rail",
+          "status": "pending"
+        },
+        {
+          "amount": "EUR 86.20",
+          "expense_id": "exp-002",
+          "merchant": "Tailspin Meals",
+          "status": "pending"
+        }
+      ]
+    },
+    "review-heading": {
+      "kind": "Text",
+      "id": "review-heading",
+      "text": "Review routine operating expenses and approve pending items."
+    },
+    "review-note-input": {
+      "kind": "Input",
+      "id": "review-note-input",
+      "label": "Review note",
+      "state_key": "review_note",
+      "value": ""
+    },
+    "status-filter-select": {
+      "kind": "Select",
+      "id": "status-filter-select",
+      "label": "Status filter",
+      "state_key": "status_filter",
+      "options": [
+        "all",
+        "pending",
+        "approved"
+      ],
+      "value": "pending"
+    }
+  },
+  "fields": {
+    "review_note": "",
+    "status_filter": "pending"
+  },
+  "source_hash": "6b2ad665ce1e661a8320e40f6097c58319f7354d44bf110a2427acdf9a5d9742"
+}

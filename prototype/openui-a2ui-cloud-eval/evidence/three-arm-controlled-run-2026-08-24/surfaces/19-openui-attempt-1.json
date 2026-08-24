@@ -1,0 +1,92 @@
+{
+  "protocol": "openui",
+  "root": "expense_review",
+  "nodes": {
+    "approval_result": {
+      "kind": "Alert",
+      "id": "approval_result",
+      "tone": "success",
+      "message": "Expense exp-001 approved."
+    },
+    "approve_expense": {
+      "kind": "Button",
+      "id": "approve_expense",
+      "label": "Approve Secure Archive Renewal",
+      "action": {
+        "name": "ApproveExpense",
+        "expense_id": "exp-001"
+      }
+    },
+    "expense_review": {
+      "kind": "Card",
+      "id": "expense_review",
+      "title": "Vendor Compliance Renewal",
+      "child": "review_content"
+    },
+    "expense_table": {
+      "kind": "Table",
+      "id": "expense_table",
+      "columns": [
+        "expense_id",
+        "merchant",
+        "amount",
+        "status"
+      ],
+      "rows": [
+        {
+          "amount": "EUR 1,260.00",
+          "expense_id": "exp-001",
+          "merchant": "Secure Archive Renewal",
+          "status": "pending"
+        },
+        {
+          "amount": "EUR 340.00",
+          "expense_id": "exp-002",
+          "merchant": "Records Storage",
+          "status": "pending"
+        }
+      ]
+    },
+    "review_content": {
+      "kind": "Stack",
+      "id": "review_content",
+      "children": [
+        "vendor_identity",
+        "status_filter_select",
+        "expense_table",
+        "reviewer_note",
+        "approve_expense",
+        "approval_result"
+      ]
+    },
+    "reviewer_note": {
+      "kind": "Input",
+      "id": "reviewer_note",
+      "label": "Reviewer note",
+      "state_key": "review_note",
+      "value": ""
+    },
+    "status_filter_select": {
+      "kind": "Select",
+      "id": "status_filter_select",
+      "label": "Status",
+      "state_key": "status_filter",
+      "options": [
+        "all",
+        "pending",
+        "approved"
+      ],
+      "value": "pending"
+    },
+    "vendor_identity": {
+      "kind": "Text",
+      "id": "vendor_identity",
+      "text": "Vendor compliance renewal expense review"
+    }
+  },
+  "fields": {
+    "review_note": "",
+    "status_filter": "pending"
+  },
+  "source_hash": "af97d212bbe9c6232482d402359c31d24f3cf7aaa3997bec2e9072e14d855801"
+}

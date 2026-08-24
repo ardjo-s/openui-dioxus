@@ -3,6 +3,7 @@ mod domain;
 mod eval;
 mod openui;
 mod runtime;
+mod typed_json;
 
 #[cfg(feature = "ui")]
 pub mod catalog;
@@ -12,6 +13,7 @@ pub use domain::{ActionSpec, Protocol, Surface, TypedNode};
 pub use eval::{EvalLatency, EvalProvider, EvalRecord, EvalTokenUsage};
 pub use openui::OpenUiAdapter;
 pub use runtime::{ActionInvocation, ActionReceipt, ReplayProjection, ReplaySnapshot, Runtime};
+pub use typed_json::TypedJsonAdapter;
 
 use serde_json::Value;
 

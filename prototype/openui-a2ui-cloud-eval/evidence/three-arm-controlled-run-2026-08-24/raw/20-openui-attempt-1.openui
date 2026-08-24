@@ -1,0 +1,8 @@
+root = Card("review-card", "Vendor Expense Review", content)
+content = Stack("review-content", [identity, status-filter, expenses, reviewer-note, approve-button, result-alert])
+identity = Text("vendor-identity", "Vendor compliance contractor expense review")
+status-filter = Select("status-filter", "Status", "status_filter", ["all", "pending", "approved"], "pending")
+expenses = Table("expense-table", ["expense_id", "merchant", "amount", "status"], [{"expense_id": "exp-001", "merchant": "Independent Research Lab", "amount": "EUR 1,875.00", "status": "pending"}, {"expense_id": "exp-002", "merchant": "Compliance Review Ltd", "amount": "EUR 760.00", "status": "pending"}])
+reviewer-note = Input("reviewer-note", "Reviewer note", "review_note", "")
+approve-button = Button("approve-expense", "Approve exp-001", {"name": "ApproveExpense", "expense_id": "exp-001"})
+result-alert = Alert("approval-result", "info", "Expense exp-001 is ready for approval.")

@@ -1,0 +1,92 @@
+{
+  "protocol": "a2ui",
+  "root": "expense-review-card",
+  "nodes": {
+    "expense-review-alert": {
+      "kind": "Alert",
+      "id": "expense-review-alert",
+      "tone": "info",
+      "message": "Expense exp-001 is ready for approval."
+    },
+    "expense-review-approve": {
+      "kind": "Button",
+      "id": "expense-review-approve",
+      "label": "Approve exp-001",
+      "action": {
+        "name": "ApproveExpense",
+        "expense_id": "exp-001"
+      }
+    },
+    "expense-review-card": {
+      "kind": "Card",
+      "id": "expense-review-card",
+      "title": "Expense Review",
+      "child": "expense-review-stack"
+    },
+    "expense-review-filter": {
+      "kind": "Select",
+      "id": "expense-review-filter",
+      "label": "Status filter",
+      "state_key": "status_filter",
+      "options": [
+        "all",
+        "pending",
+        "approved"
+      ],
+      "value": "pending"
+    },
+    "expense-review-heading": {
+      "kind": "Text",
+      "id": "expense-review-heading",
+      "text": "Review routine operating expenses"
+    },
+    "expense-review-note": {
+      "kind": "Input",
+      "id": "expense-review-note",
+      "label": "Review note",
+      "state_key": "review_note",
+      "value": ""
+    },
+    "expense-review-stack": {
+      "kind": "Stack",
+      "id": "expense-review-stack",
+      "children": [
+        "expense-review-heading",
+        "expense-review-table",
+        "expense-review-note",
+        "expense-review-filter",
+        "expense-review-approve",
+        "expense-review-alert"
+      ]
+    },
+    "expense-review-table": {
+      "kind": "Table",
+      "id": "expense-review-table",
+      "columns": [
+        "expense_id",
+        "merchant",
+        "amount",
+        "status"
+      ],
+      "rows": [
+        {
+          "amount": "EUR 199.00",
+          "expense_id": "exp-001",
+          "merchant": "Fabrikam Software",
+          "status": "pending"
+        },
+        {
+          "amount": "EUR 74.90",
+          "expense_id": "exp-002",
+          "merchant": "Adventure Office",
+          "status": "pending"
+        }
+      ]
+    }
+  },
+  "fields": {
+    "review_note": "",
+    "status_filter": "pending"
+  },
+  "source_hash": "322c329d04ce1e74f69815acf62cb6a18909ed898f9d1e3c2a10f7fa6b454543"
+}

@@ -1,0 +1,92 @@
+{
+  "protocol": "openui",
+  "root": "review-card",
+  "nodes": {
+    "approval-result": {
+      "kind": "Alert",
+      "id": "approval-result",
+      "tone": "success",
+      "message": "Expense exp-001 approved."
+    },
+    "approve-exp-001": {
+      "kind": "Button",
+      "id": "approve-exp-001",
+      "label": "Approve Paris Central Hotel",
+      "action": {
+        "name": "ApproveExpense",
+        "expense_id": "exp-001"
+      }
+    },
+    "context": {
+      "kind": "Text",
+      "id": "context",
+      "text": "Review policy-sensitive lodging and transport expenses."
+    },
+    "expenses": {
+      "kind": "Table",
+      "id": "expenses",
+      "columns": [
+        "expense_id",
+        "merchant",
+        "amount",
+        "status"
+      ],
+      "rows": [
+        {
+          "amount": "EUR 690.00",
+          "expense_id": "exp-001",
+          "merchant": "Paris Central Hotel",
+          "status": "pending"
+        },
+        {
+          "amount": "EUR 43.60",
+          "expense_id": "exp-002",
+          "merchant": "Metro Mobility",
+          "status": "pending"
+        }
+      ]
+    },
+    "review-card": {
+      "kind": "Card",
+      "id": "review-card",
+      "title": "Travel Expense Review — Paris",
+      "child": "review-content"
+    },
+    "review-content": {
+      "kind": "Stack",
+      "id": "review-content",
+      "children": [
+        "context",
+        "expenses",
+        "review-note",
+        "status-filter",
+        "approve-exp-001",
+        "approval-result"
+      ]
+    },
+    "review-note": {
+      "kind": "Input",
+      "id": "review-note",
+      "label": "Reviewer note",
+      "state_key": "review_note",
+      "value": ""
+    },
+    "status-filter": {
+      "kind": "Select",
+      "id": "status-filter",
+      "label": "Status",
+      "state_key": "status_filter",
+      "options": [
+        "all",
+        "pending",
+        "approved"
+      ],
+      "value": "pending"
+    }
+  },
+  "fields": {
+    "review_note": "",
+    "status_filter": "pending"
+  },
+  "source_hash": "ffbba9efbfc48867610ac76ea089c25782a59037a105b20bb271af96c50ca049"
+}

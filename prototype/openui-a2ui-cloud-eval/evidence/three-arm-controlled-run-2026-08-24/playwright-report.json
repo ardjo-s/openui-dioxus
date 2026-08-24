@@ -1,0 +1,127 @@
+{
+  "config": {
+    "argv": [
+      "/Users/ardjo/.hermes/node/bin/node",
+      "/Users/ardjo/CODE/worktrees/openui-dioxus-ope-3-typed-json-controlled-eval/prototype/openui-a2ui-cloud-eval/oracles/node_modules/.bin/playwright",
+      "test",
+      "--config",
+      "/Users/ardjo/CODE/worktrees/openui-dioxus-ope-3-typed-json-controlled-eval/prototype/openui-a2ui-cloud-eval/oracles/playwright.config.mjs"
+    ],
+    "configFile": "/Users/ardjo/CODE/worktrees/openui-dioxus-ope-3-typed-json-controlled-eval/prototype/openui-a2ui-cloud-eval/oracles/playwright.config.mjs",
+    "rootDir": "/Users/ardjo/CODE/worktrees/openui-dioxus-ope-3-typed-json-controlled-eval/prototype/openui-a2ui-cloud-eval/oracles/test",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Users/ardjo/CODE/worktrees/openui-dioxus-ope-3-typed-json-controlled-eval/prototype/openui-a2ui-cloud-eval/results-three-arm-controlled/playwright",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "/Users/ardjo/CODE/worktrees/openui-dioxus-ope-3-typed-json-controlled-eval/prototype/openui-a2ui-cloud-eval/oracles/test",
+        "testIgnore": [],
+        "testMatch": [
+          "web-runtime.spec.mjs"
+        ],
+        "timeout": 120000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/Users/ardjo/CODE/worktrees/openui-dioxus-ope-3-typed-json-controlled-eval/prototype/openui-a2ui-cloud-eval/results-three-arm-controlled/playwright-report.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "web-runtime.spec.mjs",
+      "file": "web-runtime.spec.mjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "all accepted Surfaces preserve state, action, update and replay in Dioxus Web",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 27299,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-24T15:27:34.876Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Users/ardjo/CODE/worktrees/openui-dioxus-ope-3-typed-json-controlled-eval/prototype/openui-a2ui-cloud-eval/results-three-arm-controlled/playwright/web-runtime-all-accepted-S-dfc8e-te-and-replay-in-Dioxus-Web/trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "08dc9033c8f3dc62d83a-1828a2c836aff0848cb7",
+          "file": "web-runtime.spec.mjs",
+          "line": 8,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-08-24T15:27:33.772Z",
+    "duration": 29598.75,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}
