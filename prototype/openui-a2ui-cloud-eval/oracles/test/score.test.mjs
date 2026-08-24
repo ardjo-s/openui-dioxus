@@ -58,3 +58,22 @@ test("an incomplete pair set makes the evaluation invalid", () => {
   values.records.pop();
   assert.equal(scoreEvaluation(values).pre_mobile_outcome, "INVALID_EVAL");
 });
+
+test("ChatGPT-plan usage does not invent API cost or invalidate a complete evaluation", () => {
+  const values = input();
+  values.generation.provider = "codex";
+  values.generation.estimated_cost_usd = null;
+  values.platform.desktop.evidence_complete = true;
+  values.platform.web.evidence_complete = true;
+  assert.equal(scoreEvaluation(values).pre_mobile_outcome, "OPENUI_WIN_PENDING_MOBILE");
+  assert.equal(scoreEvaluation(values).estimated_cost_usd, null);
+});
+
+test("missing local platform evidence makes the evaluation invalid", () => {
+  const values = input();
+  values.generation.provider = "codex";
+  values.generation.estimated_cost_usd = null;
+  values.platform.desktop.evidence_complete = false;
+  values.platform.web.evidence_complete = true;
+  assert.equal(scoreEvaluation(values).pre_mobile_outcome, "INVALID_EVAL");
+});

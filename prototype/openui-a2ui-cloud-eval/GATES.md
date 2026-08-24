@@ -29,6 +29,26 @@ This directory is a throwaway ticket-09 prototype. It must never be merged into
 - [ ] `records.jsonl`, `summary.json`, `summary.md`, raw outputs, diagnostics,
   traces, screenshots, and SHA-256 manifests are uploaded as artifacts.
 
+## Local ChatGPT-plan gates
+
+- [ ] The local provider launches one fresh `codex exec --ephemeral` process per
+  attempt with `gpt-5.6-luna`, low reasoning, ignored user config/rules, a
+  read-only sandbox, and tool-bearing features disabled.
+- [ ] OpenUI and A2UI receive the same shared intent and equivalent reference
+  prompts; passage order still alternates and each invalid output receives at
+  most one repair in a fresh process.
+- [ ] The local run never reads `OPENAI_API_KEY`, never claims API billing data,
+  and labels CLI usage separately from tokenizer-measured raw prompt/output
+  tokens.
+- [ ] Codex event logs, stderr, raw payloads, official diagnostics, normalized
+  Surfaces, platform traces, screenshots, summaries, and SHA-256 manifests are
+  retained under a separate `results-local` evidence directory.
+- [ ] A fake Codex executable proves argument isolation, prompt delivery, usage
+  parsing, provider errors, and output-size handling before any 20-pair run.
+- [ ] Local Desktop and Chromium traverse every accepted Surface. Local iOS is
+  attempted only if the same pre-mobile protocol thresholds declare OpenUI the
+  winner.
+
 ## Decision gates
 
 - [ ] `openui_wins` is computed only from the thresholds recorded in the plan;
@@ -50,4 +70,5 @@ npm test --prefix prototype/openui-a2ui-cloud-eval/oracles
 cargo test --manifest-path prototype/openui-a2ui-cloud-eval/Cargo.toml
 cargo clippy --manifest-path prototype/openui-a2ui-cloud-eval/Cargo.toml --all-targets -- -D warnings
 prototype/openui-a2ui-cloud-eval/scripts/verify-workflow.sh
+prototype/openui-a2ui-cloud-eval/scripts/test-local-provider-e2e.sh
 ```

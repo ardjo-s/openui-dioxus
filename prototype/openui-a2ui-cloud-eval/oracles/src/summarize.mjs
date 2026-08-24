@@ -23,6 +23,9 @@ const summary = scoreEvaluation({
 const tokenAdvantage = Number.isFinite(summary.median_raw_token_advantage)
   ? `${(summary.median_raw_token_advantage * 100).toFixed(1)}%`
   : "n/a";
+const estimatedCost = Number.isFinite(summary.estimated_cost_usd)
+  ? `$${summary.estimated_cost_usd.toFixed(4)}`
+  : "n/a (ChatGPT plan; not API billing)";
 await writeFile(path.join(resultsDir, "summary.json"), JSON.stringify(summary, null, 2));
 await writeFile(
   path.join(resultsDir, "summary.md"),
@@ -35,7 +38,7 @@ await writeFile(
     `- OpenUI median raw-token advantage: ${tokenAdvantage}`,
     `- First-pass validity: OpenUI ${summary.first_pass_validity.openui}/20; A2UI ${summary.first_pass_validity.a2ui}/20`,
     `- Post-repair validity: OpenUI ${summary.post_repair_validity.openui}/20; A2UI ${summary.post_repair_validity.a2ui}/20`,
-    `- Estimated cost: $${summary.estimated_cost_usd.toFixed(4)}`,
+    `- Estimated cost: ${estimatedCost}`,
     `- Desktop: ${summary.criteria.desktop ? "PASS" : "FAIL"}`,
     `- Web: ${summary.criteria.web ? "PASS" : "FAIL"}`,
     `- Shared runtime lines changed by A2UI: ${summary.shared_runtime_lines_modified}`,

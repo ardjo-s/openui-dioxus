@@ -68,12 +68,16 @@ export function scoreEvaluation({ records, generation, platform, loc, runtimeDif
       item.runtime_probe?.replay_effect_count === 0,
     );
   const acceptedCount = postRepair.openui + postRepair.a2ui;
+  const localEvidenceIncomplete =
+    generation.provider === "codex" &&
+    [platform.desktop, platform.web].some((result) => result?.evidence_complete !== true);
   const invalid =
     pairsComplete < 20 ||
     Boolean(generation.provider_error) ||
     records.some((record) => record.provider_error) ||
     generation.calls > 80 ||
-    generation.estimated_cost_usd > 2;
+    localEvidenceIncomplete ||
+    (Number.isFinite(generation.estimated_cost_usd) && generation.estimated_cost_usd > 2);
   const criteria = {
     pairs_complete: pairsComplete === 20,
     token_advantage: tokenAdvantage >= 0.3,

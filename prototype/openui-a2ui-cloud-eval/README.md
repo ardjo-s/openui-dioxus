@@ -1,4 +1,4 @@
-# OpenUI–A2UI cloud comparator prototype
+# OpenUI–A2UI comparator prototype
 
 > **Throwaway evidence for decision 09. Never merge this branch into `main`.**
 
@@ -29,10 +29,25 @@ The cloud workflow is intentionally the only path that spends API credits. It
 requires the protected `prototype-cloud-eval` GitHub Environment and a commit
 message containing `[cloud-eval]` on the exact prototype branch.
 
+The local alternative uses the ChatGPT plan through the authenticated Codex
+CLI. It launches one fresh, ephemeral, read-only, tool-free Luna-low process per
+attempt and stores results separately:
+
+```bash
+prototype/openui-a2ui-cloud-eval/scripts/run-local-eval.sh
+```
+
+This route preserves protocol validity, repairs, raw prompt/output token counts,
+Codex CLI usage, latency, normalization, runtime, Desktop, Web, and conditional
+iOS checks. It cannot report API billing cost: `estimated_cost_usd` is `null`,
+and every artifact labels the billing mode as `chatgpt-plan`.
+
 ## Fixed evaluation contract
 
 - 20 paired passages, alternating protocol order.
-- `gpt-5.6-luna`, low reasoning, no storage, 8,192 output-token ceiling.
+- `gpt-5.6-luna`, low reasoning, no storage. The API route has an 8,192-token
+  output ceiling; the local route enforces the shared 256 KiB response ceiling
+  because Codex CLI does not expose the same output-token setting.
 - One repair maximum per invalid payload; 80 calls and $2 estimated cost maximum.
 - 256 KiB raw-output and 64-node execution limits.
 - Official OpenUI parser and A2UI `MessageProcessor`; project-owned Rust adapters.

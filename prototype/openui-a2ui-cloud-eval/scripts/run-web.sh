@@ -7,7 +7,7 @@ COUNT=$(jq 'length' "$RESULTS/surfaces.json")
 mkdir -p "$RESULTS/traces" "$RESULTS/screenshots"
 
 if [ "$COUNT" -eq 0 ]; then
-  jq -n '{passed:false,accepted_count:0}' > "$RESULTS/web.json"
+  jq -n '{passed:false,accepted_count:0,evidence_complete:true}' > "$RESULTS/web.json"
   exit 0
 fi
 
@@ -35,6 +35,13 @@ EVAL_RESULTS_DIR="$RESULTS" EVAL_WEB_URL=http://127.0.0.1:4173 \
   npm exec -- playwright test --config "$ROOT/oracles/playwright.config.mjs" > "$RESULTS/traces/playwright.log" 2>&1
 CODE=$?
 set -e
-if [ "$CODE" -eq 0 ]; then PASSED=true; else PASSED=false; fi
-jq -n --argjson passed "$PASSED" --argjson count "$COUNT" \
-  '{passed:$passed,accepted_count:$count}' > "$RESULTS/web.json"
+SCREENSHOT="$RESULTS/screenshots/web-all-surfaces.png"
+if [ "$CODE" -eq 0 ] && [ -s "$SCREENSHOT" ]; then
+  PASSED=true
+  EVIDENCE_COMPLETE=true
+else
+  PASSED=false
+  EVIDENCE_COMPLETE=false
+fi
+jq -n --argjson passed "$PASSED" --argjson count "$COUNT" --argjson evidence "$EVIDENCE_COMPLETE" \
+  '{passed:$passed,accepted_count:$count,evidence_complete:$evidence}' > "$RESULTS/web.json"

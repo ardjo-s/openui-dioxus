@@ -1,5 +1,6 @@
 /oracles/node_modules/
 /target/
 /results/
+/results-local/
 /web-dist/
 /desktop-trace.log

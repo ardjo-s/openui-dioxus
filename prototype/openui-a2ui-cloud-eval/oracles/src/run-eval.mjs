@@ -10,6 +10,7 @@ import OpenAI from "openai";
 import { get_encoding } from "tiktoken";
 
 import { buildA2UiPrompt, validateA2Ui } from "./a2ui.mjs";
+import { generateWithCodex } from "./codex-provider.mjs";
 import { buildOpenUiPrompt, validateOpenUi } from "./openui.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -17,17 +18,27 @@ const root = path.resolve(here, "../..");
 const resultsDir = path.resolve(process.env.EVAL_RESULTS_DIR ?? path.join(root, "results"));
 const binDir = path.resolve(process.env.EVAL_BIN_DIR ?? path.join(root, "target/release"));
 const pairsRequested = Number(process.env.EVAL_PAIRS ?? 20);
+const provider = process.env.EVAL_PROVIDER ?? "api";
+if (!["api", "codex"].includes(provider)) throw new Error(`unknown EVAL_PROVIDER: ${provider}`);
 const model = "gpt-5.6-luna";
-const maxOutputTokens = 8192;
+const maxOutputTokens = provider === "api" ? 8192 : null;
 const maxCalls = 80;
-const budgetUsd = 2;
-const maxResponseBytes = 256 * 1024;
+const budgetUsd = provider === "api" ? 2 : null;
+const maxResponseBytes = Number(process.env.EVAL_MAX_RESPONSE_BYTES ?? 256 * 1024);
+if (!Number.isInteger(maxResponseBytes) || maxResponseBytes < 1) {
+  throw new Error(`invalid EVAL_MAX_RESPONSE_BYTES: ${process.env.EVAL_MAX_RESPONSE_BYTES}`);
+}
 const sharedIntent = await readFile(path.join(root, "fixtures/shared-intent.txt"), "utf8");
 const encoding = get_encoding("o200k_base");
-const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const client = provider === "api" ? new OpenAI({ apiKey: process.env.OPENAI_API_KEY }) : null;
+const codexHome = process.env.EVAL_CODEX_HOME;
+const codexWorkDir = process.env.EVAL_CODEX_WORKDIR;
+if (provider === "codex" && (!codexHome || !codexWorkDir)) {
+  throw new Error("EVAL_CODEX_HOME and EVAL_CODEX_WORKDIR are required for the local provider");
+}
 
 let calls = 0;
-let estimatedCostUsd = 0;
+let estimatedCostUsd = provider === "api" ? 0 : null;
 let providerError = null;
 const records = [];
 const acceptedSurfaces = [];
@@ -35,6 +46,8 @@ const acceptedSurfaces = [];
 await mkdir(path.join(resultsDir, "raw"), { recursive: true });
 await mkdir(path.join(resultsDir, "diagnostics"), { recursive: true });
 await mkdir(path.join(resultsDir, "surfaces"), { recursive: true });
+await mkdir(path.join(resultsDir, "provider-events"), { recursive: true });
+await mkdir(path.join(resultsDir, "provider-stderr"), { recursive: true });
 
 for (let passage = 1; passage <= pairsRequested && !providerError; passage += 1) {
   const order = passage % 2 === 1 ? ["openui", "a2ui"] : ["a2ui", "openui"];
@@ -59,16 +72,31 @@ await writeFile(
   JSON.stringify(
     {
       model,
+      provider,
+      billing_mode: provider === "api" ? "openai-api" : "chatgpt-plan",
       reasoning_effort: "low",
-      store: false,
+      store: provider === "api" ? false : "ephemeral-codex-session",
       max_output_tokens: maxOutputTokens,
+      max_response_bytes: maxResponseBytes,
       pairs_requested: pairsRequested,
       calls,
       max_calls: maxCalls,
       estimated_cost_usd: estimatedCostUsd,
       budget_usd: budgetUsd,
+      api_billing_metrics_available: provider === "api",
       provider_error: providerError,
       accepted_surfaces: acceptedSurfaces.length,
+      local_isolation:
+        provider === "codex"
+          ? {
+              fresh_process_per_attempt: true,
+              ephemeral: true,
+              ignore_user_config: true,
+              ignore_rules: true,
+              sandbox: "read-only",
+              tools_disabled: true,
+            }
+          : null,
       source_pins: {
         openui: "c3c0d1b7cf1d58e01846e86b7e9706f54afb2511/@openuidev/lang-core@0.2.15",
         a2ui: "f5baf760d23a5b21ba05a97f7d16d6db73fb8af6/v0.9.1/@a2ui/web_core@0.10.6",
@@ -99,37 +127,88 @@ async function runProtocol(passage, protocol) {
             JSON.stringify(repairContext.diagnostics),
             "Return only the corrected protocol payload.",
           ].join("\n\n");
-    const promptTokens = tokenCount(systemPrompt) + tokenCount(userPrompt);
-    const worstNextCost = estimateCost(promptTokens, maxOutputTokens);
-    if (calls >= maxCalls || estimatedCostUsd + worstNextCost > budgetUsd) {
+    const providerPrompt =
+      provider === "codex" ? buildCodexPrompt(systemPrompt, userPrompt) : null;
+    const promptTokens =
+      provider === "codex"
+        ? tokenCount(providerPrompt)
+        : tokenCount(systemPrompt) + tokenCount(userPrompt);
+    const worstNextCost =
+      provider === "api" ? estimateCost(promptTokens, maxOutputTokens) : null;
+    if (
+      calls >= maxCalls ||
+      (provider === "api" && estimatedCostUsd + worstNextCost > budgetUsd)
+    ) {
       const message = "hard call or cost cap reached before request";
       records.push(providerFailureRecord(protocol, passage, attempt, promptTokens, message));
       return { providerError: message };
     }
 
+    const stem = `${String(passage).padStart(2, "0")}-${protocol}-attempt-${attempt}`;
+    const extension = protocol === "openui" ? "openui" : "json";
+    const rawPath = path.join(resultsDir, "raw", `${stem}.${extension}`);
+    const diagnosticsPath = path.join(resultsDir, "diagnostics", `${stem}.json`);
     calls += 1;
-    const apiStarted = performance.now();
-    let response;
+    let providerMs;
+    let output;
+    let responseBytes;
+    let usage;
     try {
-      response = await client.responses.create({
-        model,
-        instructions: systemPrompt,
-        input: userPrompt,
-        reasoning: { effort: "low" },
-        store: false,
-        max_output_tokens: maxOutputTokens,
-      });
+      if (provider === "api") {
+        const apiStarted = performance.now();
+        const response = await client.responses.create({
+          model,
+          instructions: systemPrompt,
+          input: userPrompt,
+          reasoning: { effort: "low" },
+          store: false,
+          max_output_tokens: maxOutputTokens,
+        });
+        providerMs = performance.now() - apiStarted;
+        output = response.output_text ?? extractOutputText(response.output);
+        responseBytes = Buffer.byteLength(output);
+        const rawOutputTokens = tokenCount(output);
+        usage = normalizeUsage(response.usage, promptTokens, rawOutputTokens);
+        estimatedCostUsd += usage.estimated_cost_usd;
+      } else {
+        const result = generateWithCodex({
+          prompt: providerPrompt,
+          outputPath: rawPath,
+          codexHome,
+          cwd: codexWorkDir,
+          command: process.env.EVAL_CODEX_BIN ?? "codex",
+          model,
+          reasoningEffort: "low",
+          maxResponseBytes,
+          timeoutMs: Number(process.env.EVAL_CODEX_TIMEOUT_MS ?? 180_000),
+        });
+        providerMs = result.elapsedMs;
+        output = result.output;
+        responseBytes = result.outputBytes;
+        usage = result.usage;
+        await writeFile(path.join(resultsDir, "provider-events", `${stem}.jsonl`), result.eventsRaw);
+        await writeFile(path.join(resultsDir, "provider-stderr", `${stem}.log`), result.stderr);
+      }
     } catch (error) {
       const message = String(error?.message ?? error);
+      if (provider === "codex") {
+        await writeFile(
+          path.join(resultsDir, "provider-events", `${stem}.jsonl`),
+          error?.eventsRaw ?? "",
+        );
+        await writeFile(
+          path.join(resultsDir, "provider-stderr", `${stem}.log`),
+          error?.stderr ?? "",
+        );
+      }
+      await writeFile(
+        diagnosticsPath,
+        JSON.stringify({ ok: false, diagnostics: [{ code: "provider-error", message }] }, null, 2),
+      );
       records.push(providerFailureRecord(protocol, passage, attempt, promptTokens, message));
       return { providerError: message };
     }
-    const apiMs = performance.now() - apiStarted;
-    const output = response.output_text ?? extractOutputText(response.output);
-    const responseBytes = Buffer.byteLength(output);
     const rawOutputTokens = tokenCount(output);
-    const usage = normalizeUsage(response.usage, promptTokens, rawOutputTokens);
-    estimatedCostUsd += usage.estimated_cost_usd;
 
     const validationStarted = performance.now();
     let validation =
@@ -145,11 +224,7 @@ async function runProtocol(passage, protocol) {
           : validateA2Ui(output);
     const validationMs = performance.now() - validationStarted;
 
-    const stem = `${String(passage).padStart(2, "0")}-${protocol}-attempt-${attempt}`;
-    const extension = protocol === "openui" ? "openui" : "json";
-    const rawPath = path.join(resultsDir, "raw", `${stem}.${extension}`);
-    const diagnosticsPath = path.join(resultsDir, "diagnostics", `${stem}.json`);
-    await writeFile(rawPath, output);
+    if (provider === "api") await writeFile(rawPath, output);
     await writeFile(diagnosticsPath, JSON.stringify(validation, null, 2));
 
     let normalizationMs = 0;
@@ -188,6 +263,7 @@ async function runProtocol(passage, protocol) {
 
     const record = {
       protocol,
+      provider,
       passage,
       attempt,
       accepted: Boolean(validation.ok && coverage?.passed && runtimeProbePassed(runtimeProbe)),
@@ -199,12 +275,13 @@ async function runProtocol(passage, protocol) {
         ...usage,
       },
       latency: {
-        api_ms: apiMs,
+        api_ms: provider === "api" ? providerMs : null,
+        provider_ms: providerMs,
         validation_ms: validationMs,
         normalization_ms: normalizationMs,
         first_render_ms: firstRenderMs,
         full_response_ms:
-          apiMs + validationMs + normalizationMs + firstRenderMs,
+          providerMs + validationMs + normalizationMs + firstRenderMs,
       },
       response_bytes: responseBytes,
       fingerprint,
@@ -225,6 +302,7 @@ async function runProtocol(passage, protocol) {
 function providerFailureRecord(protocol, passage, attempt, promptTokens, message) {
   return {
     protocol,
+    provider,
     passage,
     attempt,
     accepted: false,
@@ -238,10 +316,12 @@ function providerFailureRecord(protocol, passage, attempt, promptTokens, message
       output_tokens: 0,
       reasoning_tokens: 0,
       total_tokens: 0,
-      estimated_cost_usd: 0,
+      estimated_cost_usd: provider === "api" ? 0 : null,
+      usage_source: provider === "api" ? "openai-api" : "codex-cli-chatgpt-plan",
     },
     latency: {
-      api_ms: 0,
+      api_ms: provider === "api" ? 0 : null,
+      provider_ms: 0,
       validation_ms: 0,
       normalization_ms: 0,
       first_render_ms: 0,
@@ -255,16 +335,30 @@ function providerFailureRecord(protocol, passage, attempt, promptTokens, message
   };
 }
 
+function buildCodexPrompt(systemPrompt, userPrompt) {
+  return [
+    "Produce only the requested protocol payload. Do not use tools. Do not add Markdown fences or commentary.",
+    "<protocol-instructions>",
+    systemPrompt,
+    "</protocol-instructions>",
+    "<request>",
+    userPrompt,
+    "</request>",
+  ].join("\n\n");
+}
+
 function normalizeUsage(usage, fallbackInput, fallbackOutput) {
   const input = usage?.input_tokens ?? fallbackInput;
   const output = usage?.output_tokens ?? fallbackOutput;
   return {
     input_tokens: input,
     cached_input_tokens: usage?.input_tokens_details?.cached_tokens ?? 0,
+    cache_write_input_tokens: 0,
     output_tokens: output,
     reasoning_tokens: usage?.output_tokens_details?.reasoning_tokens ?? 0,
     total_tokens: usage?.total_tokens ?? input + output,
     estimated_cost_usd: estimateCost(input, output),
+    usage_source: "openai-api",
   };
 }
 
