@@ -1,0 +1,92 @@
+{
+  "protocol": "openui",
+  "root": "expense_review",
+  "nodes": {
+    "approval_result": {
+      "kind": "Alert",
+      "id": "approval_result",
+      "tone": "success",
+      "message": "Expense exp-001 approved successfully."
+    },
+    "approve_exp001": {
+      "kind": "Button",
+      "id": "approve_exp001",
+      "label": "Approve Baltic Components",
+      "action": {
+        "name": "ApproveExpense",
+        "expense_id": "exp-001"
+      }
+    },
+    "expense_review": {
+      "kind": "Card",
+      "id": "expense_review",
+      "title": "Vendor Expense Review",
+      "child": "review_content"
+    },
+    "expense_table": {
+      "kind": "Table",
+      "id": "expense_table",
+      "columns": [
+        "expense_id",
+        "merchant",
+        "amount",
+        "status"
+      ],
+      "rows": [
+        {
+          "amount": "EUR 920.00",
+          "expense_id": "exp-001",
+          "merchant": "Baltic Components",
+          "status": "pending"
+        },
+        {
+          "amount": "EUR 275.00",
+          "expense_id": "exp-002",
+          "merchant": "Local Parts Depot",
+          "status": "pending"
+        }
+      ]
+    },
+    "review_content": {
+      "kind": "Stack",
+      "id": "review_content",
+      "children": [
+        "vendor_identity",
+        "status_filter",
+        "expense_table",
+        "reviewer_note",
+        "approve_exp001",
+        "approval_result"
+      ]
+    },
+    "reviewer_note": {
+      "kind": "Input",
+      "id": "reviewer_note",
+      "label": "Reviewer note",
+      "state_key": "review_note",
+      "value": ""
+    },
+    "status_filter": {
+      "kind": "Select",
+      "id": "status_filter",
+      "label": "Status",
+      "state_key": "status_filter",
+      "options": [
+        "all",
+        "pending",
+        "approved"
+      ],
+      "value": "pending"
+    },
+    "vendor_identity": {
+      "kind": "Text",
+      "id": "vendor_identity",
+      "text": "Vendor compliance review"
+    }
+  },
+  "fields": {
+    "review_note": "",
+    "status_filter": "pending"
+  },
+  "source_hash": "9048428b6b3fc66727ee49a8707c01bf021e037f72f4f5bce284b358f9656908"
+}

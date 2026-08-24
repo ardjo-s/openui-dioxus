@@ -1,0 +1,10 @@
+{
+  "openui": 168,
+  "a2ui": 155,
+  "typed-json": 36,
+  "breakdown": {
+    "typed-json-adapter": 34,
+    "typed-json-provenance": 2
+  },
+  "method": "non-empty non-comment adapter LOC; exact typed-json provenance declaration charged to JSON"
+}

@@ -1,0 +1,92 @@
+{
+  "protocol": "a2ui",
+  "root": "review-root",
+  "nodes": {
+    "approve-button": {
+      "kind": "Button",
+      "id": "approve-button",
+      "label": "Approve exp-001",
+      "action": {
+        "name": "ApproveExpense",
+        "expense_id": "exp-001"
+      }
+    },
+    "expense-table": {
+      "kind": "Table",
+      "id": "expense-table",
+      "columns": [
+        "expense_id",
+        "merchant",
+        "amount",
+        "status"
+      ],
+      "rows": [
+        {
+          "amount": "EUR 1,875.00",
+          "expense_id": "exp-001",
+          "merchant": "Independent Research Lab",
+          "status": "pending"
+        },
+        {
+          "amount": "EUR 760.00",
+          "expense_id": "exp-002",
+          "merchant": "Compliance Review Ltd",
+          "status": "pending"
+        }
+      ]
+    },
+    "identity-text": {
+      "kind": "Text",
+      "id": "identity-text",
+      "text": "Reviewing vendor expenses for vendor-compliance-contractor"
+    },
+    "note-input": {
+      "kind": "Input",
+      "id": "note-input",
+      "label": "Reviewer note",
+      "state_key": "review_note",
+      "value": ""
+    },
+    "result-alert": {
+      "kind": "Alert",
+      "id": "result-alert",
+      "tone": "info",
+      "message": "Expense exp-001 is ready for approval."
+    },
+    "review-root": {
+      "kind": "Card",
+      "id": "review-root",
+      "title": "Vendor Expense Review",
+      "child": "review-stack"
+    },
+    "review-stack": {
+      "kind": "Stack",
+      "id": "review-stack",
+      "children": [
+        "identity-text",
+        "expense-table",
+        "note-input",
+        "status-select",
+        "approve-button",
+        "result-alert"
+      ]
+    },
+    "status-select": {
+      "kind": "Select",
+      "id": "status-select",
+      "label": "Status filter",
+      "state_key": "status_filter",
+      "options": [
+        "all",
+        "pending",
+        "approved"
+      ],
+      "value": "pending"
+    }
+  },
+  "fields": {
+    "review_note": "",
+    "status_filter": "pending"
+  },
+  "source_hash": "bfea7d397b439d008e9f924929be679b3c6a8c1acb840ea649f46495246ee11e"
+}

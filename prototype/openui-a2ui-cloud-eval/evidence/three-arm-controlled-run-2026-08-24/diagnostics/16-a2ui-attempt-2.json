@@ -1,0 +1,112 @@
+{
+  "ok": true,
+  "protocol": "a2ui",
+  "version": "v0.9.1/@a2ui/web_core@0.10.6",
+  "diagnostics": [],
+  "resolved": {
+    "surface_id": "high-value-venue",
+    "components": [
+      {
+        "id": "expense-review-card",
+        "component": "Card",
+        "properties": {
+          "title": "High-value expense review",
+          "child": "expense-review-stack"
+        }
+      },
+      {
+        "id": "expense-review-stack",
+        "component": "Stack",
+        "properties": {
+          "children": [
+            "review-heading",
+            "expense-table",
+            "status-filter",
+            "review-note",
+            "approve-expense",
+            "result-alert"
+          ]
+        }
+      },
+      {
+        "id": "review-heading",
+        "component": "Text",
+        "properties": {
+          "text": "Review high-value expenses. Expenses are currently pending. Approving exp-001 will change Riverside Venue from pending to approved."
+        }
+      },
+      {
+        "id": "expense-table",
+        "component": "Table",
+        "properties": {
+          "columns": [
+            "expense_id",
+            "merchant",
+            "amount",
+            "status"
+          ],
+          "rows": [
+            {
+              "expense_id": "exp-001",
+              "merchant": "Riverside Venue",
+              "amount": "EUR 5,250.00",
+              "status": "pending"
+            },
+            {
+              "expense_id": "exp-002",
+              "merchant": "Event Production",
+              "amount": "EUR 2,975.00",
+              "status": "pending"
+            }
+          ]
+        }
+      },
+      {
+        "id": "status-filter",
+        "component": "Select",
+        "properties": {
+          "label": "Status",
+          "state_key": "status_filter",
+          "options": [
+            "all",
+            "pending",
+            "approved"
+          ],
+          "value": "pending"
+        }
+      },
+      {
+        "id": "review-note",
+        "component": "Input",
+        "properties": {
+          "label": "Review note",
+          "state_key": "review_note",
+          "value": ""
+        }
+      },
+      {
+        "id": "approve-expense",
+        "component": "Button",
+        "properties": {
+          "label": "Approve exp-001",
+          "action": {
+            "name": "ApproveExpense",
+            "expense_id": "exp-001"
+          }
+        }
+      },
+      {
+        "id": "result-alert",
+        "component": "Alert",
+        "properties": {
+          "tone": "info",
+          "message": "Approval result: exp-001 is currently pending and will become approved when this approval is completed."
+        }
+      }
+    ],
+    "data_model": {
+      "review_note": "",
+      "status_filter": "pending"
+    }
+  }
+}

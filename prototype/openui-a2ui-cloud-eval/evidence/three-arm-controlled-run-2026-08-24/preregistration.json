@@ -1,0 +1,409 @@
+{
+  "version": "ope-3-three-arm-v1",
+  "hash": "d6224f98869bb43d2663ed44028a3d7054d33489f462b772fbaa1d138317b5a9",
+  "source_pins": {
+    "openui": "c3c0d1b7cf1d58e01846e86b7e9706f54afb2511/@openuidev/lang-core@0.2.15",
+    "a2ui": "f5baf760d23a5b21ba05a97f7d16d6db73fb8af6/v0.9.1/@a2ui/web_core@0.10.6",
+    "typed_json": "project-owned/typed-json-v1/a6e901abf19b8f40cb3290b2eaa72b45a8758f0165cfb4f1b830c8e4edfcfc25",
+    "dioxus": "57d6794ad60b949e5bd8aa282f6f8c3dc97a365e/0.7.10"
+  },
+  "model_configuration": {
+    "model": "gpt-5.6-luna",
+    "reasoning_effort": "low",
+    "provider": "codex-chatgpt-plan-local",
+    "fresh_ephemeral_process_per_attempt": true,
+    "sandbox": "read-only",
+    "tools_disabled": true,
+    "maximum_response_bytes": 262144,
+    "output_executed": false
+  },
+  "scoring": {
+    "scenarios": 20,
+    "arms": 3,
+    "required_first_attempts": 60,
+    "maximum_calls": 120,
+    "maximum_repairs_per_arm": 1,
+    "minimum_post_repair_validity": 19,
+    "maximum_validity_disadvantage": 1,
+    "maximum_latency_ratio": 1.1,
+    "minimum_cumulative_raw_token_advantage": 0.3,
+    "maximum_adapter_loc_ratio": 1.25,
+    "shared_runtime_behavior_lines_modified": 0
+  },
+  "input_hashes": {
+    "scenario_manifest": "6f8df4c9e204ea7875e791714134e519f1e8ab6765383f1b2d37831055deb670",
+    "openui_reference": "e11d5ade9a947914341cb88798bd5a64d6cfd3f20de1441ba19f077938d3ec24",
+    "a2ui_reference": "640d72e2e51b25b828be78fa2cf2987bec35904e1c1f7d26c3c87b223972f322",
+    "a2ui_minimal_envelope": "959266eae5e4c5ec8554873460dda89c3be7fe221c0b2b1b9219fc224daf8aa6",
+    "typed_json_reference": "07620e03806f22088e567a71378485e48ba0eede29ad92817254f2bd849ee43e",
+    "node_lock": "a02e30144ad52fb88f2746c98beb7a31b1e64608575a0d7c37ed25cceec98ef1",
+    "node_manifest": "0abd7981fa94999fa1b561b1b35d384ad15e987b2bb0569054375903473abf99",
+    "rust_lock": "d9c9ecfdbfa0157b1c66f60b71e0881f0fe3b754a70a2fb04aeee1c7275c7440",
+    "rust_manifest": "7a9dc86ed3b3dae2f77dbb20594db74c0ed81c08ce6b1835f7fa071eed2eb070",
+    "dioxus_manifest": "fe335b90704a8a4b644081d5a37e61cd2b95cc811554f5e4be2e0a752d984507",
+    "openui_validator": "467740ccf4e0cb881016954faadee0e565f4ebf6179c1a7006bc1734da7c8009",
+    "a2ui_validator": "343d709619d09e95dd1cc67fd70f4135a176290bd439af70813c669a3a12eb22",
+    "typed_json_validator": "0df18b84a86b9d57bd62b4d9b412a9eb97c45bd3dcc54b59f0ff4b6bac37082d",
+    "controlled_scenario_builder": "8190e478c184ff5fa7e32356a3e2be16d338237b6061025dd172920266f16a86",
+    "codex_provider": "3d104ea4f7f7e1fab521ef5a99974494d2e12ac8fc7b5073b0e0c7e5da1e0f4f",
+    "attempt_prompt_builder": "a6c086d440ea595a5a7f029ceae7a03772e47181bf28d5482df1d70cda3eb4e7",
+    "prompt_pack_builder": "2d7fcb65524d90ef7c2efd728137a042605a60bda27a6e23d958ac2453776d21",
+    "generation_driver": "8309dab06924f0cfbb485ab2286c34f06b021738b189846e7e8832fda1d43b17",
+    "coverage_predicate": "50b7dc3afd26507c6331abc0404cb02ebb2f6593879f48190635c8df354e79c9",
+    "summary_driver": "95d1e941896d149e59a09ce68eabf96b4d84753971dab59173887d2c62637fcc",
+    "report_driver": "cf83da22403f83ec8275c67b5e6c2db73f6fb57eae6072e609d8654c5104a9c2",
+    "evidence_binding_verifier": "7886d327b98a313f7d159fd5bd6eccb1d3a95bbd9d54d9e83c5d94982c2eaebe",
+    "three_arm_scorer": "139cd02da91b8be7f30e46356aeb91b4a299fd2ec191c77bbe49e6bf0dced397",
+    "shared_score_helpers": "647e29b670103440d4f1cd8b88a65e8e8c158d4844908883bda6250670fabba2",
+    "three_arm_topology": "c9dda0dc91c8e1d167b7e23a4d161285535b2fcebd504a22a3b835898c28b7c3",
+    "three_arm_schedule": "0ac98d360b9791fc220d7ba94e0190cc425cc150fdc325d4f7281946a76d82a2",
+    "openui_adapter": "3ae3318c25506a2e4184a05bef42d89324c06515790b82cd72ffa67cddb7046e",
+    "a2ui_adapter": "3c091564c69629e819b0d1caa4ff0b6a647683a8058f13a42389446795c1a243",
+    "typed_json_adapter": "6e4e5249ba9ae568899b9f2dd8afe0f3920885bf4b3ddc14f0110f1f8c34ab14",
+    "library_exports": "edcc5dfc009ce6107b90ff9ed2165422a264a2bea276e7310f08c08acaef2abc",
+    "canonical_domain": "bcabd1b019e507be74dc368de41562e08498b3207083419b1da4211b6e78e155",
+    "evaluation_record": "e52a03247b25f8a94c76d15bb8be2dde2259c3a2e462e3a6711c6348a06d0a2f",
+    "runtime": "d171f3efedd0fda2bd79ff1ab3a0689f19ba309ef60d42cd8f3985f2c6b3c542",
+    "runtime_probe": "02daeecfb5f7b43806fc4c02677ac0a620764875703f25775630a13e0fec0b1d",
+    "catalog_renderer": "8c5abc46ae00bd6aa207f1bb6fb732c4a30eb157561ebda74c4bbc5a7bf754f1",
+    "openui_normalizer": "f2e9446e3c41c20c24dc91bfd66fdb91fbedced5ef9bd05128a5c0c72f5cd5d2",
+    "a2ui_normalizer": "288580143c776f78624f0a3b06132ab04c8ff41ef102581a26bea9afcedcbb4f",
+    "typed_json_normalizer": "f0efa51e91c4b3d1f448189581a819aa063249d823b79033f58d37b4cdea6200",
+    "record_validator": "7e356aa57094abbf7d8a732379911473aa97dac13b122cb710829dd039927983",
+    "ssr_renderer": "a2decf2e0b3c5e5e2080d123fc05dd7742b8cab69fdd2f911c7d72b30bdac250",
+    "platform_app": "2f992c2863181c9326b060b0de7a2d03b1c4f47f57d20fbc28e679a5e1ce8267",
+    "openui_cli": "382fa3b08ae36e1fe67cf614dfbe04513c94863b8e8e90e25ee8b0b0301a7071",
+    "a2ui_cli": "46975a6923ae44f3acc197267fbd4abf0ce274b69ed3adbc92498503174e4357",
+    "typed_json_cli": "a85044ea661bd3c1e96179553f278c9b5041ce455e7131ce84623cc1a2e7de5e",
+    "playwright_config": "5681364b8f4534f4407ce51cb99e7f533d44b563d312f03549cc1996d746c539",
+    "web_runtime_test": "f70dcdc8516f446a87912169d1e0208bb5b127132106081359a02da23d783686",
+    "local_runner": "582154940d2528493df0402a5b7719663954163734c0c54387f8da48974db72e",
+    "three_arm_runner": "97ea1d4fb2c763c80c2a2c1fab39838c602042d4cfa8f2e041aad7480d6f3e53",
+    "desktop_runner": "ceb211c28ec1ad677496ef3946fef89d679d6079acbc3087ec75b7f3137d532f",
+    "web_runner": "c4b83bd128e3b2ae635b124563dc2ad75fd2150072be3ea1d55ab1966988c02f",
+    "desktop_window_probe": "3880af74542384d8c97716e58e33499730955a5ace7c89374efcb0a68341c2a6",
+    "loc_measurement": "c952a55d7a7915de85905122a151cde74d289bf0fdb39a8336fef4c68f44d3ec",
+    "historical_ope1_summary": "729a07c1fd324add20adca70ea8b77c4bfc5285b6d27970cd25c05b38626d8a1",
+    "historical_ope1_checksums": "594ecb02297931f1585f00e382afc2c2cbbc527f3c4e72dff5782a9fc97ffe82",
+    "standards_review": "b4d4e73de6149dd5c171b8ec8926f2982b0945bac2df5d68a4b47ffae7a0c948",
+    "intent_review": "4e2125209f90101dee8c5b5f09ac2a7f7e6c55912680ccbd4a5f8a56ded462cb"
+  },
+  "protocols": {
+    "openui": {
+      "hash": "fe5c284af04ca23b9250a4503051964be2d8e4c835b902238eac5f858c808fb7",
+      "instructions": "Return only one OpenUI Lang program for the supplied expense-review intent.\n\n## Syntax Rules\n\n1. Each statement is on its own line: `identifier = Expression`\n2. `root` is the entry point — every program must define `root = Card(...)`\n3. Expressions are: strings (\"...\"), numbers, booleans (true/false), null, arrays ([...]), objects ({...}), or component calls TypeName(arg1, arg2, ...)\n4. Use references for readability: define `name = ...` on one line, then use `name` later\n5. EVERY variable (except root) MUST be referenced by at least one other variable. Unreferenced variables are silently dropped and will NOT render. Always include defined variables in their parent's children/items array.\n6. Arguments are POSITIONAL (order matters, not names). Write `Stack([children], \"row\", \"l\")` NOT `Stack([children], direction: \"row\", gap: \"l\")` — colon syntax is NOT supported and silently breaks\n7. Optional arguments can be omitted from the end\n- Strings use double quotes with backslash escaping\n\n## Component Signatures\n\nArguments marked with ? are optional. Sub-components can be inline or referenced; prefer references for better streaming.\n\nText(id: string, text: string) — Static text with a stable id.\nStack(id: string, children: any[]) — Ordered vertical children with a stable id.\nCard(id: string, title: string, child: any) — Titled container with one child and a stable id.\nTable(id: string, columns: string[], rows: Record<string, string>[]) — Expense rows. Keep both provided expenses unchanged.\nInput(id: string, label: string, state_key: \"review_note\", value: string) — Reviewer note input bound to review_note.\nSelect(id: string, label: string, state_key: \"status_filter\", options: string[], value: string) — Status filter bound to status_filter.\nButton(id: string, label: string, action: {name: \"ApproveExpense\", expense_id: string}) — Approval button. Only ApproveExpense with expense_id is allowed.\nAlert(id: string, tone: \"info\" | \"success\" | \"warning\" | \"error\", message: string) — Result alert with a stable id.\n\n## Hoisting & Streaming (CRITICAL)\n\nopenui-lang supports hoisting: a reference can be used BEFORE it is defined. The parser resolves all references after the full input is parsed.\n\nDuring streaming, the output is re-parsed on every chunk. Undefined references are temporarily unresolved and appear once their definitions stream in. This creates a progressive top-down reveal — structure first, then data fills in.\n\n**Recommended statement order for optimal streaming:**\n1. `root = Card(...)` — UI shell appears immediately\n2. Component definitions — fill in as they stream\n3. Data values — leaf content last\n\nAlways write the root = Card(...) statement first so the UI shell appears immediately, even before child data has streamed in.\n## Important Rules\n- When asked about data, generate realistic/plausible data\n- Choose components that best represent the content (tables for comparisons, charts for trends, forms for input, etc.)\n\n## Final Verification\nBefore finishing, walk your output and verify:\n1. root = Card(...) is the FIRST line (for optimal streaming).\n2. Every referenced name is defined. Every defined name (other than root) is reachable from root.\n\n- Use every catalog component exactly once.\n- Use stable ids for every component.\n- Use only review_note and status_filter as state keys.\n- Use only ApproveExpense with an expense_id as an action.\n- Preserve both expense rows exactly as supplied."
+    },
+    "a2ui": {
+      "hash": "a99749561e58fe89f7e5c8e996171b1bdc6b9e4ddfeb89f6df85867127e012ff",
+      "instructions": "Return only one A2UI v0.9.1 JSON object with a messages array.\nThe messages array must contain, in order:\n1. A version v0.9.1 createSurface message with surfaceId, catalogId, and sendDataModel true.\n2. A version v0.9.1 updateComponents message with the same surfaceId and one components array.\n3. A version v0.9.1 updateDataModel message with the same surfaceId, path /, and the state object in value.\nPut id, component, and component props directly on each component object.\nPut version on every message and nowhere at the top level.\nCreate exactly one surface with catalogId openui-dioxus-expense-review@0.0.0.\nUse every catalog component exactly once and stable ids for all components.\nUse only review_note and status_filter as state keys.\nUse only ApproveExpense with an expense_id as an action.\nPreserve both supplied expense rows exactly.\nThe Card and Stack child values are component ids. Produce one unreferenced root.\nClient capabilities and inline catalog:\n{\"v0.9.1\":{\"supportedCatalogIds\":[\"openui-dioxus-expense-review@0.0.0\"],\"inlineCatalogs\":[{\"catalogId\":\"openui-dioxus-expense-review@0.0.0\",\"components\":{\"Text\":{\"allOf\":[{\"$ref\":\"common_types.json#/$defs/ComponentCommon\"},{\"properties\":{\"component\":{\"const\":\"Text\"},\"text\":{\"type\":\"string\"}},\"required\":[\"component\",\"text\"]}]},\"Stack\":{\"allOf\":[{\"$ref\":\"common_types.json#/$defs/ComponentCommon\"},{\"properties\":{\"component\":{\"const\":\"Stack\"},\"children\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}},\"required\":[\"component\",\"children\"]}]},\"Card\":{\"allOf\":[{\"$ref\":\"common_types.json#/$defs/ComponentCommon\"},{\"properties\":{\"component\":{\"const\":\"Card\"},\"title\":{\"type\":\"string\"},\"child\":{\"type\":\"string\"}},\"required\":[\"component\",\"title\",\"child\"]}]},\"Table\":{\"allOf\":[{\"$ref\":\"common_types.json#/$defs/ComponentCommon\"},{\"properties\":{\"component\":{\"const\":\"Table\"},\"columns\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"rows\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"additionalProperties\":{\"type\":\"string\"}}}},\"required\":[\"component\",\"columns\",\"rows\"]}]},\"Input\":{\"allOf\":[{\"$ref\":\"common_types.json#/$defs/ComponentCommon\"},{\"properties\":{\"component\":{\"const\":\"Input\"},\"label\":{\"type\":\"string\"},\"state_key\":{\"type\":\"string\",\"const\":\"review_note\"},\"value\":{\"type\":\"string\"}},\"required\":[\"component\",\"label\",\"state_key\",\"value\"]}]},\"Select\":{\"allOf\":[{\"$ref\":\"common_types.json#/$defs/ComponentCommon\"},{\"properties\":{\"component\":{\"const\":\"Select\"},\"label\":{\"type\":\"string\"},\"state_key\":{\"type\":\"string\",\"const\":\"status_filter\"},\"options\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"value\":{\"type\":\"string\"}},\"required\":[\"component\",\"label\",\"state_key\",\"options\",\"value\"]}]},\"Button\":{\"allOf\":[{\"$ref\":\"common_types.json#/$defs/ComponentCommon\"},{\"properties\":{\"component\":{\"const\":\"Button\"},\"label\":{\"type\":\"string\"},\"action\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"const\":\"ApproveExpense\"},\"expense_id\":{\"type\":\"string\"}},\"required\":[\"name\",\"expense_id\"],\"additionalProperties\":false}},\"required\":[\"component\",\"label\",\"action\"]}]},\"Alert\":{\"allOf\":[{\"$ref\":\"common_types.json#/$defs/ComponentCommon\"},{\"properties\":{\"component\":{\"const\":\"Alert\"},\"tone\":{\"type\":\"string\",\"enum\":[\"info\",\"success\",\"warning\",\"error\"]},\"message\":{\"type\":\"string\"}},\"required\":[\"component\",\"tone\",\"message\"]}]}}}]}}\nMinimal envelope example (syntax only; do not copy its content):\n{\"messages\":[{\"version\":\"v0.9.1\",\"createSurface\":{\"surfaceId\":\"envelope-example\",\"catalogId\":\"openui-dioxus-expense-review@0.0.0\",\"sendDataModel\":true}},{\"version\":\"v0.9.1\",\"updateComponents\":{\"surfaceId\":\"envelope-example\",\"components\":[{\"id\":\"example-text\",\"component\":\"Text\",\"text\":\"Envelope example\"}]}},{\"version\":\"v0.9.1\",\"updateDataModel\":{\"surfaceId\":\"envelope-example\",\"path\":\"/\",\"value\":{}}}]}"
+    },
+    "typed-json": {
+      "hash": "433ce0b747000f416126edcc48d0856207d2c280444d3f46aa21e8a66be59bf5",
+      "instructions": "Return only one strict typed-JSON object matching the supplied JSON Schema.\nCreate exactly one Card root and an array of component nodes.\nUse every catalog component exactly once and stable non-empty ids for all nodes.\nCard.child and Stack.children contain component ids.\nUse only review_note and status_filter as state keys.\nUse only ApproveExpense with an expense_id as an action.\nPreserve both supplied expense rows exactly.\nDo not add properties absent from the schema.\nJSON Schema:\n{\"$schema\":\"https://json-schema.org/draft/2020-12/schema\",\"type\":\"object\",\"properties\":{\"root\":{\"$ref\":\"#/$defs/__schema0\"},\"nodes\":{\"minItems\":1,\"maxItems\":64,\"type\":\"array\",\"items\":{\"anyOf\":[{\"type\":\"object\",\"properties\":{\"kind\":{\"type\":\"string\",\"const\":\"Text\"},\"id\":{\"$ref\":\"#/$defs/__schema0\"},\"text\":{\"type\":\"string\"}},\"required\":[\"kind\",\"id\",\"text\"],\"additionalProperties\":false},{\"type\":\"object\",\"properties\":{\"kind\":{\"type\":\"string\",\"const\":\"Stack\"},\"id\":{\"$ref\":\"#/$defs/__schema0\"},\"children\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/$defs/__schema0\"}}},\"required\":[\"kind\",\"id\",\"children\"],\"additionalProperties\":false},{\"type\":\"object\",\"properties\":{\"kind\":{\"type\":\"string\",\"const\":\"Card\"},\"id\":{\"$ref\":\"#/$defs/__schema0\"},\"title\":{\"type\":\"string\"},\"child\":{\"$ref\":\"#/$defs/__schema0\"}},\"required\":[\"kind\",\"id\",\"title\",\"child\"],\"additionalProperties\":false},{\"type\":\"object\",\"properties\":{\"kind\":{\"type\":\"string\",\"const\":\"Table\"},\"id\":{\"$ref\":\"#/$defs/__schema0\"},\"columns\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"rows\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"expense_id\":{\"type\":\"string\"},\"merchant\":{\"type\":\"string\"},\"amount\":{\"type\":\"string\"},\"status\":{\"type\":\"string\"}},\"required\":[\"expense_id\",\"merchant\",\"amount\",\"status\"],\"additionalProperties\":false}}},\"required\":[\"kind\",\"id\",\"columns\",\"rows\"],\"additionalProperties\":false},{\"type\":\"object\",\"properties\":{\"kind\":{\"type\":\"string\",\"const\":\"Input\"},\"id\":{\"$ref\":\"#/$defs/__schema0\"},\"label\":{\"type\":\"string\"},\"state_key\":{\"type\":\"string\",\"const\":\"review_note\"},\"value\":{\"type\":\"string\"}},\"required\":[\"kind\",\"id\",\"label\",\"state_key\",\"value\"],\"additionalProperties\":false},{\"type\":\"object\",\"properties\":{\"kind\":{\"type\":\"string\",\"const\":\"Select\"},\"id\":{\"$ref\":\"#/$defs/__schema0\"},\"label\":{\"type\":\"string\"},\"state_key\":{\"type\":\"string\",\"const\":\"status_filter\"},\"options\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"value\":{\"type\":\"string\"}},\"required\":[\"kind\",\"id\",\"label\",\"state_key\",\"options\",\"value\"],\"additionalProperties\":false},{\"type\":\"object\",\"properties\":{\"kind\":{\"type\":\"string\",\"const\":\"Button\"},\"id\":{\"$ref\":\"#/$defs/__schema0\"},\"label\":{\"type\":\"string\"},\"action\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"const\":\"ApproveExpense\"},\"expense_id\":{\"type\":\"string\",\"minLength\":1}},\"required\":[\"name\",\"expense_id\"],\"additionalProperties\":false}},\"required\":[\"kind\",\"id\",\"label\",\"action\"],\"additionalProperties\":false},{\"type\":\"object\",\"properties\":{\"kind\":{\"type\":\"string\",\"const\":\"Alert\"},\"id\":{\"$ref\":\"#/$defs/__schema0\"},\"tone\":{\"type\":\"string\",\"enum\":[\"info\",\"success\",\"warning\",\"error\"]},\"message\":{\"type\":\"string\"}},\"required\":[\"kind\",\"id\",\"tone\",\"message\"],\"additionalProperties\":false}]}}},\"required\":[\"root\",\"nodes\"],\"additionalProperties\":false,\"$defs\":{\"__schema0\":{\"type\":\"string\",\"minLength\":1}}}\nMinimal syntax example (do not copy its content):\n{\"root\":\"example-card\",\"nodes\":[{\"kind\":\"Text\",\"id\":\"example-text\",\"text\":\"Example\"},{\"kind\":\"Stack\",\"id\":\"example-stack\",\"children\":[\"example-text\"]},{\"kind\":\"Card\",\"id\":\"example-card\",\"title\":\"Example\",\"child\":\"example-stack\"}]}"
+    }
+  },
+  "scenarios": [
+    {
+      "id": "routine-review-air-hotel",
+      "family": "routine-review",
+      "variant": 1,
+      "shared_prompt_hash": "b9de98aec43e733accdfa7a193e8b774f5f0871606e14fddd7398298b24a9146",
+      "shared_prompt": "CONTROLLED SCENARIO — routine-review-air-hotel\n\nINTENT\n\nReview routine operating expenses and make the pending approval action obvious.\n\nBuild one expense-review interface for the two supplied expenses. The reviewer must enter a note, filter by status, approve expense exp-001, and see a result alert. Preserve every supplied value exactly.\n\nMCP TOOL SCHEMA — list_expenses\n\n{\"name\":\"list_expenses\",\"description\":\"Return expenses awaiting review\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"status\":{\"type\":\"string\",\"enum\":[\"pending\"]}},\"required\":[\"status\"],\"additionalProperties\":false}}\n\nMCP TOOL RESULT — list_expenses\n\n{\"content\":[{\"type\":\"text\",\"text\":\"{\\\"expenses\\\":[{\\\"expense_id\\\":\\\"exp-001\\\",\\\"merchant\\\":\\\"Acme Air\\\",\\\"amount\\\":\\\"EUR 420.00\\\",\\\"status\\\":\\\"pending\\\"},{\\\"expense_id\\\":\\\"exp-002\\\",\\\"merchant\\\":\\\"Northwind Hotel\\\",\\\"amount\\\":\\\"EUR 280.00\\\",\\\"status\\\":\\\"pending\\\"}]}\"}],\"isError\":false}\n\nMCP ACTION SCHEMA — ApproveExpense\n\n{\"name\":\"ApproveExpense\",\"description\":\"Approve exactly one reviewed expense\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"expense_id\":{\"type\":\"string\"}},\"required\":[\"expense_id\"],\"additionalProperties\":false}}\n\nSHARED CATALOG SEMANTICS\n\n- Text renders static text.\n\n- Stack renders ordered child component ids.\n\n- Card renders one titled child.\n\n- Table renders the supplied expense rows.\n\n- Input binds review_note and starts empty.\n\n- Select binds status_filter, starts at pending, and uses exactly all, pending, approved.\n\n- Button emits only ApproveExpense with expense_id exp-001.\n\n- Alert presents the result state.\n\nREQUIRED SEMANTICS\n\n- Use exactly these state keys: review_note and status_filter.\n\n- The only action is ApproveExpense { expense_id } for exp-001.\n\n- Every component has a stable non-empty id.\n\n- Use all eight catalog components exactly once.\n\n- Produce exactly one unreferenced Card root.\n\n- Return only the protocol payload, with no explanation."
+    },
+    {
+      "id": "routine-review-rail-meals",
+      "family": "routine-review",
+      "variant": 2,
+      "shared_prompt_hash": "d767c57fe9c7d7ea60d2dd130016d662608fcaaa04526c9fba68518cfbc5ab05",
+      "shared_prompt": "CONTROLLED SCENARIO — routine-review-rail-meals\n\nINTENT\n\nReview routine operating expenses and make the pending approval action obvious.\n\nBuild one expense-review interface for the two supplied expenses. The reviewer must enter a note, filter by status, approve expense exp-001, and see a result alert. Preserve every supplied value exactly.\n\nMCP TOOL SCHEMA — list_expenses\n\n{\"name\":\"list_expenses\",\"description\":\"Return expenses awaiting review\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"status\":{\"type\":\"string\",\"enum\":[\"pending\"]}},\"required\":[\"status\"],\"additionalProperties\":false}}\n\nMCP TOOL RESULT — list_expenses\n\n{\"content\":[{\"type\":\"text\",\"text\":\"{\\\"expenses\\\":[{\\\"expense_id\\\":\\\"exp-001\\\",\\\"merchant\\\":\\\"Contoso Rail\\\",\\\"amount\\\":\\\"EUR 164.50\\\",\\\"status\\\":\\\"pending\\\"},{\\\"expense_id\\\":\\\"exp-002\\\",\\\"merchant\\\":\\\"Tailspin Meals\\\",\\\"amount\\\":\\\"EUR 86.20\\\",\\\"status\\\":\\\"pending\\\"}]}\"}],\"isError\":false}\n\nMCP ACTION SCHEMA — ApproveExpense\n\n{\"name\":\"ApproveExpense\",\"description\":\"Approve exactly one reviewed expense\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"expense_id\":{\"type\":\"string\"}},\"required\":[\"expense_id\"],\"additionalProperties\":false}}\n\nSHARED CATALOG SEMANTICS\n\n- Text renders static text.\n\n- Stack renders ordered child component ids.\n\n- Card renders one titled child.\n\n- Table renders the supplied expense rows.\n\n- Input binds review_note and starts empty.\n\n- Select binds status_filter, starts at pending, and uses exactly all, pending, approved.\n\n- Button emits only ApproveExpense with expense_id exp-001.\n\n- Alert presents the result state.\n\nREQUIRED SEMANTICS\n\n- Use exactly these state keys: review_note and status_filter.\n\n- The only action is ApproveExpense { expense_id } for exp-001.\n\n- Every component has a stable non-empty id.\n\n- Use all eight catalog components exactly once.\n\n- Produce exactly one unreferenced Card root.\n\n- Return only the protocol payload, with no explanation."
+    },
+    {
+      "id": "routine-review-software-office",
+      "family": "routine-review",
+      "variant": 3,
+      "shared_prompt_hash": "753a40aa1555d8321d33a263b8dab190522772933e736a242b2df950622198f2",
+      "shared_prompt": "CONTROLLED SCENARIO — routine-review-software-office\n\nINTENT\n\nReview routine operating expenses and make the pending approval action obvious.\n\nBuild one expense-review interface for the two supplied expenses. The reviewer must enter a note, filter by status, approve expense exp-001, and see a result alert. Preserve every supplied value exactly.\n\nMCP TOOL SCHEMA — list_expenses\n\n{\"name\":\"list_expenses\",\"description\":\"Return expenses awaiting review\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"status\":{\"type\":\"string\",\"enum\":[\"pending\"]}},\"required\":[\"status\"],\"additionalProperties\":false}}\n\nMCP TOOL RESULT — list_expenses\n\n{\"content\":[{\"type\":\"text\",\"text\":\"{\\\"expenses\\\":[{\\\"expense_id\\\":\\\"exp-001\\\",\\\"merchant\\\":\\\"Fabrikam Software\\\",\\\"amount\\\":\\\"EUR 199.00\\\",\\\"status\\\":\\\"pending\\\"},{\\\"expense_id\\\":\\\"exp-002\\\",\\\"merchant\\\":\\\"Adventure Office\\\",\\\"amount\\\":\\\"EUR 74.90\\\",\\\"status\\\":\\\"pending\\\"}]}\"}],\"isError\":false}\n\nMCP ACTION SCHEMA — ApproveExpense\n\n{\"name\":\"ApproveExpense\",\"description\":\"Approve exactly one reviewed expense\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"expense_id\":{\"type\":\"string\"}},\"required\":[\"expense_id\"],\"additionalProperties\":false}}\n\nSHARED CATALOG SEMANTICS\n\n- Text renders static text.\n\n- Stack renders ordered child component ids.\n\n- Card renders one titled child.\n\n- Table renders the supplied expense rows.\n\n- Input binds review_note and starts empty.\n\n- Select binds status_filter, starts at pending, and uses exactly all, pending, approved.\n\n- Button emits only ApproveExpense with expense_id exp-001.\n\n- Alert presents the result state.\n\nREQUIRED SEMANTICS\n\n- Use exactly these state keys: review_note and status_filter.\n\n- The only action is ApproveExpense { expense_id } for exp-001.\n\n- Every component has a stable non-empty id.\n\n- Use all eight catalog components exactly once.\n\n- Produce exactly one unreferenced Card root.\n\n- Return only the protocol payload, with no explanation."
+    },
+    {
+      "id": "routine-review-courier-print",
+      "family": "routine-review",
+      "variant": 4,
+      "shared_prompt_hash": "d9d007ba56874039ee764a55f4c879d0bca73f5bc9baa4991edf716756ffa368",
+      "shared_prompt": "CONTROLLED SCENARIO — routine-review-courier-print\n\nINTENT\n\nReview routine operating expenses and make the pending approval action obvious.\n\nBuild one expense-review interface for the two supplied expenses. The reviewer must enter a note, filter by status, approve expense exp-001, and see a result alert. Preserve every supplied value exactly.\n\nMCP TOOL SCHEMA — list_expenses\n\n{\"name\":\"list_expenses\",\"description\":\"Return expenses awaiting review\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"status\":{\"type\":\"string\",\"enum\":[\"pending\"]}},\"required\":[\"status\"],\"additionalProperties\":false}}\n\nMCP TOOL RESULT — list_expenses\n\n{\"content\":[{\"type\":\"text\",\"text\":\"{\\\"expenses\\\":[{\\\"expense_id\\\":\\\"exp-001\\\",\\\"merchant\\\":\\\"Wide World Courier\\\",\\\"amount\\\":\\\"EUR 58.40\\\",\\\"status\\\":\\\"pending\\\"},{\\\"expense_id\\\":\\\"exp-002\\\",\\\"merchant\\\":\\\"City Print\\\",\\\"amount\\\":\\\"EUR 112.00\\\",\\\"status\\\":\\\"pending\\\"}]}\"}],\"isError\":false}\n\nMCP ACTION SCHEMA — ApproveExpense\n\n{\"name\":\"ApproveExpense\",\"description\":\"Approve exactly one reviewed expense\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"expense_id\":{\"type\":\"string\"}},\"required\":[\"expense_id\"],\"additionalProperties\":false}}\n\nSHARED CATALOG SEMANTICS\n\n- Text renders static text.\n\n- Stack renders ordered child component ids.\n\n- Card renders one titled child.\n\n- Table renders the supplied expense rows.\n\n- Input binds review_note and starts empty.\n\n- Select binds status_filter, starts at pending, and uses exactly all, pending, approved.\n\n- Button emits only ApproveExpense with expense_id exp-001.\n\n- Alert presents the result state.\n\nREQUIRED SEMANTICS\n\n- Use exactly these state keys: review_note and status_filter.\n\n- The only action is ApproveExpense { expense_id } for exp-001.\n\n- Every component has a stable non-empty id.\n\n- Use all eight catalog components exactly once.\n\n- Produce exactly one unreferenced Card root.\n\n- Return only the protocol payload, with no explanation."
+    },
+    {
+      "id": "travel-policy-paris",
+      "family": "travel-policy",
+      "variant": 1,
+      "shared_prompt_hash": "e8edd08e9369dd7a14ad7f9a7293bceaf8a20890dd5f6dd3e78546ae94010bce",
+      "shared_prompt": "CONTROLLED SCENARIO — travel-policy-paris\n\nINTENT\n\nReview travel expenses with enough context to spot policy-sensitive lodging and transport costs.\n\nBuild one expense-review interface for the two supplied expenses. The reviewer must enter a note, filter by status, approve expense exp-001, and see a result alert. Preserve every supplied value exactly.\n\nMCP TOOL SCHEMA — list_expenses\n\n{\"name\":\"list_expenses\",\"description\":\"Return expenses awaiting review\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"status\":{\"type\":\"string\",\"enum\":[\"pending\"]}},\"required\":[\"status\"],\"additionalProperties\":false}}\n\nMCP TOOL RESULT — list_expenses\n\n{\"content\":[{\"type\":\"text\",\"text\":\"{\\\"expenses\\\":[{\\\"expense_id\\\":\\\"exp-001\\\",\\\"merchant\\\":\\\"Paris Central Hotel\\\",\\\"amount\\\":\\\"EUR 690.00\\\",\\\"status\\\":\\\"pending\\\"},{\\\"expense_id\\\":\\\"exp-002\\\",\\\"merchant\\\":\\\"Metro Mobility\\\",\\\"amount\\\":\\\"EUR 43.60\\\",\\\"status\\\":\\\"pending\\\"}]}\"}],\"isError\":false}\n\nMCP ACTION SCHEMA — ApproveExpense\n\n{\"name\":\"ApproveExpense\",\"description\":\"Approve exactly one reviewed expense\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"expense_id\":{\"type\":\"string\"}},\"required\":[\"expense_id\"],\"additionalProperties\":false}}\n\nSHARED CATALOG SEMANTICS\n\n- Text renders static text.\n\n- Stack renders ordered child component ids.\n\n- Card renders one titled child.\n\n- Table renders the supplied expense rows.\n\n- Input binds review_note and starts empty.\n\n- Select binds status_filter, starts at pending, and uses exactly all, pending, approved.\n\n- Button emits only ApproveExpense with expense_id exp-001.\n\n- Alert presents the result state.\n\nREQUIRED SEMANTICS\n\n- Use exactly these state keys: review_note and status_filter.\n\n- The only action is ApproveExpense { expense_id } for exp-001.\n\n- Every component has a stable non-empty id.\n\n- Use all eight catalog components exactly once.\n\n- Produce exactly one unreferenced Card root.\n\n- Return only the protocol payload, with no explanation."
+    },
+    {
+      "id": "travel-policy-berlin",
+      "family": "travel-policy",
+      "variant": 2,
+      "shared_prompt_hash": "473e57207a0c61f3e40823071d89c1a061bf788caa5ea9293fbdfc05a42f7b19",
+      "shared_prompt": "CONTROLLED SCENARIO — travel-policy-berlin\n\nINTENT\n\nReview travel expenses with enough context to spot policy-sensitive lodging and transport costs.\n\nBuild one expense-review interface for the two supplied expenses. The reviewer must enter a note, filter by status, approve expense exp-001, and see a result alert. Preserve every supplied value exactly.\n\nMCP TOOL SCHEMA — list_expenses\n\n{\"name\":\"list_expenses\",\"description\":\"Return expenses awaiting review\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"status\":{\"type\":\"string\",\"enum\":[\"pending\"]}},\"required\":[\"status\"],\"additionalProperties\":false}}\n\nMCP TOOL RESULT — list_expenses\n\n{\"content\":[{\"type\":\"text\",\"text\":\"{\\\"expenses\\\":[{\\\"expense_id\\\":\\\"exp-001\\\",\\\"merchant\\\":\\\"Berlin Business Stay\\\",\\\"amount\\\":\\\"EUR 540.00\\\",\\\"status\\\":\\\"pending\\\"},{\\\"expense_id\\\":\\\"exp-002\\\",\\\"merchant\\\":\\\"Bahn Connect\\\",\\\"amount\\\":\\\"EUR 128.00\\\",\\\"status\\\":\\\"pending\\\"}]}\"}],\"isError\":false}\n\nMCP ACTION SCHEMA — ApproveExpense\n\n{\"name\":\"ApproveExpense\",\"description\":\"Approve exactly one reviewed expense\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"expense_id\":{\"type\":\"string\"}},\"required\":[\"expense_id\"],\"additionalProperties\":false}}\n\nSHARED CATALOG SEMANTICS\n\n- Text renders static text.\n\n- Stack renders ordered child component ids.\n\n- Card renders one titled child.\n\n- Table renders the supplied expense rows.\n\n- Input binds review_note and starts empty.\n\n- Select binds status_filter, starts at pending, and uses exactly all, pending, approved.\n\n- Button emits only ApproveExpense with expense_id exp-001.\n\n- Alert presents the result state.\n\nREQUIRED SEMANTICS\n\n- Use exactly these state keys: review_note and status_filter.\n\n- The only action is ApproveExpense { expense_id } for exp-001.\n\n- Every component has a stable non-empty id.\n\n- Use all eight catalog components exactly once.\n\n- Produce exactly one unreferenced Card root.\n\n- Return only the protocol payload, with no explanation."
+    },
+    {
+      "id": "travel-policy-lisbon",
+      "family": "travel-policy",
+      "variant": 3,
+      "shared_prompt_hash": "d95a8058096a1a175b9d142082f9b9f154e25dd4a4f229bcaa3b4a76feb5c49d",
+      "shared_prompt": "CONTROLLED SCENARIO — travel-policy-lisbon\n\nINTENT\n\nReview travel expenses with enough context to spot policy-sensitive lodging and transport costs.\n\nBuild one expense-review interface for the two supplied expenses. The reviewer must enter a note, filter by status, approve expense exp-001, and see a result alert. Preserve every supplied value exactly.\n\nMCP TOOL SCHEMA — list_expenses\n\n{\"name\":\"list_expenses\",\"description\":\"Return expenses awaiting review\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"status\":{\"type\":\"string\",\"enum\":[\"pending\"]}},\"required\":[\"status\"],\"additionalProperties\":false}}\n\nMCP TOOL RESULT — list_expenses\n\n{\"content\":[{\"type\":\"text\",\"text\":\"{\\\"expenses\\\":[{\\\"expense_id\\\":\\\"exp-001\\\",\\\"merchant\\\":\\\"Lisbon Riverside Rooms\\\",\\\"amount\\\":\\\"EUR 465.00\\\",\\\"status\\\":\\\"pending\\\"},{\\\"expense_id\\\":\\\"exp-002\\\",\\\"merchant\\\":\\\"Atlantic Air\\\",\\\"amount\\\":\\\"EUR 312.40\\\",\\\"status\\\":\\\"pending\\\"}]}\"}],\"isError\":false}\n\nMCP ACTION SCHEMA — ApproveExpense\n\n{\"name\":\"ApproveExpense\",\"description\":\"Approve exactly one reviewed expense\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"expense_id\":{\"type\":\"string\"}},\"required\":[\"expense_id\"],\"additionalProperties\":false}}\n\nSHARED CATALOG SEMANTICS\n\n- Text renders static text.\n\n- Stack renders ordered child component ids.\n\n- Card renders one titled child.\n\n- Table renders the supplied expense rows.\n\n- Input binds review_note and starts empty.\n\n- Select binds status_filter, starts at pending, and uses exactly all, pending, approved.\n\n- Button emits only ApproveExpense with expense_id exp-001.\n\n- Alert presents the result state.\n\nREQUIRED SEMANTICS\n\n- Use exactly these state keys: review_note and status_filter.\n\n- The only action is ApproveExpense { expense_id } for exp-001.\n\n- Every component has a stable non-empty id.\n\n- Use all eight catalog components exactly once.\n\n- Produce exactly one unreferenced Card root.\n\n- Return only the protocol payload, with no explanation."
+    },
+    {
+      "id": "travel-policy-milan",
+      "family": "travel-policy",
+      "variant": 4,
+      "shared_prompt_hash": "d4c3ab1b93a959fca5fe49d2a05ec8afcc6767c91b5aa0b27ba7894dc0101f5e",
+      "shared_prompt": "CONTROLLED SCENARIO — travel-policy-milan\n\nINTENT\n\nReview travel expenses with enough context to spot policy-sensitive lodging and transport costs.\n\nBuild one expense-review interface for the two supplied expenses. The reviewer must enter a note, filter by status, approve expense exp-001, and see a result alert. Preserve every supplied value exactly.\n\nMCP TOOL SCHEMA — list_expenses\n\n{\"name\":\"list_expenses\",\"description\":\"Return expenses awaiting review\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"status\":{\"type\":\"string\",\"enum\":[\"pending\"]}},\"required\":[\"status\"],\"additionalProperties\":false}}\n\nMCP TOOL RESULT — list_expenses\n\n{\"content\":[{\"type\":\"text\",\"text\":\"{\\\"expenses\\\":[{\\\"expense_id\\\":\\\"exp-001\\\",\\\"merchant\\\":\\\"Milan Expo Hotel\\\",\\\"amount\\\":\\\"EUR 735.00\\\",\\\"status\\\":\\\"pending\\\"},{\\\"expense_id\\\":\\\"exp-002\\\",\\\"merchant\\\":\\\"Italia Rail\\\",\\\"amount\\\":\\\"EUR 146.80\\\",\\\"status\\\":\\\"pending\\\"}]}\"}],\"isError\":false}\n\nMCP ACTION SCHEMA — ApproveExpense\n\n{\"name\":\"ApproveExpense\",\"description\":\"Approve exactly one reviewed expense\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"expense_id\":{\"type\":\"string\"}},\"required\":[\"expense_id\"],\"additionalProperties\":false}}\n\nSHARED CATALOG SEMANTICS\n\n- Text renders static text.\n\n- Stack renders ordered child component ids.\n\n- Card renders one titled child.\n\n- Table renders the supplied expense rows.\n\n- Input binds review_note and starts empty.\n\n- Select binds status_filter, starts at pending, and uses exactly all, pending, approved.\n\n- Button emits only ApproveExpense with expense_id exp-001.\n\n- Alert presents the result state.\n\nREQUIRED SEMANTICS\n\n- Use exactly these state keys: review_note and status_filter.\n\n- The only action is ApproveExpense { expense_id } for exp-001.\n\n- Every component has a stable non-empty id.\n\n- Use all eight catalog components exactly once.\n\n- Produce exactly one unreferenced Card root.\n\n- Return only the protocol payload, with no explanation."
+    },
+    {
+      "id": "duplicate-risk-cloud-monthly",
+      "family": "duplicate-risk",
+      "variant": 1,
+      "shared_prompt_hash": "e565502690b654520ef223dd8dab4b49aedca904184183a9262aaf8632dfd036",
+      "shared_prompt": "CONTROLLED SCENARIO — duplicate-risk-cloud-monthly\n\nINTENT\n\nReview expenses where similar merchants and amounts make duplicate-risk inspection important.\n\nBuild one expense-review interface for the two supplied expenses. The reviewer must enter a note, filter by status, approve expense exp-001, and see a result alert. Preserve every supplied value exactly.\n\nMCP TOOL SCHEMA — list_expenses\n\n{\"name\":\"list_expenses\",\"description\":\"Return expenses awaiting review\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"status\":{\"type\":\"string\",\"enum\":[\"pending\"]}},\"required\":[\"status\"],\"additionalProperties\":false}}\n\nMCP TOOL RESULT — list_expenses\n\n{\"content\":[{\"type\":\"text\",\"text\":\"{\\\"expenses\\\":[{\\\"expense_id\\\":\\\"exp-001\\\",\\\"merchant\\\":\\\"Cloud Harbor\\\",\\\"amount\\\":\\\"EUR 249.00\\\",\\\"status\\\":\\\"pending\\\"},{\\\"expense_id\\\":\\\"exp-002\\\",\\\"merchant\\\":\\\"Cloud Harbor EU\\\",\\\"amount\\\":\\\"EUR 249.00\\\",\\\"status\\\":\\\"pending\\\"}]}\"}],\"isError\":false}\n\nMCP ACTION SCHEMA — ApproveExpense\n\n{\"name\":\"ApproveExpense\",\"description\":\"Approve exactly one reviewed expense\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"expense_id\":{\"type\":\"string\"}},\"required\":[\"expense_id\"],\"additionalProperties\":false}}\n\nSHARED CATALOG SEMANTICS\n\n- Text renders static text.\n\n- Stack renders ordered child component ids.\n\n- Card renders one titled child.\n\n- Table renders the supplied expense rows.\n\n- Input binds review_note and starts empty.\n\n- Select binds status_filter, starts at pending, and uses exactly all, pending, approved.\n\n- Button emits only ApproveExpense with expense_id exp-001.\n\n- Alert presents the result state.\n\nREQUIRED SEMANTICS\n\n- Use exactly these state keys: review_note and status_filter.\n\n- The only action is ApproveExpense { expense_id } for exp-001.\n\n- Every component has a stable non-empty id.\n\n- Use all eight catalog components exactly once.\n\n- Produce exactly one unreferenced Card root.\n\n- Return only the protocol payload, with no explanation."
+    },
+    {
+      "id": "duplicate-risk-rides",
+      "family": "duplicate-risk",
+      "variant": 2,
+      "shared_prompt_hash": "6bc396043518e64ae37e82d717b2d7551dedce09ab0aac04915ff7fc37e533e7",
+      "shared_prompt": "CONTROLLED SCENARIO — duplicate-risk-rides\n\nINTENT\n\nReview expenses where similar merchants and amounts make duplicate-risk inspection important.\n\nBuild one expense-review interface for the two supplied expenses. The reviewer must enter a note, filter by status, approve expense exp-001, and see a result alert. Preserve every supplied value exactly.\n\nMCP TOOL SCHEMA — list_expenses\n\n{\"name\":\"list_expenses\",\"description\":\"Return expenses awaiting review\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"status\":{\"type\":\"string\",\"enum\":[\"pending\"]}},\"required\":[\"status\"],\"additionalProperties\":false}}\n\nMCP TOOL RESULT — list_expenses\n\n{\"content\":[{\"type\":\"text\",\"text\":\"{\\\"expenses\\\":[{\\\"expense_id\\\":\\\"exp-001\\\",\\\"merchant\\\":\\\"City Ride\\\",\\\"amount\\\":\\\"EUR 37.80\\\",\\\"status\\\":\\\"pending\\\"},{\\\"expense_id\\\":\\\"exp-002\\\",\\\"merchant\\\":\\\"City Ride\\\",\\\"amount\\\":\\\"EUR 38.10\\\",\\\"status\\\":\\\"pending\\\"}]}\"}],\"isError\":false}\n\nMCP ACTION SCHEMA — ApproveExpense\n\n{\"name\":\"ApproveExpense\",\"description\":\"Approve exactly one reviewed expense\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"expense_id\":{\"type\":\"string\"}},\"required\":[\"expense_id\"],\"additionalProperties\":false}}\n\nSHARED CATALOG SEMANTICS\n\n- Text renders static text.\n\n- Stack renders ordered child component ids.\n\n- Card renders one titled child.\n\n- Table renders the supplied expense rows.\n\n- Input binds review_note and starts empty.\n\n- Select binds status_filter, starts at pending, and uses exactly all, pending, approved.\n\n- Button emits only ApproveExpense with expense_id exp-001.\n\n- Alert presents the result state.\n\nREQUIRED SEMANTICS\n\n- Use exactly these state keys: review_note and status_filter.\n\n- The only action is ApproveExpense { expense_id } for exp-001.\n\n- Every component has a stable non-empty id.\n\n- Use all eight catalog components exactly once.\n\n- Produce exactly one unreferenced Card root.\n\n- Return only the protocol payload, with no explanation."
+    },
+    {
+      "id": "duplicate-risk-catering",
+      "family": "duplicate-risk",
+      "variant": 3,
+      "shared_prompt_hash": "a4dc5fe84b48782f511441e47fac5ee88a0b1339d49a96a867b95847e7ae71bc",
+      "shared_prompt": "CONTROLLED SCENARIO — duplicate-risk-catering\n\nINTENT\n\nReview expenses where similar merchants and amounts make duplicate-risk inspection important.\n\nBuild one expense-review interface for the two supplied expenses. The reviewer must enter a note, filter by status, approve expense exp-001, and see a result alert. Preserve every supplied value exactly.\n\nMCP TOOL SCHEMA — list_expenses\n\n{\"name\":\"list_expenses\",\"description\":\"Return expenses awaiting review\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"status\":{\"type\":\"string\",\"enum\":[\"pending\"]}},\"required\":[\"status\"],\"additionalProperties\":false}}\n\nMCP TOOL RESULT — list_expenses\n\n{\"content\":[{\"type\":\"text\",\"text\":\"{\\\"expenses\\\":[{\\\"expense_id\\\":\\\"exp-001\\\",\\\"merchant\\\":\\\"Northwind Catering\\\",\\\"amount\\\":\\\"EUR 320.00\\\",\\\"status\\\":\\\"pending\\\"},{\\\"expense_id\\\":\\\"exp-002\\\",\\\"merchant\\\":\\\"Northwind Caterers\\\",\\\"amount\\\":\\\"EUR 320.00\\\",\\\"status\\\":\\\"pending\\\"}]}\"}],\"isError\":false}\n\nMCP ACTION SCHEMA — ApproveExpense\n\n{\"name\":\"ApproveExpense\",\"description\":\"Approve exactly one reviewed expense\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"expense_id\":{\"type\":\"string\"}},\"required\":[\"expense_id\"],\"additionalProperties\":false}}\n\nSHARED CATALOG SEMANTICS\n\n- Text renders static text.\n\n- Stack renders ordered child component ids.\n\n- Card renders one titled child.\n\n- Table renders the supplied expense rows.\n\n- Input binds review_note and starts empty.\n\n- Select binds status_filter, starts at pending, and uses exactly all, pending, approved.\n\n- Button emits only ApproveExpense with expense_id exp-001.\n\n- Alert presents the result state.\n\nREQUIRED SEMANTICS\n\n- Use exactly these state keys: review_note and status_filter.\n\n- The only action is ApproveExpense { expense_id } for exp-001.\n\n- Every component has a stable non-empty id.\n\n- Use all eight catalog components exactly once.\n\n- Produce exactly one unreferenced Card root.\n\n- Return only the protocol payload, with no explanation."
+    },
+    {
+      "id": "duplicate-risk-licenses",
+      "family": "duplicate-risk",
+      "variant": 4,
+      "shared_prompt_hash": "6b4315cea1253fd42ad6706ecf698a310c6ecc3c1b612945aa59927e723491e5",
+      "shared_prompt": "CONTROLLED SCENARIO — duplicate-risk-licenses\n\nINTENT\n\nReview expenses where similar merchants and amounts make duplicate-risk inspection important.\n\nBuild one expense-review interface for the two supplied expenses. The reviewer must enter a note, filter by status, approve expense exp-001, and see a result alert. Preserve every supplied value exactly.\n\nMCP TOOL SCHEMA — list_expenses\n\n{\"name\":\"list_expenses\",\"description\":\"Return expenses awaiting review\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"status\":{\"type\":\"string\",\"enum\":[\"pending\"]}},\"required\":[\"status\"],\"additionalProperties\":false}}\n\nMCP TOOL RESULT — list_expenses\n\n{\"content\":[{\"type\":\"text\",\"text\":\"{\\\"expenses\\\":[{\\\"expense_id\\\":\\\"exp-001\\\",\\\"merchant\\\":\\\"Dev Tools Pro\\\",\\\"amount\\\":\\\"EUR 89.00\\\",\\\"status\\\":\\\"pending\\\"},{\\\"expense_id\\\":\\\"exp-002\\\",\\\"merchant\\\":\\\"DevTools Pro\\\",\\\"amount\\\":\\\"EUR 89.00\\\",\\\"status\\\":\\\"pending\\\"}]}\"}],\"isError\":false}\n\nMCP ACTION SCHEMA — ApproveExpense\n\n{\"name\":\"ApproveExpense\",\"description\":\"Approve exactly one reviewed expense\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"expense_id\":{\"type\":\"string\"}},\"required\":[\"expense_id\"],\"additionalProperties\":false}}\n\nSHARED CATALOG SEMANTICS\n\n- Text renders static text.\n\n- Stack renders ordered child component ids.\n\n- Card renders one titled child.\n\n- Table renders the supplied expense rows.\n\n- Input binds review_note and starts empty.\n\n- Select binds status_filter, starts at pending, and uses exactly all, pending, approved.\n\n- Button emits only ApproveExpense with expense_id exp-001.\n\n- Alert presents the result state.\n\nREQUIRED SEMANTICS\n\n- Use exactly these state keys: review_note and status_filter.\n\n- The only action is ApproveExpense { expense_id } for exp-001.\n\n- Every component has a stable non-empty id.\n\n- Use all eight catalog components exactly once.\n\n- Produce exactly one unreferenced Card root.\n\n- Return only the protocol payload, with no explanation."
+    },
+    {
+      "id": "high-value-conference",
+      "family": "high-value",
+      "variant": 1,
+      "shared_prompt_hash": "2882b4177cd6d0101d9fb659f36d2f78af0d773bb545b2fcbe0ef026ada4fe80",
+      "shared_prompt": "CONTROLLED SCENARIO — high-value-conference\n\nINTENT\n\nReview high-value expenses and make the approval consequence and current pending state unambiguous.\n\nBuild one expense-review interface for the two supplied expenses. The reviewer must enter a note, filter by status, approve expense exp-001, and see a result alert. Preserve every supplied value exactly.\n\nMCP TOOL SCHEMA — list_expenses\n\n{\"name\":\"list_expenses\",\"description\":\"Return expenses awaiting review\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"status\":{\"type\":\"string\",\"enum\":[\"pending\"]}},\"required\":[\"status\"],\"additionalProperties\":false}}\n\nMCP TOOL RESULT — list_expenses\n\n{\"content\":[{\"type\":\"text\",\"text\":\"{\\\"expenses\\\":[{\\\"expense_id\\\":\\\"exp-001\\\",\\\"merchant\\\":\\\"Global Tech Conference\\\",\\\"amount\\\":\\\"EUR 2,450.00\\\",\\\"status\\\":\\\"pending\\\"},{\\\"expense_id\\\":\\\"exp-002\\\",\\\"merchant\\\":\\\"Conference Hotel\\\",\\\"amount\\\":\\\"EUR 1,180.00\\\",\\\"status\\\":\\\"pending\\\"}]}\"}],\"isError\":false}\n\nMCP ACTION SCHEMA — ApproveExpense\n\n{\"name\":\"ApproveExpense\",\"description\":\"Approve exactly one reviewed expense\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"expense_id\":{\"type\":\"string\"}},\"required\":[\"expense_id\"],\"additionalProperties\":false}}\n\nSHARED CATALOG SEMANTICS\n\n- Text renders static text.\n\n- Stack renders ordered child component ids.\n\n- Card renders one titled child.\n\n- Table renders the supplied expense rows.\n\n- Input binds review_note and starts empty.\n\n- Select binds status_filter, starts at pending, and uses exactly all, pending, approved.\n\n- Button emits only ApproveExpense with expense_id exp-001.\n\n- Alert presents the result state.\n\nREQUIRED SEMANTICS\n\n- Use exactly these state keys: review_note and status_filter.\n\n- The only action is ApproveExpense { expense_id } for exp-001.\n\n- Every component has a stable non-empty id.\n\n- Use all eight catalog components exactly once.\n\n- Produce exactly one unreferenced Card root.\n\n- Return only the protocol payload, with no explanation."
+    },
+    {
+      "id": "high-value-equipment",
+      "family": "high-value",
+      "variant": 2,
+      "shared_prompt_hash": "7f00ac56ab791978cb11bb64a32b747278fa0b30e98c0764f73a6dae4a531fdf",
+      "shared_prompt": "CONTROLLED SCENARIO — high-value-equipment\n\nINTENT\n\nReview high-value expenses and make the approval consequence and current pending state unambiguous.\n\nBuild one expense-review interface for the two supplied expenses. The reviewer must enter a note, filter by status, approve expense exp-001, and see a result alert. Preserve every supplied value exactly.\n\nMCP TOOL SCHEMA — list_expenses\n\n{\"name\":\"list_expenses\",\"description\":\"Return expenses awaiting review\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"status\":{\"type\":\"string\",\"enum\":[\"pending\"]}},\"required\":[\"status\"],\"additionalProperties\":false}}\n\nMCP TOOL RESULT — list_expenses\n\n{\"content\":[{\"type\":\"text\",\"text\":\"{\\\"expenses\\\":[{\\\"expense_id\\\":\\\"exp-001\\\",\\\"merchant\\\":\\\"Pro Workstations\\\",\\\"amount\\\":\\\"EUR 3,890.00\\\",\\\"status\\\":\\\"pending\\\"},{\\\"expense_id\\\":\\\"exp-002\\\",\\\"merchant\\\":\\\"Studio Displays\\\",\\\"amount\\\":\\\"EUR 1,640.00\\\",\\\"status\\\":\\\"pending\\\"}]}\"}],\"isError\":false}\n\nMCP ACTION SCHEMA — ApproveExpense\n\n{\"name\":\"ApproveExpense\",\"description\":\"Approve exactly one reviewed expense\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"expense_id\":{\"type\":\"string\"}},\"required\":[\"expense_id\"],\"additionalProperties\":false}}\n\nSHARED CATALOG SEMANTICS\n\n- Text renders static text.\n\n- Stack renders ordered child component ids.\n\n- Card renders one titled child.\n\n- Table renders the supplied expense rows.\n\n- Input binds review_note and starts empty.\n\n- Select binds status_filter, starts at pending, and uses exactly all, pending, approved.\n\n- Button emits only ApproveExpense with expense_id exp-001.\n\n- Alert presents the result state.\n\nREQUIRED SEMANTICS\n\n- Use exactly these state keys: review_note and status_filter.\n\n- The only action is ApproveExpense { expense_id } for exp-001.\n\n- Every component has a stable non-empty id.\n\n- Use all eight catalog components exactly once.\n\n- Produce exactly one unreferenced Card root.\n\n- Return only the protocol payload, with no explanation."
+    },
+    {
+      "id": "high-value-consulting",
+      "family": "high-value",
+      "variant": 3,
+      "shared_prompt_hash": "dbe5942e62adf1e207f60a66a7f9d8d897baaede25c8697c598b6d4429af31b0",
+      "shared_prompt": "CONTROLLED SCENARIO — high-value-consulting\n\nINTENT\n\nReview high-value expenses and make the approval consequence and current pending state unambiguous.\n\nBuild one expense-review interface for the two supplied expenses. The reviewer must enter a note, filter by status, approve expense exp-001, and see a result alert. Preserve every supplied value exactly.\n\nMCP TOOL SCHEMA — list_expenses\n\n{\"name\":\"list_expenses\",\"description\":\"Return expenses awaiting review\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"status\":{\"type\":\"string\",\"enum\":[\"pending\"]}},\"required\":[\"status\"],\"additionalProperties\":false}}\n\nMCP TOOL RESULT — list_expenses\n\n{\"content\":[{\"type\":\"text\",\"text\":\"{\\\"expenses\\\":[{\\\"expense_id\\\":\\\"exp-001\\\",\\\"merchant\\\":\\\"Strategy Partners\\\",\\\"amount\\\":\\\"EUR 4,800.00\\\",\\\"status\\\":\\\"pending\\\"},{\\\"expense_id\\\":\\\"exp-002\\\",\\\"merchant\\\":\\\"Research Associates\\\",\\\"amount\\\":\\\"EUR 2,200.00\\\",\\\"status\\\":\\\"pending\\\"}]}\"}],\"isError\":false}\n\nMCP ACTION SCHEMA — ApproveExpense\n\n{\"name\":\"ApproveExpense\",\"description\":\"Approve exactly one reviewed expense\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"expense_id\":{\"type\":\"string\"}},\"required\":[\"expense_id\"],\"additionalProperties\":false}}\n\nSHARED CATALOG SEMANTICS\n\n- Text renders static text.\n\n- Stack renders ordered child component ids.\n\n- Card renders one titled child.\n\n- Table renders the supplied expense rows.\n\n- Input binds review_note and starts empty.\n\n- Select binds status_filter, starts at pending, and uses exactly all, pending, approved.\n\n- Button emits only ApproveExpense with expense_id exp-001.\n\n- Alert presents the result state.\n\nREQUIRED SEMANTICS\n\n- Use exactly these state keys: review_note and status_filter.\n\n- The only action is ApproveExpense { expense_id } for exp-001.\n\n- Every component has a stable non-empty id.\n\n- Use all eight catalog components exactly once.\n\n- Produce exactly one unreferenced Card root.\n\n- Return only the protocol payload, with no explanation."
+    },
+    {
+      "id": "high-value-venue",
+      "family": "high-value",
+      "variant": 4,
+      "shared_prompt_hash": "a3244f1fb0f62f6a4545b6b1c28bb26cc2a67e2dea18d928b8b8e98a8eb9c716",
+      "shared_prompt": "CONTROLLED SCENARIO — high-value-venue\n\nINTENT\n\nReview high-value expenses and make the approval consequence and current pending state unambiguous.\n\nBuild one expense-review interface for the two supplied expenses. The reviewer must enter a note, filter by status, approve expense exp-001, and see a result alert. Preserve every supplied value exactly.\n\nMCP TOOL SCHEMA — list_expenses\n\n{\"name\":\"list_expenses\",\"description\":\"Return expenses awaiting review\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"status\":{\"type\":\"string\",\"enum\":[\"pending\"]}},\"required\":[\"status\"],\"additionalProperties\":false}}\n\nMCP TOOL RESULT — list_expenses\n\n{\"content\":[{\"type\":\"text\",\"text\":\"{\\\"expenses\\\":[{\\\"expense_id\\\":\\\"exp-001\\\",\\\"merchant\\\":\\\"Riverside Venue\\\",\\\"amount\\\":\\\"EUR 5,250.00\\\",\\\"status\\\":\\\"pending\\\"},{\\\"expense_id\\\":\\\"exp-002\\\",\\\"merchant\\\":\\\"Event Production\\\",\\\"amount\\\":\\\"EUR 2,975.00\\\",\\\"status\\\":\\\"pending\\\"}]}\"}],\"isError\":false}\n\nMCP ACTION SCHEMA — ApproveExpense\n\n{\"name\":\"ApproveExpense\",\"description\":\"Approve exactly one reviewed expense\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"expense_id\":{\"type\":\"string\"}},\"required\":[\"expense_id\"],\"additionalProperties\":false}}\n\nSHARED CATALOG SEMANTICS\n\n- Text renders static text.\n\n- Stack renders ordered child component ids.\n\n- Card renders one titled child.\n\n- Table renders the supplied expense rows.\n\n- Input binds review_note and starts empty.\n\n- Select binds status_filter, starts at pending, and uses exactly all, pending, approved.\n\n- Button emits only ApproveExpense with expense_id exp-001.\n\n- Alert presents the result state.\n\nREQUIRED SEMANTICS\n\n- Use exactly these state keys: review_note and status_filter.\n\n- The only action is ApproveExpense { expense_id } for exp-001.\n\n- Every component has a stable non-empty id.\n\n- Use all eight catalog components exactly once.\n\n- Produce exactly one unreferenced Card root.\n\n- Return only the protocol payload, with no explanation."
+    },
+    {
+      "id": "vendor-compliance-new-vendor",
+      "family": "vendor-compliance",
+      "variant": 1,
+      "shared_prompt_hash": "56adbbade31d218325cbf80f7705123c02c56a936c2422fb21f09525dee03301",
+      "shared_prompt": "CONTROLLED SCENARIO — vendor-compliance-new-vendor\n\nINTENT\n\nReview vendor expenses while emphasizing clear identity, pending status, and an auditable reviewer note.\n\nBuild one expense-review interface for the two supplied expenses. The reviewer must enter a note, filter by status, approve expense exp-001, and see a result alert. Preserve every supplied value exactly.\n\nMCP TOOL SCHEMA — list_expenses\n\n{\"name\":\"list_expenses\",\"description\":\"Return expenses awaiting review\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"status\":{\"type\":\"string\",\"enum\":[\"pending\"]}},\"required\":[\"status\"],\"additionalProperties\":false}}\n\nMCP TOOL RESULT — list_expenses\n\n{\"content\":[{\"type\":\"text\",\"text\":\"{\\\"expenses\\\":[{\\\"expense_id\\\":\\\"exp-001\\\",\\\"merchant\\\":\\\"New Horizon Supplies\\\",\\\"amount\\\":\\\"EUR 610.00\\\",\\\"status\\\":\\\"pending\\\"},{\\\"expense_id\\\":\\\"exp-002\\\",\\\"merchant\\\":\\\"Trusted Office Group\\\",\\\"amount\\\":\\\"EUR 185.00\\\",\\\"status\\\":\\\"pending\\\"}]}\"}],\"isError\":false}\n\nMCP ACTION SCHEMA — ApproveExpense\n\n{\"name\":\"ApproveExpense\",\"description\":\"Approve exactly one reviewed expense\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"expense_id\":{\"type\":\"string\"}},\"required\":[\"expense_id\"],\"additionalProperties\":false}}\n\nSHARED CATALOG SEMANTICS\n\n- Text renders static text.\n\n- Stack renders ordered child component ids.\n\n- Card renders one titled child.\n\n- Table renders the supplied expense rows.\n\n- Input binds review_note and starts empty.\n\n- Select binds status_filter, starts at pending, and uses exactly all, pending, approved.\n\n- Button emits only ApproveExpense with expense_id exp-001.\n\n- Alert presents the result state.\n\nREQUIRED SEMANTICS\n\n- Use exactly these state keys: review_note and status_filter.\n\n- The only action is ApproveExpense { expense_id } for exp-001.\n\n- Every component has a stable non-empty id.\n\n- Use all eight catalog components exactly once.\n\n- Produce exactly one unreferenced Card root.\n\n- Return only the protocol payload, with no explanation."
+    },
+    {
+      "id": "vendor-compliance-international",
+      "family": "vendor-compliance",
+      "variant": 2,
+      "shared_prompt_hash": "f6782e4e65ac10212ffe4030a47cd79b533ff0f338393b19cfba6cc0ccf17f99",
+      "shared_prompt": "CONTROLLED SCENARIO — vendor-compliance-international\n\nINTENT\n\nReview vendor expenses while emphasizing clear identity, pending status, and an auditable reviewer note.\n\nBuild one expense-review interface for the two supplied expenses. The reviewer must enter a note, filter by status, approve expense exp-001, and see a result alert. Preserve every supplied value exactly.\n\nMCP TOOL SCHEMA — list_expenses\n\n{\"name\":\"list_expenses\",\"description\":\"Return expenses awaiting review\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"status\":{\"type\":\"string\",\"enum\":[\"pending\"]}},\"required\":[\"status\"],\"additionalProperties\":false}}\n\nMCP TOOL RESULT — list_expenses\n\n{\"content\":[{\"type\":\"text\",\"text\":\"{\\\"expenses\\\":[{\\\"expense_id\\\":\\\"exp-001\\\",\\\"merchant\\\":\\\"Baltic Components\\\",\\\"amount\\\":\\\"EUR 920.00\\\",\\\"status\\\":\\\"pending\\\"},{\\\"expense_id\\\":\\\"exp-002\\\",\\\"merchant\\\":\\\"Local Parts Depot\\\",\\\"amount\\\":\\\"EUR 275.00\\\",\\\"status\\\":\\\"pending\\\"}]}\"}],\"isError\":false}\n\nMCP ACTION SCHEMA — ApproveExpense\n\n{\"name\":\"ApproveExpense\",\"description\":\"Approve exactly one reviewed expense\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"expense_id\":{\"type\":\"string\"}},\"required\":[\"expense_id\"],\"additionalProperties\":false}}\n\nSHARED CATALOG SEMANTICS\n\n- Text renders static text.\n\n- Stack renders ordered child component ids.\n\n- Card renders one titled child.\n\n- Table renders the supplied expense rows.\n\n- Input binds review_note and starts empty.\n\n- Select binds status_filter, starts at pending, and uses exactly all, pending, approved.\n\n- Button emits only ApproveExpense with expense_id exp-001.\n\n- Alert presents the result state.\n\nREQUIRED SEMANTICS\n\n- Use exactly these state keys: review_note and status_filter.\n\n- The only action is ApproveExpense { expense_id } for exp-001.\n\n- Every component has a stable non-empty id.\n\n- Use all eight catalog components exactly once.\n\n- Produce exactly one unreferenced Card root.\n\n- Return only the protocol payload, with no explanation."
+    },
+    {
+      "id": "vendor-compliance-renewal",
+      "family": "vendor-compliance",
+      "variant": 3,
+      "shared_prompt_hash": "c2f9553e79ed3c765928875ddb4ce8f90c4b307725cb02c4a9fdee42c906b3f0",
+      "shared_prompt": "CONTROLLED SCENARIO — vendor-compliance-renewal\n\nINTENT\n\nReview vendor expenses while emphasizing clear identity, pending status, and an auditable reviewer note.\n\nBuild one expense-review interface for the two supplied expenses. The reviewer must enter a note, filter by status, approve expense exp-001, and see a result alert. Preserve every supplied value exactly.\n\nMCP TOOL SCHEMA — list_expenses\n\n{\"name\":\"list_expenses\",\"description\":\"Return expenses awaiting review\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"status\":{\"type\":\"string\",\"enum\":[\"pending\"]}},\"required\":[\"status\"],\"additionalProperties\":false}}\n\nMCP TOOL RESULT — list_expenses\n\n{\"content\":[{\"type\":\"text\",\"text\":\"{\\\"expenses\\\":[{\\\"expense_id\\\":\\\"exp-001\\\",\\\"merchant\\\":\\\"Secure Archive Renewal\\\",\\\"amount\\\":\\\"EUR 1,260.00\\\",\\\"status\\\":\\\"pending\\\"},{\\\"expense_id\\\":\\\"exp-002\\\",\\\"merchant\\\":\\\"Records Storage\\\",\\\"amount\\\":\\\"EUR 340.00\\\",\\\"status\\\":\\\"pending\\\"}]}\"}],\"isError\":false}\n\nMCP ACTION SCHEMA — ApproveExpense\n\n{\"name\":\"ApproveExpense\",\"description\":\"Approve exactly one reviewed expense\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"expense_id\":{\"type\":\"string\"}},\"required\":[\"expense_id\"],\"additionalProperties\":false}}\n\nSHARED CATALOG SEMANTICS\n\n- Text renders static text.\n\n- Stack renders ordered child component ids.\n\n- Card renders one titled child.\n\n- Table renders the supplied expense rows.\n\n- Input binds review_note and starts empty.\n\n- Select binds status_filter, starts at pending, and uses exactly all, pending, approved.\n\n- Button emits only ApproveExpense with expense_id exp-001.\n\n- Alert presents the result state.\n\nREQUIRED SEMANTICS\n\n- Use exactly these state keys: review_note and status_filter.\n\n- The only action is ApproveExpense { expense_id } for exp-001.\n\n- Every component has a stable non-empty id.\n\n- Use all eight catalog components exactly once.\n\n- Produce exactly one unreferenced Card root.\n\n- Return only the protocol payload, with no explanation."
+    },
+    {
+      "id": "vendor-compliance-contractor",
+      "family": "vendor-compliance",
+      "variant": 4,
+      "shared_prompt_hash": "cd18477a98ae0a1ae0c6673376d8d82b56895895053c195532a05aa3ea02f69a",
+      "shared_prompt": "CONTROLLED SCENARIO — vendor-compliance-contractor\n\nINTENT\n\nReview vendor expenses while emphasizing clear identity, pending status, and an auditable reviewer note.\n\nBuild one expense-review interface for the two supplied expenses. The reviewer must enter a note, filter by status, approve expense exp-001, and see a result alert. Preserve every supplied value exactly.\n\nMCP TOOL SCHEMA — list_expenses\n\n{\"name\":\"list_expenses\",\"description\":\"Return expenses awaiting review\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"status\":{\"type\":\"string\",\"enum\":[\"pending\"]}},\"required\":[\"status\"],\"additionalProperties\":false}}\n\nMCP TOOL RESULT — list_expenses\n\n{\"content\":[{\"type\":\"text\",\"text\":\"{\\\"expenses\\\":[{\\\"expense_id\\\":\\\"exp-001\\\",\\\"merchant\\\":\\\"Independent Research Lab\\\",\\\"amount\\\":\\\"EUR 1,875.00\\\",\\\"status\\\":\\\"pending\\\"},{\\\"expense_id\\\":\\\"exp-002\\\",\\\"merchant\\\":\\\"Compliance Review Ltd\\\",\\\"amount\\\":\\\"EUR 760.00\\\",\\\"status\\\":\\\"pending\\\"}]}\"}],\"isError\":false}\n\nMCP ACTION SCHEMA — ApproveExpense\n\n{\"name\":\"ApproveExpense\",\"description\":\"Approve exactly one reviewed expense\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"expense_id\":{\"type\":\"string\"}},\"required\":[\"expense_id\"],\"additionalProperties\":false}}\n\nSHARED CATALOG SEMANTICS\n\n- Text renders static text.\n\n- Stack renders ordered child component ids.\n\n- Card renders one titled child.\n\n- Table renders the supplied expense rows.\n\n- Input binds review_note and starts empty.\n\n- Select binds status_filter, starts at pending, and uses exactly all, pending, approved.\n\n- Button emits only ApproveExpense with expense_id exp-001.\n\n- Alert presents the result state.\n\nREQUIRED SEMANTICS\n\n- Use exactly these state keys: review_note and status_filter.\n\n- The only action is ApproveExpense { expense_id } for exp-001.\n\n- Every component has a stable non-empty id.\n\n- Use all eight catalog components exactly once.\n\n- Produce exactly one unreferenced Card root.\n\n- Return only the protocol payload, with no explanation."
+    }
+  ],
+  "schedule": [
+    {
+      "passage": 1,
+      "order": [
+        "openui",
+        "a2ui",
+        "typed-json"
+      ]
+    },
+    {
+      "passage": 2,
+      "order": [
+        "typed-json",
+        "a2ui",
+        "openui"
+      ]
+    },
+    {
+      "passage": 3,
+      "order": [
+        "openui",
+        "typed-json",
+        "a2ui"
+      ]
+    },
+    {
+      "passage": 4,
+      "order": [
+        "a2ui",
+        "typed-json",
+        "openui"
+      ]
+    },
+    {
+      "passage": 5,
+      "order": [
+        "a2ui",
+        "openui",
+        "typed-json"
+      ]
+    },
+    {
+      "passage": 6,
+      "order": [
+        "typed-json",
+        "openui",
+        "a2ui"
+      ]
+    },
+    {
+      "passage": 7,
+      "order": [
+        "a2ui",
+        "typed-json",
+        "openui"
+      ]
+    },
+    {
+      "passage": 8,
+      "order": [
+        "openui",
+        "typed-json",
+        "a2ui"
+      ]
+    },
+    {
+      "passage": 9,
+      "order": [
+        "typed-json",
+        "openui",
+        "a2ui"
+      ]
+    },
+    {
+      "passage": 10,
+      "order": [
+        "a2ui",
+        "openui",
+        "typed-json"
+      ]
+    },
+    {
+      "passage": 11,
+      "order": [
+        "typed-json",
+        "a2ui",
+        "openui"
+      ]
+    },
+    {
+      "passage": 12,
+      "order": [
+        "openui",
+        "a2ui",
+        "typed-json"
+      ]
+    },
+    {
+      "passage": 13,
+      "order": [
+        "openui",
+        "a2ui",
+        "typed-json"
+      ]
+    },
+    {
+      "passage": 14,
+      "order": [
+        "typed-json",
+        "a2ui",
+        "openui"
+      ]
+    },
+    {
+      "passage": 15,
+      "order": [
+        "openui",
+        "typed-json",
+        "a2ui"
+      ]
+    },
+    {
+      "passage": 16,
+      "order": [
+        "a2ui",
+        "typed-json",
+        "openui"
+      ]
+    },
+    {
+      "passage": 17,
+      "order": [
+        "a2ui",
+        "openui",
+        "typed-json"
+      ]
+    },
+    {
+      "passage": 18,
+      "order": [
+        "typed-json",
+        "openui",
+        "a2ui"
+      ]
+    },
+    {
+      "passage": 19,
+      "order": [
+        "a2ui",
+        "typed-json",
+        "openui"
+      ]
+    },
+    {
+      "passage": 20,
+      "order": [
+        "openui",
+        "typed-json",
+        "a2ui"
+      ]
+    }
+  ]
+}

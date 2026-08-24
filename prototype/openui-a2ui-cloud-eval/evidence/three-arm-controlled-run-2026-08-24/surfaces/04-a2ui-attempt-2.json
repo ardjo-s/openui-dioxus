@@ -1,0 +1,92 @@
+{
+  "protocol": "a2ui",
+  "root": "expense-review-card",
+  "nodes": {
+    "approval-alert": {
+      "kind": "Alert",
+      "id": "approval-alert",
+      "tone": "success",
+      "message": "Expense exp-001 approved."
+    },
+    "approve-expense": {
+      "kind": "Button",
+      "id": "approve-expense",
+      "label": "Approve exp-001",
+      "action": {
+        "name": "ApproveExpense",
+        "expense_id": "exp-001"
+      }
+    },
+    "expense-review-card": {
+      "kind": "Card",
+      "id": "expense-review-card",
+      "title": "Expense Review",
+      "child": "expense-review-stack"
+    },
+    "expense-review-stack": {
+      "kind": "Stack",
+      "id": "expense-review-stack",
+      "children": [
+        "review-title",
+        "status-filter",
+        "expense-table",
+        "review-note",
+        "approve-expense",
+        "approval-alert"
+      ]
+    },
+    "expense-table": {
+      "kind": "Table",
+      "id": "expense-table",
+      "columns": [
+        "expense_id",
+        "merchant",
+        "amount",
+        "status"
+      ],
+      "rows": [
+        {
+          "amount": "EUR 58.40",
+          "expense_id": "exp-001",
+          "merchant": "Wide World Courier",
+          "status": "pending"
+        },
+        {
+          "amount": "EUR 112.00",
+          "expense_id": "exp-002",
+          "merchant": "City Print",
+          "status": "pending"
+        }
+      ]
+    },
+    "review-note": {
+      "kind": "Input",
+      "id": "review-note",
+      "label": "Review note",
+      "state_key": "review_note",
+      "value": ""
+    },
+    "review-title": {
+      "kind": "Text",
+      "id": "review-title",
+      "text": "Review routine operating expenses and approve pending items."
+    },
+    "status-filter": {
+      "kind": "Select",
+      "id": "status-filter",
+      "label": "Filter by status",
+      "state_key": "status_filter",
+      "options": [
+        "all",
+        "pending",
+        "approved"
+      ],
+      "value": "pending"
+    }
+  },
+  "fields": {
+    "review_note": "",
+    "status_filter": "pending"
+  },
+  "source_hash": "fe11806c07b06f44fc9ac141ff3e67ea961f33575847bdffa35608311bf250d5"
+}

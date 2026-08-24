@@ -1,0 +1,8 @@
+root = Card("review-card", "Travel Expense Review", review-content)
+review-content = Stack("review-content", [review-context, expense-table, status-select, review-note, approve-expense, approval-alert])
+review-context = Text("review-context", "Review travel expenses for policy-sensitive lodging and transport costs.")
+expense-table = Table("expense-table", ["expense_id", "merchant", "amount", "status"], [{"expense_id":"exp-001","merchant":"Milan Expo Hotel","amount":"EUR 735.00","status":"pending"},{"expense_id":"exp-002","merchant":"Italia Rail","amount":"EUR 146.80","status":"pending"}])
+status-select = Select("status-select", "Status", "status_filter", ["all", "pending", "approved"], "pending")
+review-note = Input("review-note", "Reviewer note", "review_note", "")
+approve-expense = Button("approve-expense", "Approve exp-001", {"name":"ApproveExpense","expense_id":"exp-001"})
+approval-alert = Alert("approval-alert", "success", "Expense exp-001 approved.")

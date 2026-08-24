@@ -1,0 +1,4694 @@
+[
+  {
+    "protocol": "openui",
+    "root": "expense_review",
+    "nodes": {
+      "approval_alert": {
+        "kind": "Alert",
+        "id": "approval_alert",
+        "tone": "success",
+        "message": "Expense exp-001 approved."
+      },
+      "approve_expense": {
+        "kind": "Button",
+        "id": "approve_expense",
+        "label": "Approve Acme Air",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense_review": {
+        "kind": "Card",
+        "id": "expense_review",
+        "title": "Expense Review",
+        "child": "review_content"
+      },
+      "expense_table": {
+        "kind": "Table",
+        "id": "expense_table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 420.00",
+            "expense_id": "exp-001",
+            "merchant": "Acme Air",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 280.00",
+            "expense_id": "exp-002",
+            "merchant": "Northwind Hotel",
+            "status": "pending"
+          }
+        ]
+      },
+      "review_content": {
+        "kind": "Stack",
+        "id": "review_content",
+        "children": [
+          "review_title",
+          "status_filter",
+          "expense_table",
+          "review_note",
+          "approve_expense",
+          "approval_alert"
+        ]
+      },
+      "review_note": {
+        "kind": "Input",
+        "id": "review_note",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "review_title": {
+        "kind": "Text",
+        "id": "review_title",
+        "text": "Review routine operating expenses"
+      },
+      "status_filter": {
+        "kind": "Select",
+        "id": "status_filter",
+        "label": "Filter by status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "7b13bcb443bbdd911170b1ad6ada96392e62a0de3ff00c0b4bfc8f18d740bd40"
+  },
+  {
+    "protocol": "typed-json",
+    "root": "expense-review-card",
+    "nodes": {
+      "approval-result-alert": {
+        "kind": "Alert",
+        "id": "approval-result-alert",
+        "tone": "success",
+        "message": "Expense exp-001 approved."
+      },
+      "approve-exp-001-button": {
+        "kind": "Button",
+        "id": "approve-exp-001-button",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review-card": {
+        "kind": "Card",
+        "id": "expense-review-card",
+        "title": "Expense Review",
+        "child": "expense-review-stack"
+      },
+      "expense-review-stack": {
+        "kind": "Stack",
+        "id": "expense-review-stack",
+        "children": [
+          "review-instructions",
+          "expense-table",
+          "review-note-input",
+          "status-filter-select",
+          "approve-exp-001-button",
+          "approval-result-alert"
+        ]
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 420.00",
+            "expense_id": "exp-001",
+            "merchant": "Acme Air",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 280.00",
+            "expense_id": "exp-002",
+            "merchant": "Northwind Hotel",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-instructions": {
+        "kind": "Text",
+        "id": "review-instructions",
+        "text": "Review routine operating expenses and approve the pending expense."
+      },
+      "review-note-input": {
+        "kind": "Input",
+        "id": "review-note-input",
+        "label": "Review note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter-select": {
+        "kind": "Select",
+        "id": "status-filter-select",
+        "label": "Status filter",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "69912c87795f4a2e2319b548005a49596196b9ba5d1430044b24f571681750f0"
+  },
+  {
+    "protocol": "typed-json",
+    "root": "expense-review-card",
+    "nodes": {
+      "approval-result": {
+        "kind": "Alert",
+        "id": "approval-result",
+        "tone": "success",
+        "message": "Expense exp-001 approved."
+      },
+      "approve-exp-001": {
+        "kind": "Button",
+        "id": "approve-exp-001",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review-card": {
+        "kind": "Card",
+        "id": "expense-review-card",
+        "title": "Expense Review",
+        "child": "expense-review-stack"
+      },
+      "expense-review-stack": {
+        "kind": "Stack",
+        "id": "expense-review-stack",
+        "children": [
+          "review-heading",
+          "review-note",
+          "status-filter",
+          "expense-table",
+          "approve-exp-001",
+          "approval-result"
+        ]
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 164.50",
+            "expense_id": "exp-001",
+            "merchant": "Contoso Rail",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 86.20",
+            "expense_id": "exp-002",
+            "merchant": "Tailspin Meals",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-heading": {
+        "kind": "Text",
+        "id": "review-heading",
+        "text": "Review routine operating expenses"
+      },
+      "review-note": {
+        "kind": "Input",
+        "id": "review-note",
+        "label": "Review note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter": {
+        "kind": "Select",
+        "id": "status-filter",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "c06b9e807afd337c5318ecd11c50b397c06cbeef69216a8814b462bdd6893f24"
+  },
+  {
+    "protocol": "a2ui",
+    "root": "expense-review-card",
+    "nodes": {
+      "approval-result-alert": {
+        "kind": "Alert",
+        "id": "approval-result-alert",
+        "tone": "success",
+        "message": "Expense exp-001 approved."
+      },
+      "approve-expense-button": {
+        "kind": "Button",
+        "id": "approve-expense-button",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review-card": {
+        "kind": "Card",
+        "id": "expense-review-card",
+        "title": "Expense Review",
+        "child": "expense-review-stack"
+      },
+      "expense-review-stack": {
+        "kind": "Stack",
+        "id": "expense-review-stack",
+        "children": [
+          "review-heading",
+          "expense-table",
+          "review-note-input",
+          "status-filter-select",
+          "approve-expense-button",
+          "approval-result-alert"
+        ]
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 164.50",
+            "expense_id": "exp-001",
+            "merchant": "Contoso Rail",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 86.20",
+            "expense_id": "exp-002",
+            "merchant": "Tailspin Meals",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-heading": {
+        "kind": "Text",
+        "id": "review-heading",
+        "text": "Review routine operating expenses and approve pending items."
+      },
+      "review-note-input": {
+        "kind": "Input",
+        "id": "review-note-input",
+        "label": "Review note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter-select": {
+        "kind": "Select",
+        "id": "status-filter-select",
+        "label": "Status filter",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "6b2ad665ce1e661a8320e40f6097c58319f7354d44bf110a2427acdf9a5d9742"
+  },
+  {
+    "protocol": "openui",
+    "root": "root",
+    "nodes": {
+      "approve": {
+        "kind": "Button",
+        "id": "approve",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "content": {
+        "kind": "Stack",
+        "id": "content",
+        "children": [
+          "intro",
+          "filter",
+          "expenses",
+          "note",
+          "approve",
+          "result"
+        ]
+      },
+      "expenses": {
+        "kind": "Table",
+        "id": "expenses",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 164.50",
+            "expense_id": "exp-001",
+            "merchant": "Contoso Rail",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 86.20",
+            "expense_id": "exp-002",
+            "merchant": "Tailspin Meals",
+            "status": "pending"
+          }
+        ]
+      },
+      "filter": {
+        "kind": "Select",
+        "id": "filter",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      },
+      "intro": {
+        "kind": "Text",
+        "id": "intro",
+        "text": "Review routine operating expenses and approve the pending rail expense."
+      },
+      "note": {
+        "kind": "Input",
+        "id": "note",
+        "label": "Review note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "result": {
+        "kind": "Alert",
+        "id": "result",
+        "tone": "success",
+        "message": "Expense exp-001 approved."
+      },
+      "root": {
+        "kind": "Card",
+        "id": "root",
+        "title": "Expense Review",
+        "child": "content"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "4a1c9639013c23162800d6aa915d329718bae24647f1991bea188fcec44a396a"
+  },
+  {
+    "protocol": "openui",
+    "root": "expense_review",
+    "nodes": {
+      "approval_result": {
+        "kind": "Alert",
+        "id": "approval_result",
+        "tone": "info",
+        "message": "Expense exp-001 is ready for approval."
+      },
+      "approve_exp001": {
+        "kind": "Button",
+        "id": "approve_exp001",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense_review": {
+        "kind": "Card",
+        "id": "expense_review",
+        "title": "Expense Review",
+        "child": "review_content"
+      },
+      "expense_table": {
+        "kind": "Table",
+        "id": "expense_table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 199.00",
+            "expense_id": "exp-001",
+            "merchant": "Fabrikam Software",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 74.90",
+            "expense_id": "exp-002",
+            "merchant": "Adventure Office",
+            "status": "pending"
+          }
+        ]
+      },
+      "review_content": {
+        "kind": "Stack",
+        "id": "review_content",
+        "children": [
+          "review_heading",
+          "status_filter_select",
+          "review_note_input",
+          "expense_table",
+          "approve_exp001",
+          "approval_result"
+        ]
+      },
+      "review_heading": {
+        "kind": "Text",
+        "id": "review_heading",
+        "text": "Review routine operating expenses"
+      },
+      "review_note_input": {
+        "kind": "Input",
+        "id": "review_note_input",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status_filter_select": {
+        "kind": "Select",
+        "id": "status_filter_select",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "f2241cd89ed9b9167844c7f5bac4d400fc2fd201def8d37509392c5fc5489b43"
+  },
+  {
+    "protocol": "typed-json",
+    "root": "expense-review-card",
+    "nodes": {
+      "approval-result-alert": {
+        "kind": "Alert",
+        "id": "approval-result-alert",
+        "tone": "success",
+        "message": "Expense exp-001 approved."
+      },
+      "approve-exp-001-button": {
+        "kind": "Button",
+        "id": "approve-exp-001-button",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review-card": {
+        "kind": "Card",
+        "id": "expense-review-card",
+        "title": "Expense Review",
+        "child": "expense-review-stack"
+      },
+      "expense-review-stack": {
+        "kind": "Stack",
+        "id": "expense-review-stack",
+        "children": [
+          "review-instruction",
+          "review-note-input",
+          "status-filter-select",
+          "expense-table",
+          "approve-exp-001-button",
+          "approval-result-alert"
+        ]
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 199.00",
+            "expense_id": "exp-001",
+            "merchant": "Fabrikam Software",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 74.90",
+            "expense_id": "exp-002",
+            "merchant": "Adventure Office",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-instruction": {
+        "kind": "Text",
+        "id": "review-instruction",
+        "text": "Review routine operating expenses and approve the pending expense."
+      },
+      "review-note-input": {
+        "kind": "Input",
+        "id": "review-note-input",
+        "label": "Review note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter-select": {
+        "kind": "Select",
+        "id": "status-filter-select",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "1e175de3a4501afa6124748ad5b00a0800d2e9851faeb285ef0d96c0ac1041c4"
+  },
+  {
+    "protocol": "a2ui",
+    "root": "expense-review-card",
+    "nodes": {
+      "expense-review-alert": {
+        "kind": "Alert",
+        "id": "expense-review-alert",
+        "tone": "info",
+        "message": "Expense exp-001 is ready for approval."
+      },
+      "expense-review-approve": {
+        "kind": "Button",
+        "id": "expense-review-approve",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review-card": {
+        "kind": "Card",
+        "id": "expense-review-card",
+        "title": "Expense Review",
+        "child": "expense-review-stack"
+      },
+      "expense-review-filter": {
+        "kind": "Select",
+        "id": "expense-review-filter",
+        "label": "Status filter",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      },
+      "expense-review-heading": {
+        "kind": "Text",
+        "id": "expense-review-heading",
+        "text": "Review routine operating expenses"
+      },
+      "expense-review-note": {
+        "kind": "Input",
+        "id": "expense-review-note",
+        "label": "Review note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "expense-review-stack": {
+        "kind": "Stack",
+        "id": "expense-review-stack",
+        "children": [
+          "expense-review-heading",
+          "expense-review-table",
+          "expense-review-note",
+          "expense-review-filter",
+          "expense-review-approve",
+          "expense-review-alert"
+        ]
+      },
+      "expense-review-table": {
+        "kind": "Table",
+        "id": "expense-review-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 199.00",
+            "expense_id": "exp-001",
+            "merchant": "Fabrikam Software",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 74.90",
+            "expense_id": "exp-002",
+            "merchant": "Adventure Office",
+            "status": "pending"
+          }
+        ]
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "322c329d04ce1e74f69815acf62cb6a18909ed898f9d1e3c2a10f7fa6b454543"
+  },
+  {
+    "protocol": "a2ui",
+    "root": "expense-review-card",
+    "nodes": {
+      "approval-alert": {
+        "kind": "Alert",
+        "id": "approval-alert",
+        "tone": "success",
+        "message": "Expense exp-001 approved."
+      },
+      "approve-expense": {
+        "kind": "Button",
+        "id": "approve-expense",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review-card": {
+        "kind": "Card",
+        "id": "expense-review-card",
+        "title": "Expense Review",
+        "child": "expense-review-stack"
+      },
+      "expense-review-stack": {
+        "kind": "Stack",
+        "id": "expense-review-stack",
+        "children": [
+          "review-title",
+          "status-filter",
+          "expense-table",
+          "review-note",
+          "approve-expense",
+          "approval-alert"
+        ]
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 58.40",
+            "expense_id": "exp-001",
+            "merchant": "Wide World Courier",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 112.00",
+            "expense_id": "exp-002",
+            "merchant": "City Print",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-note": {
+        "kind": "Input",
+        "id": "review-note",
+        "label": "Review note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "review-title": {
+        "kind": "Text",
+        "id": "review-title",
+        "text": "Review routine operating expenses and approve pending items."
+      },
+      "status-filter": {
+        "kind": "Select",
+        "id": "status-filter",
+        "label": "Filter by status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "fe11806c07b06f44fc9ac141ff3e67ea961f33575847bdffa35608311bf250d5"
+  },
+  {
+    "protocol": "typed-json",
+    "root": "expense-review-card",
+    "nodes": {
+      "approval-result-alert": {
+        "kind": "Alert",
+        "id": "approval-result-alert",
+        "tone": "info",
+        "message": "Approval result will appear here."
+      },
+      "approve-exp001-button": {
+        "kind": "Button",
+        "id": "approve-exp001-button",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review-card": {
+        "kind": "Card",
+        "id": "expense-review-card",
+        "title": "Expense Review",
+        "child": "expense-review-stack"
+      },
+      "expense-review-stack": {
+        "kind": "Stack",
+        "id": "expense-review-stack",
+        "children": [
+          "review-instructions",
+          "review-note-input",
+          "status-filter-select",
+          "expense-table",
+          "approve-exp001-button",
+          "approval-result-alert"
+        ]
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 58.40",
+            "expense_id": "exp-001",
+            "merchant": "Wide World Courier",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 112.00",
+            "expense_id": "exp-002",
+            "merchant": "City Print",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-instructions": {
+        "kind": "Text",
+        "id": "review-instructions",
+        "text": "Review routine operating expenses and approve the pending expense."
+      },
+      "review-note-input": {
+        "kind": "Input",
+        "id": "review-note-input",
+        "label": "Review note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter-select": {
+        "kind": "Select",
+        "id": "status-filter-select",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "e831963f3addec427f83b94dc3aba11e408aaabf9cbf95741434a8f74319fe6b"
+  },
+  {
+    "protocol": "openui",
+    "root": "expense-review",
+    "nodes": {
+      "approval-result": {
+        "kind": "Alert",
+        "id": "approval-result",
+        "tone": "info",
+        "message": "Expense exp-001 is ready for approval."
+      },
+      "approve-exp-001": {
+        "kind": "Button",
+        "id": "approve-exp-001",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review": {
+        "kind": "Card",
+        "id": "expense-review",
+        "title": "Expense Review",
+        "child": "review-content"
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 58.40",
+            "expense_id": "exp-001",
+            "merchant": "Wide World Courier",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 112.00",
+            "expense_id": "exp-002",
+            "merchant": "City Print",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-content": {
+        "kind": "Stack",
+        "id": "review-content",
+        "children": [
+          "review-instructions",
+          "status-filter",
+          "expense-table",
+          "review-note",
+          "approve-exp-001",
+          "approval-result"
+        ]
+      },
+      "review-instructions": {
+        "kind": "Text",
+        "id": "review-instructions",
+        "text": "Review routine operating expenses and approve the pending courier expense."
+      },
+      "review-note": {
+        "kind": "Input",
+        "id": "review-note",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter": {
+        "kind": "Select",
+        "id": "status-filter",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "74a54756580145f58a1d2927f6545edec8d7e2ef11810809998fc3f4769083a2"
+  },
+  {
+    "protocol": "a2ui",
+    "root": "expense-review-card",
+    "nodes": {
+      "approve-expense": {
+        "kind": "Button",
+        "id": "approve-expense",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review-card": {
+        "kind": "Card",
+        "id": "expense-review-card",
+        "title": "Travel Expense Review",
+        "child": "expense-review-stack"
+      },
+      "expense-review-stack": {
+        "kind": "Stack",
+        "id": "expense-review-stack",
+        "children": [
+          "review-context",
+          "status-filter",
+          "review-note",
+          "expense-table",
+          "approve-expense",
+          "result-alert"
+        ]
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 690.00",
+            "expense_id": "exp-001",
+            "merchant": "Paris Central Hotel",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 43.60",
+            "expense_id": "exp-002",
+            "merchant": "Metro Mobility",
+            "status": "pending"
+          }
+        ]
+      },
+      "result-alert": {
+        "kind": "Alert",
+        "id": "result-alert",
+        "tone": "info",
+        "message": "Expense approval result will appear here."
+      },
+      "review-context": {
+        "kind": "Text",
+        "id": "review-context",
+        "text": "Review travel expenses with enough context to spot policy-sensitive lodging and transport costs."
+      },
+      "review-note": {
+        "kind": "Input",
+        "id": "review-note",
+        "label": "Review note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter": {
+        "kind": "Select",
+        "id": "status-filter",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "9818a7106e29ac52039266049d404143991bb96418b082fa212e656cf32f0351"
+  },
+  {
+    "protocol": "openui",
+    "root": "review-card",
+    "nodes": {
+      "approval-result": {
+        "kind": "Alert",
+        "id": "approval-result",
+        "tone": "success",
+        "message": "Expense exp-001 approved."
+      },
+      "approve-exp-001": {
+        "kind": "Button",
+        "id": "approve-exp-001",
+        "label": "Approve Paris Central Hotel",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "context": {
+        "kind": "Text",
+        "id": "context",
+        "text": "Review policy-sensitive lodging and transport expenses."
+      },
+      "expenses": {
+        "kind": "Table",
+        "id": "expenses",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 690.00",
+            "expense_id": "exp-001",
+            "merchant": "Paris Central Hotel",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 43.60",
+            "expense_id": "exp-002",
+            "merchant": "Metro Mobility",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-card": {
+        "kind": "Card",
+        "id": "review-card",
+        "title": "Travel Expense Review — Paris",
+        "child": "review-content"
+      },
+      "review-content": {
+        "kind": "Stack",
+        "id": "review-content",
+        "children": [
+          "context",
+          "expenses",
+          "review-note",
+          "status-filter",
+          "approve-exp-001",
+          "approval-result"
+        ]
+      },
+      "review-note": {
+        "kind": "Input",
+        "id": "review-note",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter": {
+        "kind": "Select",
+        "id": "status-filter",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "ffbba9efbfc48867610ac76ea089c25782a59037a105b20bb271af96c50ca049"
+  },
+  {
+    "protocol": "typed-json",
+    "root": "expense-review-card",
+    "nodes": {
+      "approval-result": {
+        "kind": "Alert",
+        "id": "approval-result",
+        "tone": "success",
+        "message": "Expense exp-001 approved."
+      },
+      "approve-exp-001": {
+        "kind": "Button",
+        "id": "approve-exp-001",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review-card": {
+        "kind": "Card",
+        "id": "expense-review-card",
+        "title": "Travel Expense Review",
+        "child": "expense-review-stack"
+      },
+      "expense-review-stack": {
+        "kind": "Stack",
+        "id": "expense-review-stack",
+        "children": [
+          "review-context",
+          "expense-table",
+          "review-note",
+          "status-filter",
+          "approve-exp-001",
+          "approval-result"
+        ]
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 690.00",
+            "expense_id": "exp-001",
+            "merchant": "Paris Central Hotel",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 43.60",
+            "expense_id": "exp-002",
+            "merchant": "Metro Mobility",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-context": {
+        "kind": "Text",
+        "id": "review-context",
+        "text": "Review travel expenses for policy-sensitive lodging and transport costs."
+      },
+      "review-note": {
+        "kind": "Input",
+        "id": "review-note",
+        "label": "Review note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter": {
+        "kind": "Select",
+        "id": "status-filter",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "6aa6db739934b3a28c809be42061e43c96616bb5efd1dbcde6d46468663b8c90"
+  },
+  {
+    "protocol": "typed-json",
+    "root": "expense-review-card",
+    "nodes": {
+      "approval-result-alert": {
+        "kind": "Alert",
+        "id": "approval-result-alert",
+        "tone": "success",
+        "message": "Expense exp-001 approved."
+      },
+      "approve-exp-001-button": {
+        "kind": "Button",
+        "id": "approve-exp-001-button",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review-card": {
+        "kind": "Card",
+        "id": "expense-review-card",
+        "title": "Travel Expense Review",
+        "child": "expense-review-stack"
+      },
+      "expense-review-intro": {
+        "kind": "Text",
+        "id": "expense-review-intro",
+        "text": "Review travel expenses for policy-sensitive lodging and transport costs."
+      },
+      "expense-review-stack": {
+        "kind": "Stack",
+        "id": "expense-review-stack",
+        "children": [
+          "expense-review-intro",
+          "review-note-input",
+          "status-filter-select",
+          "expense-table",
+          "approve-exp-001-button",
+          "approval-result-alert"
+        ]
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 540.00",
+            "expense_id": "exp-001",
+            "merchant": "Berlin Business Stay",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 128.00",
+            "expense_id": "exp-002",
+            "merchant": "Bahn Connect",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-note-input": {
+        "kind": "Input",
+        "id": "review-note-input",
+        "label": "Review note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter-select": {
+        "kind": "Select",
+        "id": "status-filter-select",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "4f422aafa7750301fe019e64f93dee0b64e565eeacb4ab5379f370bfae86cc73"
+  },
+  {
+    "protocol": "openui",
+    "root": "root",
+    "nodes": {
+      "approve": {
+        "kind": "Button",
+        "id": "approve",
+        "label": "Approve Berlin Business Stay",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "content": {
+        "kind": "Stack",
+        "id": "content",
+        "children": [
+          "context",
+          "filter",
+          "expenses",
+          "note",
+          "approve",
+          "result"
+        ]
+      },
+      "context": {
+        "kind": "Text",
+        "id": "context",
+        "text": "Review policy-sensitive lodging and transport costs."
+      },
+      "expenses": {
+        "kind": "Table",
+        "id": "expenses",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 540.00",
+            "expense_id": "exp-001",
+            "merchant": "Berlin Business Stay",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 128.00",
+            "expense_id": "exp-002",
+            "merchant": "Bahn Connect",
+            "status": "pending"
+          }
+        ]
+      },
+      "filter": {
+        "kind": "Select",
+        "id": "filter",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      },
+      "note": {
+        "kind": "Input",
+        "id": "note",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "result": {
+        "kind": "Alert",
+        "id": "result",
+        "tone": "info",
+        "message": "Expense exp-001 is ready for approval."
+      },
+      "root": {
+        "kind": "Card",
+        "id": "root",
+        "title": "Travel Expense Review",
+        "child": "content"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "5c7b81b22dc6697ee0261fc562a9d697c1fd3de89660de4d1c915d7e7b282640"
+  },
+  {
+    "protocol": "typed-json",
+    "root": "expense-review-card",
+    "nodes": {
+      "approval-result-alert": {
+        "kind": "Alert",
+        "id": "approval-result-alert",
+        "tone": "success",
+        "message": "Expense exp-001 approved."
+      },
+      "approve-exp-001": {
+        "kind": "Button",
+        "id": "approve-exp-001",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review-card": {
+        "kind": "Card",
+        "id": "expense-review-card",
+        "title": "Travel Expense Review",
+        "child": "expense-review-stack"
+      },
+      "expense-review-stack": {
+        "kind": "Stack",
+        "id": "expense-review-stack",
+        "children": [
+          "review-context",
+          "review-note-input",
+          "status-filter-select",
+          "expense-table",
+          "approve-exp-001",
+          "approval-result-alert"
+        ]
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 465.00",
+            "expense_id": "exp-001",
+            "merchant": "Lisbon Riverside Rooms",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 312.40",
+            "expense_id": "exp-002",
+            "merchant": "Atlantic Air",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-context": {
+        "kind": "Text",
+        "id": "review-context",
+        "text": "Review travel expenses for policy-sensitive lodging and transport costs."
+      },
+      "review-note-input": {
+        "kind": "Input",
+        "id": "review-note-input",
+        "label": "Review note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter-select": {
+        "kind": "Select",
+        "id": "status-filter-select",
+        "label": "Status filter",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "ea98f532afba30fae765a5b75de4b2d29db72d234fa0a5d244b688dcca67864b"
+  },
+  {
+    "protocol": "openui",
+    "root": "expense-review",
+    "nodes": {
+      "approval-result": {
+        "kind": "Alert",
+        "id": "approval-result",
+        "tone": "info",
+        "message": "Expense exp-001 is ready for approval."
+      },
+      "approve-exp-001": {
+        "kind": "Button",
+        "id": "approve-exp-001",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review": {
+        "kind": "Card",
+        "id": "expense-review",
+        "title": "Travel Expense Review",
+        "child": "review-content"
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 465.00",
+            "expense_id": "exp-001",
+            "merchant": "Lisbon Riverside Rooms",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 312.40",
+            "expense_id": "exp-002",
+            "merchant": "Atlantic Air",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-content": {
+        "kind": "Stack",
+        "id": "review-content",
+        "children": [
+          "review-context",
+          "expense-table",
+          "review-note",
+          "status-filter",
+          "approve-exp-001",
+          "approval-result"
+        ]
+      },
+      "review-context": {
+        "kind": "Text",
+        "id": "review-context",
+        "text": "Review Lisbon travel expenses for policy-sensitive lodging and transport costs."
+      },
+      "review-note": {
+        "kind": "Input",
+        "id": "review-note",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter": {
+        "kind": "Select",
+        "id": "status-filter",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "7b20eaa3b7b344e90591586df8a8264b69e0aa694fbc34646c3b65c2fda0c564"
+  },
+  {
+    "protocol": "typed-json",
+    "root": "expense-review-card",
+    "nodes": {
+      "approval-result-alert": {
+        "kind": "Alert",
+        "id": "approval-result-alert",
+        "tone": "success",
+        "message": "Expense exp-001 approved."
+      },
+      "approve-exp-001-button": {
+        "kind": "Button",
+        "id": "approve-exp-001-button",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review-card": {
+        "kind": "Card",
+        "id": "expense-review-card",
+        "title": "Travel Expense Review",
+        "child": "expense-review-stack"
+      },
+      "expense-review-stack": {
+        "kind": "Stack",
+        "id": "expense-review-stack",
+        "children": [
+          "review-context",
+          "expense-table",
+          "review-note-input",
+          "status-filter-select",
+          "approve-exp-001-button",
+          "approval-result-alert"
+        ]
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 735.00",
+            "expense_id": "exp-001",
+            "merchant": "Milan Expo Hotel",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 146.80",
+            "expense_id": "exp-002",
+            "merchant": "Italia Rail",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-context": {
+        "kind": "Text",
+        "id": "review-context",
+        "text": "Review travel expenses for policy-sensitive lodging and transport costs."
+      },
+      "review-note-input": {
+        "kind": "Input",
+        "id": "review-note-input",
+        "label": "Review note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter-select": {
+        "kind": "Select",
+        "id": "status-filter-select",
+        "label": "Status filter",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "0ea6a7da2f3f53ce3e3b02060bfa4ef629a83c100a91a698e2220e9d2b081e00"
+  },
+  {
+    "protocol": "typed-json",
+    "root": "expense-review-card",
+    "nodes": {
+      "approval-result-alert": {
+        "kind": "Alert",
+        "id": "approval-result-alert",
+        "tone": "success",
+        "message": "Expense exp-001 approved."
+      },
+      "approve-expense-button": {
+        "kind": "Button",
+        "id": "approve-expense-button",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review-card": {
+        "kind": "Card",
+        "id": "expense-review-card",
+        "title": "Expense Review",
+        "child": "expense-review-stack"
+      },
+      "expense-review-stack": {
+        "kind": "Stack",
+        "id": "expense-review-stack",
+        "children": [
+          "review-instructions",
+          "expense-table",
+          "review-note-input",
+          "status-filter-select",
+          "approve-expense-button",
+          "approval-result-alert"
+        ]
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 249.00",
+            "expense_id": "exp-001",
+            "merchant": "Cloud Harbor",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 249.00",
+            "expense_id": "exp-002",
+            "merchant": "Cloud Harbor EU",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-instructions": {
+        "kind": "Text",
+        "id": "review-instructions",
+        "text": "Review duplicate-risk expenses"
+      },
+      "review-note-input": {
+        "kind": "Input",
+        "id": "review-note-input",
+        "label": "Review note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter-select": {
+        "kind": "Select",
+        "id": "status-filter-select",
+        "label": "Status filter",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "f5f6bd60305383cfac9e7e5b41b6b5d5d5f184faf4f94b46bcbcc6140356fdd9"
+  },
+  {
+    "protocol": "openui",
+    "root": "expense_review",
+    "nodes": {
+      "approval_result": {
+        "kind": "Alert",
+        "id": "approval_result",
+        "tone": "success",
+        "message": "Expense exp-001 approved."
+      },
+      "approve_expense": {
+        "kind": "Button",
+        "id": "approve_expense",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "duplicate_risk": {
+        "kind": "Text",
+        "id": "duplicate_risk",
+        "text": "Similar merchants and amounts detected; inspect for duplicate risk."
+      },
+      "expense_review": {
+        "kind": "Card",
+        "id": "expense_review",
+        "title": "Expense Review",
+        "child": "review_content"
+      },
+      "expense_table": {
+        "kind": "Table",
+        "id": "expense_table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 249.00",
+            "expense_id": "exp-001",
+            "merchant": "Cloud Harbor",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 249.00",
+            "expense_id": "exp-002",
+            "merchant": "Cloud Harbor EU",
+            "status": "pending"
+          }
+        ]
+      },
+      "review_content": {
+        "kind": "Stack",
+        "id": "review_content",
+        "children": [
+          "duplicate_risk",
+          "status_filter_control",
+          "expense_table",
+          "review_note_input",
+          "approve_expense",
+          "approval_result"
+        ]
+      },
+      "review_note_input": {
+        "kind": "Input",
+        "id": "review_note_input",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status_filter_control": {
+        "kind": "Select",
+        "id": "status_filter_control",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "c75e1bec43fc18dc7d40877c92fb4caad8b5dbdb2534c5af24a3e3167cd4e24f"
+  },
+  {
+    "protocol": "a2ui",
+    "root": "review-card",
+    "nodes": {
+      "approval-alert": {
+        "kind": "Alert",
+        "id": "approval-alert",
+        "tone": "success",
+        "message": "Expense exp-001 approved."
+      },
+      "approve-expense-button": {
+        "kind": "Button",
+        "id": "approve-expense-button",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 249.00",
+            "expense_id": "exp-001",
+            "merchant": "Cloud Harbor",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 249.00",
+            "expense_id": "exp-002",
+            "merchant": "Cloud Harbor EU",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-card": {
+        "kind": "Card",
+        "id": "review-card",
+        "title": "Expense Review",
+        "child": "review-stack"
+      },
+      "review-note-input": {
+        "kind": "Input",
+        "id": "review-note-input",
+        "label": "Review note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "review-stack": {
+        "kind": "Stack",
+        "id": "review-stack",
+        "children": [
+          "review-text",
+          "expense-table",
+          "review-note-input",
+          "status-filter-select",
+          "approve-expense-button",
+          "approval-alert"
+        ]
+      },
+      "review-text": {
+        "kind": "Text",
+        "id": "review-text",
+        "text": "Review similar merchants and amounts for duplicate risk."
+      },
+      "status-filter-select": {
+        "kind": "Select",
+        "id": "status-filter-select",
+        "label": "Status filter",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "6b8a07f63d3b0316627e74efa288e347b781a8434e4d0daaa1d609c1f033cc5c"
+  },
+  {
+    "protocol": "openui",
+    "root": "expense-review",
+    "nodes": {
+      "approval-result": {
+        "kind": "Alert",
+        "id": "approval-result",
+        "tone": "success",
+        "message": "Expense exp-001 approved."
+      },
+      "approve-exp-001": {
+        "kind": "Button",
+        "id": "approve-exp-001",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "duplicate-risk": {
+        "kind": "Text",
+        "id": "duplicate-risk",
+        "text": "Review similar merchants and amounts for duplicate risk."
+      },
+      "expense-review": {
+        "kind": "Card",
+        "id": "expense-review",
+        "title": "Expense Review",
+        "child": "review-content"
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 37.80",
+            "expense_id": "exp-001",
+            "merchant": "City Ride",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 38.10",
+            "expense_id": "exp-002",
+            "merchant": "City Ride",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-content": {
+        "kind": "Stack",
+        "id": "review-content",
+        "children": [
+          "duplicate-risk",
+          "expense-table",
+          "status-filter",
+          "review-note",
+          "approve-exp-001",
+          "approval-result"
+        ]
+      },
+      "review-note": {
+        "kind": "Input",
+        "id": "review-note",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter": {
+        "kind": "Select",
+        "id": "status-filter",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "154bf3888bf7d756a81596b2cff54d3ab6233e647c1ed4efdb07f3a03bcfebbe"
+  },
+  {
+    "protocol": "typed-json",
+    "root": "expense-review-card",
+    "nodes": {
+      "approval-result-alert": {
+        "kind": "Alert",
+        "id": "approval-result-alert",
+        "tone": "success",
+        "message": "Expense exp-001 approved."
+      },
+      "approve-expense-button": {
+        "kind": "Button",
+        "id": "approve-expense-button",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "duplicate-risk-text": {
+        "kind": "Text",
+        "id": "duplicate-risk-text",
+        "text": "Review expenses for duplicate risk"
+      },
+      "expense-review-card": {
+        "kind": "Card",
+        "id": "expense-review-card",
+        "title": "Expense Review",
+        "child": "expense-review-stack"
+      },
+      "expense-review-stack": {
+        "kind": "Stack",
+        "id": "expense-review-stack",
+        "children": [
+          "duplicate-risk-text",
+          "expense-table",
+          "review-note-input",
+          "status-filter-select",
+          "approve-expense-button",
+          "approval-result-alert"
+        ]
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 37.80",
+            "expense_id": "exp-001",
+            "merchant": "City Ride",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 38.10",
+            "expense_id": "exp-002",
+            "merchant": "City Ride",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-note-input": {
+        "kind": "Input",
+        "id": "review-note-input",
+        "label": "Review note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter-select": {
+        "kind": "Select",
+        "id": "status-filter-select",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "2424f155cfcf09d748bf9d3f0dbaa610cff73766f7572ce3d52aebfbff560ea1"
+  },
+  {
+    "protocol": "typed-json",
+    "root": "expense-review-card",
+    "nodes": {
+      "approval-result-alert": {
+        "kind": "Alert",
+        "id": "approval-result-alert",
+        "tone": "success",
+        "message": "Expense exp-001 approved."
+      },
+      "approve-exp-001-button": {
+        "kind": "Button",
+        "id": "approve-exp-001-button",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review-card": {
+        "kind": "Card",
+        "id": "expense-review-card",
+        "title": "Expense Review",
+        "child": "expense-review-stack"
+      },
+      "expense-review-stack": {
+        "kind": "Stack",
+        "id": "expense-review-stack",
+        "children": [
+          "review-instructions",
+          "expense-table",
+          "review-note-input",
+          "status-filter-select",
+          "approve-exp-001-button",
+          "approval-result-alert"
+        ]
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 320.00",
+            "expense_id": "exp-001",
+            "merchant": "Northwind Catering",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 320.00",
+            "expense_id": "exp-002",
+            "merchant": "Northwind Caterers",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-instructions": {
+        "kind": "Text",
+        "id": "review-instructions",
+        "text": "Review duplicate-risk catering expenses."
+      },
+      "review-note-input": {
+        "kind": "Input",
+        "id": "review-note-input",
+        "label": "Review note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter-select": {
+        "kind": "Select",
+        "id": "status-filter-select",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "10b6c315bcd01e7f802c412d094ff69223a4367d2eeaed98f190e64069b8339d"
+  },
+  {
+    "protocol": "a2ui",
+    "root": "review-card",
+    "nodes": {
+      "approve-expense-button": {
+        "kind": "Button",
+        "id": "approve-expense-button",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 320.00",
+            "expense_id": "exp-001",
+            "merchant": "Northwind Catering",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 320.00",
+            "expense_id": "exp-002",
+            "merchant": "Northwind Caterers",
+            "status": "pending"
+          }
+        ]
+      },
+      "result-alert": {
+        "kind": "Alert",
+        "id": "result-alert",
+        "tone": "info",
+        "message": "Approval result will appear here."
+      },
+      "review-card": {
+        "kind": "Card",
+        "id": "review-card",
+        "title": "Expense Review",
+        "child": "review-stack"
+      },
+      "review-note-input": {
+        "kind": "Input",
+        "id": "review-note-input",
+        "label": "Review note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "review-stack": {
+        "kind": "Stack",
+        "id": "review-stack",
+        "children": [
+          "review-text",
+          "expense-table",
+          "review-note-input",
+          "status-filter-select",
+          "approve-expense-button",
+          "result-alert"
+        ]
+      },
+      "review-text": {
+        "kind": "Text",
+        "id": "review-text",
+        "text": "Review expenses for duplicate risk"
+      },
+      "status-filter-select": {
+        "kind": "Select",
+        "id": "status-filter-select",
+        "label": "Status filter",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "b8a644e47a5543d7754296eb6c23217d9b537176582ad1037e0dc8d1408e9b4d"
+  },
+  {
+    "protocol": "openui",
+    "root": "expense-review",
+    "nodes": {
+      "approval-result": {
+        "kind": "Alert",
+        "id": "approval-result",
+        "tone": "success",
+        "message": "Expense exp-001 approved."
+      },
+      "approve-exp-001": {
+        "kind": "Button",
+        "id": "approve-exp-001",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "duplicate-risk": {
+        "kind": "Text",
+        "id": "duplicate-risk",
+        "text": "Duplicate-risk inspection"
+      },
+      "expense-review": {
+        "kind": "Card",
+        "id": "expense-review",
+        "title": "Expense Review",
+        "child": "review-content"
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 320.00",
+            "expense_id": "exp-001",
+            "merchant": "Northwind Catering",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 320.00",
+            "expense_id": "exp-002",
+            "merchant": "Northwind Caterers",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-content": {
+        "kind": "Stack",
+        "id": "review-content",
+        "children": [
+          "duplicate-risk",
+          "status-filter",
+          "expense-table",
+          "review-note",
+          "approve-exp-001",
+          "approval-result"
+        ]
+      },
+      "review-note": {
+        "kind": "Input",
+        "id": "review-note",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter": {
+        "kind": "Select",
+        "id": "status-filter",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "56b621c932e2bb1d2f769f9e8be74a442c286dda8fb3ea5cbf44290ecc3936dc"
+  },
+  {
+    "protocol": "openui",
+    "root": "expense-review",
+    "nodes": {
+      "approval-result": {
+        "kind": "Alert",
+        "id": "approval-result",
+        "tone": "success",
+        "message": "Expense exp-001 approved"
+      },
+      "approve-expense": {
+        "kind": "Button",
+        "id": "approve-expense",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "duplicate-risk": {
+        "kind": "Text",
+        "id": "duplicate-risk",
+        "text": "Duplicate-risk inspection"
+      },
+      "expense-review": {
+        "kind": "Card",
+        "id": "expense-review",
+        "title": "Expense Review",
+        "child": "review-content"
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 89.00",
+            "expense_id": "exp-001",
+            "merchant": "Dev Tools Pro",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 89.00",
+            "expense_id": "exp-002",
+            "merchant": "DevTools Pro",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-content": {
+        "kind": "Stack",
+        "id": "review-content",
+        "children": [
+          "duplicate-risk",
+          "status-filter",
+          "expense-table",
+          "review-note",
+          "approve-expense",
+          "approval-result"
+        ]
+      },
+      "review-note": {
+        "kind": "Input",
+        "id": "review-note",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter": {
+        "kind": "Select",
+        "id": "status-filter",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "500e782d4f1b9df1d5b97e76cae302f25130ace07e5e688fe847daa71975aaa0"
+  },
+  {
+    "protocol": "a2ui",
+    "root": "review-card",
+    "nodes": {
+      "approve-expense": {
+        "kind": "Button",
+        "id": "approve-expense",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 89.00",
+            "expense_id": "exp-001",
+            "merchant": "Dev Tools Pro",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 89.00",
+            "expense_id": "exp-002",
+            "merchant": "DevTools Pro",
+            "status": "pending"
+          }
+        ]
+      },
+      "result-alert": {
+        "kind": "Alert",
+        "id": "result-alert",
+        "tone": "info",
+        "message": "Expense exp-001 is ready for approval."
+      },
+      "review-card": {
+        "kind": "Card",
+        "id": "review-card",
+        "title": "Expense Review",
+        "child": "review-stack"
+      },
+      "review-heading": {
+        "kind": "Text",
+        "id": "review-heading",
+        "text": "Review duplicate-risk expenses"
+      },
+      "review-note": {
+        "kind": "Input",
+        "id": "review-note",
+        "label": "Review note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "review-stack": {
+        "kind": "Stack",
+        "id": "review-stack",
+        "children": [
+          "review-heading",
+          "expense-table",
+          "review-note",
+          "status-filter",
+          "approve-expense",
+          "result-alert"
+        ]
+      },
+      "status-filter": {
+        "kind": "Select",
+        "id": "status-filter",
+        "label": "Status filter",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "2ca9a6c23ed1bc867db378a76bc09922c11c5e29e6e4a969933fb85e26c8692e"
+  },
+  {
+    "protocol": "typed-json",
+    "root": "expense-review-card",
+    "nodes": {
+      "approval-result-alert": {
+        "kind": "Alert",
+        "id": "approval-result-alert",
+        "tone": "success",
+        "message": "Expense exp-001 approved."
+      },
+      "approve-exp-001-button": {
+        "kind": "Button",
+        "id": "approve-exp-001-button",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review-card": {
+        "kind": "Card",
+        "id": "expense-review-card",
+        "title": "Expense Review",
+        "child": "expense-review-stack"
+      },
+      "expense-review-instructions": {
+        "kind": "Text",
+        "id": "expense-review-instructions",
+        "text": "Review duplicate-risk expenses"
+      },
+      "expense-review-stack": {
+        "kind": "Stack",
+        "id": "expense-review-stack",
+        "children": [
+          "expense-review-instructions",
+          "expense-table",
+          "review-note-input",
+          "status-filter-select",
+          "approve-exp-001-button",
+          "approval-result-alert"
+        ]
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 89.00",
+            "expense_id": "exp-001",
+            "merchant": "Dev Tools Pro",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 89.00",
+            "expense_id": "exp-002",
+            "merchant": "DevTools Pro",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-note-input": {
+        "kind": "Input",
+        "id": "review-note-input",
+        "label": "Review note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter-select": {
+        "kind": "Select",
+        "id": "status-filter-select",
+        "label": "Status filter",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "b4d5257a2757ec74f65bbec0f8b76b442680541d9ac886caf8f3d6fa8196d48a"
+  },
+  {
+    "protocol": "openui",
+    "root": "review_card",
+    "nodes": {
+      "approval_result_alert": {
+        "kind": "Alert",
+        "id": "approval_result_alert",
+        "tone": "info",
+        "message": "Approve action is ready for exp-001. The current filtered list shows both expenses as pending."
+      },
+      "approve_expense_button": {
+        "kind": "Button",
+        "id": "approve_expense_button",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense_table": {
+        "kind": "Table",
+        "id": "expense_table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 2,450.00",
+            "expense_id": "exp-001",
+            "merchant": "Global Tech Conference",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 1,180.00",
+            "expense_id": "exp-002",
+            "merchant": "Conference Hotel",
+            "status": "pending"
+          }
+        ]
+      },
+      "review_card": {
+        "kind": "Card",
+        "id": "review_card",
+        "title": "High-Value Expense Review",
+        "child": "review_content"
+      },
+      "review_content": {
+        "kind": "Stack",
+        "id": "review_content",
+        "children": [
+          "review_intro",
+          "status_filter_select",
+          "expense_table",
+          "review_note_input",
+          "approve_expense_button",
+          "approval_result_alert"
+        ]
+      },
+      "review_intro": {
+        "kind": "Text",
+        "id": "review_intro",
+        "text": "Review high-value expenses. Approval will apply to exp-001."
+      },
+      "review_note_input": {
+        "kind": "Input",
+        "id": "review_note_input",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status_filter_select": {
+        "kind": "Select",
+        "id": "status_filter_select",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "63f87255e0cda18e3d7d5e25ec5149938eb947d3b1422f2cec428e06c3dfee0c"
+  },
+  {
+    "protocol": "typed-json",
+    "root": "expense-review-card",
+    "nodes": {
+      "approval-result-alert": {
+        "kind": "Alert",
+        "id": "approval-result-alert",
+        "tone": "info",
+        "message": "Approval result: expense exp-001 is pending review until approved."
+      },
+      "approve-exp-001-button": {
+        "kind": "Button",
+        "id": "approve-exp-001-button",
+        "label": "Approve expense exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review-card": {
+        "kind": "Card",
+        "id": "expense-review-card",
+        "title": "High-Value Expense Review",
+        "child": "expense-review-stack"
+      },
+      "expense-review-stack": {
+        "kind": "Stack",
+        "id": "expense-review-stack",
+        "children": [
+          "review-instructions",
+          "expense-table",
+          "review-note-input",
+          "status-filter-select",
+          "approve-exp-001-button",
+          "approval-result-alert"
+        ]
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 2,450.00",
+            "expense_id": "exp-001",
+            "merchant": "Global Tech Conference",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 1,180.00",
+            "expense_id": "exp-002",
+            "merchant": "Conference Hotel",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-instructions": {
+        "kind": "Text",
+        "id": "review-instructions",
+        "text": "Review high-value expenses and approve expense exp-001."
+      },
+      "review-note-input": {
+        "kind": "Input",
+        "id": "review-note-input",
+        "label": "Review note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter-select": {
+        "kind": "Select",
+        "id": "status-filter-select",
+        "label": "Status filter",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "9368d25ee6e044818f2229a3cf7223cbaabf7342cf56e12470f39cecb120621c"
+  },
+  {
+    "protocol": "typed-json",
+    "root": "expense-review-card",
+    "nodes": {
+      "approval-result": {
+        "kind": "Alert",
+        "id": "approval-result",
+        "tone": "success",
+        "message": "Approval submitted for expense exp-001."
+      },
+      "approve-exp-001": {
+        "kind": "Button",
+        "id": "approve-exp-001",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review-card": {
+        "kind": "Card",
+        "id": "expense-review-card",
+        "title": "High-value expense review",
+        "child": "expense-review-stack"
+      },
+      "expense-review-stack": {
+        "kind": "Stack",
+        "id": "expense-review-stack",
+        "children": [
+          "review-instructions",
+          "expense-table",
+          "review-note",
+          "status-filter",
+          "approve-exp-001",
+          "approval-result"
+        ]
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 3,890.00",
+            "expense_id": "exp-001",
+            "merchant": "Pro Workstations",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 1,640.00",
+            "expense_id": "exp-002",
+            "merchant": "Studio Displays",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-instructions": {
+        "kind": "Text",
+        "id": "review-instructions",
+        "text": "Review high-value expenses and approve expense exp-001."
+      },
+      "review-note": {
+        "kind": "Input",
+        "id": "review-note",
+        "label": "Review note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter": {
+        "kind": "Select",
+        "id": "status-filter",
+        "label": "Status filter",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "9a63c8d55ea2ffd08ead5b9f27dd496d12f59260d8e88dd95d50abe4cb67b202"
+  },
+  {
+    "protocol": "a2ui",
+    "root": "expense-review-card",
+    "nodes": {
+      "approval-result": {
+        "kind": "Alert",
+        "id": "approval-result",
+        "tone": "info",
+        "message": "Approval result: exp-001 is currently pending review."
+      },
+      "approve-exp-001": {
+        "kind": "Button",
+        "id": "approve-exp-001",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review-card": {
+        "kind": "Card",
+        "id": "expense-review-card",
+        "title": "High-value expense review",
+        "child": "expense-review-stack"
+      },
+      "expense-review-stack": {
+        "kind": "Stack",
+        "id": "expense-review-stack",
+        "children": [
+          "review-instructions",
+          "status-filter",
+          "review-note",
+          "expense-table",
+          "approve-exp-001",
+          "approval-result"
+        ]
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 3,890.00",
+            "expense_id": "exp-001",
+            "merchant": "Pro Workstations",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 1,640.00",
+            "expense_id": "exp-002",
+            "merchant": "Studio Displays",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-instructions": {
+        "kind": "Text",
+        "id": "review-instructions",
+        "text": "Review high-value expenses. Approving an expense marks it approved."
+      },
+      "review-note": {
+        "kind": "Input",
+        "id": "review-note",
+        "label": "Review note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter": {
+        "kind": "Select",
+        "id": "status-filter",
+        "label": "Status filter",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "a70819f1c05fa9ac75016936105fa05b572ce36ee7ecb4ead69af2cc45ca4227"
+  },
+  {
+    "protocol": "openui",
+    "root": "review-card",
+    "nodes": {
+      "approve-expense": {
+        "kind": "Button",
+        "id": "approve-expense",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 3,890.00",
+            "expense_id": "exp-001",
+            "merchant": "Pro Workstations",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 1,640.00",
+            "expense_id": "exp-002",
+            "merchant": "Studio Displays",
+            "status": "pending"
+          }
+        ]
+      },
+      "result-alert": {
+        "kind": "Alert",
+        "id": "result-alert",
+        "tone": "success",
+        "message": "Expense exp-001 approved."
+      },
+      "review-card": {
+        "kind": "Card",
+        "id": "review-card",
+        "title": "High-Value Expense Review",
+        "child": "review-content"
+      },
+      "review-content": {
+        "kind": "Stack",
+        "id": "review-content",
+        "children": [
+          "status-filter",
+          "review-note",
+          "expense-table",
+          "approve-expense",
+          "result-alert",
+          "review-summary"
+        ]
+      },
+      "review-note": {
+        "kind": "Input",
+        "id": "review-note",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "review-summary": {
+        "kind": "Text",
+        "id": "review-summary",
+        "text": "Current review state: 2 expenses pending. Approving exp-001 records the expense as approved."
+      },
+      "status-filter": {
+        "kind": "Select",
+        "id": "status-filter",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "5bd88f08be86d10a2189266bedbbaee582c8d64d509106f7b8882aa1f00d98a3"
+  },
+  {
+    "protocol": "openui",
+    "root": "expense-review",
+    "nodes": {
+      "approval-result": {
+        "kind": "Alert",
+        "id": "approval-result",
+        "tone": "info",
+        "message": "exp-001 is currently pending. Approving it will approve the EUR 4,800.00 expense from Strategy Partners."
+      },
+      "approve-exp-001": {
+        "kind": "Button",
+        "id": "approve-exp-001",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review": {
+        "kind": "Card",
+        "id": "expense-review",
+        "title": "High-Value Expense Review",
+        "child": "review-content"
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 4,800.00",
+            "expense_id": "exp-001",
+            "merchant": "Strategy Partners",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 2,200.00",
+            "expense_id": "exp-002",
+            "merchant": "Research Associates",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-content": {
+        "kind": "Stack",
+        "id": "review-content",
+        "children": [
+          "review-context",
+          "status-filter",
+          "expense-table",
+          "review-note",
+          "approve-exp-001",
+          "approval-result"
+        ]
+      },
+      "review-context": {
+        "kind": "Text",
+        "id": "review-context",
+        "text": "Review pending high-value expenses. Approval will approve exp-001."
+      },
+      "review-note": {
+        "kind": "Input",
+        "id": "review-note",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter": {
+        "kind": "Select",
+        "id": "status-filter",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "4012e54f709c6194706e134d09b1bf2226382e6aabe38a8ae8bfc0b0ec1f3dc3"
+  },
+  {
+    "protocol": "typed-json",
+    "root": "expense-review-card",
+    "nodes": {
+      "approval-result": {
+        "kind": "Alert",
+        "id": "approval-result",
+        "tone": "info",
+        "message": "Approving exp-001 will approve Strategy Partners for EUR 4,800.00. Both supplied expenses are currently pending."
+      },
+      "approve-exp-001": {
+        "kind": "Button",
+        "id": "approve-exp-001",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review-card": {
+        "kind": "Card",
+        "id": "expense-review-card",
+        "title": "High-Value Expense Review",
+        "child": "expense-review-stack"
+      },
+      "expense-review-stack": {
+        "kind": "Stack",
+        "id": "expense-review-stack",
+        "children": [
+          "review-instructions",
+          "review-note",
+          "status-filter",
+          "expense-table",
+          "approve-exp-001",
+          "approval-result"
+        ]
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 4,800.00",
+            "expense_id": "exp-001",
+            "merchant": "Strategy Partners",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 2,200.00",
+            "expense_id": "exp-002",
+            "merchant": "Research Associates",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-instructions": {
+        "kind": "Text",
+        "id": "review-instructions",
+        "text": "Review high-value expenses and approve expense exp-001 after entering a review note."
+      },
+      "review-note": {
+        "kind": "Input",
+        "id": "review-note",
+        "label": "Review note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter": {
+        "kind": "Select",
+        "id": "status-filter",
+        "label": "Status filter",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "8d2903f3f5fdf4a6982e5a92a0caf2d0ec8fd1ab6390dbbb5ddf967a3e3e91a6"
+  },
+  {
+    "protocol": "a2ui",
+    "root": "expense-review-card",
+    "nodes": {
+      "approval-result": {
+        "kind": "Alert",
+        "id": "approval-result",
+        "tone": "info",
+        "message": "Approval result: exp-001 is currently pending review. Use Approve exp-001 to approve it."
+      },
+      "approve-expense-001": {
+        "kind": "Button",
+        "id": "approve-expense-001",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review-card": {
+        "kind": "Card",
+        "id": "expense-review-card",
+        "title": "High-Value Expense Review",
+        "child": "expense-review-stack"
+      },
+      "expense-review-stack": {
+        "kind": "Stack",
+        "id": "expense-review-stack",
+        "children": [
+          "review-context",
+          "status-filter",
+          "review-note",
+          "expense-table",
+          "approve-expense-001",
+          "approval-result"
+        ]
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 4,800.00",
+            "expense_id": "exp-001",
+            "merchant": "Strategy Partners",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 2,200.00",
+            "expense_id": "exp-002",
+            "merchant": "Research Associates",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-context": {
+        "kind": "Text",
+        "id": "review-context",
+        "text": "Review pending high-value expenses. Approving exp-001 will approve Strategy Partners for EUR 4,800.00."
+      },
+      "review-note": {
+        "kind": "Input",
+        "id": "review-note",
+        "label": "Review note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter": {
+        "kind": "Select",
+        "id": "status-filter",
+        "label": "Status filter",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "1bbce4026a7eea74fc8911aaf94714e17125181235f96a3651193811e66d0f7d"
+  },
+  {
+    "protocol": "a2ui",
+    "root": "expense-review-card",
+    "nodes": {
+      "approve-expense": {
+        "kind": "Button",
+        "id": "approve-expense",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review-card": {
+        "kind": "Card",
+        "id": "expense-review-card",
+        "title": "High-value expense review",
+        "child": "expense-review-stack"
+      },
+      "expense-review-stack": {
+        "kind": "Stack",
+        "id": "expense-review-stack",
+        "children": [
+          "review-heading",
+          "expense-table",
+          "status-filter",
+          "review-note",
+          "approve-expense",
+          "result-alert"
+        ]
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 5,250.00",
+            "expense_id": "exp-001",
+            "merchant": "Riverside Venue",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 2,975.00",
+            "expense_id": "exp-002",
+            "merchant": "Event Production",
+            "status": "pending"
+          }
+        ]
+      },
+      "result-alert": {
+        "kind": "Alert",
+        "id": "result-alert",
+        "tone": "info",
+        "message": "Approval result: exp-001 is currently pending and will become approved when this approval is completed."
+      },
+      "review-heading": {
+        "kind": "Text",
+        "id": "review-heading",
+        "text": "Review high-value expenses. Expenses are currently pending. Approving exp-001 will change Riverside Venue from pending to approved."
+      },
+      "review-note": {
+        "kind": "Input",
+        "id": "review-note",
+        "label": "Review note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter": {
+        "kind": "Select",
+        "id": "status-filter",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "f5da57ca4752a2c6e9276d7d7f2c76198471959e4f9011b6b7a1606928fdc9d5"
+  },
+  {
+    "protocol": "typed-json",
+    "root": "expense-review-card",
+    "nodes": {
+      "approval-result-alert": {
+        "kind": "Alert",
+        "id": "approval-result-alert",
+        "tone": "info",
+        "message": "Approval action targets expense exp-001. Both expenses are currently pending."
+      },
+      "approve-exp-001-button": {
+        "kind": "Button",
+        "id": "approve-exp-001-button",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review-card": {
+        "kind": "Card",
+        "id": "expense-review-card",
+        "title": "High-Value Expense Review",
+        "child": "expense-review-stack"
+      },
+      "expense-review-stack": {
+        "kind": "Stack",
+        "id": "expense-review-stack",
+        "children": [
+          "review-instructions",
+          "review-note-input",
+          "status-filter-select",
+          "expense-table",
+          "approve-exp-001-button",
+          "approval-result-alert"
+        ]
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 5,250.00",
+            "expense_id": "exp-001",
+            "merchant": "Riverside Venue",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 2,975.00",
+            "expense_id": "exp-002",
+            "merchant": "Event Production",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-instructions": {
+        "kind": "Text",
+        "id": "review-instructions",
+        "text": "Review high-value expenses. Enter a note, filter by status, and approve expense exp-001."
+      },
+      "review-note-input": {
+        "kind": "Input",
+        "id": "review-note-input",
+        "label": "Review note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter-select": {
+        "kind": "Select",
+        "id": "status-filter-select",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "5b445d5a7bb34683eb349ae8eb47bb46bfbbefe87517d9107e360e744e4d380e"
+  },
+  {
+    "protocol": "openui",
+    "root": "expense-review",
+    "nodes": {
+      "approval-result": {
+        "kind": "Alert",
+        "id": "approval-result",
+        "tone": "success",
+        "message": "Expense exp-001 approved. The current expense list remains a pending review snapshot until refreshed."
+      },
+      "approve-exp-001": {
+        "kind": "Button",
+        "id": "approve-exp-001",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review": {
+        "kind": "Card",
+        "id": "expense-review",
+        "title": "Expense Review",
+        "child": "review-content"
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 5,250.00",
+            "expense_id": "exp-001",
+            "merchant": "Riverside Venue",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 2,975.00",
+            "expense_id": "exp-002",
+            "merchant": "Event Production",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-content": {
+        "kind": "Stack",
+        "id": "review-content",
+        "children": [
+          "review-context",
+          "status-filter",
+          "expense-table",
+          "review-note",
+          "approve-exp-001",
+          "approval-result"
+        ]
+      },
+      "review-context": {
+        "kind": "Text",
+        "id": "review-context",
+        "text": "Review high-value expenses. Approving exp-001 approves Riverside Venue for EUR 5,250.00."
+      },
+      "review-note": {
+        "kind": "Input",
+        "id": "review-note",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter": {
+        "kind": "Select",
+        "id": "status-filter",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "113df7c1f2ceab34239b7bda7206b12a9201fd2d8dc4a24fd1cb75db31ba51fa"
+  },
+  {
+    "protocol": "a2ui",
+    "root": "expense-review-card",
+    "nodes": {
+      "approve-expense": {
+        "kind": "Button",
+        "id": "approve-expense",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review-card": {
+        "kind": "Card",
+        "id": "expense-review-card",
+        "title": "Vendor Expense Review",
+        "child": "expense-review-stack"
+      },
+      "expense-review-stack": {
+        "kind": "Stack",
+        "id": "expense-review-stack",
+        "children": [
+          "identity-text",
+          "status-filter",
+          "review-note",
+          "expense-table",
+          "approve-expense",
+          "result-alert"
+        ]
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 610.00",
+            "expense_id": "exp-001",
+            "merchant": "New Horizon Supplies",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 185.00",
+            "expense_id": "exp-002",
+            "merchant": "Trusted Office Group",
+            "status": "pending"
+          }
+        ]
+      },
+      "identity-text": {
+        "kind": "Text",
+        "id": "identity-text",
+        "text": "Review vendor expenses with clear identity, pending status, and an auditable reviewer note."
+      },
+      "result-alert": {
+        "kind": "Alert",
+        "id": "result-alert",
+        "tone": "info",
+        "message": "Expense exp-001 is ready for approval."
+      },
+      "review-note": {
+        "kind": "Input",
+        "id": "review-note",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter": {
+        "kind": "Select",
+        "id": "status-filter",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "090c316edd9f88059ae3e946f64c80fe37d767a677606a70c03bc3b65adbfc93"
+  },
+  {
+    "protocol": "openui",
+    "root": "expense-review",
+    "nodes": {
+      "approval-result": {
+        "kind": "Alert",
+        "id": "approval-result",
+        "tone": "info",
+        "message": "Expense exp-001 is ready for approval."
+      },
+      "approve-exp-001": {
+        "kind": "Button",
+        "id": "approve-exp-001",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review": {
+        "kind": "Card",
+        "id": "expense-review",
+        "title": "Vendor Expense Review",
+        "child": "review-content"
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 610.00",
+            "expense_id": "exp-001",
+            "merchant": "New Horizon Supplies",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 185.00",
+            "expense_id": "exp-002",
+            "merchant": "Trusted Office Group",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-content": {
+        "kind": "Stack",
+        "id": "review-content",
+        "children": [
+          "vendor-identity",
+          "status-filter",
+          "expense-table",
+          "reviewer-note",
+          "approve-exp-001",
+          "approval-result"
+        ]
+      },
+      "reviewer-note": {
+        "kind": "Input",
+        "id": "reviewer-note",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter": {
+        "kind": "Select",
+        "id": "status-filter",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      },
+      "vendor-identity": {
+        "kind": "Text",
+        "id": "vendor-identity",
+        "text": "Vendor compliance review: new vendor expenses"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "b1a5bf0d2e08e523f625d2a0952a4d9caf4e01d3e606adac3945dadc126ab6ab"
+  },
+  {
+    "protocol": "typed-json",
+    "root": "expense-review-card",
+    "nodes": {
+      "approval-result-alert": {
+        "kind": "Alert",
+        "id": "approval-result-alert",
+        "tone": "success",
+        "message": "Expense exp-001 approved."
+      },
+      "approve-exp-001-button": {
+        "kind": "Button",
+        "id": "approve-exp-001-button",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review-card": {
+        "kind": "Card",
+        "id": "expense-review-card",
+        "title": "Vendor Expense Review",
+        "child": "expense-review-stack"
+      },
+      "expense-review-stack": {
+        "kind": "Stack",
+        "id": "expense-review-stack",
+        "children": [
+          "review-instructions",
+          "review-note-input",
+          "status-filter-select",
+          "expense-table",
+          "approve-exp-001-button",
+          "approval-result-alert"
+        ]
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 610.00",
+            "expense_id": "exp-001",
+            "merchant": "New Horizon Supplies",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 185.00",
+            "expense_id": "exp-002",
+            "merchant": "Trusted Office Group",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-instructions": {
+        "kind": "Text",
+        "id": "review-instructions",
+        "text": "Review pending vendor expenses and record an auditable reviewer note."
+      },
+      "review-note-input": {
+        "kind": "Input",
+        "id": "review-note-input",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter-select": {
+        "kind": "Select",
+        "id": "status-filter-select",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "f6a61abd02be7ca63d070b95e0fc6a5b010f3193fe64836c54b5f3de7a0ce56c"
+  },
+  {
+    "protocol": "typed-json",
+    "root": "expense-review-card",
+    "nodes": {
+      "approval-result-alert": {
+        "kind": "Alert",
+        "id": "approval-result-alert",
+        "tone": "success",
+        "message": "Expense exp-001 approved successfully."
+      },
+      "approve-expense-button": {
+        "kind": "Button",
+        "id": "approve-expense-button",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review-card": {
+        "kind": "Card",
+        "id": "expense-review-card",
+        "title": "Vendor Expense Review",
+        "child": "expense-review-stack"
+      },
+      "expense-review-stack": {
+        "kind": "Stack",
+        "id": "expense-review-stack",
+        "children": [
+          "review-instructions",
+          "review-note-input",
+          "status-filter-select",
+          "expense-table",
+          "approve-expense-button",
+          "approval-result-alert"
+        ]
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 920.00",
+            "expense_id": "exp-001",
+            "merchant": "Baltic Components",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 275.00",
+            "expense_id": "exp-002",
+            "merchant": "Local Parts Depot",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-instructions": {
+        "kind": "Text",
+        "id": "review-instructions",
+        "text": "Review vendor expenses and record an auditable reviewer note."
+      },
+      "review-note-input": {
+        "kind": "Input",
+        "id": "review-note-input",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter-select": {
+        "kind": "Select",
+        "id": "status-filter-select",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "64dd949fd553a290d76bca02db798f23e992c86a5c9c9a199280f46ee6ae55a0"
+  },
+  {
+    "protocol": "openui",
+    "root": "expense_review",
+    "nodes": {
+      "approval_result": {
+        "kind": "Alert",
+        "id": "approval_result",
+        "tone": "success",
+        "message": "Expense exp-001 approved successfully."
+      },
+      "approve_exp001": {
+        "kind": "Button",
+        "id": "approve_exp001",
+        "label": "Approve Baltic Components",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense_review": {
+        "kind": "Card",
+        "id": "expense_review",
+        "title": "Vendor Expense Review",
+        "child": "review_content"
+      },
+      "expense_table": {
+        "kind": "Table",
+        "id": "expense_table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 920.00",
+            "expense_id": "exp-001",
+            "merchant": "Baltic Components",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 275.00",
+            "expense_id": "exp-002",
+            "merchant": "Local Parts Depot",
+            "status": "pending"
+          }
+        ]
+      },
+      "review_content": {
+        "kind": "Stack",
+        "id": "review_content",
+        "children": [
+          "vendor_identity",
+          "status_filter",
+          "expense_table",
+          "reviewer_note",
+          "approve_exp001",
+          "approval_result"
+        ]
+      },
+      "reviewer_note": {
+        "kind": "Input",
+        "id": "reviewer_note",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status_filter": {
+        "kind": "Select",
+        "id": "status_filter",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      },
+      "vendor_identity": {
+        "kind": "Text",
+        "id": "vendor_identity",
+        "text": "Vendor compliance review"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "9048428b6b3fc66727ee49a8707c01bf021e037f72f4f5bce284b358f9656908"
+  },
+  {
+    "protocol": "typed-json",
+    "root": "expense-review-card",
+    "nodes": {
+      "approval-result": {
+        "kind": "Alert",
+        "id": "approval-result",
+        "tone": "success",
+        "message": "Expense exp-001 approved."
+      },
+      "approve-exp-001": {
+        "kind": "Button",
+        "id": "approve-exp-001",
+        "label": "Approve Secure Archive Renewal",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review-card": {
+        "kind": "Card",
+        "id": "expense-review-card",
+        "title": "Vendor Compliance Renewal",
+        "child": "expense-review-content"
+      },
+      "expense-review-content": {
+        "kind": "Stack",
+        "id": "expense-review-content",
+        "children": [
+          "review-heading",
+          "review-note",
+          "status-filter",
+          "expense-table",
+          "approve-exp-001",
+          "approval-result"
+        ]
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 1,260.00",
+            "expense_id": "exp-001",
+            "merchant": "Secure Archive Renewal",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 340.00",
+            "expense_id": "exp-002",
+            "merchant": "Records Storage",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-heading": {
+        "kind": "Text",
+        "id": "review-heading",
+        "text": "Vendor compliance renewal expense review"
+      },
+      "review-note": {
+        "kind": "Input",
+        "id": "review-note",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter": {
+        "kind": "Select",
+        "id": "status-filter",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "07c0e70317b0add27078946d9d2737d4b2c65fc82116ae3690b9273075f4e36d"
+  },
+  {
+    "protocol": "openui",
+    "root": "expense_review",
+    "nodes": {
+      "approval_result": {
+        "kind": "Alert",
+        "id": "approval_result",
+        "tone": "success",
+        "message": "Expense exp-001 approved."
+      },
+      "approve_expense": {
+        "kind": "Button",
+        "id": "approve_expense",
+        "label": "Approve Secure Archive Renewal",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense_review": {
+        "kind": "Card",
+        "id": "expense_review",
+        "title": "Vendor Compliance Renewal",
+        "child": "review_content"
+      },
+      "expense_table": {
+        "kind": "Table",
+        "id": "expense_table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 1,260.00",
+            "expense_id": "exp-001",
+            "merchant": "Secure Archive Renewal",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 340.00",
+            "expense_id": "exp-002",
+            "merchant": "Records Storage",
+            "status": "pending"
+          }
+        ]
+      },
+      "review_content": {
+        "kind": "Stack",
+        "id": "review_content",
+        "children": [
+          "vendor_identity",
+          "status_filter_select",
+          "expense_table",
+          "reviewer_note",
+          "approve_expense",
+          "approval_result"
+        ]
+      },
+      "reviewer_note": {
+        "kind": "Input",
+        "id": "reviewer_note",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status_filter_select": {
+        "kind": "Select",
+        "id": "status_filter_select",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      },
+      "vendor_identity": {
+        "kind": "Text",
+        "id": "vendor_identity",
+        "text": "Vendor compliance renewal expense review"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "af97d212bbe9c6232482d402359c31d24f3cf7aaa3997bec2e9072e14d855801"
+  },
+  {
+    "protocol": "openui",
+    "root": "review_card",
+    "nodes": {
+      "approval_result": {
+        "kind": "Alert",
+        "id": "approval_result",
+        "tone": "info",
+        "message": "Expense exp-001 is ready for approval."
+      },
+      "approve_button": {
+        "kind": "Button",
+        "id": "approve_button",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense_table": {
+        "kind": "Table",
+        "id": "expense_table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 1,875.00",
+            "expense_id": "exp-001",
+            "merchant": "Independent Research Lab",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 760.00",
+            "expense_id": "exp-002",
+            "merchant": "Compliance Review Ltd",
+            "status": "pending"
+          }
+        ]
+      },
+      "review_card": {
+        "kind": "Card",
+        "id": "review_card",
+        "title": "Vendor Expense Review",
+        "child": "review_content"
+      },
+      "review_content": {
+        "kind": "Stack",
+        "id": "review_content",
+        "children": [
+          "vendor_identity",
+          "status_filter",
+          "expense_table",
+          "reviewer_note",
+          "approve_button",
+          "approval_result"
+        ]
+      },
+      "reviewer_note": {
+        "kind": "Input",
+        "id": "reviewer_note",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status_filter": {
+        "kind": "Select",
+        "id": "status_filter",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      },
+      "vendor_identity": {
+        "kind": "Text",
+        "id": "vendor_identity",
+        "text": "Vendor compliance contractor expense review"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "1a640b3d2148f18c0b78c9146d1ec828e5074b88d8fe8f8926f1246d645280c6"
+  },
+  {
+    "protocol": "typed-json",
+    "root": "expense-review-card",
+    "nodes": {
+      "approval-result-alert": {
+        "kind": "Alert",
+        "id": "approval-result-alert",
+        "tone": "success",
+        "message": "Expense exp-001 approved."
+      },
+      "approve-exp-001-button": {
+        "kind": "Button",
+        "id": "approve-exp-001-button",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-review-card": {
+        "kind": "Card",
+        "id": "expense-review-card",
+        "title": "Vendor Compliance Contractor",
+        "child": "expense-review-stack"
+      },
+      "expense-review-stack": {
+        "kind": "Stack",
+        "id": "expense-review-stack",
+        "children": [
+          "review-heading",
+          "expense-table",
+          "review-note-input",
+          "status-filter-select",
+          "approve-exp-001-button",
+          "approval-result-alert"
+        ]
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 1,875.00",
+            "expense_id": "exp-001",
+            "merchant": "Independent Research Lab",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 760.00",
+            "expense_id": "exp-002",
+            "merchant": "Compliance Review Ltd",
+            "status": "pending"
+          }
+        ]
+      },
+      "review-heading": {
+        "kind": "Text",
+        "id": "review-heading",
+        "text": "Vendor expense review"
+      },
+      "review-note-input": {
+        "kind": "Input",
+        "id": "review-note-input",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "status-filter-select": {
+        "kind": "Select",
+        "id": "status-filter-select",
+        "label": "Status",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "6bca0346f5d6a69a7fe5d3ee85325e44cdd9adec5ea96e39a970a1b673643aeb"
+  },
+  {
+    "protocol": "a2ui",
+    "root": "review-root",
+    "nodes": {
+      "approve-button": {
+        "kind": "Button",
+        "id": "approve-button",
+        "label": "Approve exp-001",
+        "action": {
+          "name": "ApproveExpense",
+          "expense_id": "exp-001"
+        }
+      },
+      "expense-table": {
+        "kind": "Table",
+        "id": "expense-table",
+        "columns": [
+          "expense_id",
+          "merchant",
+          "amount",
+          "status"
+        ],
+        "rows": [
+          {
+            "amount": "EUR 1,875.00",
+            "expense_id": "exp-001",
+            "merchant": "Independent Research Lab",
+            "status": "pending"
+          },
+          {
+            "amount": "EUR 760.00",
+            "expense_id": "exp-002",
+            "merchant": "Compliance Review Ltd",
+            "status": "pending"
+          }
+        ]
+      },
+      "identity-text": {
+        "kind": "Text",
+        "id": "identity-text",
+        "text": "Reviewing vendor expenses for vendor-compliance-contractor"
+      },
+      "note-input": {
+        "kind": "Input",
+        "id": "note-input",
+        "label": "Reviewer note",
+        "state_key": "review_note",
+        "value": ""
+      },
+      "result-alert": {
+        "kind": "Alert",
+        "id": "result-alert",
+        "tone": "info",
+        "message": "Expense exp-001 is ready for approval."
+      },
+      "review-root": {
+        "kind": "Card",
+        "id": "review-root",
+        "title": "Vendor Expense Review",
+        "child": "review-stack"
+      },
+      "review-stack": {
+        "kind": "Stack",
+        "id": "review-stack",
+        "children": [
+          "identity-text",
+          "expense-table",
+          "note-input",
+          "status-select",
+          "approve-button",
+          "result-alert"
+        ]
+      },
+      "status-select": {
+        "kind": "Select",
+        "id": "status-select",
+        "label": "Status filter",
+        "state_key": "status_filter",
+        "options": [
+          "all",
+          "pending",
+          "approved"
+        ],
+        "value": "pending"
+      }
+    },
+    "fields": {
+      "review_note": "",
+      "status_filter": "pending"
+    },
+    "source_hash": "bfea7d397b439d008e9f924929be679b3c6a8c1acb840ea649f46495246ee11e"
+  }
+]

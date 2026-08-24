@@ -1,0 +1,8 @@
+2026-08-24T14:59:27.826282Z ERROR codex_models_manager::manager: failed to refresh available models: timeout waiting for child process to exit
+2026-08-24T14:59:32.838384Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for zsh: Snapshot command timed out for zsh
+2026-08-24T14:59:34.267326Z  WARN codex_analytics::client: failed to send events request: error sending request for url (https://chatgpt.com/backend-api/codex/analytics-events/events)
+2026-08-24T14:59:35.000081Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: IO error: Connection reset by peer (os error 54), url: wss://chatgpt.com/backend-api/codex/responses
+2026-08-24T14:59:35.257453Z  WARN codex_core::session_startup_prewarm: startup websocket prewarm setup failed: stream disconnected before completion: Connection reset by peer (os error 54)
+2026-08-24T14:59:46.060592Z  WARN codex_http_client::custom_ca: encountered errors while loading native root certificates native_root_error_count=1
+2026-08-24T14:59:47.383098Z ERROR codex_api::endpoint::responses_websocket: failed to connect to websocket: IO error: invalid peer certificate: UnknownIssuer, url: wss://chatgpt.com/backend-api/codex/responses
+2026-08-24T14:59:47.399594Z  WARN codex_core::responses_retry: stream disconnected - retrying sampling request (1/5 in 193ms)... turn_id=01a03448-89b8-7282-8b0a-f15ce0b05b11 retries=1 max_retries=5 sampling_error=stream disconnected before completion: invalid peer certificate: UnknownIssuer

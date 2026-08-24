@@ -1,0 +1,172 @@
+{
+  "ok": false,
+  "protocol": "openui",
+  "version": "lang-v0.5/@openuidev/lang-core@0.2.15",
+  "diagnostics": [
+    {
+      "code": "unresolved",
+      "message": "status"
+    },
+    {
+      "code": "unresolved",
+      "message": "filter"
+    },
+    {
+      "code": "unresolved",
+      "message": "reviewer"
+    },
+    {
+      "code": "unresolved",
+      "message": "note"
+    },
+    {
+      "code": "unresolved",
+      "message": "approve"
+    },
+    {
+      "code": "unresolved",
+      "message": "button"
+    },
+    {
+      "code": "unresolved",
+      "message": "result"
+    },
+    {
+      "code": "unresolved",
+      "message": "alert"
+    }
+  ],
+  "parse": {
+    "root": {
+      "type": "element",
+      "typeName": "Card",
+      "props": {
+        "id": "review-card",
+        "title": "Vendor Expense Review",
+        "child": {
+          "type": "element",
+          "typeName": "Stack",
+          "props": {
+            "id": "review-content",
+            "children": [
+              {
+                "type": "element",
+                "typeName": "Text",
+                "props": {
+                  "id": "vendor-identity",
+                  "text": "Vendor compliance contractor expense review"
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "identity"
+              },
+              {
+                "k": "BinOp",
+                "op": "-",
+                "left": {
+                  "k": "Ph",
+                  "n": "status"
+                },
+                "right": {
+                  "k": "Ph",
+                  "n": "filter"
+                }
+              },
+              {
+                "type": "element",
+                "typeName": "Table",
+                "props": {
+                  "id": "expense-table",
+                  "columns": [
+                    "expense_id",
+                    "merchant",
+                    "amount",
+                    "status"
+                  ],
+                  "rows": [
+                    {
+                      "expense_id": "exp-001",
+                      "merchant": "Independent Research Lab",
+                      "amount": "EUR 1,875.00",
+                      "status": "pending"
+                    },
+                    {
+                      "expense_id": "exp-002",
+                      "merchant": "Compliance Review Ltd",
+                      "amount": "EUR 760.00",
+                      "status": "pending"
+                    }
+                  ]
+                },
+                "partial": false,
+                "hasDynamicProps": false,
+                "statementId": "expenses"
+              },
+              {
+                "k": "BinOp",
+                "op": "-",
+                "left": {
+                  "k": "Ph",
+                  "n": "reviewer"
+                },
+                "right": {
+                  "k": "Ph",
+                  "n": "note"
+                }
+              },
+              {
+                "k": "BinOp",
+                "op": "-",
+                "left": {
+                  "k": "Ph",
+                  "n": "approve"
+                },
+                "right": {
+                  "k": "Ph",
+                  "n": "button"
+                }
+              },
+              {
+                "k": "BinOp",
+                "op": "-",
+                "left": {
+                  "k": "Ph",
+                  "n": "result"
+                },
+                "right": {
+                  "k": "Ph",
+                  "n": "alert"
+                }
+              }
+            ]
+          },
+          "partial": false,
+          "hasDynamicProps": true,
+          "statementId": "content"
+        }
+      },
+      "partial": false,
+      "hasDynamicProps": true,
+      "statementId": "root"
+    },
+    "meta": {
+      "incomplete": false,
+      "unresolved": [
+        "status",
+        "filter",
+        "reviewer",
+        "note",
+        "approve",
+        "button",
+        "result",
+        "alert"
+      ],
+      "orphaned": [],
+      "statementCount": 4,
+      "errors": []
+    },
+    "stateDeclarations": {},
+    "queryStatements": [],
+    "mutationStatements": []
+  }
+}

@@ -1,0 +1,307 @@
+{
+  "generated_at": "2026-08-24T15:28:04.623Z",
+  "outcome": "VALID_EVAL",
+  "invalid": false,
+  "calls": 83,
+  "estimated_cost_usd": null,
+  "pairs_complete": 20,
+  "first_pass_validity": {
+    "openui": 17,
+    "a2ui": 0,
+    "typed-json": 20
+  },
+  "post_repair_validity": {
+    "openui": 19,
+    "a2ui": 12,
+    "typed-json": 20
+  },
+  "arm_metrics": {
+    "openui": {
+      "first_attempt_raw_tokens": 29150,
+      "median_first_attempt_raw_tokens": 1452,
+      "cumulative_raw_tokens": 34470,
+      "median_passage_raw_tokens": 1452,
+      "median_first_attempt_latency_ms": 36866.85641599994,
+      "median_latency_ms": 37397.32470800029,
+      "p95_latency_ms": 73045.29445700021,
+      "passage_latency_ms": [
+        41979.870958,
+        33433.30954300007,
+        32850.81829200004,
+        36866.85641599994,
+        35300.67704099999,
+        62793.79737599997,
+        56707.24616699992,
+        81599.00491599995,
+        21979.74733299995,
+        68003.95591600006,
+        25397.498582999688,
+        32308.50866699987,
+        38017.49229099974,
+        73045.29445700021,
+        40578.264958000276,
+        64633.358793000225,
+        37397.32470800029,
+        35963.9747080002,
+        19228.2616240005,
+        54156.40737600019
+      ],
+      "cumulative_response_bytes": 21316,
+      "median_response_bytes": 918,
+      "failure_classes": {
+        "adapter-or-render-error": 1,
+        "unresolved": 10
+      }
+    },
+    "a2ui": {
+      "first_attempt_raw_tokens": 35429,
+      "median_first_attempt_raw_tokens": 1771,
+      "cumulative_raw_tokens": 79663,
+      "median_passage_raw_tokens": 3977,
+      "median_first_attempt_latency_ms": 38439.92537499999,
+      "median_latency_ms": 79700.22179199988,
+      "p95_latency_ms": 99946.62108400016,
+      "passage_latency_ms": [
+        76126.731917,
+        84448.27008300004,
+        76967.46549999999,
+        99946.62108400016,
+        88528.10779100016,
+        86691.64129299996,
+        97496.4116649999,
+        70964.93291600002,
+        52162.64812599961,
+        48875.48437499977,
+        79700.22179199988,
+        72323.5432500001,
+        94939.83475199994,
+        79989.3795419992,
+        81464.6123759998,
+        75071.15654099965,
+        66329.94987400016,
+        66081.81925000018,
+        90744.09208399989,
+        212123.40408300003
+      ],
+      "cumulative_response_bytes": 63667,
+      "median_response_bytes": 1592,
+      "failure_classes": {
+        "processor-error": 28
+      }
+    },
+    "typed-json": {
+      "first_attempt_raw_tokens": 32651,
+      "median_first_attempt_raw_tokens": 1630,
+      "cumulative_raw_tokens": 32651,
+      "median_passage_raw_tokens": 1630,
+      "median_first_attempt_latency_ms": 35721.32637500018,
+      "median_latency_ms": 35721.32637500018,
+      "p95_latency_ms": 56789.193459999995,
+      "passage_latency_ms": [
+        56789.193459999995,
+        65154.302251000016,
+        35549.29054300004,
+        37983.47904200014,
+        40504.61316800024,
+        44373.32124999992,
+        34490.80616599973,
+        35138.688625000184,
+        34716.39087400003,
+        35139.31516599981,
+        34013.73620900023,
+        32642.79391700006,
+        40670.86512300093,
+        37827.143458000384,
+        36647.66279199999,
+        43581.626541999634,
+        36176.10029099928,
+        35721.32637500018,
+        27664.136166999582,
+        27748.546624999493
+      ],
+      "cumulative_response_bytes": 24317,
+      "median_response_bytes": 1219,
+      "failure_classes": {}
+    }
+  },
+  "accepted_surfaces": 51,
+  "common_criteria": {
+    "real_provider": true,
+    "pairs_complete": true,
+    "preregistration": true,
+    "runtime_semantics": true,
+    "desktop": true,
+    "web": true,
+    "shared_runtime_behavior_diff": true
+  },
+  "pairwise": {
+    "openui_vs_a2ui": {
+      "left": "openui",
+      "right": "a2ui",
+      "outcome": "OPENUI_WIN",
+      "winner": "openui",
+      "matched_scenarios": 20,
+      "criteria": {
+        "openui": {
+          "cumulative_token_advantage": true,
+          "first_pass_validity": true,
+          "repaired_validity": true,
+          "latency": true,
+          "adapter_loc": true
+        },
+        "a2ui": {
+          "cumulative_token_advantage": false,
+          "first_pass_validity": false,
+          "repaired_validity": false,
+          "latency": false,
+          "adapter_loc": true
+        }
+      },
+      "qualifies": {
+        "openui": true,
+        "a2ui": false
+      },
+      "cumulative_raw_token_ratio": 0.4326977392264916,
+      "median_latency_ratio": 0.4692248511628878,
+      "paired_intervals": {
+        "raw_tokens_left_minus_right": {
+          "mean_delta": -2259.65,
+          "low_95": -2526.2,
+          "high_95": -1977.5
+        },
+        "latency_ms_left_minus_right": {
+          "mean_delta": -40436.73290854987,
+          "low_95": -57232.71862709994,
+          "high_95": -25864.47560074969
+        }
+      }
+    },
+    "openui_vs_typed_json": {
+      "left": "openui",
+      "right": "typed-json",
+      "outcome": "TIE",
+      "winner": null,
+      "matched_scenarios": 20,
+      "criteria": {
+        "openui": {
+          "cumulative_token_advantage": false,
+          "first_pass_validity": false,
+          "repaired_validity": true,
+          "latency": true,
+          "adapter_loc": false
+        },
+        "typed-json": {
+          "cumulative_token_advantage": false,
+          "first_pass_validity": true,
+          "repaired_validity": true,
+          "latency": true,
+          "adapter_loc": true
+        }
+      },
+      "qualifies": {
+        "openui": false,
+        "typed-json": false
+      },
+      "cumulative_raw_token_ratio": 1.0557103917184771,
+      "median_latency_ratio": 1.0469187038411056,
+      "paired_intervals": {
+        "raw_tokens_left_minus_right": {
+          "mean_delta": 90.95,
+          "low_95": -177.4,
+          "high_95": 370.65
+        },
+        "latency_ms_left_minus_right": {
+          "mean_delta": 5985.416603950061,
+          "low_95": -2316.244877550077,
+          "high_95": 14533.748312450121
+        }
+      }
+    },
+    "a2ui_vs_typed_json": {
+      "left": "a2ui",
+      "right": "typed-json",
+      "outcome": "RIGHT_WIN",
+      "winner": "typed-json",
+      "matched_scenarios": 20,
+      "criteria": {
+        "a2ui": {
+          "cumulative_token_advantage": false,
+          "first_pass_validity": false,
+          "repaired_validity": false,
+          "latency": false,
+          "adapter_loc": false
+        },
+        "typed-json": {
+          "cumulative_token_advantage": true,
+          "first_pass_validity": true,
+          "repaired_validity": true,
+          "latency": true,
+          "adapter_loc": true
+        }
+      },
+      "qualifies": {
+        "a2ui": false,
+        "typed-json": true
+      },
+      "cumulative_raw_token_ratio": 2.439833389482711,
+      "median_latency_ratio": 2.231166361386251,
+      "paired_intervals": {
+        "raw_tokens_left_minus_right": {
+          "mean_delta": 2350.6,
+          "low_95": 2338.45,
+          "high_95": 2362.75
+        },
+        "latency_ms_left_minus_right": {
+          "mean_delta": 46422.149512499935,
+          "low_95": 34088.88201014987,
+          "high_95": 63670.02707944993
+        }
+      }
+    }
+  },
+  "loc": {
+    "openui": 168,
+    "a2ui": 155,
+    "typed-json": 36,
+    "breakdown": {
+      "typed-json-adapter": 34,
+      "typed-json-provenance": 2
+    },
+    "method": "non-empty non-comment adapter LOC; exact typed-json provenance declaration charged to JSON"
+  },
+  "shared_runtime_behavior_lines_modified": 0,
+  "platform": {
+    "desktop": {
+      "passed": true,
+      "accepted_count": 51,
+      "marker": "DIOXUS_RENDERED surfaces=51",
+      "evidence_complete": true
+    },
+    "web": {
+      "passed": true,
+      "accepted_count": 51,
+      "evidence_complete": true
+    }
+  },
+  "replication": {
+    "historical_outcome": "CONTROLLED_OPENUI_WIN",
+    "fresh_outcome": "OPENUI_WIN",
+    "direction_agrees": true,
+    "historical_post_repair_validity": {
+      "openui": 20,
+      "a2ui": 13
+    },
+    "fresh_post_repair_validity": {
+      "openui": 19,
+      "a2ui": 12
+    },
+    "historical_cumulative_raw_tokens": {
+      "openui": 29073,
+      "a2ui": 72947
+    },
+    "fresh_cumulative_raw_tokens": {
+      "openui": 34470,
+      "a2ui": 79663
+    }
+  }
+}

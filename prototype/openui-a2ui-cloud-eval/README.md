@@ -99,6 +99,12 @@ This remains an eight-component protocol-generation benchmark. The 12-component
 Dioxus Components product evaluation, blinded review, maintenance drills,
 accessibility, iOS, and Android remain OPE-2.
 
+The completed real run is archived under
+[`evidence/three-arm-controlled-run-2026-08-24`](evidence/three-arm-controlled-run-2026-08-24).
+Its primary outcomes are `OPENUI_WIN` against A2UI and `TIE` against strict
+typed JSON. Start with
+[`RUN-REPORT.md`](evidence/three-arm-controlled-run-2026-08-24/RUN-REPORT.md).
+
 ## Eval 0 contract
 
 - 20 paired passages, alternating protocol order.

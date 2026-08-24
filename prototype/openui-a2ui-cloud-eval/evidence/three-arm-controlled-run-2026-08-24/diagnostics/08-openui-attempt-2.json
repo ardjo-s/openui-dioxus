@@ -1,0 +1,53 @@
+{
+  "ok": false,
+  "protocol": "openui",
+  "version": "lang-v0.5/@openuidev/lang-core@0.2.15",
+  "diagnostics": [
+    {
+      "code": "unresolved",
+      "message": "review"
+    },
+    {
+      "code": "unresolved",
+      "message": "content"
+    }
+  ],
+  "parse": {
+    "root": {
+      "type": "element",
+      "typeName": "Card",
+      "props": {
+        "id": "review-card",
+        "title": "Travel Expense Review",
+        "child": {
+          "k": "BinOp",
+          "op": "-",
+          "left": {
+            "k": "Ph",
+            "n": "review"
+          },
+          "right": {
+            "k": "Ph",
+            "n": "content"
+          }
+        }
+      },
+      "partial": false,
+      "hasDynamicProps": true,
+      "statementId": "root"
+    },
+    "meta": {
+      "incomplete": false,
+      "unresolved": [
+        "review",
+        "content"
+      ],
+      "orphaned": [],
+      "statementCount": 1,
+      "errors": []
+    },
+    "stateDeclarations": {},
+    "queryStatements": [],
+    "mutationStatements": []
+  }
+}

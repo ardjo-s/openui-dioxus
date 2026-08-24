@@ -131,14 +131,14 @@ prototype/openui-a2ui-cloud-eval/scripts/test-local-provider-e2e.sh
 - [x] A fake-provider 20x3 run proves attempt topology, process isolation, repair,
   artifacts, validation, normalization, runtime probes, metrics, and checksums
   before any Luna call.
-- [ ] One frozen real `gpt-5.6-luna` low run regenerates all three arms together;
+- [x] One frozen real `gpt-5.6-luna` low run regenerates all three arms together;
   no prompt, validator, schedule, threshold, or scorer changes occur afterward.
-- [ ] Every accepted Surface passes shared state, typed action, update, replay,
+- [x] Every accepted Surface passes shared state, typed action, update, replay,
   Desktop, and Chromium Web checks without canonical-runtime behavior changes.
-- [ ] The final archive contains raw payloads, diagnostics, records, Surfaces,
+- [x] The final archive contains raw payloads, diagnostics, records, Surfaces,
   traces, screenshots, metrics, reviews, report, and verified SHA-256 checksums,
   with no credentials.
-- [ ] The report includes one three-arm table, both primary pairwise verdicts,
+- [x] The report includes one three-arm table, both primary pairwise verdicts,
   secondary A2UI-vs-JSON context, paired uncertainty intervals, OPE-1 replication
   comparison, and the explicit eight-component/OPE-2 scope boundary.
 

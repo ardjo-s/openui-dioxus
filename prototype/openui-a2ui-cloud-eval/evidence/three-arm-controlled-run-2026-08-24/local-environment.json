@@ -1,0 +1,8 @@
+{
+  "codex": "codex-cli 0.146.0",
+  "node": "v22.22.3",
+  "rust": "rustc 1.91.0 (f8297e351 2025-10-28)",
+  "os": "Darwin 25.5.0 Darwin Kernel Version 25.5.0: Tue Jun  9 22:19:21 PDT 2026; root:xnu-12377.121.10~1/RELEASE_ARM64_T8122",
+  "authentication": "ChatGPT plan",
+  "api_key_used": false
+}

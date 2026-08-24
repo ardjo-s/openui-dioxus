@@ -1,0 +1,145 @@
+  0.00s  INFO Building project...
+  2.48s  INFO Compiled [  1/154]: cfg_if
+  2.60s  INFO Compiled [  2/154]: unicode_ident
+  2.75s  INFO Compiled [  3/154]: unicode_ident
+  2.76s  INFO Compiled [  4/154]: once_cell
+  2.77s  INFO Compiled [  5/154]: version_check
+  2.79s  INFO Compiled [  6/154]: bumpalo
+  2.82s  INFO Compiled [  7/154]: pin_project_lite
+  2.89s  INFO Compiled [  8/154]: futures_sink
+  2.90s  INFO Compiled [  9/154]: futures_core
+  3.14s  INFO Compiled [ 10/154]: futures_task
+  3.29s  INFO Compiled [ 11/154]: build-script-build
+  3.29s  INFO Compiled [ 12/154]: build-script-build
+  3.29s  INFO Compiled [ 13/154]: build-script-build
+  3.32s  INFO Compiled [ 14/154]: build-script-build
+  3.35s  INFO Compiled [ 15/154]: slab
+  3.41s  INFO Compiled [ 16/154]: futures_io
+  3.43s  INFO Compiled [ 17/154]: build-script-build
+  3.60s  INFO Compiled [ 18/154]: build-script-build
+  3.68s  INFO Compiled [ 19/154]: memchr
+  3.82s  INFO Compiled [ 20/154]: build-script-build
+  4.80s  INFO Compiled [ 22/154]: tracing_core
+  4.84s  INFO Compiled [ 23/154]: scopeguard
+  4.95s  INFO Compiled [ 24/154]: smallvec
+  5.13s  INFO Compiled [ 25/154]: build-script-build
+  5.89s  INFO Compiled [ 28/154]: wasm_bindgen_shared
+  6.00s  INFO Compiled [ 29/154]: lock_api
+  6.11s  INFO Compiled [ 30/154]: build-script-build
+  6.14s  INFO Compiled [ 31/154]: wasm_bindgen_shared
+  6.16s  INFO Compiled [ 32/154]: unicode_xid
+  6.24s  INFO Compiled [ 33/154]: konst_macro_rules
+  6.33s  INFO Compiled [ 34/154]: build-script-build
+  6.45s  INFO Compiled [ 35/154]: konst
+  7.99s  INFO Compiled [ 37/154]: proc_macro2
+  8.11s  INFO Compiled [ 38/154]: quote
+ 10.72s  INFO Compiled [ 41/154]: rustversion
+ 12.49s  INFO Compiled [ 43/154]: syn
+ 12.71s  INFO Compiled [ 44/154]: syn
+ 13.68s  INFO Compiled [ 46/154]: futures_macro
+ 15.51s  INFO Compiled [ 48/154]: serde_core
+ 16.04s  INFO Compiled [ 49/154]: parking_lot_core
+ 17.80s  INFO Compiled [ 51/154]: tracing_attributes
+ 18.10s  INFO Compiled [ 52/154]: wasm_bindgen_macro_support
+ 18.23s  INFO Compiled [ 53/154]: thiserror_impl
+ 18.26s  INFO Compiled [ 54/154]: serde_derive
+ 18.40s  INFO Compiled [ 55/154]: wasm_bindgen_macro
+ 18.52s  INFO Compiled [ 56/154]: parking_lot
+ 18.59s  INFO Compiled [ 57/154]: rustc_hash
+ 19.20s  INFO Compiled [ 59/154]: const_format_proc_macros
+ 19.20s  INFO Compiled [ 60/154]: futures_channel
+ 19.26s  INFO Compiled [ 61/154]: longest_increasing_subsequence
+ 19.28s  INFO Compiled [ 62/154]: anyhow
+ 19.39s  INFO Compiled [ 63/154]: dioxus_core_types
+ 19.59s  INFO Compiled [ 64/154]: lazy_js_bundle
+ 19.88s  INFO Compiled [ 65/154]: warnings_macro
+ 19.93s  INFO Compiled [ 66/154]: fnv
+ 20.22s  INFO Compiled [ 67/154]: pin_project_internal
+ 20.28s  INFO Compiled [ 68/154]: unicode_segmentation
+ 20.33s  INFO Compiled [ 69/154]: ident_case
+ 22.09s  INFO Compiled [ 70/154]: build-script-build
+ 22.12s  INFO Compiled [ 71/154]: darling_core
+ 22.31s  INFO Compiled [ 72/154]: convert_case
+ 22.41s  INFO Compiled [ 73/154]: build-script-build
+ 22.61s  INFO Compiled [ 74/154]: autocfg
+ 22.72s  INFO Compiled [ 75/154]: build-script-build
+ 25.05s  INFO Compiled [ 76/154]: futures_util
+ 25.23s  INFO Compiled [ 77/154]: darling_macro
+ 25.36s  INFO Compiled [ 78/154]: build-script-build
+ 26.16s  INFO Compiled [ 79/154]: tracing
+ 26.37s  INFO Compiled [ 80/154]: generational_box
+ 27.57s  INFO Compiled [ 81/154]: thiserror
+ 29.64s  INFO Compiled [ 82/154]: serde
+ 29.74s  INFO Compiled [ 83/154]: subsecond_types
+ 30.45s  INFO Compiled [ 84/154]: slotmap
+ 30.68s  INFO Compiled [ 85/154]: build-script-build
+ 30.93s  INFO Compiled [ 86/154]: build-script-build
+ 31.37s  INFO Compiled [ 87/154]: const_format
+ 32.55s  INFO Compiled [ 88/154]: pin_project
+ 34.93s  INFO Compiled [ 91/154]: proc_macro2_diagnostics
+ 36.54s  INFO Compiled [ 93/154]: zmij
+ 36.93s  INFO Compiled [ 94/154]: bitflags
+ 37.10s  INFO Compiled [ 95/154]: dioxus_rsx
+ 37.30s  INFO Compiled [ 96/154]: darling
+ 37.41s  INFO Compiled [ 97/154]: itoa
+ 38.15s  INFO Compiled [ 98/154]: typenum
+ 39.86s  INFO Compiled [101/154]: enumset_derive
+ 40.22s  INFO Compiled [102/154]: num_traits
+ 40.28s  INFO Compiled [103/154]: dioxus_core_macro
+ 40.41s  INFO Compiled [104/154]: keyboard_types
+ 40.89s  INFO Compiled [106/154]: build-script-build
+ 40.98s  INFO Compiled [107/154]: dioxus_html_internal_macro
+ 41.25s  INFO Compiled [108/154]: build-script-build
+ 42.04s  INFO Compiled [109/154]: warnings
+ 42.13s  INFO Compiled [110/154]: euclid
+ 42.23s  INFO Compiled [111/154]: generic_array
+ 42.31s  INFO Compiled [112/154]: rustc_hash
+ 42.77s  INFO Compiled [113/154]: sledgehammer_utils
+ 43.47s  INFO Compiled [114/154]: async_trait
+ 44.65s  INFO Compiled [115/154]: build-script-build
+ 45.02s  INFO Compiled [116/154]: sledgehammer_bindgen_macro
+ 45.09s  INFO Compiled [117/154]: bytes
+ 45.19s  INFO Compiled [118/154]: crypto_common
+ 45.28s  INFO Compiled [119/154]: block_buffer
+ 45.56s  INFO Compiled [120/154]: send_wrapper
+ 45.89s  INFO Compiled [121/154]: enumset
+ 46.78s  INFO Compiled [123/154]: digest
+ 46.92s  INFO Compiled [124/154]: dioxus_config_macros
+ 47.31s  INFO Compiled [125/154]: dioxus_config_macro
+ 47.60s  INFO Compiled [126/154]: hex
+ 47.67s  INFO Compiled [127/154]: serde_json
+ 47.84s  INFO Compiled [128/154]: dioxus_stores_macro
+ 48.11s  INFO Compiled [129/154]: sha2
+ 48.27s  INFO Compiled [131/154]: dioxus_cli_config
+ 48.31s  INFO Compiled [132/154]: wasm_bindgen
+ 51.44s  INFO Compiled [134/154]: sledgehammer_bindgen
+ 57.11s  INFO Compiled [135/154]: wasm_bindgen_futures
+ 57.65s  INFO Compiled [136/154]: serde_wasm_bindgen
+ 58.34s  INFO Compiled [137/154]: js_sys
+ 74.87s  INFO Compiled [138/154]: subsecond
+ 75.47s  INFO Compiled [139/154]: web_sys
+ 75.98s  INFO Compiled [140/154]: dioxus_interpreter_js
+ 77.05s  INFO Compiled [141/154]: wasm_streams
+ 77.50s  INFO Compiled [142/154]: dioxus_devtools_types
+ 77.65s  INFO Compiled [143/154]: dioxus_history
+ 78.63s  INFO Compiled [144/154]: dioxus_signals
+ 79.48s  INFO Compiled [145/154]: dioxus_core
+ 79.59s  INFO Compiled [146/154]: dioxus_devtools
+ 79.85s  INFO Compiled [147/154]: dioxus_hooks
+ 81.37s  INFO Compiled [148/154]: dioxus_stores
+ 83.75s  INFO Compiled [149/154]: dioxus_html
+ 86.57s  INFO Compiled [150/154]: dioxus_document
+ 88.34s  INFO Compiled [151/154]: dioxus_web
+ 89.55s  INFO Compiled [152/154]: dioxus
+ 98.18s  INFO Compiled [153/154]: openui_a2ui_cloud_eval
+100.13s  INFO Compiled [154/154]: eval-app
+100.19s  INFO Bundling app...
+100.27s  INFO Running wasm-bindgen...
+104.47s ERROR wasm-opt failed with status code signal: 6 (SIGABRT)
+stderr: 
+stdout: compile unit size was incorrect (this may be an unsupported version of DWARF)
+UNREACHABLE executed at /Users/runner/work/binaryen/binaryen/third_party/llvm-project/DWARFEmitter.cpp:201!
+ 
+104.49s  INFO Copying asset (1/2): /Users/ardjo/CODE/worktrees/openui-dioxus-ope-3-typed-json-controlled-eval/prototype/openui-a2ui-cloud-eval/target/dx/eval-app/release/web/public/wasm/eval-app_bg.wasm
+104.63s  INFO Copying asset (2/2): /Users/ardjo/CODE/worktrees/openui-dioxus-ope-3-typed-json-controlled-eval/prototype/openui-a2ui-cloud-eval/target/dx/eval-app/release/web/public/wasm/eval-app.js
+104.64s  INFO Client build completed successfully! 🚀 path="/Users/ardjo/CODE/worktrees/openui-dioxus-ope-3-typed-json-controlled-eval/prototype/openui-a2ui-cloud-eval/target/dx/eval-app/release/web/public"

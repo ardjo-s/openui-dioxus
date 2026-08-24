@@ -1,0 +1,2 @@
+2026-08-24T15:05:14.425295Z ERROR codex_models_manager::manager: failed to refresh available models: timeout waiting for child process to exit
+2026-08-24T15:05:19.955365Z  WARN codex_core::shell_snapshot: Failed to create shell snapshot for zsh: Snapshot command timed out for zsh

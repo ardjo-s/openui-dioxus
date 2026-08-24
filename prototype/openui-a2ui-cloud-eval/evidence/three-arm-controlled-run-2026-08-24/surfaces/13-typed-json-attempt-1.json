@@ -1,0 +1,92 @@
+{
+  "protocol": "typed-json",
+  "root": "expense-review-card",
+  "nodes": {
+    "approval-result-alert": {
+      "kind": "Alert",
+      "id": "approval-result-alert",
+      "tone": "info",
+      "message": "Approval result: expense exp-001 is pending review until approved."
+    },
+    "approve-exp-001-button": {
+      "kind": "Button",
+      "id": "approve-exp-001-button",
+      "label": "Approve expense exp-001",
+      "action": {
+        "name": "ApproveExpense",
+        "expense_id": "exp-001"
+      }
+    },
+    "expense-review-card": {
+      "kind": "Card",
+      "id": "expense-review-card",
+      "title": "High-Value Expense Review",
+      "child": "expense-review-stack"
+    },
+    "expense-review-stack": {
+      "kind": "Stack",
+      "id": "expense-review-stack",
+      "children": [
+        "review-instructions",
+        "expense-table",
+        "review-note-input",
+        "status-filter-select",
+        "approve-exp-001-button",
+        "approval-result-alert"
+      ]
+    },
+    "expense-table": {
+      "kind": "Table",
+      "id": "expense-table",
+      "columns": [
+        "expense_id",
+        "merchant",
+        "amount",
+        "status"
+      ],
+      "rows": [
+        {
+          "amount": "EUR 2,450.00",
+          "expense_id": "exp-001",
+          "merchant": "Global Tech Conference",
+          "status": "pending"
+        },
+        {
+          "amount": "EUR 1,180.00",
+          "expense_id": "exp-002",
+          "merchant": "Conference Hotel",
+          "status": "pending"
+        }
+      ]
+    },
+    "review-instructions": {
+      "kind": "Text",
+      "id": "review-instructions",
+      "text": "Review high-value expenses and approve expense exp-001."
+    },
+    "review-note-input": {
+      "kind": "Input",
+      "id": "review-note-input",
+      "label": "Review note",
+      "state_key": "review_note",
+      "value": ""
+    },
+    "status-filter-select": {
+      "kind": "Select",
+      "id": "status-filter-select",
+      "label": "Status filter",
+      "state_key": "status_filter",
+      "options": [
+        "all",
+        "pending",
+        "approved"
+      ],
+      "value": "pending"
+    }
+  },
+  "fields": {
+    "review_note": "",
+    "status_filter": "pending"
+  },
+  "source_hash": "9368d25ee6e044818f2229a3cf7223cbaabf7342cf56e12470f39cecb120621c"
+}

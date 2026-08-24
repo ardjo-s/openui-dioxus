@@ -1,0 +1,112 @@
+{
+  "ok": true,
+  "protocol": "a2ui",
+  "version": "v0.9.1/@a2ui/web_core@0.10.6",
+  "diagnostics": [],
+  "resolved": {
+    "surface_id": "high-value-equipment",
+    "components": [
+      {
+        "id": "expense-review-card",
+        "component": "Card",
+        "properties": {
+          "title": "High-value expense review",
+          "child": "expense-review-stack"
+        }
+      },
+      {
+        "id": "expense-review-stack",
+        "component": "Stack",
+        "properties": {
+          "children": [
+            "review-instructions",
+            "status-filter",
+            "review-note",
+            "expense-table",
+            "approve-exp-001",
+            "approval-result"
+          ]
+        }
+      },
+      {
+        "id": "review-instructions",
+        "component": "Text",
+        "properties": {
+          "text": "Review high-value expenses. Approving an expense marks it approved."
+        }
+      },
+      {
+        "id": "status-filter",
+        "component": "Select",
+        "properties": {
+          "label": "Status filter",
+          "state_key": "status_filter",
+          "options": [
+            "all",
+            "pending",
+            "approved"
+          ],
+          "value": "pending"
+        }
+      },
+      {
+        "id": "review-note",
+        "component": "Input",
+        "properties": {
+          "label": "Review note",
+          "state_key": "review_note",
+          "value": ""
+        }
+      },
+      {
+        "id": "expense-table",
+        "component": "Table",
+        "properties": {
+          "columns": [
+            "expense_id",
+            "merchant",
+            "amount",
+            "status"
+          ],
+          "rows": [
+            {
+              "expense_id": "exp-001",
+              "merchant": "Pro Workstations",
+              "amount": "EUR 3,890.00",
+              "status": "pending"
+            },
+            {
+              "expense_id": "exp-002",
+              "merchant": "Studio Displays",
+              "amount": "EUR 1,640.00",
+              "status": "pending"
+            }
+          ]
+        }
+      },
+      {
+        "id": "approve-exp-001",
+        "component": "Button",
+        "properties": {
+          "label": "Approve exp-001",
+          "action": {
+            "name": "ApproveExpense",
+            "expense_id": "exp-001"
+          }
+        }
+      },
+      {
+        "id": "approval-result",
+        "component": "Alert",
+        "properties": {
+          "tone": "info",
+          "message": "Approval result: exp-001 is currently pending review."
+        }
+      }
+    ],
+    "data_model": {
+      "review_note": "",
+      "status_filter": "pending"
+    }
+  }
+}

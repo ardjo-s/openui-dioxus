@@ -1,0 +1,92 @@
+{
+  "protocol": "typed-json",
+  "root": "expense-review-card",
+  "nodes": {
+    "approval-result-alert": {
+      "kind": "Alert",
+      "id": "approval-result-alert",
+      "tone": "success",
+      "message": "Expense exp-001 approved."
+    },
+    "approve-exp-001-button": {
+      "kind": "Button",
+      "id": "approve-exp-001-button",
+      "label": "Approve exp-001",
+      "action": {
+        "name": "ApproveExpense",
+        "expense_id": "exp-001"
+      }
+    },
+    "expense-review-card": {
+      "kind": "Card",
+      "id": "expense-review-card",
+      "title": "Travel Expense Review",
+      "child": "expense-review-stack"
+    },
+    "expense-review-intro": {
+      "kind": "Text",
+      "id": "expense-review-intro",
+      "text": "Review travel expenses for policy-sensitive lodging and transport costs."
+    },
+    "expense-review-stack": {
+      "kind": "Stack",
+      "id": "expense-review-stack",
+      "children": [
+        "expense-review-intro",
+        "review-note-input",
+        "status-filter-select",
+        "expense-table",
+        "approve-exp-001-button",
+        "approval-result-alert"
+      ]
+    },
+    "expense-table": {
+      "kind": "Table",
+      "id": "expense-table",
+      "columns": [
+        "expense_id",
+        "merchant",
+        "amount",
+        "status"
+      ],
+      "rows": [
+        {
+          "amount": "EUR 540.00",
+          "expense_id": "exp-001",
+          "merchant": "Berlin Business Stay",
+          "status": "pending"
+        },
+        {
+          "amount": "EUR 128.00",
+          "expense_id": "exp-002",
+          "merchant": "Bahn Connect",
+          "status": "pending"
+        }
+      ]
+    },
+    "review-note-input": {
+      "kind": "Input",
+      "id": "review-note-input",
+      "label": "Review note",
+      "state_key": "review_note",
+      "value": ""
+    },
+    "status-filter-select": {
+      "kind": "Select",
+      "id": "status-filter-select",
+      "label": "Status",
+      "state_key": "status_filter",
+      "options": [
+        "all",
+        "pending",
+        "approved"
+      ],
+      "value": "pending"
+    }
+  },
+  "fields": {
+    "review_note": "",
+    "status_filter": "pending"
+  },
+  "source_hash": "4f422aafa7750301fe019e64f93dee0b64e565eeacb4ab5379f370bfae86cc73"
+}
