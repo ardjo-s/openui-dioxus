@@ -54,7 +54,8 @@ test("nested component refs inside object arrays flatten to stable ids", async (
   const result = parser.parse([
     'toast = Toast("saved_toast", "success", "Saved", "Your activity view is current.")',
     'tabs = Tabs("account_tabs", "active_tab", "activity", [{value: "activity", label: "Activity", child: toast}])',
-    'root = Toolbar("navigation_toolbar", "vertical", [tabs])',
+    'button = Button("activity_button", "Refresh activity", "ApplyFilter", "activity")',
+    'root = Toolbar("navigation_toolbar", "vertical", [tabs, button])',
   ].join("\n"));
 
   assert.deepEqual(result.meta.errors, []);

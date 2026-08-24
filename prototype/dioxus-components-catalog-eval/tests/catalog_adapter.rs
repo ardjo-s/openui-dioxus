@@ -97,5 +97,9 @@ fn five_reference_workflows_have_frozen_fingerprints() {
         let source = fs::read(fixture_dir().join(format!("{name}.json"))).unwrap();
         let surface = adapter.normalize(&source).unwrap();
         assert_eq!(surface.fingerprint(), expected[name], "{name}");
+        assert!(
+            surface.nodes.values().any(|node| node.kind == "Button"),
+            "{name} must declare one typed host action"
+        );
     }
 }

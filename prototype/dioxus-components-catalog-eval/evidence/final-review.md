@@ -20,6 +20,10 @@ files. Standards and intent were reviewed in two separate passes.
   protocols, making non-root OpenUI statements orphaned. Fixed by generating
   nested OpenUI component refs, retaining string IDs only in typed JSON, and
   proving profile and nested Tabs composition with the official parser.
+- `OPE4-R7` — Three workflow families had no declared host action, so the
+  platform corpus could not exercise a typed action per family. Fixed by adding
+  one allowlisted Button action to preferences, status-dialog, and
+  navigation-feedback fixtures and freezing the revised fingerprints.
 
 ## Final verdict
 

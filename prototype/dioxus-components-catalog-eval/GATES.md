@@ -34,6 +34,8 @@ does not make a product GO decision and must remain a stacked Draft PR.
   `CatalogAdapter` using the `static_rust_v1` profile.
 - [x] Five reference workflows normalize into stable expected canonical
   fingerprints and preserve typed state/events.
+- [x] Every reference workflow declares one allowlisted Button action so each
+  platform representative can exercise the typed host boundary.
 - [x] A thin second catalog renders one representative canonical Surface with
   equivalent typed events and no canonical-runtime behavior change.
 - [x] Record handwritten LOC, generated LOC/files, authoring duration, tests,
