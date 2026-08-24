@@ -1,0 +1,467 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openui-dioxus.dev/eval/openui-dioxus-components-eval/0.0.1-eval/surface.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "root",
+    "nodes",
+    "state"
+  ],
+  "properties": {
+    "root": {
+      "type": "string",
+      "minLength": 1
+    },
+    "nodes": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 64,
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/Label"
+          },
+          {
+            "$ref": "#/$defs/Toolbar"
+          },
+          {
+            "$ref": "#/$defs/Avatar"
+          },
+          {
+            "$ref": "#/$defs/Input"
+          },
+          {
+            "$ref": "#/$defs/Select"
+          },
+          {
+            "$ref": "#/$defs/Checkbox"
+          },
+          {
+            "$ref": "#/$defs/Switch"
+          },
+          {
+            "$ref": "#/$defs/Button"
+          },
+          {
+            "$ref": "#/$defs/Tabs"
+          },
+          {
+            "$ref": "#/$defs/Dialog"
+          },
+          {
+            "$ref": "#/$defs/Progress"
+          },
+          {
+            "$ref": "#/$defs/Toast"
+          }
+        ]
+      }
+    },
+    "state": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "profile_name": {
+          "type": "string"
+        },
+        "role_filter": {
+          "type": "string"
+        },
+        "notifications_enabled": {
+          "type": "boolean"
+        },
+        "terms_accepted": {
+          "type": "boolean"
+        },
+        "active_tab": {
+          "type": "string"
+        },
+        "dialog_open": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "Label": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "for_id",
+        "text"
+      ],
+      "properties": {
+        "kind": {
+          "const": "Label"
+        },
+        "id": {
+          "type": "string"
+        },
+        "for_id": {
+          "type": "string",
+          "format": "component-id-ref"
+        },
+        "text": {
+          "type": "string"
+        }
+      }
+    },
+    "Toolbar": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "orientation",
+        "children"
+      ],
+      "properties": {
+        "kind": {
+          "const": "Toolbar"
+        },
+        "id": {
+          "type": "string"
+        },
+        "orientation": {
+          "type": "string",
+          "enum": [
+            "horizontal",
+            "vertical"
+          ]
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "component-ref"
+          }
+        }
+      }
+    },
+    "Avatar": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "alt",
+        "fallback"
+      ],
+      "properties": {
+        "kind": {
+          "const": "Avatar"
+        },
+        "id": {
+          "type": "string"
+        },
+        "alt": {
+          "type": "string"
+        },
+        "fallback": {
+          "type": "string"
+        }
+      }
+    },
+    "Input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "label",
+        "state_key",
+        "value",
+        "placeholder"
+      ],
+      "properties": {
+        "kind": {
+          "const": "Input"
+        },
+        "id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "state_key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "placeholder": {
+          "type": "string"
+        }
+      }
+    },
+    "Select": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "label",
+        "state_key",
+        "options",
+        "value"
+      ],
+      "properties": {
+        "kind": {
+          "const": "Select"
+        },
+        "id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "state_key": {
+          "type": "string"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "Checkbox": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "label",
+        "state_key",
+        "checked"
+      ],
+      "properties": {
+        "kind": {
+          "const": "Checkbox"
+        },
+        "id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "state_key": {
+          "type": "string"
+        },
+        "checked": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Switch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "label",
+        "state_key",
+        "checked"
+      ],
+      "properties": {
+        "kind": {
+          "const": "Switch"
+        },
+        "id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "state_key": {
+          "type": "string"
+        },
+        "checked": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Button": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "label",
+        "action",
+        "target_id"
+      ],
+      "properties": {
+        "kind": {
+          "const": "Button"
+        },
+        "id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "action": {
+          "type": "string",
+          "enum": [
+            "SubmitProfile",
+            "ApplyFilter"
+          ]
+        },
+        "target_id": {
+          "type": "string"
+        }
+      }
+    },
+    "Tabs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "state_key",
+        "value",
+        "items"
+      ],
+      "properties": {
+        "kind": {
+          "const": "Tabs"
+        },
+        "id": {
+          "type": "string"
+        },
+        "state_key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "value",
+              "label",
+              "child"
+            ],
+            "properties": {
+              "value": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "child": {
+                "type": "string",
+                "format": "component-ref"
+              }
+            }
+          }
+        }
+      }
+    },
+    "Dialog": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "title",
+        "open_state_key",
+        "children"
+      ],
+      "properties": {
+        "kind": {
+          "const": "Dialog"
+        },
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "open_state_key": {
+          "type": "string"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "component-ref"
+          }
+        }
+      }
+    },
+    "Progress": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "label",
+        "value",
+        "max"
+      ],
+      "properties": {
+        "kind": {
+          "const": "Progress"
+        },
+        "id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "value": {
+          "type": "number"
+        },
+        "max": {
+          "type": "number"
+        }
+      }
+    },
+    "Toast": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id",
+        "tone",
+        "title",
+        "message"
+      ],
+      "properties": {
+        "kind": {
+          "const": "Toast"
+        },
+        "id": {
+          "type": "string"
+        },
+        "tone": {
+          "type": "string",
+          "enum": [
+            "info",
+            "success",
+            "warning",
+            "error"
+          ]
+        },
+        "title": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

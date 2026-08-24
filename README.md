@@ -2,7 +2,7 @@
 
 OpenUI-Dioxus explores a deterministic Rust execution layer for interfaces proposed in OpenUI Lang and rendered with Dioxus on web, desktop, and mobile.
 
-> **Status:** architecture and falsification prototype. The prototype is a technical go, but the product decision remains open until the MCP vertical is compared with a simpler Dioxus adapter.
+> **Status:** protocol comparison and catalog proof complete. OpenUI beat A2UI but tied strict typed JSON in the controlled generation benchmark; the product decision remains open until the broader quality, maintenance, accessibility, and platform evaluation finishes.
 
 No package, stable API, compatibility claim, or open-source license has been released yet. Licensing and governance are explicit post-go decisions, not assumptions hidden in the repository setup.
 
@@ -79,6 +79,8 @@ This is a contract target, not yet a released compatibility claim. The current p
 | [Decision-review register](docs/architecture/runtime-contract-review-register.md) | The evidence required to reopen an existing runtime decision during implementation. |
 | [ELI5 explainers](docs/explainers/) | Visual explanations of runtime history, catalog generation, adapter seams, and UI primitive layers. |
 | [Prototype](prototype/openui-dioxus-preview/README.md) | The runnable eight-component proof, its checks, and its explicit limitations. |
+| [Three-arm protocol evaluation](prototype/openui-a2ui-cloud-eval/README.md) | The controlled OpenUI, A2UI, and strict typed-JSON comparison and its archived evidence. |
+| [Dioxus Components catalog evaluation](prototype/dioxus-components-catalog-eval/README.md) | The frozen 12-component manifest, generated artifacts, static adapter, fixtures, and evidence. |
 
 The five visual explainers are also available directly:
 
@@ -90,9 +92,11 @@ The five visual explainers are also available directly:
 
 ## Current proof and next decision
 
-The throwaway prototype currently demonstrates a closed eight-component catalog, atomic proposal rejection, typed action mediation, deterministic state updates, inert replay, and compile checks for desktop, web/WASM, and mobile feature sets.
+The controlled three-arm run found OpenUI more efficient and reliable than A2UI, while strict typed JSON remained statistically tied with OpenUI. This is a protocol-generation result, not a product GO.
 
-The next frontier is [decision 09: prototype the enriched MCP vertical](docs/decisions/09-prototype-the-mcp-vertical.md). It must compare this architecture with a materially simpler Dioxus adapter before the project claims product value or begins a production runtime.
+The frozen catalog proof now derives an official OpenUI-compatible LibrarySpec, strict JSON Schema, prompt, documentation, static Rust registry, and release identity from one reviewed 12-component Dioxus Components manifest. Five workflows preserve canonical fingerprints, and a thin second catalog swaps without runtime changes.
+
+The remaining evaluation must compare generated interface quality, correction and maintenance cost, accessibility, and real web, desktop, and mobile behavior before the project claims product value or begins a production runtime.
 
 ## `v0.1` non-goals
 

@@ -1,0 +1,38 @@
+{
+  "ticket": "OPE-4",
+  "scope": "frozen 12-component Dioxus Components catalog; no model evaluation",
+  "authoring_started_at": "2026-08-24T16:14:18.860Z",
+  "authoring_ended_at": "2026-08-24T17:00:56Z",
+  "authoring_wall_clock_seconds": 2797,
+  "source_repository": "https://github.com/DioxusLabs/dioxus-components",
+  "source_commit": "bf007c15d0cf4d04d3181cc46cf12325aa773955",
+  "source_tree": "9b969f03d6d31c4ef3be006b730759720b4415d2",
+  "upstream_crate": "dioxus-primitives@0.0.1",
+  "dioxus_version": "0.7.10",
+  "component_count": 12,
+  "capability_family_count": 10,
+  "workflow_count": 5,
+  "node_test_count": 4,
+  "rust_test_count_with_ssr": 10,
+  "upstream_binding_count": 12,
+  "handwritten_file_count": 25,
+  "handwritten_nonempty_loc": 2361,
+  "generated_file_count": 7,
+  "generated_nonempty_loc": 1154,
+  "runtime_behavior_diff_lines": 0,
+  "catalog_release_hash": "b2563ed0c7f6ea6c3b533fc084d98306c0f1ddd65584e6b4c96b8f7f08134768",
+  "schema_hash": "e976c87658c1d988b862fe71fd8940c0445793ef300f74e2e50b610118a40c8a",
+  "semantics_hash": "83e6959184cb983b1daa5601424a738029961e5ae70b76449d090abc2808519e",
+  "adapter_build_id": "ope4-e84583e0143bfbbd-34b1b1dd",
+  "thin_catalog": {
+    "distinct_release_identity": true,
+    "representative_surface_fingerprint_equal": true,
+    "typed_event_equal": true
+  },
+  "platform_scope": {
+    "ssr": "PASS with explicit inert Dialog adaptation",
+    "web": "deferred to OPE-6",
+    "desktop": "deferred to OPE-6",
+    "mobile": "deferred to OPE-6"
+  }
+}

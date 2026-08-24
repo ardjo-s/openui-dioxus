@@ -1,0 +1,9 @@
+{
+  "root": "preferences_toolbar",
+  "nodes": [
+    { "kind": "Toolbar", "id": "preferences_toolbar", "orientation": "vertical", "children": ["notifications_switch", "terms_checkbox"] },
+    { "kind": "Switch", "id": "notifications_switch", "label": "Enable notifications", "state_key": "notifications_enabled", "checked": true },
+    { "kind": "Checkbox", "id": "terms_checkbox", "label": "Accept terms", "state_key": "terms_accepted", "checked": false }
+  ],
+  "state": { "notifications_enabled": true, "terms_accepted": false }
+}

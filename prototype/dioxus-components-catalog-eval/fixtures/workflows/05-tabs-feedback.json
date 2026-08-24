@@ -1,0 +1,9 @@
+{
+  "root": "navigation_toolbar",
+  "nodes": [
+    { "kind": "Toolbar", "id": "navigation_toolbar", "orientation": "vertical", "children": ["account_tabs"] },
+    { "kind": "Tabs", "id": "account_tabs", "state_key": "active_tab", "value": "activity", "items": [{ "value": "activity", "label": "Activity", "child": "saved_toast" }] },
+    { "kind": "Toast", "id": "saved_toast", "tone": "success", "title": "Saved", "message": "Your activity view is current." }
+  ],
+  "state": { "active_tab": "activity" }
+}
