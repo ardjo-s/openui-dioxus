@@ -10,8 +10,10 @@ mkdir -p "$evidence/screenshots" "$evidence/traces"
 result="$evidence/ios.json"
 status=INVALID_EVAL
 error=""
+log_pid=""
 
 finish() {
+  if [ -n "$log_pid" ]; then kill "$log_pid" 2>/dev/null || true; fi
   jq -n --arg status "$status" --arg error "$error" \
     '{platform:"ios",status:$status,passed:($status == "PASS"),evidence_complete:($status == "PASS"),surfaces:40,families:5,error:(if $error == "" then null else $error end)}' > "$result"
 }
@@ -31,17 +33,27 @@ if [ -z "$app" ]; then error="iOS app bundle not found"; exit 1; fi
 bundle=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$app/Info.plist")
 xcrun simctl install "$device" "$app"
 console="$evidence/traces/ios-console.log"
-xcrun simctl launch --console "$device" "$bundle" > "$console" 2>&1 &
-launch_pid=$!
+system_log="$evidence/traces/ios-system.log"
+xcrun simctl spawn "$device" log stream --style compact --level info --predicate 'process == "PlatformApp"' > "$system_log" 2>&1 &
+log_pid=$!
+sleep 2
+if ! xcrun simctl launch --terminate-running-process "$device" "$bundle" > "$console" 2>&1; then
+  error="simulator launch failed"
+  exit 1
+fi
 marker="PLATFORM_SELF_TEST_PASS surfaces=40 families=5"
 for _ in $(seq 1 90); do
-  if grep -q "$marker" "$console"; then status=PASS; break; fi
+  if grep -q "$marker" "$console" || grep -q "$marker" "$system_log"; then status=PASS; break; fi
   sleep 1
 done
 xcrun simctl io "$device" screenshot "$evidence/screenshots/ios-simulator.png"
-kill "$launch_pid" 2>/dev/null || true
-if [ "$status" != PASS ]; then error="runtime marker not observed"; exit 1; fi
+if [ "$status" != PASS ]; then
+  xcrun simctl spawn "$device" log show --last 10m --style compact --predicate 'process == "PlatformApp"' > "$evidence/traces/ios-diagnostics.log" 2>&1 || true
+  error="runtime marker not observed"
+  exit 1
+fi
 if [ ! -s "$evidence/screenshots/ios-simulator.png" ]; then status=INVALID_EVAL; error="iOS screenshot missing"; exit 1; fi
 width=$(sips -g pixelWidth "$evidence/screenshots/ios-simulator.png" | awk '/pixelWidth/ {print $2}')
 height=$(sips -g pixelHeight "$evidence/screenshots/ios-simulator.png" | awk '/pixelHeight/ {print $2}')
 if [ "$width" -lt 320 ] || [ "$height" -lt 240 ]; then status=INVALID_EVAL; error="iOS screenshot dimensions invalid"; exit 1; fi
+xcrun simctl terminate "$device" "$bundle" 2>/dev/null || true

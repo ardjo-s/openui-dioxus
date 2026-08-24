@@ -202,6 +202,9 @@ pub fn App() -> Element {
         }
         println!("PLATFORM_RENDERED surfaces={count} families={family_count}");
         println!("PLATFORM_SELF_TEST_PASS surfaces={passed} families={family_count}");
+        dioxus_logger::tracing::info!(
+            "PLATFORM_SELF_TEST_PASS surfaces={passed} families={family_count}"
+        );
     });
     let index = current().min(count.saturating_sub(1));
     let entry = entries[index].clone();

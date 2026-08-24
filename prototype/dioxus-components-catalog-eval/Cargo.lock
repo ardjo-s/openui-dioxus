@@ -992,6 +992,7 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "dioxus",
+ "dioxus-logger",
  "dioxus-primitives",
  "dioxus-ssr",
  "hex",

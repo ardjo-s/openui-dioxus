@@ -10,7 +10,7 @@ title = "OpenUI-Dioxus platform evaluation"
 index_on_404 = true
 
 [bundle]
-identifier = "com.ardjo.openui-dioxus-platform-eval"
+identifier = "com.ardjo.openuidioxus.platformeval"
 publisher = "OpenUI-Dioxus prototype"
 short_description = "OPE-6 platform evaluation"
 long_description = "Disposable Web, Desktop, iOS, and Android platform proof."
