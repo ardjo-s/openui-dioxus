@@ -12,8 +12,13 @@ if [ "$COUNT" -eq 0 ]; then
 fi
 
 cd "$ROOT"
-dx build --platform web --release > "$RESULTS/traces/web-build.log" 2>&1
-INDEX=$(find "$ROOT/web-dist" "$ROOT/target/dx" -name index.html -type f 2>/dev/null | head -1)
+if ! dx build --platform web --release > "$RESULTS/traces/web-build.log" 2>&1; then
+  jq -n --argjson count "$COUNT" \
+    '{passed:false,accepted_count:$count,evidence_complete:false,error:"Dioxus Web build failed"}' \
+    > "$RESULTS/web.json"
+  exit 0
+fi
+INDEX=$(find "$ROOT/target/dx" -name index.html -type f 2>/dev/null | head -1 || true)
 if [ -z "$INDEX" ]; then
   jq -n --argjson count "$COUNT" '{passed:false,accepted_count:$count,error:"web index not found"}' > "$RESULTS/web.json"
   exit 0

@@ -23,8 +23,24 @@ test("all accepted Surfaces preserve state, action, update and replay in Dioxus 
 
     const note = panel.locator('[data-state-key="review_note"]');
     const filter = panel.locator('[data-state-key="status_filter"]');
+    await expect(panel, `surface ${index} must start outside replay`).toHaveAttribute("data-replay", "false");
+    await expect(filter, `surface ${index} filter must be interactive`).toBeEnabled();
     await note.fill(`review-${index}`);
-    await filter.selectOption("all");
+    const initialFilter = await filter.inputValue();
+    const nextFilter = await filter.locator("option").evaluateAll(
+      (options, initial) => options.map((option) => option.value).find((value) => value !== initial),
+      initialFilter,
+    );
+    const selectedFilter = nextFilter ?? initialFilter;
+    if (nextFilter) {
+      await filter.evaluate((element, value) => {
+        element.value = value;
+        element.dispatchEvent(new Event("change", { bubbles: true }));
+      }, nextFilter);
+      await expect(panel.locator('[data-runtime-status="true"]')).toContainText(
+        "field:status_filter",
+      );
+    }
     const action = panel.locator('[data-action="ApproveExpense"]');
     await action.click();
     await action.click();
@@ -34,7 +50,7 @@ test("all accepted Surfaces preserve state, action, update and replay in Dioxus 
     );
     await panel.locator('[data-host-action="update"]').click();
     await expect(note).toHaveValue(`review-${index}`);
-    await expect(filter).toHaveValue("all");
+    await expect(filter).toHaveValue(selectedFilter);
     await panel.locator('[data-host-action="replay"]').click();
     await expect(panel).toHaveAttribute("data-replay", "true");
     await expect(panel.locator('[data-runtime-status="true"]')).toContainText("effects=0");

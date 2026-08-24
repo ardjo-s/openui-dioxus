@@ -77,3 +77,18 @@ test("missing local platform evidence makes the evaluation invalid", () => {
   values.platform.web.evidence_complete = true;
   assert.equal(scoreEvaluation(values).pre_mobile_outcome, "INVALID_EVAL");
 });
+
+test("token and latency metrics include completed invalid generations", () => {
+  const values = input();
+  for (const item of values.records.filter((item) => item.protocol === "a2ui")) {
+    item.accepted = false;
+    item.coverage = { passed: false };
+    item.runtime_probe = null;
+  }
+  values.platform.desktop.accepted_count = 20;
+  values.platform.web.accepted_count = 20;
+  const result = scoreEvaluation(values);
+  assert.equal(result.protocol_metrics.a2ui.median_raw_tokens, 1000);
+  assert.equal(result.protocol_metrics.a2ui.median_latency_ms, 1000);
+  assert.equal(result.median_raw_token_advantage, 0.4);
+});

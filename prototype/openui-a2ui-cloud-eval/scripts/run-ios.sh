@@ -11,10 +11,14 @@ ERROR=""
 
 finish() {
   jq -n --arg status "$STATUS" --arg error "$ERROR" \
-    '{status:$status,error:($error | select(length > 0)),pair_count:2}' > "$RESULTS/mobile.json"
+    '{status:$status,error:(if $error == "" then null else $error end),pair_count:2}' > "$RESULTS/mobile.json"
 }
 trap finish EXIT
 
+if ! xcrun -f simctl >/dev/null 2>&1; then
+  ERROR="simctl is unavailable; install or select full Xcode"
+  exit 0
+fi
 DEVICE=$(xcrun simctl list devices available -j | jq -r '[.devices[][] | select(.name | startswith("iPhone"))][0].udid // empty')
 if [ -z "$DEVICE" ]; then ERROR="no available iPhone simulator"; exit 0; fi
 xcrun simctl boot "$DEVICE" 2>/dev/null || true
@@ -25,7 +29,7 @@ if ! dx build --platform ios --release > "$LOG" 2>&1; then
   ERROR="Dioxus iOS build failed"
   exit 0
 fi
-APP=$(find "$ROOT/web-dist" "$ROOT/target/dx" -name '*.app' -type d 2>/dev/null | head -1)
+APP=$(find "$ROOT/target/dx" -name '*.app' -type d 2>/dev/null | head -1 || true)
 if [ -z "$APP" ]; then ERROR="iOS app bundle not found"; exit 0; fi
 BUNDLE=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$APP/Info.plist")
 xcrun simctl install "$DEVICE" "$APP"

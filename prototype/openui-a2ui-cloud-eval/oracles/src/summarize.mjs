@@ -8,6 +8,7 @@ import { scoreEvaluation } from "./score.mjs";
 const [resultsDir] = process.argv.slice(2);
 if (!resultsDir) throw new Error("usage: summarize.mjs <results-dir>");
 const readJson = async (name) => JSON.parse(await readFile(path.join(resultsDir, name), "utf8"));
+const generation = await readJson("generation.json");
 const records = (await readFile(path.join(resultsDir, "records.jsonl"), "utf8"))
   .trim()
   .split("\n")
@@ -15,7 +16,7 @@ const records = (await readFile(path.join(resultsDir, "records.jsonl"), "utf8"))
   .map(JSON.parse);
 const summary = scoreEvaluation({
   records,
-  generation: await readJson("generation.json"),
+  generation,
   platform: await readJson("platform.json"),
   loc: await readJson("adapter-loc.json"),
   runtimeDiff: (await readJson("runtime-diff.json")).lines_modified,
@@ -30,7 +31,7 @@ await writeFile(path.join(resultsDir, "summary.json"), JSON.stringify(summary, n
 await writeFile(
   path.join(resultsDir, "summary.md"),
   [
-    "# OpenUI vs A2UI cloud evaluation",
+    `# OpenUI vs A2UI ${generation.provider === "codex" ? "local ChatGPT-plan" : "cloud API"} evaluation`,
     "",
     `**Pre-mobile outcome:** ${summary.pre_mobile_outcome}`,
     "",

@@ -47,7 +47,13 @@ if [ "$(uname -s)" = "Linux" ] && command -v import >/dev/null 2>&1; then
   import -display "$DISPLAY" -window root "$SCREENSHOT" || true
 fi
 if [ "$(uname -s)" = "Darwin" ] && command -v screencapture >/dev/null 2>&1; then
-  WINDOW_ID=$(swift "$ROOT/scripts/find-macos-window-id.swift" "$APP_PID" 2>/dev/null || true)
+  WINDOW_ID=""
+  for _ in $(seq 1 15); do
+    WINDOW_ID=$(swift "$ROOT/scripts/find-macos-window-id.swift" "$APP_PID" 2>/dev/null || true)
+    if [[ "$WINDOW_ID" =~ ^[0-9]+$ ]]; then break; fi
+    if ! kill -0 "$APP_PID" 2>/dev/null; then break; fi
+    sleep 1
+  done
   if [[ "$WINDOW_ID" =~ ^[0-9]+$ ]]; then
     screencapture -x -l "$WINDOW_ID" "$SCREENSHOT" || true
   fi

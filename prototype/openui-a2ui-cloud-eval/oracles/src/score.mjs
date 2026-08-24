@@ -45,13 +45,13 @@ export function scoreEvaluation({ records, generation, platform, loc, runtimeDif
   );
   const protocolMetrics = Object.fromEntries(
     ["openui", "a2ui"].map((protocol) => {
-      const accepted = aggregates.filter((item) => item.protocol === protocol && item.accepted);
+      const completed = aggregates.filter((item) => item.protocol === protocol);
       return [
         protocol,
         {
-          median_raw_tokens: median(accepted.map((item) => item.raw_tokens)),
-          median_latency_ms: median(accepted.map((item) => item.latency_ms)),
-          p95_latency_ms: percentile(accepted.map((item) => item.latency_ms), 0.95),
+          median_raw_tokens: median(completed.map((item) => item.raw_tokens)),
+          median_latency_ms: median(completed.map((item) => item.latency_ms)),
+          p95_latency_ms: percentile(completed.map((item) => item.latency_ms), 0.95),
         },
       ];
     }),
