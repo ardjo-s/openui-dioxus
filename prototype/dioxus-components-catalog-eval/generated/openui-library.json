@@ -1,0 +1,549 @@
+{
+  "id": "openui-dioxus-components-eval@0.0.1-eval",
+  "root": "Toolbar",
+  "components": {
+    "Label": {
+      "signature": "Label(id: string, for_id: string, text: string)",
+      "description": "Accessible text label associated with a known control."
+    },
+    "Toolbar": {
+      "signature": "Toolbar(id: string, orientation: \"horizontal\" | \"vertical\", children: Component[])",
+      "description": "Ordered action and content container used as the catalog root."
+    },
+    "Avatar": {
+      "signature": "Avatar(id: string, alt: string, fallback: string)",
+      "description": "Identity image fallback with deterministic alternative text."
+    },
+    "Input": {
+      "signature": "Input(id: string, label: string, state_key: string, value: string, placeholder: string)",
+      "description": "Single-line text input bound to an allowlisted runtime state key."
+    },
+    "Select": {
+      "signature": "Select(id: string, label: string, state_key: string, options: string[], value: string)",
+      "description": "Single-value selection from a closed option list."
+    },
+    "Checkbox": {
+      "signature": "Checkbox(id: string, label: string, state_key: string, checked: boolean)",
+      "description": "Independent boolean input bound to runtime state."
+    },
+    "Switch": {
+      "signature": "Switch(id: string, label: string, state_key: string, checked: boolean)",
+      "description": "Immediate on/off setting bound to runtime state."
+    },
+    "Button": {
+      "signature": "Button(id: string, label: string, action: \"SubmitProfile\" | \"ApplyFilter\", target_id: string)",
+      "description": "Invokes one allowlisted typed host action."
+    },
+    "Tabs": {
+      "signature": "Tabs(id: string, state_key: string, value: string, items: object[])",
+      "description": "Local navigation between a closed set of panels."
+    },
+    "Dialog": {
+      "signature": "Dialog(id: string, title: string, open_state_key: string, children: Component[])",
+      "description": "Modal overlay with runtime-owned open state."
+    },
+    "Progress": {
+      "signature": "Progress(id: string, label: string, value: number, max: number)",
+      "description": "Determinate progress with explicit value and maximum."
+    },
+    "Toast": {
+      "signature": "Toast(id: string, tone: \"info\" | \"success\" | \"warning\" | \"error\", title: string, message: string)",
+      "description": "Bounded status feedback that never performs a host effect."
+    }
+  },
+  "schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "Label": {
+        "$ref": "#/$defs/Label"
+      },
+      "Toolbar": {
+        "$ref": "#/$defs/Toolbar"
+      },
+      "Avatar": {
+        "$ref": "#/$defs/Avatar"
+      },
+      "Input": {
+        "$ref": "#/$defs/Input"
+      },
+      "Select": {
+        "$ref": "#/$defs/Select"
+      },
+      "Checkbox": {
+        "$ref": "#/$defs/Checkbox"
+      },
+      "Switch": {
+        "$ref": "#/$defs/Switch"
+      },
+      "Button": {
+        "$ref": "#/$defs/Button"
+      },
+      "Tabs": {
+        "$ref": "#/$defs/Tabs"
+      },
+      "Dialog": {
+        "$ref": "#/$defs/Dialog"
+      },
+      "Progress": {
+        "$ref": "#/$defs/Progress"
+      },
+      "Toast": {
+        "$ref": "#/$defs/Toast"
+      }
+    },
+    "$defs": {
+      "Label": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "for_id",
+          "text"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "for_id": {
+            "type": "string",
+            "format": "component-id-ref"
+          },
+          "text": {
+            "type": "string"
+          }
+        },
+        "description": "Accessible text label associated with a known control."
+      },
+      "Toolbar": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "orientation",
+          "children"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "orientation": {
+            "type": "string",
+            "enum": [
+              "horizontal",
+              "vertical"
+            ]
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/Label"
+                },
+                {
+                  "$ref": "#/$defs/Toolbar"
+                },
+                {
+                  "$ref": "#/$defs/Avatar"
+                },
+                {
+                  "$ref": "#/$defs/Input"
+                },
+                {
+                  "$ref": "#/$defs/Select"
+                },
+                {
+                  "$ref": "#/$defs/Checkbox"
+                },
+                {
+                  "$ref": "#/$defs/Switch"
+                },
+                {
+                  "$ref": "#/$defs/Button"
+                },
+                {
+                  "$ref": "#/$defs/Tabs"
+                },
+                {
+                  "$ref": "#/$defs/Dialog"
+                },
+                {
+                  "$ref": "#/$defs/Progress"
+                },
+                {
+                  "$ref": "#/$defs/Toast"
+                }
+              ]
+            }
+          }
+        },
+        "description": "Ordered action and content container used as the catalog root."
+      },
+      "Avatar": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "alt",
+          "fallback"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "alt": {
+            "type": "string"
+          },
+          "fallback": {
+            "type": "string"
+          }
+        },
+        "description": "Identity image fallback with deterministic alternative text."
+      },
+      "Input": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "label",
+          "state_key",
+          "value",
+          "placeholder"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "state_key": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "placeholder": {
+            "type": "string"
+          }
+        },
+        "description": "Single-line text input bound to an allowlisted runtime state key."
+      },
+      "Select": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "label",
+          "state_key",
+          "options",
+          "value"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "state_key": {
+            "type": "string"
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "description": "Single-value selection from a closed option list."
+      },
+      "Checkbox": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "label",
+          "state_key",
+          "checked"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "state_key": {
+            "type": "string"
+          },
+          "checked": {
+            "type": "boolean"
+          }
+        },
+        "description": "Independent boolean input bound to runtime state."
+      },
+      "Switch": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "label",
+          "state_key",
+          "checked"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "state_key": {
+            "type": "string"
+          },
+          "checked": {
+            "type": "boolean"
+          }
+        },
+        "description": "Immediate on/off setting bound to runtime state."
+      },
+      "Button": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "label",
+          "action",
+          "target_id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "SubmitProfile",
+              "ApplyFilter"
+            ]
+          },
+          "target_id": {
+            "type": "string"
+          }
+        },
+        "description": "Invokes one allowlisted typed host action."
+      },
+      "Tabs": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "state_key",
+          "value",
+          "items"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "state_key": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "value",
+                "label",
+                "child"
+              ],
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "label": {
+                  "type": "string"
+                },
+                "child": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/$defs/Label"
+                    },
+                    {
+                      "$ref": "#/$defs/Toolbar"
+                    },
+                    {
+                      "$ref": "#/$defs/Avatar"
+                    },
+                    {
+                      "$ref": "#/$defs/Input"
+                    },
+                    {
+                      "$ref": "#/$defs/Select"
+                    },
+                    {
+                      "$ref": "#/$defs/Checkbox"
+                    },
+                    {
+                      "$ref": "#/$defs/Switch"
+                    },
+                    {
+                      "$ref": "#/$defs/Button"
+                    },
+                    {
+                      "$ref": "#/$defs/Tabs"
+                    },
+                    {
+                      "$ref": "#/$defs/Dialog"
+                    },
+                    {
+                      "$ref": "#/$defs/Progress"
+                    },
+                    {
+                      "$ref": "#/$defs/Toast"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "description": "Local navigation between a closed set of panels."
+      },
+      "Dialog": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "title",
+          "open_state_key",
+          "children"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "open_state_key": {
+            "type": "string"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/Label"
+                },
+                {
+                  "$ref": "#/$defs/Toolbar"
+                },
+                {
+                  "$ref": "#/$defs/Avatar"
+                },
+                {
+                  "$ref": "#/$defs/Input"
+                },
+                {
+                  "$ref": "#/$defs/Select"
+                },
+                {
+                  "$ref": "#/$defs/Checkbox"
+                },
+                {
+                  "$ref": "#/$defs/Switch"
+                },
+                {
+                  "$ref": "#/$defs/Button"
+                },
+                {
+                  "$ref": "#/$defs/Tabs"
+                },
+                {
+                  "$ref": "#/$defs/Dialog"
+                },
+                {
+                  "$ref": "#/$defs/Progress"
+                },
+                {
+                  "$ref": "#/$defs/Toast"
+                }
+              ]
+            }
+          }
+        },
+        "description": "Modal overlay with runtime-owned open state."
+      },
+      "Progress": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "label",
+          "value",
+          "max"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "value": {
+            "type": "number"
+          },
+          "max": {
+            "type": "number"
+          }
+        },
+        "description": "Determinate progress with explicit value and maximum."
+      },
+      "Toast": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "tone",
+          "title",
+          "message"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "tone": {
+            "type": "string",
+            "enum": [
+              "info",
+              "success",
+              "warning",
+              "error"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "description": "Bounded status feedback that never performs a host effect."
+      }
+    }
+  }
+}

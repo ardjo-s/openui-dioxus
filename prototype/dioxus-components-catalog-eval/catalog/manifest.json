@@ -1,0 +1,273 @@
+{
+  "catalog_id": "openui-dioxus-components-eval",
+  "catalog_contract_version": "0.1.0",
+  "release_version": "0.0.1-eval",
+  "execution_profile": "static_rust_v1",
+  "root": "Toolbar",
+  "source": {
+    "repository": "https://github.com/DioxusLabs/dioxus-components",
+    "commit": "bf007c15d0cf4d04d3181cc46cf12325aa773955",
+    "tree": "9b969f03d6d31c4ef3be006b730759720b4415d2",
+    "crate": "dioxus-primitives",
+    "crate_version": "0.0.1",
+    "upstream_dioxus_requirement": "0.7.8",
+    "resolved_dioxus_version": "0.7.10",
+    "license": "MIT OR Apache-2.0"
+  },
+  "state_keys": [
+    "profile_name",
+    "role_filter",
+    "notifications_enabled",
+    "terms_accepted",
+    "active_tab",
+    "dialog_open"
+  ],
+  "state_schema": {
+    "profile_name": "string",
+    "role_filter": "string",
+    "notifications_enabled": "boolean",
+    "terms_accepted": "boolean",
+    "active_tab": "string",
+    "dialog_open": "boolean"
+  },
+  "actions": [
+    {
+      "name": "SubmitProfile",
+      "input": { "target_id": "string" }
+    },
+    {
+      "name": "ApplyFilter",
+      "input": { "target_id": "string" }
+    }
+  ],
+  "components": [
+    {
+      "name": "Label",
+      "capability_families": ["content"],
+      "description": "Accessible text label associated with a known control.",
+      "prop_order": ["id", "for_id", "text"],
+      "props": {
+        "id": { "type": "string", "required": true },
+        "for_id": { "type": "string", "format": "component-id-ref", "required": true },
+        "text": { "type": "string", "required": true }
+      },
+      "events": [],
+      "semantics": { "role": "label", "state_owner": "runtime" },
+      "usage_rules": ["for_id must identify an input in the same Surface."],
+      "accessibility": ["Expose a programmatic label for the referenced control."],
+      "platform_adaptations": { "web": "html-label", "desktop": "webview-label", "mobile": "webview-label" },
+      "implementation": { "module": "dioxus_primitives::label", "component": "Label", "source_kind": "upstream_primitive" }
+    },
+    {
+      "name": "Toolbar",
+      "capability_families": ["layout"],
+      "description": "Ordered action and content container used as the catalog root.",
+      "prop_order": ["id", "orientation", "children"],
+      "props": {
+        "id": { "type": "string", "required": true },
+        "orientation": { "type": "string", "enum": ["horizontal", "vertical"], "required": true },
+        "children": { "type": "array", "items": { "type": "string", "format": "component-ref" }, "required": true }
+      },
+      "events": [],
+      "semantics": { "role": "toolbar", "state_owner": "runtime" },
+      "usage_rules": ["Children remain in declared order.", "Every child reference must resolve."],
+      "accessibility": ["Preserve logical focus order when orientation changes."],
+      "platform_adaptations": { "web": "flex", "desktop": "flex", "mobile": "wrap-or-vertical" },
+      "implementation": { "module": "dioxus_primitives::toolbar", "component": "Toolbar", "source_kind": "upstream_primitive" }
+    },
+    {
+      "name": "Avatar",
+      "capability_families": ["data_display"],
+      "description": "Identity image fallback with deterministic alternative text.",
+      "prop_order": ["id", "alt", "fallback"],
+      "props": {
+        "id": { "type": "string", "required": true },
+        "alt": { "type": "string", "required": true },
+        "fallback": { "type": "string", "required": true }
+      },
+      "events": [],
+      "semantics": { "role": "img", "state_owner": "runtime" },
+      "usage_rules": ["Use fallback when no host-approved resource is declared."],
+      "accessibility": ["alt must identify the represented person or entity."],
+      "platform_adaptations": { "web": "css-circle", "desktop": "css-circle", "mobile": "css-circle" },
+      "implementation": { "module": "dioxus_primitives::avatar", "component": "Avatar", "source_kind": "upstream_primitive" }
+    },
+    {
+      "name": "Input",
+      "capability_families": ["text_input"],
+      "description": "Single-line text input bound to an allowlisted runtime state key.",
+      "prop_order": ["id", "label", "state_key", "value", "placeholder"],
+      "props": {
+        "id": { "type": "string", "required": true },
+        "label": { "type": "string", "required": true },
+        "state_key": { "type": "string", "required": true },
+        "value": { "type": "string", "required": true },
+        "placeholder": { "type": "string", "required": true }
+      },
+      "events": [{ "name": "FieldChanged", "payload": { "state_key": "string", "value": "string" } }],
+      "semantics": { "role": "textbox", "state_owner": "runtime" },
+      "usage_rules": ["state_key must be declared by the catalog release."],
+      "accessibility": ["Expose a non-empty accessible name and visible focus."],
+      "platform_adaptations": { "web": "html-input", "desktop": "webview-input", "mobile": "virtual-keyboard-input" },
+      "implementation": { "module": "preview::components::input", "component": "Input", "source_kind": "copied_styled_component" }
+    },
+    {
+      "name": "Select",
+      "capability_families": ["selection"],
+      "description": "Single-value selection from a closed option list.",
+      "prop_order": ["id", "label", "state_key", "options", "value"],
+      "props": {
+        "id": { "type": "string", "required": true },
+        "label": { "type": "string", "required": true },
+        "state_key": { "type": "string", "required": true },
+        "options": { "type": "array", "items": { "type": "string" }, "required": true },
+        "value": { "type": "string", "required": true }
+      },
+      "events": [{ "name": "SelectionChanged", "payload": { "state_key": "string", "value": "string" } }],
+      "semantics": { "role": "listbox", "state_owner": "runtime" },
+      "usage_rules": ["value must occur exactly once in options."],
+      "accessibility": ["Support keyboard selection and expose current value."],
+      "platform_adaptations": { "web": "popover-listbox", "desktop": "popover-listbox", "mobile": "bounded-sheet-listbox" },
+      "implementation": { "module": "dioxus_primitives::select", "component": "Select", "source_kind": "upstream_primitive" }
+    },
+    {
+      "name": "Checkbox",
+      "capability_families": ["boolean_input"],
+      "description": "Independent boolean input bound to runtime state.",
+      "prop_order": ["id", "label", "state_key", "checked"],
+      "props": {
+        "id": { "type": "string", "required": true },
+        "label": { "type": "string", "required": true },
+        "state_key": { "type": "string", "required": true },
+        "checked": { "type": "boolean", "required": true }
+      },
+      "events": [{ "name": "ToggleChanged", "payload": { "state_key": "string", "checked": "boolean" } }],
+      "semantics": { "role": "checkbox", "state_owner": "runtime" },
+      "usage_rules": ["Use for an independent agreement or inclusion choice."],
+      "accessibility": ["Expose checked state and keyboard activation."],
+      "platform_adaptations": { "web": "aria-checkbox", "desktop": "aria-checkbox", "mobile": "large-touch-checkbox" },
+      "implementation": { "module": "dioxus_primitives::checkbox", "component": "Checkbox", "source_kind": "upstream_primitive" }
+    },
+    {
+      "name": "Switch",
+      "capability_families": ["boolean_input"],
+      "description": "Immediate on/off setting bound to runtime state.",
+      "prop_order": ["id", "label", "state_key", "checked"],
+      "props": {
+        "id": { "type": "string", "required": true },
+        "label": { "type": "string", "required": true },
+        "state_key": { "type": "string", "required": true },
+        "checked": { "type": "boolean", "required": true }
+      },
+      "events": [{ "name": "ToggleChanged", "payload": { "state_key": "string", "checked": "boolean" } }],
+      "semantics": { "role": "switch", "state_owner": "runtime" },
+      "usage_rules": ["Use only when the change is immediate, not form submission."],
+      "accessibility": ["Expose checked state and a non-empty label."],
+      "platform_adaptations": { "web": "aria-switch", "desktop": "aria-switch", "mobile": "large-touch-switch" },
+      "implementation": { "module": "dioxus_primitives::switch", "component": "Switch", "source_kind": "upstream_primitive" }
+    },
+    {
+      "name": "Button",
+      "capability_families": ["action"],
+      "description": "Invokes one allowlisted typed host action.",
+      "prop_order": ["id", "label", "action", "target_id"],
+      "props": {
+        "id": { "type": "string", "required": true },
+        "label": { "type": "string", "required": true },
+        "action": { "type": "string", "enum": ["SubmitProfile", "ApplyFilter"], "required": true },
+        "target_id": { "type": "string", "required": true }
+      },
+      "events": [{ "name": "ActionInvoked", "payload": { "action": "string", "target_id": "string" } }],
+      "semantics": { "role": "button", "state_owner": "runtime" },
+      "usage_rules": ["action must be declared by the catalog release."],
+      "accessibility": ["Expose label, disabled state, visible focus, and keyboard activation."],
+      "platform_adaptations": { "web": "html-button", "desktop": "webview-button", "mobile": "minimum-44px-touch-button" },
+      "implementation": { "module": "preview::components::button", "component": "Button", "source_kind": "copied_styled_component" }
+    },
+    {
+      "name": "Tabs",
+      "capability_families": ["navigation_or_overlay"],
+      "description": "Local navigation between a closed set of panels.",
+      "prop_order": ["id", "state_key", "value", "items"],
+      "props": {
+        "id": { "type": "string", "required": true },
+        "state_key": { "type": "string", "required": true },
+        "value": { "type": "string", "required": true },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["value", "label", "child"],
+            "properties": {
+              "value": { "type": "string" },
+              "label": { "type": "string" },
+              "child": { "type": "string", "format": "component-ref" }
+            }
+          },
+          "required": true
+        }
+      },
+      "events": [{ "name": "NavigationChanged", "payload": { "state_key": "string", "value": "string" } }],
+      "semantics": { "role": "tablist", "state_owner": "runtime" },
+      "usage_rules": ["Each item has unique value, label, and child reference."],
+      "accessibility": ["Support roving focus and associate each tab with its panel."],
+      "platform_adaptations": { "web": "aria-tabs", "desktop": "aria-tabs", "mobile": "scrollable-tab-strip" },
+      "implementation": { "module": "dioxus_primitives::tabs", "component": "Tabs", "source_kind": "upstream_primitive" }
+    },
+    {
+      "name": "Dialog",
+      "capability_families": ["navigation_or_overlay"],
+      "description": "Modal overlay with runtime-owned open state.",
+      "prop_order": ["id", "title", "open_state_key", "children"],
+      "props": {
+        "id": { "type": "string", "required": true },
+        "title": { "type": "string", "required": true },
+        "open_state_key": { "type": "string", "required": true },
+        "children": { "type": "array", "items": { "type": "string", "format": "component-ref" }, "required": true }
+      },
+      "events": [{ "name": "DialogChanged", "payload": { "state_key": "string", "open": "boolean" } }],
+      "semantics": { "role": "dialog", "state_owner": "runtime" },
+      "usage_rules": ["Focus returns to the invoking control after close."],
+      "accessibility": ["Trap focus while modal and expose title as accessible name."],
+      "platform_adaptations": { "web": "portal-dialog", "desktop": "portal-dialog", "mobile": "full-height-sheet-when-needed" },
+      "implementation": { "module": "dioxus_primitives::dialog", "component": "DialogRoot", "source_kind": "upstream_primitive" }
+    },
+    {
+      "name": "Progress",
+      "capability_families": ["status"],
+      "description": "Determinate progress with explicit value and maximum.",
+      "prop_order": ["id", "label", "value", "max"],
+      "props": {
+        "id": { "type": "string", "required": true },
+        "label": { "type": "string", "required": true },
+        "value": { "type": "number", "required": true },
+        "max": { "type": "number", "required": true }
+      },
+      "events": [],
+      "semantics": { "role": "progressbar", "state_owner": "runtime" },
+      "usage_rules": ["value must be between zero and max; max must be positive."],
+      "accessibility": ["Expose label, current value, minimum, and maximum."],
+      "platform_adaptations": { "web": "aria-progressbar", "desktop": "aria-progressbar", "mobile": "aria-progressbar" },
+      "implementation": { "module": "dioxus_primitives::progress", "component": "Progress", "source_kind": "upstream_primitive" }
+    },
+    {
+      "name": "Toast",
+      "capability_families": ["feedback"],
+      "description": "Bounded status feedback that never performs a host effect.",
+      "prop_order": ["id", "tone", "title", "message"],
+      "props": {
+        "id": { "type": "string", "required": true },
+        "tone": { "type": "string", "enum": ["info", "success", "warning", "error"], "required": true },
+        "title": { "type": "string", "required": true },
+        "message": { "type": "string", "required": true }
+      },
+      "events": [{ "name": "Dismissed", "payload": { "id": "string" } }],
+      "semantics": { "role": "status", "state_owner": "runtime" },
+      "usage_rules": ["Do not use as the only record of an action result."],
+      "accessibility": ["Announce feedback without unexpectedly moving focus."],
+      "platform_adaptations": { "web": "live-region", "desktop": "live-region", "mobile": "safe-area-live-region" },
+      "implementation": { "module": "dioxus_primitives::toast", "component": "Toast", "source_kind": "upstream_primitive" }
+    }
+  ]
+}

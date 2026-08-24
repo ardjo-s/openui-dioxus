@@ -1,0 +1,9 @@
+{
+  "name": "openui-dioxus-components-catalog-generator",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@openuidev/lang-core": "0.2.15"
+  }
+}
