@@ -1,0 +1,14 @@
+{
+  "name": "openui-typed-json-product-eval",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "@openuidev/lang-core": "0.2.15",
+    "ajv": "8.20.0",
+    "tiktoken": "1.0.22"
+  }
+}

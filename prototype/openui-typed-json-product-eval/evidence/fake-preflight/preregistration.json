@@ -1,0 +1,298 @@
+{
+  "version": "ope-5-product-eval-v1",
+  "source_pins": {
+    "openui": "@openuidev/lang-core@0.2.15",
+    "json_schema_validator": "ajv@8.20.0",
+    "tokenizer": "tiktoken@1.0.22",
+    "catalog_release_hash": "2bf7df132bc99576fb431e2fb8cd40cf35731e3fd2ee29e2d6d7f6bed45a5ae7",
+    "dioxus_components_commit": "bf007c15d0cf4d04d3181cc46cf12325aa773955",
+    "dioxus": "0.7.10"
+  },
+  "model_configuration": {
+    "model": "gpt-5.6-luna",
+    "reasoning_effort": "low",
+    "provider": "codex-chatgpt-plan-local",
+    "fresh_ephemeral_process_per_attempt": true,
+    "tools_disabled": true,
+    "output_executed": false,
+    "maximum_response_bytes": 262144,
+    "maximum_calls": 80,
+    "maximum_repairs_per_arm": 1
+  },
+  "scoring": {
+    "pairs": 20,
+    "minimum_openui_post_repair_validity": 19,
+    "maximum_openui_validity_disadvantage": 1,
+    "maximum_openui_quality_disadvantage": 0.5,
+    "maximum_openui_maintenance_ratio": 1.25,
+    "material_advantage": {
+      "median_cumulative_raw_tokens": 0.2,
+      "first_pass_validity_percentage_points": 10,
+      "median_human_correction_time": 0.25
+    }
+  },
+  "protocol_hashes": {
+    "openui": "f3b04d11614f040e2c743925285d164183fa0cca52df9091a2ae9aeb3ff2ce63",
+    "typed-json": "c75da16a2129894f2d3f588e9756166c67060060d5d62fee9849bc0f0a2d9b17"
+  },
+  "scenario_hashes": [
+    {
+      "id": "01-validated-profile-v1",
+      "hash": "6859393a6a694db173421ea3393e83a58755f885eac36d98fb4c1b306c5eaef2"
+    },
+    {
+      "id": "01-validated-profile-v2",
+      "hash": "8715e04ebbc05a8bdd75120f0d3751f5aac89192d3d04bfd8ad0d8eb7c10fd9f"
+    },
+    {
+      "id": "01-validated-profile-v3",
+      "hash": "3a1717464084644a761d68c5a6a7cc4f5ecd910ec3c061b9c78b06e4f544be97"
+    },
+    {
+      "id": "01-validated-profile-v4",
+      "hash": "3c495fc077ad9d8bb3ec145dea62899519eab1354a3cb22f7be171f5e3b56e94"
+    },
+    {
+      "id": "02-preferences-v1",
+      "hash": "1f153625c0d411ae31060e8eb0bf8260261b0212e782ed39c48297bbbc215680"
+    },
+    {
+      "id": "02-preferences-v2",
+      "hash": "443fa7ab1ebda37fa7523936151984ba7459da15dd24b40232fca59b39b887f1"
+    },
+    {
+      "id": "02-preferences-v3",
+      "hash": "7bbb6f57faad9f42fdd7f1d1bf23164701fd50170e21f3a705dc353b65e8e594"
+    },
+    {
+      "id": "02-preferences-v4",
+      "hash": "0e3a2df564678a1091bb2bf5d98647deb5cebf02585d041162b4140c8cf8bdd0"
+    },
+    {
+      "id": "03-filter-action-v1",
+      "hash": "4c836e742053f997c1bf500110b03f9af730e5c53ea3c81bc065a8fd658f53c6"
+    },
+    {
+      "id": "03-filter-action-v2",
+      "hash": "9c165ee2bb3db6d2003be91a2fb46545a54db7a2084512e0b5e904658ed9d1f4"
+    },
+    {
+      "id": "03-filter-action-v3",
+      "hash": "131bbd7e47bded5dbc53cb6c465097d256d791669168d35894f9e61bc034bdd3"
+    },
+    {
+      "id": "03-filter-action-v4",
+      "hash": "9379383c688ad9941937bf359f7bb4a89d9370042c45dba0117d9366875ac033"
+    },
+    {
+      "id": "04-status-dialog-v1",
+      "hash": "fdbad8d1776b0c9cf139c449b291baa2fc8ade0cdfcbccda60d657a584883ab0"
+    },
+    {
+      "id": "04-status-dialog-v2",
+      "hash": "85bfa22778c25dd9ac3b5bb5f3ef203e1e7dea28a0217444794b15a2f22e8a00"
+    },
+    {
+      "id": "04-status-dialog-v3",
+      "hash": "0ca33ff55b785b9778c7859f9f3b71fca0213835c325978dbe796f780f27d9dd"
+    },
+    {
+      "id": "04-status-dialog-v4",
+      "hash": "c4db1aa42f1ac257b9a0d52b773e094f6819cc0082e95903289831e6cfb880f1"
+    },
+    {
+      "id": "05-navigation-feedback-v1",
+      "hash": "ef23e848f5b5c50481aa3e9e9d75cf010f8597ad97d4a63a5c6c78ca6a1ff9e4"
+    },
+    {
+      "id": "05-navigation-feedback-v2",
+      "hash": "4da41afa408dc73551b534d87456bcab772b02957e7cb0a9a64213efdb01180f"
+    },
+    {
+      "id": "05-navigation-feedback-v3",
+      "hash": "1afe8000358bc27a3b26a658fa898d6ebb54216560cea506c6f0f255a57d9c56"
+    },
+    {
+      "id": "05-navigation-feedback-v4",
+      "hash": "f8604b0fa70f80eca04b291e8ff1cef3b6761cb30a5d00067140162e83ccedec"
+    }
+  ],
+  "schedule": [
+    {
+      "passage": 1,
+      "scenario_id": "01-validated-profile-v1",
+      "order": [
+        "openui",
+        "typed-json"
+      ]
+    },
+    {
+      "passage": 2,
+      "scenario_id": "01-validated-profile-v2",
+      "order": [
+        "typed-json",
+        "openui"
+      ]
+    },
+    {
+      "passage": 3,
+      "scenario_id": "01-validated-profile-v3",
+      "order": [
+        "openui",
+        "typed-json"
+      ]
+    },
+    {
+      "passage": 4,
+      "scenario_id": "01-validated-profile-v4",
+      "order": [
+        "typed-json",
+        "openui"
+      ]
+    },
+    {
+      "passage": 5,
+      "scenario_id": "02-preferences-v1",
+      "order": [
+        "openui",
+        "typed-json"
+      ]
+    },
+    {
+      "passage": 6,
+      "scenario_id": "02-preferences-v2",
+      "order": [
+        "typed-json",
+        "openui"
+      ]
+    },
+    {
+      "passage": 7,
+      "scenario_id": "02-preferences-v3",
+      "order": [
+        "openui",
+        "typed-json"
+      ]
+    },
+    {
+      "passage": 8,
+      "scenario_id": "02-preferences-v4",
+      "order": [
+        "typed-json",
+        "openui"
+      ]
+    },
+    {
+      "passage": 9,
+      "scenario_id": "03-filter-action-v1",
+      "order": [
+        "openui",
+        "typed-json"
+      ]
+    },
+    {
+      "passage": 10,
+      "scenario_id": "03-filter-action-v2",
+      "order": [
+        "typed-json",
+        "openui"
+      ]
+    },
+    {
+      "passage": 11,
+      "scenario_id": "03-filter-action-v3",
+      "order": [
+        "openui",
+        "typed-json"
+      ]
+    },
+    {
+      "passage": 12,
+      "scenario_id": "03-filter-action-v4",
+      "order": [
+        "typed-json",
+        "openui"
+      ]
+    },
+    {
+      "passage": 13,
+      "scenario_id": "04-status-dialog-v1",
+      "order": [
+        "openui",
+        "typed-json"
+      ]
+    },
+    {
+      "passage": 14,
+      "scenario_id": "04-status-dialog-v2",
+      "order": [
+        "typed-json",
+        "openui"
+      ]
+    },
+    {
+      "passage": 15,
+      "scenario_id": "04-status-dialog-v3",
+      "order": [
+        "openui",
+        "typed-json"
+      ]
+    },
+    {
+      "passage": 16,
+      "scenario_id": "04-status-dialog-v4",
+      "order": [
+        "typed-json",
+        "openui"
+      ]
+    },
+    {
+      "passage": 17,
+      "scenario_id": "05-navigation-feedback-v1",
+      "order": [
+        "openui",
+        "typed-json"
+      ]
+    },
+    {
+      "passage": 18,
+      "scenario_id": "05-navigation-feedback-v2",
+      "order": [
+        "typed-json",
+        "openui"
+      ]
+    },
+    {
+      "passage": 19,
+      "scenario_id": "05-navigation-feedback-v3",
+      "order": [
+        "openui",
+        "typed-json"
+      ]
+    },
+    {
+      "passage": 20,
+      "scenario_id": "05-navigation-feedback-v4",
+      "order": [
+        "typed-json",
+        "openui"
+      ]
+    }
+  ],
+  "input_hashes": {
+    "node_manifest": "6b511b5097dc6105c31f8da833f3778e43ffc2d33e7ba465b0ad9ca937681990",
+    "node_lock": "56e4d6379812580f9d1e45f4e2a78f29b98ef2df0f47fc207ff7358bbf3d22fe",
+    "scenarios": "674a5f30bce05810d2f290b10eeadb67849c600f4c76755f7a43580f9ebf2a87",
+    "protocols": "d58d6602a4e2ce9ea89d94e8e5f42b561979c613a5a944fce96f3d8eba2e30c6",
+    "provider": "85972696be04602e5015d9e71ebc8466ca8b7fd8bb8c9bb4e4f285093a7de368",
+    "codex_provider": "3d104ea4f7f7e1fab521ef5a99974494d2e12ac8fc7b5073b0e0c7e5da1e0f4f",
+    "scorer": "80d1f8ad65ae24bcadf16da7e29cad6a2f1c9398ff21404a8ab60ca92006a410",
+    "runner": "d8bbcd8c252bdbd1ede7ef3e67707a6c3b2c3dd94e469a8f1469563f81b5a48d",
+    "manifest": "006cbc259c8b1ba8b406349e4d436422985484f27cc099f186f058fdcbb21086",
+    "openui_library": "8146db5a196c6cbfdedf2780484738f77b503c5d3d145f8c0295fd833961c8fa",
+    "typed_json_schema": "e976c87658c1d988b862fe71fd8940c0445793ef300f74e2e50b610118a40c8a",
+    "catalog_adapter": "058fe0bebe9edb298dfa71d6eace9fcf93a1099ec772814d17b469a5ec1b7fc7",
+    "normalizer": "88ca0563877ac4a9248b9599879c7d72b85c05dcd9d6f3c7e5b3b321960a29d3"
+  },
+  "hash": "33707fbfeb8bf126f83e2c1acc1f6546eead51e7fdae483925600f2344a14123"
+}

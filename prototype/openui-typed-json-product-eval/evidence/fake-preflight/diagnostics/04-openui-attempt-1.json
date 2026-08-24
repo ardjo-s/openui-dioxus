@@ -1,0 +1,16 @@
+{
+  "ok": false,
+  "diagnostics": [
+    {
+      "code": "unknown-component",
+      "component": "UnknownComponent",
+      "path": "",
+      "message": "Unknown component \"UnknownComponent\" — not found in catalog or builtins. Available components: Label, Toolbar, Avatar, Input, Select, Checkbox, Switch, Button, Tabs, Dialog, Progress, Toast",
+      "statementId": "root"
+    },
+    {
+      "code": "missing-root",
+      "message": "no root component"
+    }
+  ]
+}
