@@ -8,6 +8,14 @@ publish = false
 default = []
 ui = ["dep:dioxus", "dep:dioxus-primitives"]
 ssr = ["ui", "dep:dioxus-ssr"]
+desktop = ["ui", "dioxus/desktop"]
+web = ["ui", "dioxus/web"]
+mobile = ["ui", "dioxus/mobile"]
+
+[[bin]]
+name = "platform-app"
+path = "src/bin/platform-app.rs"
+required-features = ["ui"]
 
 [dependencies]
 anyhow = "1.0"
@@ -19,6 +27,7 @@ serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 sha2 = "0.10"
 thiserror = "2.0"
+wasm-bindgen = "=0.2.127"
 
 [dev-dependencies]
 tempfile = "3.23"

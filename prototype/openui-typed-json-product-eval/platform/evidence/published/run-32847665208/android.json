@@ -1,0 +1,9 @@
+{
+  "platform": "android",
+  "status": "PASS",
+  "passed": true,
+  "evidence_complete": true,
+  "surfaces": 40,
+  "families": 5,
+  "error": null
+}

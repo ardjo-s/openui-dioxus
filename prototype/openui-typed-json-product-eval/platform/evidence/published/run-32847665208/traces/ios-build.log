@@ -1,0 +1,368 @@
+  0.30s  INFO Building project...
+[33mwarning[0m: Waiting for cargo-metadata...
+[33mwarning[0m: (Try 1) Taking a while...
+ 25.16s  INFO Compiled [  1/406]: unicode_ident
+ 30.72s  INFO Compiled [  2/406]: build-script-build
+ 30.72s  INFO Compiled [  3/406]: build-script-build
+ 30.73s  INFO Compiled [  4/406]: build-script-build
+ 31.04s  INFO Compiled [  8/406]: build-script-build
+ 32.18s  INFO Compiled [ 10/406]: libc
+ 32.35s  INFO Compiled [ 11/406]: proc_macro2
+ 32.41s  INFO Compiled [ 12/406]: cfg_if
+ 32.64s  INFO Compiled [ 13/406]: quote
+ 33.10s  INFO Compiled [ 14/406]: version_check
+ 38.68s  INFO Compiled [ 15/406]: serde_core
+ 39.06s  INFO Compiled [ 16/406]: build-script-build
+ 39.57s  INFO Compiled [ 18/406]: autocfg
+ 39.95s  INFO Compiled [ 19/406]: smallvec
+ 40.00s  INFO Compiled [ 20/406]: stable_deref_trait
+ 40.29s  INFO Compiled [ 21/406]: build-script-build
+ 40.65s  INFO Compiled [ 22/406]: build-script-build
+ 41.55s  INFO Compiled [ 23/406]: memchr
+ 41.80s  INFO Compiled [ 26/406]: pin_project_lite
+ 42.01s  INFO Compiled [ 27/406]: syn
+ 42.59s  INFO Compiled [ 28/406]: syn
+ 42.77s  INFO Compiled [ 29/406]: num_traits
+ 43.21s  INFO Compiled [ 30/406]: synstructure
+ 43.38s  INFO Compiled [ 31/406]: once_cell
+ 43.56s  INFO Compiled [ 32/406]: thiserror_impl
+ 43.64s  INFO Compiled [ 33/406]: thiserror
+ 43.70s  INFO Compiled [ 34/406]: build-script-build
+ 44.05s  INFO Compiled [ 36/406]: bitflags
+ 44.31s  INFO Compiled [ 37/406]: build-script-build
+ 44.52s  INFO Compiled [ 39/406]: serde_derive
+ 44.76s  INFO Compiled [ 40/406]: zerofrom_derive
+ 44.86s  INFO Compiled [ 41/406]: zerofrom
+ 45.01s  INFO Compiled [ 42/406]: rustversion
+ 45.26s  INFO Compiled [ 43/406]: serde
+ 45.58s  INFO Compiled [ 44/406]: anyhow
+ 45.67s  INFO Compiled [ 45/406]: yoke_derive
+ 45.86s  INFO Compiled [ 46/406]: yoke
+ 46.09s  INFO Compiled [ 47/406]: find_msvc_tools
+ 46.20s  INFO Compiled [ 48/406]: shlex
+ 46.30s  INFO Compiled [ 49/406]: tracing_core
+ 46.73s  INFO Compiled [ 50/406]: tracing_attributes
+ 47.05s  INFO Compiled [ 51/406]: tracing
+ 47.24s  INFO Compiled [ 52/406]: zerovec_derive
+ 47.31s  INFO Compiled [ 53/406]: build-script-build
+ 47.33s  INFO Compiled [ 54/406]: futures_sink
+ 47.45s  INFO Compiled [ 55/406]: futures_core
+ 47.60s  INFO Compiled [ 56/406]: build-script-build
+ 47.62s  INFO Compiled [ 58/406]: cc
+ 47.76s  INFO Compiled [ 60/406]: futures_channel
+ 47.84s  INFO Compiled [ 61/406]: build-script-build
+ 48.21s  INFO Compiled [ 62/406]: zerovec
+ 48.41s  INFO Compiled [ 63/406]: futures_macro
+ 48.45s  INFO Compiled [ 64/406]: displaydoc
+ 48.48s  INFO Compiled [ 65/406]: futures_task
+ 48.52s  INFO Compiled [ 66/406]: scopeguard
+ 48.65s  INFO Compiled [ 67/406]: slab
+ 48.83s  INFO Compiled [ 68/406]: futures_io
+ 49.14s  INFO Compiled [ 69/406]: lock_api
+ 49.82s  INFO Compiled [ 70/406]: parking_lot_core
+ 51.05s  INFO Compiled [ 71/406]: crossbeam_utils
+ 51.40s  INFO Compiled [ 72/406]: build-script-build
+ 51.74s  INFO Compiled [ 73/406]: dioxus_core_types
+ 51.96s  INFO Compiled [ 74/406]: konst_macro_rules
+ 52.10s  INFO Compiled [ 75/406]: unicode_xid
+ 53.38s  INFO Compiled [ 76/406]: const_format_proc_macros
+ 54.00s  INFO Compiled [ 77/406]: konst
+ 55.59s  INFO Compiled [ 79/406]: parking_lot
+ 55.61s  INFO Compiled [ 80/406]: futures_util
+ 55.98s  INFO Compiled [ 81/406]: subsecond_types
+ 56.02s  INFO Compiled [ 82/406]: libloading
+ 56.39s  INFO Compiled [ 83/406]: build-script-build
+ 56.41s  INFO Compiled [ 84/406]: memmap2
+ 57.02s  INFO Compiled [ 85/406]: build-script-build
+ 57.48s  INFO Compiled [ 87/406]: build-script-build
+ 58.19s  INFO Compiled [ 89/406]: subsecond
+ 58.25s  INFO Compiled [ 90/406]: generational_box
+ 59.45s  INFO Compiled [ 91/406]: const_format
+ 59.79s  INFO Compiled [ 92/406]: slotmap
+ 59.83s  INFO Compiled [ 93/406]: tinystr
+ 60.04s  INFO Compiled [ 94/406]: longest_increasing_subsequence
+ 60.35s  INFO Compiled [ 95/406]: rustc_hash
+ 60.76s  INFO Compiled [ 96/406]: writeable
+ 61.01s  INFO Compiled [ 97/406]: lazy_js_bundle
+ 61.33s  INFO Compiled [ 98/406]: build-script-build
+ 61.54s  INFO Compiled [ 99/406]: litemap
+ 61.96s  INFO Compiled [102/406]: objc2_exception_helper
+ 62.01s  INFO Compiled [103/406]: zerocopy_derive
+ 62.48s  INFO Compiled [104/406]: objc2_encode
+ 64.70s  INFO Compiled [105/406]: objc2
+ 66.30s  INFO Compiled [107/406]: icu_locale_core
+ 66.88s  INFO Compiled [108/406]: crossbeam_epoch
+ 67.35s  INFO Compiled [109/406]: zerotrie
+ 67.54s  INFO Compiled [110/406]: potential_utf
+ 67.59s  INFO Compiled [111/406]: zerocopy
+ 68.61s  INFO Compiled [112/406]: bytes
+ 68.67s  INFO Compiled [113/406]: pin_project_internal
+ 68.83s  INFO Compiled [114/406]: build-script-build
+ 68.92s  INFO Compiled [115/406]: build-script-build
+ 69.04s  INFO Compiled [116/406]: utf8_iter
+ 69.15s  INFO Compiled [117/406]: itoa
+ 69.23s  INFO Compiled [118/406]: log
+ 69.37s  INFO Compiled [119/406]: build-script-build
+ 69.43s  INFO Compiled [121/406]: build-script-build
+ 69.61s  INFO Compiled [125/406]: pin_project
+ 70.43s  INFO Compiled [126/406]: icu_provider
+ 70.50s  INFO Compiled [127/406]: icu_collections
+ 70.65s  INFO Compiled [128/406]: crossbeam_deque
+ 70.89s  INFO Compiled [129/406]: warnings_macro
+ 71.11s  INFO Compiled [130/406]: build-script-build
+ 71.26s  INFO Compiled [131/406]: equator_macro
+ 71.60s  INFO Compiled [132/406]: simd_adler32
+ 71.70s  INFO Compiled [133/406]: ident_case
+ 71.96s  INFO Compiled [134/406]: typenum
+ 72.03s  INFO Compiled [135/406]: fnv
+ 72.17s  INFO Compiled [136/406]: unicode_segmentation
+ 72.48s  INFO Compiled [137/406]: convert_case
+ 73.08s  INFO Compiled [138/406]: generic_array
+ 73.33s  INFO Compiled [139/406]: equator
+ 73.48s  INFO Compiled [141/406]: warnings
+ 74.64s  INFO Compiled [142/406]: darling_core
+ 74.71s  INFO Compiled [143/406]: icu_normalizer_data
+ 74.99s  INFO Compiled [144/406]: icu_properties_data
+ 75.54s  INFO Compiled [145/406]: rayon_core
+ 75.79s  INFO Compiled [146/406]: num_integer
+ 76.05s  INFO Compiled [147/406]: const_serialize_macro
+ 76.19s  INFO Compiled [148/406]: build-script-build
+ 76.34s  INFO Compiled [149/406]: either
+ 76.47s  INFO Compiled [150/406]: build-script-build
+ 76.60s  INFO Compiled [153/406]: build-script-build
+ 78.20s  INFO Compiled [155/406]: dioxus_core
+ 79.08s  INFO Compiled [156/406]: icu_properties
+ 79.47s  INFO Compiled [157/406]: darling_macro
+ 80.06s  INFO Compiled [158/406]: icu_normalizer
+ 80.29s  INFO Compiled [159/406]: dioxus_signals
+ 80.30s  INFO Compiled [160/406]: proc_macro2_diagnostics
+ 80.52s  INFO Compiled [161/406]: aligned_vec
+ 80.56s  INFO Compiled [162/406]: arrayvec
+ 80.81s  INFO Compiled [163/406]: core_foundation_sys
+ 80.89s  INFO Compiled [164/406]: build-script-build
+ 81.05s  INFO Compiled [165/406]: adler2
+ 81.19s  INFO Compiled [166/406]: percent_encoding
+ 81.27s  INFO Compiled [167/406]: build-script-build
+ 81.60s  INFO Compiled [169/406]: build-script-build
+ 81.95s  INFO Compiled [172/406]: v_frame
+ 83.56s  INFO Compiled [173/406]: num_bigint
+ 83.66s  INFO Compiled [174/406]: darling
+ 83.79s  INFO Compiled [175/406]: idna_adapter
+ 83.89s  INFO Compiled [176/406]: dioxus_rsx
+ 84.27s  INFO Compiled [177/406]: miniz_oxide
+ 84.35s  INFO Compiled [178/406]: zmij
+ 84.46s  INFO Compiled [179/406]: getrandom
+ 84.89s  INFO Compiled [180/406]: paste
+ 85.06s  INFO Compiled [181/406]: block_buffer
+ 85.19s  INFO Compiled [182/406]: crypto_common
+ 86.38s  INFO Compiled [183/406]: num_rational
+ 86.60s  INFO Compiled [184/406]: objc2_core_foundation
+ 86.69s  INFO Compiled [185/406]: as_slice
+ 86.91s  INFO Compiled [186/406]: const_serialize_macro
+ 87.01s  INFO Compiled [187/406]: bytemuck
+ 87.12s  INFO Compiled [188/406]: dioxus_cli_config
+ 87.45s  INFO Compiled [189/406]: build-script-build
+ 87.56s  INFO Compiled [190/406]: built
+ 87.73s  INFO Compiled [191/406]: build-script-build
+ 87.92s  INFO Compiled [193/406]: build-script-build
+ 87.94s  INFO Compiled [194/406]: rayon
+ 88.06s  INFO Compiled [197/406]: build-script-build
+ 88.10s  INFO Compiled [198/406]: aligned
+ 88.30s  INFO Compiled [199/406]: digest
+ 88.39s  INFO Compiled [200/406]: rand_core
+ 91.24s  INFO Compiled [201/406]: idna
+ 91.53s  INFO Compiled [202/406]: serde_json
+ 91.78s  INFO Compiled [203/406]: crc32fast
+ 92.19s  INFO Compiled [204/406]: enumset_derive
+ 92.47s  INFO Compiled [205/406]: form_urlencoded
+ 93.08s  INFO Compiled [206/406]: core_foundation
+ 93.23s  INFO Compiled [207/406]: security_framework_sys
+ 94.32s  INFO Compiled [208/406]: serde_core
+ 94.63s  INFO Compiled [209/406]: ppv_lite86
+ 95.08s  INFO Compiled [210/406]: arg_enum_proc_macro
+ 95.37s  INFO Compiled [211/406]: profiling_procmacros
+ 95.60s  INFO Compiled [212/406]: http
+ 95.66s  INFO Compiled [213/406]: no_std_io2
+ 96.16s  INFO Compiled [214/406]: build-script-build
+ 96.31s  INFO Compiled [215/406]: cpufeatures
+ 96.39s  INFO Compiled [216/406]: objc2_foundation
+ 96.59s  INFO Compiled [217/406]: build-script-build
+ 96.60s  INFO Compiled [218/406]: build-script-build
+ 96.89s  INFO Compiled [219/406]: build-script-build
+ 96.91s  INFO Compiled [220/406]: y4m
+ 96.96s  INFO Compiled [221/406]: quick_error
+ 97.10s  INFO Compiled [222/406]: time_core
+ 97.20s  INFO Compiled [223/406]: num_conv
+ 97.33s  INFO Compiled [224/406]: pastey
+ 98.53s  INFO Compiled [225/406]: time_macros
+ 98.82s  INFO Compiled [229/406]: av_scenechange
+ 98.88s  INFO Compiled [230/406]: profiling
+ 99.35s  INFO Compiled [231/406]: bitstream_io
+ 99.81s  INFO Compiled [232/406]: serde
+100.79s  INFO Compiled [233/406]: nom
+102.10s  INFO Compiled [234/406]: rand_chacha
+103.98s  INFO Compiled [235/406]: security_framework
+104.56s  INFO Compiled [236/406]: enumset
+105.62s  INFO Compiled [237/406]: flate2
+106.07s  INFO Compiled [239/406]: av1_grain
+106.23s  INFO Compiled [240/406]: maybe_rayon
+106.93s  INFO Compiled [241/406]: num_complex
+107.04s  INFO Compiled [242/406]: url
+108.91s  INFO Compiled [243/406]: dioxus_core_macro
+109.13s  INFO Compiled [244/406]: dioxus_hooks
+109.37s  INFO Compiled [245/406]: const_serialize
+109.65s  INFO Compiled [246/406]: libm
+109.78s  INFO Compiled [247/406]: dioxus_html_internal_macro
+110.13s  INFO Compiled [248/406]: block2
+110.28s  INFO Compiled [249/406]: half
+112.33s  INFO Compiled [250/406]: itertools
+112.81s  INFO Compiled [251/406]: keyboard_types
+113.10s  INFO Compiled [252/406]: euclid
+113.23s  INFO Compiled [253/406]: num_derive
+113.42s  INFO Compiled [254/406]: build-script-build
+113.59s  INFO Compiled [255/406]: serde_repr
+113.68s  INFO Compiled [256/406]: num_threads
+113.72s  INFO Compiled [257/406]: simd_helpers
+113.76s  INFO Compiled [258/406]: fnv
+114.04s  INFO Compiled [259/406]: async_trait
+114.16s  INFO Compiled [260/406]: num_conv
+114.22s  INFO Compiled [261/406]: uuid
+114.23s  INFO Compiled [262/406]: option_ext
+114.40s  INFO Compiled [263/406]: time_core
+114.42s  INFO Compiled [264/406]: imgref
+114.65s  INFO Compiled [265/406]: noop_proc_macro
+114.68s  INFO Compiled [266/406]: powerfmt
+114.70s  INFO Compiled [267/406]: pulp_wasm_simd_flag
+114.75s  INFO Compiled [268/406]: debug_unreachable
+115.00s  INFO Compiled [269/406]: zune_core
+115.20s  INFO Compiled [270/406]: byteorder
+115.27s  INFO Compiled [271/406]: reborrow
+115.72s  INFO Compiled [272/406]: deranged
+116.35s  INFO Compiled [273/406]: weezl
+119.15s  INFO Compiled [274/406]: time
+121.67s  INFO Compiled [275/406]: regex_syntax
+123.70s  INFO Compiled [276/406]: cfb
+124.02s  INFO Compiled [277/406]: pulp
+125.60s  INFO Compiled [278/406]: zune_jpeg
+125.70s  INFO Compiled [279/406]: loop9
+125.80s  INFO Compiled [280/406]: dirs_sys
+127.42s  INFO Compiled [281/406]: regex_automata
+127.78s  INFO Compiled [283/406]: const_serialize
+128.20s  INFO Compiled [284/406]: native_tls
+128.98s  INFO Compiled [285/406]: rand
+129.46s  INFO Compiled [286/406]: httparse
+129.89s  INFO Compiled [287/406]: sha1
+130.79s  INFO Compiled [288/406]: avif_serialize
+131.16s  INFO Compiled [289/406]: const_serialize
+131.70s  INFO Compiled [290/406]: zune_inflate
+132.74s  INFO Compiled [291/406]: fdeflate
+133.05s  INFO Compiled [292/406]: build-script-build
+133.28s  INFO Compiled [293/406]: build-script-build
+134.60s  INFO Compiled [294/406]: sledgehammer_bindgen_macro
+135.14s  INFO Compiled [295/406]: dioxus_html
+135.19s  INFO Compiled [296/406]: tokio_macros
+135.27s  INFO Compiled [297/406]: malloc_buf
+135.30s  INFO Compiled [298/406]: errno
+135.35s  INFO Compiled [299/406]: rav1e
+135.47s  INFO Compiled [300/406]: build-script-build
+135.56s  INFO Compiled [301/406]: lazy_static
+135.73s  INFO Compiled [302/406]: utf8
+136.08s  INFO Compiled [303/406]: fax
+136.17s  INFO Compiled [304/406]: rustc_hash
+136.61s  INFO Compiled [305/406]: raw_window_handle
+136.73s  INFO Compiled [306/406]: bit_field
+137.05s  INFO Compiled [307/406]: rgb
+137.43s  INFO Compiled [308/406]: color_quant
+137.71s  INFO Compiled [309/406]: build-script-build
+137.93s  INFO Compiled [310/406]: byteorder_lite
+138.06s  INFO Compiled [311/406]: dpi
+138.20s  INFO Compiled [312/406]: lebe
+139.01s  INFO Compiled [313/406]: data_encoding
+139.86s  INFO Compiled [314/406]: winnow
+140.91s  INFO Compiled [315/406]: manganis_core
+146.61s  INFO Compiled [316/406]: pxfm
+149.59s  INFO Compiled [317/406]: image_webp
+150.22s  INFO Compiled [319/406]: exr
+151.33s  INFO Compiled [320/406]: gif
+151.55s  INFO Compiled [321/406]: sledgehammer_utils
+155.95s  INFO Compiled [322/406]: tiff
+159.02s  INFO Compiled [323/406]: moxcms
+159.54s  INFO Compiled [324/406]: sharded_slab
+159.93s  INFO Compiled [326/406]: signal_hook_registry
+160.41s  INFO Compiled [327/406]: objc
+160.72s  INFO Compiled [328/406]: tungstenite
+160.80s  INFO Compiled [329/406]: sledgehammer_bindgen
+163.46s  INFO Compiled [332/406]: png
+164.11s  INFO Compiled [333/406]: const_serialize
+166.20s  INFO Compiled [334/406]: cookie
+166.35s  INFO Compiled [335/406]: dirs
+167.74s  INFO Compiled [336/406]: infer
+167.87s  INFO Compiled [337/406]: matchers
+168.89s  INFO Compiled [338/406]: objc2_web_kit
+169.25s  INFO Compiled [339/406]: tokio
+169.51s  INFO Compiled [340/406]: qoi
+169.79s  INFO Compiled [341/406]: dioxus_devtools_types
+170.17s  INFO Compiled [342/406]: build-script-build
+171.08s  INFO Compiled [343/406]: objc2_ui_kit
+171.14s  INFO Compiled [344/406]: crossbeam_channel
+171.40s  INFO Compiled [345/406]: macro_string
+171.40s  INFO Compiled [346/406]: thread_local
+171.48s  INFO Compiled [347/406]: dunce
+171.68s  INFO Compiled [348/406]: raw_window_handle
+175.73s  INFO Compiled [349/406]: winnow
+180.28s  INFO Compiled [350/406]: tao
+181.89s  INFO Compiled [351/406]: manganis_core
+182.73s  INFO Compiled [352/406]: manganis_macro
+191.39s  INFO Compiled [353/406]: wry
+192.48s  INFO Compiled [355/406]: tracing_subscriber
+198.06s  INFO Compiled [356/406]: dioxus_devtools
+198.96s  INFO Compiled [357/406]: dioxus_asset_resolver
+199.79s  INFO Compiled [358/406]: ravif
+201.01s  INFO Compiled [359/406]: dioxus_interpreter_js
+201.13s  INFO Compiled [360/406]: objc_id
+201.60s  INFO Compiled [361/406]: signal_hook
+201.88s  INFO Compiled [362/406]: webbrowser
+202.91s  INFO Compiled [364/406]: dioxus_stores_macro
+203.57s  INFO Compiled [365/406]: dioxus_history
+203.66s  INFO Compiled [366/406]: dioxus_document
+203.85s  INFO Compiled [367/406]: subtle
+204.07s  INFO Compiled [368/406]: siphasher
+204.15s  INFO Compiled [369/406]: dunce
+204.29s  INFO Compiled [370/406]: base64
+204.67s  INFO Compiled [371/406]: phf_shared
+206.50s  INFO Compiled [372/406]: dioxus_stores
+206.81s  INFO Compiled [373/406]: wasm_bindgen_shared
+209.60s  INFO Compiled [374/406]: dioxus_logger
+209.79s  INFO Compiled [375/406]: manganis
+210.37s  INFO Compiled [377/406]: futures_executor
+210.65s  INFO Compiled [378/406]: dioxus_config_macro
+210.83s  INFO Compiled [379/406]: bumpalo
+210.92s  INFO Compiled [380/406]: dioxus_config_macros
+211.01s  INFO Compiled [381/406]: by_address
+212.01s  INFO Compiled [382/406]: palette_derive
+212.26s  INFO Compiled [383/406]: dioxus
+215.69s  INFO Compiled [384/406]: wasm_bindgen_macro_support
+215.77s  INFO Compiled [385/406]: futures
+215.92s  INFO Compiled [386/406]: phf
+216.12s  INFO Compiled [387/406]: build-script-build
+216.39s  INFO Compiled [388/406]: build-script-build
+216.50s  INFO Compiled [389/406]: approx
+216.58s  INFO Compiled [390/406]: unicode_ident
+216.73s  INFO Compiled [391/406]: palette_math
+223.84s  INFO Compiled [392/406]: palette
+224.49s  INFO Compiled [393/406]: wasm_bindgen_shared
+225.06s  INFO Compiled [396/406]: dioxus_desktop
+225.25s  INFO Compiled [397/406]: dioxus_sdk_time
+225.48s  INFO Compiled [398/406]: wasm_bindgen_macro
+225.60s  INFO Compiled [399/406]: dioxus_attributes
+226.95s  INFO Compiled [400/406]: wasm_bindgen
+228.22s  INFO Compiled [401/406]: sha2
+228.44s  INFO Compiled [402/406]: hex
+238.51s  INFO Compiled [403/406]: image
+261.47s  INFO Compiled [404/406]: dioxus_components_catalog_eval
+276.84s  INFO Compiled [405/406]: dioxus_primitives
+278.66s  INFO Compiled [406/406]: platform-app
+278.75s  INFO Bundling app...
+278.89s  WARN esbuild binary path not set. Copying JS without processing.
+278.89s  INFO Copying asset (1/1): /Users/runner/.cargo/git/checkouts/dioxus-components-34ac1aefbfd57469/bf007c1/primitives/src/js/focus-trap.js
+278.91s  INFO Client build completed successfully! 🚀 path="/Users/runner/work/openui-dioxus/openui-dioxus/prototype/dioxus-components-catalog-eval/target/dx/platform-app/release/ios/PlatformApp.app"

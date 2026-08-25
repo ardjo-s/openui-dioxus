@@ -6,6 +6,8 @@ use serde_json::{Map, Value};
 use sha2::{Digest, Sha256};
 
 #[cfg(feature = "ui")]
+pub mod platform;
+#[cfg(feature = "ui")]
 pub mod ui;
 
 const MANIFEST: &str = include_str!("../catalog/manifest.json");

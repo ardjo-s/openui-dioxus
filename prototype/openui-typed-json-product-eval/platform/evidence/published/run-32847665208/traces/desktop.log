@@ -1,0 +1,6 @@
+
+(platform-app:18922): dbind-WARNING **: 12:33:57.794: AT-SPI: Error retrieving accessibility bus address: org.freedesktop.DBus.Error.ServiceUnknown: The name org.a11y.Bus was not provided by any .service files
+libEGL warning: DRI3 error: Could not get DRI3 device
+libEGL warning: Ensure your X server supports DRI3 to get accelerated rendering
+PLATFORM_RENDERED surfaces=40 families=5
+PLATFORM_SELF_TEST_PASS surfaces=40 families=5

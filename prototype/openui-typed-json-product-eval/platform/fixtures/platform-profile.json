@@ -1,0 +1,144 @@
+{
+  "version": "ope-6-platform-profile-v1",
+  "execution_model": {
+    "web": "browser DOM",
+    "desktop": "Dioxus desktop WebView",
+    "ios": "Dioxus mobile WebView on iOS Simulator",
+    "android": "Dioxus mobile WebView on Android Emulator"
+  },
+  "semantic_invariants": [
+    "identity",
+    "value",
+    "state",
+    "typed action",
+    "update",
+    "replay"
+  ],
+  "components": {
+    "Label": {
+      "accessibility": [
+        "Expose a programmatic label for the referenced control."
+      ],
+      "adaptations": {
+        "web": "html-label",
+        "desktop": "webview-label",
+        "mobile": "webview-label"
+      }
+    },
+    "Toolbar": {
+      "accessibility": [
+        "Preserve logical focus order when orientation changes."
+      ],
+      "adaptations": {
+        "web": "flex",
+        "desktop": "flex",
+        "mobile": "wrap-or-vertical"
+      }
+    },
+    "Avatar": {
+      "accessibility": [
+        "alt must identify the represented person or entity."
+      ],
+      "adaptations": {
+        "web": "css-circle",
+        "desktop": "css-circle",
+        "mobile": "css-circle"
+      }
+    },
+    "Input": {
+      "accessibility": [
+        "Expose a non-empty accessible name and visible focus."
+      ],
+      "adaptations": {
+        "web": "html-input",
+        "desktop": "webview-input",
+        "mobile": "virtual-keyboard-input"
+      }
+    },
+    "Select": {
+      "accessibility": [
+        "Support keyboard selection and expose current value."
+      ],
+      "adaptations": {
+        "web": "popover-listbox",
+        "desktop": "popover-listbox",
+        "mobile": "bounded-sheet-listbox"
+      }
+    },
+    "Checkbox": {
+      "accessibility": [
+        "Expose checked state and keyboard activation."
+      ],
+      "adaptations": {
+        "web": "aria-checkbox",
+        "desktop": "aria-checkbox",
+        "mobile": "large-touch-checkbox"
+      }
+    },
+    "Switch": {
+      "accessibility": [
+        "Expose checked state and a non-empty label."
+      ],
+      "adaptations": {
+        "web": "aria-switch",
+        "desktop": "aria-switch",
+        "mobile": "large-touch-switch"
+      }
+    },
+    "Button": {
+      "accessibility": [
+        "Expose label, disabled state, visible focus, and keyboard activation."
+      ],
+      "adaptations": {
+        "web": "html-button",
+        "desktop": "webview-button",
+        "mobile": "minimum-44px-touch-button"
+      }
+    },
+    "Tabs": {
+      "accessibility": [
+        "Support roving focus and associate each tab with its panel."
+      ],
+      "adaptations": {
+        "web": "aria-tabs",
+        "desktop": "aria-tabs",
+        "mobile": "scrollable-tab-strip"
+      }
+    },
+    "Dialog": {
+      "accessibility": [
+        "Trap focus while modal and expose title as accessible name."
+      ],
+      "adaptations": {
+        "web": "portal-dialog",
+        "desktop": "portal-dialog",
+        "mobile": "full-height-sheet-when-needed"
+      }
+    },
+    "Progress": {
+      "accessibility": [
+        "Expose label, current value, minimum, and maximum."
+      ],
+      "adaptations": {
+        "web": "aria-progressbar",
+        "desktop": "aria-progressbar",
+        "mobile": "aria-progressbar"
+      }
+    },
+    "Toast": {
+      "accessibility": [
+        "Announce feedback without unexpectedly moving focus."
+      ],
+      "adaptations": {
+        "web": "live-region",
+        "desktop": "live-region",
+        "mobile": "safe-area-live-region"
+      }
+    }
+  },
+  "fallbacks": {
+    "Dialog": "Catalog-declared WebView dialog; mobile may use a bounded full-height sheet presentation without changing state or action semantics.",
+    "responsive_layout": "Toolbar may wrap or become vertical below 640px; declared child order and focus order remain unchanged.",
+    "native_widgets": "Not claimed. Desktop and Mobile use Dioxus WebView semantics for this prototype."
+  }
+}
