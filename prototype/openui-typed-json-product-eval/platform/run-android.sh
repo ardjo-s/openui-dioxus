@@ -26,7 +26,7 @@ build_apk() {
   if ! rustup target add x86_64-linux-android; then error="Android Rust target unavailable"; return 1; fi
   cd "$catalog"
   status=FAIL
-  if ! "$dx_bin" build --platform android --target x86_64-linux-android --release --bin platform-app > "$evidence/traces/android-build.log" 2>&1; then error="Dioxus Android build failed"; exit 1; fi
+  if ! "$dx_bin" build --platform android --target x86_64-linux-android --release --bin platform-app > "$evidence/traces/android-build.log" 2>&1; then error="Dioxus Android build failed"; return 1; fi
   apk=$(find "$catalog/target/dx" -name '*.apk' -type f -print -quit)
   if [ ! -f "$apk" ]; then error="Android APK not found"; return 1; fi
 }
@@ -114,16 +114,20 @@ for _ in $(seq 1 90); do
   sleep 1
 done
 screenshot="$evidence/screenshots/android-emulator.png"
-if ! adb exec-out screencap -p > "$screenshot"; then status=INVALID_EVAL; error="Android screenshot capture failed"; exit 1; fi
-if [ ! -s "$screenshot" ]; then status=INVALID_EVAL; error="Android screenshot missing"; exit 1; fi
-if ! dimensions=$(python3 -c 'import struct,sys; data=open(sys.argv[1],"rb").read(24); assert len(data) == 24 and data[:8] == b"\x89PNG\r\n\x1a\n" and data[12:16] == b"IHDR"; print(*struct.unpack(">II",data[16:24]))' "$screenshot"); then
-  status=INVALID_EVAL
-  error="Android screenshot PNG invalid"
-  exit 1
-fi
-width=${dimensions%% *}
-height=${dimensions##* }
-if [ "$width" -lt 320 ] || [ "$height" -lt 240 ]; then status=INVALID_EVAL; error="Android screenshot dimensions invalid"; exit 1; fi
+screenshot_captured=false
+screenshot_valid=false
+for _ in $(seq 1 10); do
+  if adb exec-out screencap -p > "$screenshot"; then
+    screenshot_captured=true
+    if python3 "$platform/check-screenshot.py" "$screenshot" > "$evidence/traces/android-screenshot.log" 2>&1; then
+      screenshot_valid=true
+      break
+    fi
+  fi
+  sleep 1
+done
+if [ "$screenshot_captured" != true ]; then status=INVALID_EVAL; error="Android screenshot capture failed"; exit 1; fi
+if [ "$screenshot_valid" != true ]; then status=INVALID_EVAL; error="Android screenshot content invalid"; exit 1; fi
 if [ "$marker_observed" != true ]; then
   if grep -Eq 'ANR in com\.android\.(phone|systemui)|System UI.*not responding' "$evidence/traces/android-logcat.log"; then
     status=INVALID_EVAL
