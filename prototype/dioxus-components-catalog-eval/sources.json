@@ -20,6 +20,19 @@
       "name": "Dioxus",
       "version": "0.7.10",
       "source_commit": "57d6794ad60b949e5bd8aa282f6f8c3dc97a365e"
+    },
+    {
+      "name": "Rust/UI product snapshot",
+      "repository": "https://github.com/rust-ui/ui",
+      "commit": "7fd792520ba5e3ad5354c26ac4e6816c2d156b7c",
+      "license": "MIT"
+    },
+    {
+      "name": "Rust/UI Dioxus implementation",
+      "repository": "https://github.com/rust-ui/dioxus-ui",
+      "commit": "2f87a8d0531d483d5b32df6f89b7979ceb4beb74",
+      "integration": "eight copy-on-write source components",
+      "license": "MIT"
     }
   ]
 }

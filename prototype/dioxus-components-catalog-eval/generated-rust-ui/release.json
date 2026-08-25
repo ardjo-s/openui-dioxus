@@ -1,0 +1,27 @@
+{
+  "catalog_id": "rust-ui-dioxus-eval",
+  "catalog_contract_version": "0.1.0",
+  "release_version": "0.0.1-ope10",
+  "execution_profile": "static_rust_v1",
+  "source": {
+    "repository": "https://github.com/rust-ui/ui",
+    "commit": "7fd792520ba5e3ad5354c26ac4e6816c2d156b7c",
+    "tree": "f629c321460f0d9521cbadaf0d7a9d9a37d1599a",
+    "crate": "copy-on-write-registry",
+    "crate_version": "not-published",
+    "upstream_dioxus_requirement": "0.7",
+    "resolved_dioxus_version": "0.7.10",
+    "license": "MIT",
+    "implementation_repository": "https://github.com/rust-ui/dioxus-ui",
+    "implementation_commit": "2f87a8d0531d483d5b32df6f89b7979ceb4beb74",
+    "implementation_tree": "9e1dd2ab868d704aa9f2737fb2eefbdf3f334fe5"
+  },
+  "manifest_hash": "4878de73787456e008c409d55cc4f7b72b934a67a3648d79c9572c657accd621",
+  "schema_hash": "18dcb564a6cc3243a3580a8c371d09eaff5cbfea4018ddd2c1cb85f4d159a0f0",
+  "semantics_hash": "0109f352caa60a478361f6ec8b9f1f789172f85ddf6c860e985094075eace34f",
+  "openui_library_hash": "41a1eca0c23c51fb929abc20a4263d14d519717f130337c70bc29dff98419818",
+  "prompt_hash": "1177e4829b796798768e6431b906b4eb859e7d30b3ec83e27e3334f201c08b2d",
+  "adapter_source_hash": "1fac5dd5c04febb1f6b509ea5c4d782ac6980262ddc31ab02d77d3833e9cdbc3",
+  "adapter_build_id": "ope10-1fac5dd5c04febb1-841ab78c",
+  "catalog_release_hash": "e87196bd4cc3e813a18d928d2a2cfe07e7053bc009e926e523683c9b96facca4"
+}

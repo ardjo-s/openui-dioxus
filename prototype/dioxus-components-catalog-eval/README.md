@@ -43,3 +43,39 @@ change.
 - compatibility release and SHA-256 manifest.
 
 Run the commands in [GATES.md](GATES.md) to reproduce the evidence.
+## Measured Rust/UI second catalog (OPE-10)
+
+`catalog/rust-ui-manifest.json` is the single reviewed source for the second
+catalog. It generates prompt material, both schemas, documentation, the static
+registry, two workflow fixtures, checksums, and the immutable release identity
+under `generated-rust-ui/`.
+
+The product snapshot is pinned to `rust-ui/ui@7fd792520ba5e3ad5354c26ac4e6816c2d156b7c`.
+The selected Dioxus source is pinned separately to
+`rust-ui/dioxus-ui@2f87a8d0531d483d5b32df6f89b7979ceb4beb74`.
+Eight copied and locally reviewed components compile as ordinary application
+source through the existing static `CatalogAdapter`: Label, Card, Input,
+Checkbox, Button, Table, Progress, and Alert. Small copy-on-write adaptations
+add stable IDs and the accessibility attributes promised by the catalog. The
+uncertified Tabs source is not part of the measured slice. This follows
+Rust/UI's copy-on-write model and does not claim a stable ABI or dynamic plug-in
+boundary.
+
+The six maintenance drills validate generated catalog contracts, registry
+compilation, fixture references, deterministic identities, and source
+preservation. Base-adapter rendering and event behavior are tested separately;
+the drills do not claim that each hypothetical renderer change was built.
+
+Regenerate and verify:
+
+```sh
+cd generator
+npm ci
+node generate-rust-ui.mjs
+node --test test/*.test.mjs
+cd ..
+cargo test --all-targets --features ssr
+cargo check --features web
+cargo check --features desktop
+cargo check --features mobile
+```

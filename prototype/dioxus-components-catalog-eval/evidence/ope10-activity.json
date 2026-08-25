@@ -1,0 +1,19 @@
+{
+  "clock": "active minutes exclude dependency downloads and build queue waits",
+  "intervals": [
+    { "started_at": "2026-08-25T09:46:00Z", "ended_at": "2026-08-25T09:56:00Z", "active_seconds": 600, "work": "source discovery, TDD, adapter, generation, and target checks" },
+    { "started_at": "2026-08-25T09:56:00Z", "ended_at": "2026-08-25T10:01:00Z", "active_seconds": 300, "work": "six isolated catalog-contract drills" },
+    { "started_at": "2026-08-25T10:02:00Z", "ended_at": "2026-08-25T10:17:00Z", "active_seconds": 900, "work": "first review corrections, integrity, replay, migration, and verification" },
+    { "started_at": "2026-08-25T12:28:00Z", "ended_at": "2026-08-25T12:53:00Z", "active_seconds": 1200, "work": "second independent review, semantic-contract corrections, TDD, and evidence audit" }
+  ],
+  "failures": [
+    { "category": "expected_tdd_red", "count": 4 },
+    { "category": "source_discovery_correction", "count": 1 },
+    { "category": "tool_command_correction", "count": 1 },
+    { "category": "patch_context_retry", "count": 1 },
+    { "category": "review_semantic_contract_mismatch", "count": 1 },
+    { "category": "review_unsupported_event", "count": 1 },
+    { "category": "review_evidence_overclaim", "count": 1 },
+    { "category": "post_correction_product_behavior", "count": 0 }
+  ]
+}

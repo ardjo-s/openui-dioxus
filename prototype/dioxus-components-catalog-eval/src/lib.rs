@@ -5,13 +5,20 @@ use serde::{Deserialize, Serialize};
 use serde_json::{Map, Value};
 use sha2::{Digest, Sha256};
 
+pub mod catalog_evidence;
 #[cfg(feature = "ui")]
 pub mod platform;
+#[cfg(feature = "ui")]
+pub mod rust_ui;
+#[cfg(feature = "ui")]
+pub mod rust_ui_upstream;
 #[cfg(feature = "ui")]
 pub mod ui;
 
 const MANIFEST: &str = include_str!("../catalog/manifest.json");
 const RELEASE: &str = include_str!("../generated/release.json");
+const RUST_UI_MANIFEST: &str = include_str!("../catalog/rust-ui-manifest.json");
+const RUST_UI_RELEASE: &str = include_str!("../generated-rust-ui/release.json");
 const MAX_SOURCE_BYTES: usize = 256 * 1024;
 const MAX_NODES: usize = 64;
 
@@ -30,6 +37,15 @@ include!(concat!(
     env!("CARGO_MANIFEST_DIR"),
     "/generated/registry.rs"
 ));
+
+#[allow(dead_code)]
+mod rust_ui_generated {
+    use super::GeneratedComponentSpec;
+    include!(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/generated-rust-ui/registry.rs"
+    ));
+}
 
 #[derive(Clone, Debug, Deserialize)]
 struct Manifest {
@@ -156,6 +172,10 @@ pub struct ThinCatalog {
     contract: CatalogContract,
 }
 
+pub struct RustUiCatalog {
+    contract: CatalogContract,
+}
+
 struct CatalogContract {
     manifest: Manifest,
     public_id: String,
@@ -166,7 +186,7 @@ struct CatalogContract {
 impl DioxusComponentsCatalog {
     pub fn new() -> anyhow::Result<Self> {
         Ok(Self {
-            contract: CatalogContract::new(None)?,
+            contract: CatalogContract::new(MANIFEST, RELEASE, GENERATED_COMPONENTS, None)?,
         })
     }
 }
@@ -174,22 +194,44 @@ impl DioxusComponentsCatalog {
 impl ThinCatalog {
     pub fn new() -> anyhow::Result<Self> {
         Ok(Self {
-            contract: CatalogContract::new(Some("thin-reference-catalog"))?,
+            contract: CatalogContract::new(
+                MANIFEST,
+                RELEASE,
+                GENERATED_COMPONENTS,
+                Some("thin-reference-catalog"),
+            )?,
+        })
+    }
+}
+
+impl RustUiCatalog {
+    pub fn new() -> anyhow::Result<Self> {
+        Ok(Self {
+            contract: CatalogContract::new(
+                RUST_UI_MANIFEST,
+                RUST_UI_RELEASE,
+                rust_ui_generated::GENERATED_COMPONENTS,
+                None,
+            )?,
         })
     }
 }
 
 impl CatalogContract {
-    fn new(public_id: Option<&str>) -> anyhow::Result<Self> {
+    fn new(
+        manifest_source: &str,
+        release_source: &str,
+        generated_components: &[GeneratedComponentSpec],
+        public_id: Option<&str>,
+    ) -> anyhow::Result<Self> {
         let manifest: Manifest =
-            serde_json::from_str(MANIFEST).context("parse catalog manifest")?;
-        let release: Release = serde_json::from_str(RELEASE).context("parse catalog release")?;
-        if manifest.components.len() != GENERATED_COMPONENTS.len()
-            || GENERATED_COMPONENTS.len() != 12
-        {
+            serde_json::from_str(manifest_source).context("parse catalog manifest")?;
+        let release: Release =
+            serde_json::from_str(release_source).context("parse catalog release")?;
+        if manifest.components.len() != generated_components.len() {
             bail!("generated registry and manifest disagree");
         }
-        for (definition, generated) in manifest.components.iter().zip(GENERATED_COMPONENTS) {
+        for (definition, generated) in manifest.components.iter().zip(generated_components) {
             let events = definition
                 .events
                 .iter()
@@ -416,6 +458,26 @@ impl CatalogContract {
                         bail!("invalid progress range for {}", node.id);
                     }
                 }
+                "Table" => {
+                    let caption = node.props["caption"].as_str().unwrap();
+                    let columns = node.props["columns"].as_array().unwrap();
+                    let rows = node.props["rows"].as_array().unwrap();
+                    if caption.trim().is_empty() || columns.is_empty() || rows.is_empty() {
+                        bail!("Table {} requires a caption, columns, and rows", node.id);
+                    }
+                    let mut names = BTreeSet::new();
+                    for column in columns {
+                        let name = column.as_str().unwrap();
+                        if name.trim().is_empty() || !names.insert(name) {
+                            bail!("Table {} has an empty or duplicate column", node.id);
+                        }
+                    }
+                    for row in rows {
+                        if row["cells"].as_array().unwrap().len() != columns.len() {
+                            bail!("Table row in {} must match the declared columns", node.id);
+                        }
+                    }
+                }
                 "Tabs" => {
                     let selected = node.props["value"].as_str().unwrap();
                     let key = node.props["state_key"].as_str().unwrap();
@@ -533,6 +595,29 @@ impl CatalogContract {
             }),
             _ => bail!("invalid event input for {}", node.kind),
         }
+    }
+}
+
+impl CatalogAdapter for RustUiCatalog {
+    fn catalog_id(&self) -> &str {
+        &self.contract.public_id
+    }
+
+    fn adapter_build_id(&self) -> &str {
+        &self.contract.adapter_build_id
+    }
+
+    fn normalize(&self, source: &[u8]) -> anyhow::Result<SurfaceRevision> {
+        self.contract.normalize(source)
+    }
+
+    fn event(
+        &self,
+        surface: &SurfaceRevision,
+        node_id: &str,
+        input: EventInput,
+    ) -> anyhow::Result<TypedEvent> {
+        self.contract.event(surface, node_id, input)
     }
 }
 

@@ -1,0 +1,178 @@
+{
+  "01-profile-submit": {
+    "root": "profile",
+    "state": {
+      "profile_name": "Ada",
+      "terms_accepted": true
+    },
+    "nodes": [
+      {
+        "kind": "Card",
+        "id": "profile",
+        "children": [
+          "name-label",
+          "name",
+          "terms",
+          "submit",
+          "review-table",
+          "progress",
+          "feedback"
+        ]
+      },
+      {
+        "kind": "Label",
+        "id": "name-label",
+        "for_id": "name",
+        "text": "Name"
+      },
+      {
+        "kind": "Input",
+        "id": "name",
+        "label": "Name",
+        "state_key": "profile_name",
+        "value": "Ada",
+        "placeholder": "Your name"
+      },
+      {
+        "kind": "Checkbox",
+        "id": "terms",
+        "label": "Accept terms",
+        "state_key": "terms_accepted",
+        "checked": true
+      },
+      {
+        "kind": "Button",
+        "id": "submit",
+        "label": "Submit",
+        "action": "submit_profile",
+        "target_id": "profile",
+        "disabled": false
+      },
+      {
+        "kind": "Table",
+        "id": "review-table",
+        "caption": "Profile review",
+        "columns": [
+          "Field",
+          "Value"
+        ],
+        "rows": [
+          {
+            "cells": [
+              "Name",
+              "Ada"
+            ]
+          },
+          {
+            "cells": [
+              "Terms",
+              "Accepted"
+            ]
+          }
+        ]
+      },
+      {
+        "kind": "Progress",
+        "id": "progress",
+        "label": "Profile complete",
+        "value": 100,
+        "max": 100
+      },
+      {
+        "kind": "Alert",
+        "id": "feedback",
+        "title": "Ready",
+        "message": "Profile can be submitted.",
+        "tone": "info"
+      }
+    ]
+  },
+  "02-preferences-review": {
+    "root": "profile",
+    "state": {
+      "profile_name": "Grace",
+      "terms_accepted": true
+    },
+    "nodes": [
+      {
+        "kind": "Card",
+        "id": "profile",
+        "children": [
+          "name-label",
+          "name",
+          "terms",
+          "submit",
+          "review-table",
+          "progress",
+          "feedback"
+        ]
+      },
+      {
+        "kind": "Label",
+        "id": "name-label",
+        "for_id": "name",
+        "text": "Display name"
+      },
+      {
+        "kind": "Input",
+        "id": "name",
+        "label": "Display name",
+        "state_key": "profile_name",
+        "value": "Grace",
+        "placeholder": "Display name"
+      },
+      {
+        "kind": "Checkbox",
+        "id": "terms",
+        "label": "Confirm preferences",
+        "state_key": "terms_accepted",
+        "checked": true
+      },
+      {
+        "kind": "Button",
+        "id": "submit",
+        "label": "Save",
+        "action": "submit_profile",
+        "target_id": "profile",
+        "disabled": false
+      },
+      {
+        "kind": "Table",
+        "id": "review-table",
+        "caption": "Preference review",
+        "columns": [
+          "Field",
+          "Value"
+        ],
+        "rows": [
+          {
+            "cells": [
+              "Display name",
+              "Grace"
+            ]
+          },
+          {
+            "cells": [
+              "Preferences",
+              "Confirmed"
+            ]
+          }
+        ]
+      },
+      {
+        "kind": "Progress",
+        "id": "progress",
+        "label": "Preferences complete",
+        "value": 80,
+        "max": 100
+      },
+      {
+        "kind": "Alert",
+        "id": "feedback",
+        "title": "Review",
+        "message": "Preferences are ready.",
+        "tone": "warning"
+      }
+    ]
+  }
+}

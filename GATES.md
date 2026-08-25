@@ -1,5 +1,26 @@
 # Acceptance gates
 
+## OPE-10 measured Rust/UI catalog onboarding
+
+- [x] Rust/UI is pinned to `7fd792520ba5e3ad5354c26ac4e6816c2d156b7c`, with exact source and dependency identities recorded.
+- [x] One reviewed catalog source generates prompt material, schemas, documentation, registry data, fixtures, and immutable release identity for at least eight components across six certified capability families.
+- [x] The catalog covers two complete workflows, one typed host action, and one accessibility-sensitive control through the existing static `CatalogAdapter` seam.
+- [x] Public-seam tests are observed red before implementation, then compile and behavior tests pass on every applicable Dioxus target family.
+- [x] Frozen component-prop, component/schema, action-policy, DTCG token, catalog-release, and copy-on-write migration drills pass with inert replay and exact compatibility identity.
+- [x] Recursive evidence hashes and a pre-publication credential scan pass; active time, categorized LOC/files/failures, normalized per-family cost, and the 16-hour hard gate are reported.
+- [x] The stacked diff proves zero canonical runtime behavior lines and files changed and contains no model benchmark, production runtime, converter, dynamic plug-in, broad port, or product verdict.
+- [x] Independent intent and standards reviews pass; owned changes are committed, pushed, and opened as a Draft PR against `codex/ope-9-ecosystem-value-eval` without merge.
+- [x] Linear OPE-10 is synchronized at each transition with branch, worktree, evidence, reviews, and Draft PR.
+
+Verification evidence:
+
+- Frozen implementation commits: `ad829ba`, `9453ea8`.
+- Generator/drill suite: 9/9; Rust suite: 20/20 including 9 Rust/UI tests.
+- Web, Desktop, and Mobile feature checks pass; this ticket makes no distinct device-launch claim.
+- Measurement: 0.833 active hours, including 5 active drill minutes; 0 canonical runtime files/lines; 6.25 active minutes and 272.125 non-generated LOC per family.
+- Integrity: generated and recursive evidence hashes pass; credential scan has no credential finding.
+- Delivery: Draft PR #12 targets `codex/ope-9-ecosystem-value-eval`; no merge was performed.
+
 ## OPE-9 ecosystem-relative product-value evaluation design
 
 - [x] Current primary-source research is recorded with facts, inferences, unknowns, and source/version pins; no new model benchmark is run.
