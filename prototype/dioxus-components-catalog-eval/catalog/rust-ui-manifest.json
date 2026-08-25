@@ -1,5 +1,6 @@
 {
   "catalog_id": "rust-ui-dioxus-eval",
+  "catalog_source_path": "catalog/rust-ui-manifest.json",
   "catalog_contract_version": "0.1.0",
   "release_version": "0.0.1-ope10",
   "execution_profile": "static_rust_v1",
@@ -7,14 +8,15 @@
   "source": {
     "repository": "https://github.com/rust-ui/ui",
     "commit": "7fd792520ba5e3ad5354c26ac4e6816c2d156b7c",
-    "tree": "7fd792520ba5e3ad5354c26ac4e6816c2d156b7c",
+    "tree": "f629c321460f0d9521cbadaf0d7a9d9a37d1599a",
     "crate": "copy-on-write-registry",
     "crate_version": "not-published",
     "upstream_dioxus_requirement": "0.7",
     "resolved_dioxus_version": "0.7.10",
     "license": "MIT",
     "implementation_repository": "https://github.com/rust-ui/dioxus-ui",
-    "implementation_commit": "2f87a8d0531d483d5b32df6f89b7979ceb4beb74"
+    "implementation_commit": "2f87a8d0531d483d5b32df6f89b7979ceb4beb74",
+    "implementation_tree": "9e1dd2ab868d704aa9f2737fb2eefbdf3f334fe5"
   },
   "state_keys": [
     "profile_name",

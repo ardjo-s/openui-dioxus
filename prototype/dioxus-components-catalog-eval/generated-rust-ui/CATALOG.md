@@ -1,6 +1,6 @@
 # Frozen rust-ui-dioxus-eval evaluation catalog
 
-This catalog exposes exactly 12 reviewed components through the
+This catalog exposes exactly 8 reviewed components through the
 `static_rust_v1` profile. It is an evaluation artifact, not a claim that the
 upstream repository or Rust ABI is stable.
 
@@ -22,5 +22,5 @@ upstream repository or Rust ABI is stable.
 | Alert | feedback | rust_ui::alert::Alert | Dismissed |
 
 All wire props, state keys, events, accessibility expectations, and platform
-adaptations are owned by `catalog/manifest.json`. Generated files must not be
+adaptations are owned by `catalog/rust-ui-manifest.json`. Generated files must not be
 edited by hand.

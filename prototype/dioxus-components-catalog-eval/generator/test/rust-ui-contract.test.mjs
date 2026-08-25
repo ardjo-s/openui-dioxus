@@ -8,7 +8,8 @@ import test from "node:test";
 import { deriveArtifacts, loadManifest, writeArtifacts } from "../src/catalog-generator.mjs";
 
 const manifestUrl = new URL("../../catalog/rust-ui-manifest.json", import.meta.url);
-const options = { manifestUrl, adapterSource: "../../src/rust_ui.rs", buildPrefix: "ope10" };
+const adapterSources = ["../../Cargo.toml", "../../Cargo.lock", "../../src/lib.rs", "../../src/rust_ui.rs", ...["alert", "button", "card", "checkbox", "input", "label", "progress", "tabs"].map((name) => `../../src/rust_ui_upstream/${name}.rs`)];
+const options = { manifestUrl, adapterSources, buildPrefix: "ope10" };
 const sha = (value) => createHash("sha256").update(value).digest("hex");
 
 test("Rust/UI source certifies eight components, six families, and two workflows", async () => {
@@ -34,12 +35,14 @@ test("one source deterministically generates all reviewed catalog artifacts", as
   assert.deepEqual(await readdir(first), expected);
   assert.deepEqual(await readdir(second), expected);
   for (const file of expected) assert.deepEqual(await readFile(join(first, file)), await readFile(join(second, file)), file);
+  const committed = new URL("../../generated-rust-ui/", import.meta.url);
+  for (const file of expected) assert.deepEqual(await readFile(join(first, file)), await readFile(new URL(file, committed)), `checked-in ${file}`);
   const release = JSON.parse(await readFile(join(first, "release.json"), "utf8"));
   assert.equal(release.source.commit, "7fd792520ba5e3ad5354c26ac4e6816c2d156b7c");
   assert.equal(release.source.implementation_commit, "2f87a8d0531d483d5b32df6f89b7979ceb4beb74");
 });
 
-test("six frozen maintenance drills are isolated and reproducible", async () => {
+test("six frozen maintenance drills regenerate isolated artifacts reproducibly", async () => {
   const source = await loadManifest(manifestUrl);
   const sourceHash = sha(JSON.stringify(source));
   const drills = [
@@ -50,11 +53,25 @@ test("six frozen maintenance drills are isolated and reproducible", async () => 
     ["catalog-release", (next) => { next.release_version = "0.0.2-ope10"; }],
     ["copy-on-write-migration", (next) => { next.catalog_contract_version = "0.1.1"; next.workflow_fixtures["01-profile-submit"].migration = { from: sourceHash, mode: "copy_on_write" }; }],
   ];
-  const run = () => drills.map(([name, mutate]) => { const next = structuredClone(source); mutate(next); return { name, source_hash: sourceHash, result_hash: sha(JSON.stringify(next)) }; });
-  const first = run();
+  const run = async () => Promise.all(drills.map(async ([name, mutate]) => {
+    const next = structuredClone(source);
+    mutate(next);
+    const output = await mkdtemp(join(tmpdir(), `ope10-${name}-`));
+    const release = await writeArtifacts(output, { ...options, manifest: next });
+    return {
+      name,
+      source_hash: sourceHash,
+      result_hash: sha(JSON.stringify(next)),
+      schema_hash: release.schema_hash,
+      release_hash: release.catalog_release_hash,
+      generated_files: (await readdir(output)).length,
+    };
+  }));
+  const first = await run();
   assert.equal(new Set(first.map((result) => result.name)).size, 6);
   assert.ok(first.every((result) => result.result_hash !== sourceHash));
   assert.equal(sha(JSON.stringify(source)), sourceHash, "copy-on-write drills preserve source");
-  assert.deepEqual(first, run());
+  assert.ok(first.every((result) => result.generated_files === 8));
+  assert.deepEqual(first, await run());
   assert.equal(Object.keys(deriveArtifacts(source).librarySpec.components).length, 8);
 });

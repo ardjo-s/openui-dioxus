@@ -247,7 +247,7 @@ function documentation(manifest) {
   );
   return `# Frozen ${manifest.catalog_id} evaluation catalog
 
-This catalog exposes exactly 12 reviewed components through the
+This catalog exposes exactly ${manifest.components.length} reviewed components through the
 \`static_rust_v1\` profile. It is an evaluation artifact, not a claim that the
 upstream repository or Rust ABI is stable.
 
@@ -262,7 +262,7 @@ upstream repository or Rust ABI is stable.
 ${rows.join("\n")}
 
 All wire props, state keys, events, accessibility expectations, and platform
-adaptations are owned by \`catalog/manifest.json\`. Generated files must not be
+adaptations are owned by \`${manifest.catalog_source_path ?? "catalog/manifest.json"}\`. Generated files must not be
 edited by hand.
 `;
 }
@@ -308,7 +308,7 @@ function semanticContract(manifest) {
 }
 
 export async function writeArtifacts(outputDirectory, options = {}) {
-  const manifest = await loadManifest(options.manifestUrl);
+  const manifest = options.manifest ?? await loadManifest(options.manifestUrl);
   const artifacts = deriveArtifacts(manifest);
   const files = new Map([
     ["openui-library.json", stableJson(artifacts.librarySpec)],
@@ -320,12 +320,15 @@ export async function writeArtifacts(outputDirectory, options = {}) {
   if (manifest.workflow_fixtures) {
     files.set("workflow-fixtures.json", stableJson(manifest.workflow_fixtures));
   }
-  const adapterSource = Buffer.concat([
-    await readFile(new URL("../../Cargo.toml", import.meta.url)),
-    await readFile(new URL("../../Cargo.lock", import.meta.url)),
-    await readFile(new URL("../../src/lib.rs", import.meta.url)),
-    await readFile(new URL(options.adapterSource ?? "../../src/ui.rs", import.meta.url)),
-  ]);
+  const adapterSources = options.adapterSources ?? [
+    "../../Cargo.toml",
+    "../../Cargo.lock",
+    "../../src/lib.rs",
+    options.adapterSource ?? "../../src/ui.rs",
+  ];
+  const adapterSource = Buffer.concat(
+    await Promise.all(adapterSources.map((source) => readFile(new URL(source, import.meta.url)))),
+  );
   const adapterSourceHash = sha256(adapterSource);
   const releaseInputs = {
     catalog_id: manifest.catalog_id,

@@ -1,0 +1,14 @@
+{
+  "clock": "active minutes exclude dependency downloads and build queue waits",
+  "intervals": [
+    { "started_at": "2026-08-25T09:46:00Z", "ended_at": "2026-08-25T10:01:00Z", "active_seconds": 900, "work": "source discovery, TDD, adapter, generation, drills, target checks, evidence" },
+    { "started_at": "2026-08-25T10:02:00Z", "ended_at": "2026-08-25T10:17:00Z", "active_seconds": 900, "work": "independent-review corrections, integrity, executable replay and migration, verification" }
+  ],
+  "failures": [
+    { "category": "expected_tdd_red", "count": 1 },
+    { "category": "source_discovery_correction", "count": 1 },
+    { "category": "tool_command_correction", "count": 1 },
+    { "category": "patch_context_retry", "count": 1 },
+    { "category": "post_implementation_product_behavior", "count": 0 }
+  ]
+}

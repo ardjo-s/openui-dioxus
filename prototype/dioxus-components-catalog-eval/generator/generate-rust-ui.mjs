@@ -8,6 +8,19 @@ const output = process.argv[2]
 
 await writeArtifacts(output, {
   manifestUrl: new URL("../catalog/rust-ui-manifest.json", import.meta.url),
-  adapterSource: "../../src/rust_ui.rs",
+  adapterSources: [
+    "../../Cargo.toml",
+    "../../Cargo.lock",
+    "../../src/lib.rs",
+    "../../src/rust_ui.rs",
+    "../../src/rust_ui_upstream/alert.rs",
+    "../../src/rust_ui_upstream/button.rs",
+    "../../src/rust_ui_upstream/card.rs",
+    "../../src/rust_ui_upstream/checkbox.rs",
+    "../../src/rust_ui_upstream/input.rs",
+    "../../src/rust_ui_upstream/label.rs",
+    "../../src/rust_ui_upstream/progress.rs",
+    "../../src/rust_ui_upstream/tabs.rs",
+  ],
   buildPrefix: "ope10",
 });
