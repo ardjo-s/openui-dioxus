@@ -141,7 +141,7 @@ export async function runCanary({ provider, outputDirectory, platformProof = pro
         const responseBytes = generated.response_bytes ?? Buffer.byteLength(generated.output);
         const validationStarted = performance.now();
         let validation = responseBytes <= maximumResponseBytes
-          ? await validateRoute(cell.route, generated.output, scenario, { deadlineMs })
+          ? await validateRoute(cell.route, generated.output, scenario, { deadlineMs, cohort: cell.cohort })
           : { ok: false, diagnostics: [{ code: "output-too-large", message: `more than ${maximumResponseBytes} bytes` }] };
         let canonical = null;
         let oracleFingerprint = null;
@@ -154,7 +154,7 @@ export async function runCanary({ provider, outputDirectory, platformProof = pro
             validation.semantic_fingerprint = normalized.fingerprint;
             oracleFingerprint = oracle.fingerprint;
             normalizationMs = normalized.normalization_ms + oracle.normalization_ms;
-            if (normalized.fingerprint !== oracle.fingerprint) {
+            if (cell.cohort === "compile-known" && normalized.fingerprint !== oracle.fingerprint) {
               validation = { ok: false, diagnostics: [{ code: "canonical-fingerprint", message: "generated and oracle fingerprints differ" }] };
             }
           } catch (error) {

@@ -32,7 +32,7 @@ export function encodeExpectedJsonRender(surface) {
   ].map((patch) => JSON.stringify(patch)).join("\n");
 }
 
-export function validateJsonRender(source, expected) {
+export function validateJsonRender(source, expected, { exact = true } = {}) {
   const diagnostics = [];
   if (Buffer.byteLength(source) > 256 * 1024) {
     diagnostics.push({ code: "output-too-large", message: "more than 262144 bytes" });
@@ -76,7 +76,7 @@ export function validateJsonRender(source, expected) {
   }
   const expectedObservable = surfaceToObservable(expected);
   const observableMatch = stableJson(observable) === stableJson(expectedObservable);
-  if (!observableMatch) {
+  if (exact && !observableMatch) {
     return {
       ok: false,
       diagnostics: [{ code: "semantic-coverage", message: "observable output differs from frozen scenario" }],

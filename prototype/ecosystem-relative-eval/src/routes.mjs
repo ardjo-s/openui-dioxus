@@ -38,11 +38,14 @@ export function encodeExpectedRoute(route, scenario) {
   throw new Error(`unknown route: ${route}`);
 }
 
-export async function validateRoute(route, source, scenario, { deadlineMs = Number.POSITIVE_INFINITY } = {}) {
+export async function validateRoute(route, source, scenario, { deadlineMs = Number.POSITIVE_INFINITY, cohort = "compile-known" } = {}) {
+  const exact = cohort === "compile-known";
   if (route === "openui" || route === "typed-json") {
     const result = validateProtocol(route, source, scenario.expected.state);
     if (!result.ok) return { ok: false, diagnostics: result.diagnostics, wire: null, route_artifact: null, semantic_fingerprint: null };
-    const coverage = semanticCoverage(result.wire, scenario.expected);
+    const coverage = exact
+      ? semanticCoverage(result.wire, scenario.expected)
+      : runtimeContractCoverage(result.wire, scenario.shared_contract);
     if (!coverage.passed) {
       return {
         ok: false,
@@ -61,10 +64,15 @@ export async function validateRoute(route, source, scenario, { deadlineMs = Numb
     };
   }
   if (route === "json-render") {
-    const result = validateJsonRender(source, scenario.expected);
+    const result = validateJsonRender(source, scenario.expected, { exact });
+    const coverage = result.ok && !exact
+      ? runtimeContractCoverage(result.observable, scenario.shared_contract)
+      : { passed: result.ok, diagnostics: [] };
     return {
-      ok: result.ok,
-      diagnostics: result.diagnostics,
+      ok: result.ok && coverage.passed,
+      diagnostics: result.ok && !coverage.passed
+        ? coverage.diagnostics.map((message) => ({ code: "semantic-coverage", message }))
+        : result.diagnostics,
       wire: null,
       route_artifact: result.spec,
       observable: result.observable,
@@ -86,6 +94,41 @@ export async function validateRoute(route, source, scenario, { deadlineMs = Numb
     };
   }
   throw new Error(`unknown route: ${route}`);
+}
+
+export function runtimeContractCoverage(artifact, contract) {
+  const diagnostics = [];
+  const nodes = artifact.nodes ?? [];
+  const kinds = nodes.map((node) => node.kind).sort();
+  if (JSON.stringify(kinds) !== JSON.stringify([...contract.acceptance.required_component_kinds].sort())) diagnostics.push("component-kinds");
+  if (stableJson(artifact.state ?? {}) !== stableJson(contract.acceptance.required_state)) diagnostics.push("state");
+  const actions = nodes.filter((node) => node.kind === "Button").map((node) => {
+    const props = node.props ?? node;
+    return { name: props.action, target_id: props.target_id };
+  }).sort((left, right) => stableJson(left).localeCompare(stableJson(right)));
+  const requiredActions = [...contract.acceptance.required_actions].map(({ name, target_id }) => ({ name, target_id }))
+    .sort((left, right) => stableJson(left).localeCompare(stableJson(right)));
+  if (stableJson(actions) !== stableJson(requiredActions)) diagnostics.push("actions");
+  const ids = nodes.map((node) => node.id);
+  if (ids.some((id) => typeof id !== "string" || !id) || new Set(ids).size !== ids.length || !ids.includes(artifact.root)) diagnostics.push("stable-ids");
+  const supplied = suppliedWorkflowValues(contract);
+  const observable = new Set(flattenValues({ kinds, state: artifact.state ?? {}, nodes }));
+  for (const value of supplied) {
+    if (!observable.has(value)) diagnostics.push(`supplied-value:${JSON.stringify(value)}`);
+  }
+  return { passed: diagnostics.length === 0, diagnostics };
+}
+
+function suppliedWorkflowValues(contract) {
+  const text = contract.mcp_tool_result.content.find((entry) => entry.type === "text")?.text;
+  if (!text) return [];
+  return flattenValues(JSON.parse(text).workflow_data);
+}
+
+function flattenValues(value) {
+  if (Array.isArray(value)) return value.flatMap(flattenValues);
+  if (value && typeof value === "object") return Object.values(value).flatMap(flattenValues);
+  return [value];
 }
 
 export function routeExtension(route) {

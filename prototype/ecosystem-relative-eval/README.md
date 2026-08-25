@@ -17,10 +17,18 @@ Route-specific guarantees are excluded from comparisons where they do not apply.
 
 1. Freeze source pins, toolchain, scenarios, exact prompts, order, reviewer slots, rates, thresholds, trust controls, source tree, and reference platform proofs in one candidate manifest.
 2. Run eight balanced route cells with fresh Luna low sessions. Retain and charge every rejected first attempt. Permit at most one repair per cell and at most 16 provider calls total.
-3. Validate each output through its route-native validator or compiler. OpenUI and typed JSON must normalize to the same expected canonical fingerprint.
+3. Validate each output through its route-native validator or compiler. Compile-known OpenUI and typed JSON must normalize to the expected canonical fingerprint.
 4. Convert only accepted runtime outputs into isolated platform fixtures.
 5. Render those generated fixtures through real Dioxus Web, Dioxus Desktop, and official `json-render` React Web. Exercise state, actions, updates, replay, accessibility checks, traces, and screenshots.
 6. Verify the frozen OPE-3 archive, the second Dioxus catalog and migration drills, zero canonical runtime changes, credential scans, the 30 minute ceiling, and recursive hashes.
+
+Runtime-uncertain outputs are checked against the byte-identical supplied
+observable contract: component kinds, supplied business values, state, typed
+actions, and stable ids. They may choose ids, orientation, composition details,
+or copy that the contract did not provide. Compile-known outputs still receive
+the complete frozen specification and must match it exactly. Canonical
+fingerprint equality with the hidden oracle is therefore a compile-known check,
+not a runtime-uncertain style oracle.
 
 An evidence directory is unpublished until the last exclusive write creates
 `PUBLICATION.json`. The runner first freezes `CANDIDATE.json`, then a separate

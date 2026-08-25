@@ -334,7 +334,7 @@ function applicabilityRows(scenarios) {
     row("state-transition", "shared", allRoutes()),
     row("registered-action", "shared", allRoutes()),
     row("visible-feedback", "shared", allRoutes()),
-    row("canonical-surface-fingerprint", "route-specific", only("openui", "typed-json")),
+    { ...row("canonical-surface-fingerprint", "route-specific", only("openui", "typed-json")), cohorts: ["compile-known"] },
     row("inert-replay", "route-specific", only("openui", "typed-json")),
     row("dioxus-desktop", "dioxus-specific", only("openui", "typed-json", "direct-rsx")),
     row("dioxus-mobile", "dioxus-specific", only("openui", "typed-json", "direct-rsx")),
