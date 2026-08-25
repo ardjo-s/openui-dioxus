@@ -17,6 +17,10 @@ const blankPng = Buffer.from(
   "iVBORw0KGgoAAAANSUhEUgAAAUAAAADwCAIAAAD+Tyo8AAACCUlEQVR42u3TQQkAAAwDsfo33XrYb5BIOLgUeCsSgIEBAwMGBgMDBgYMDBgYDAwYGDAwGBgwMGBgwMBgYMDAgIEBA4OBAQMDBgYDAwYGDAwYGAwMGBgwMGBgMDBgYMDAYGDAwICBAQODgQEDAwYGAwMGBgwMGBgMDBgYMDBgYDAwYGDAwGBgwMCAgQEDg4EBAwMGBgwMBgYMDBgYDAwYGDAwYGAwMGBgwMCAgcHAgIEBA4OBAQMDBgYMDAYGDAwYGAwMGBgwMGBgMDBgYMDAgIHBwICBAQODgQEDAwYGDAwGBgwMGBgwMBgYMDBgYDAwYGDAwICBwcCAgQEDAwYGAwMGBgwMBgYMDBgYMDAYGDAwYGAwMGBgwMCAgcHAgIEBAwMGBgMDBgYMDAYGDAwYGDAwGBgwMGBgwMBgYMDAgIHBwICBAQMDBgYDAwYGDAwGBgwMGBgwMBgYMDBgYMDAYGDAwICBwcCAgQEDAwYGAwMGBgwMGBgMDBgYMDAYGDAwYGDAwGBgwMCAgQEDg4EBAwMGBgMDBgYMDBgYDAwYGDAwGBgwMGBgwMBgYMDAgIEBA4OBAQMDBgYDAwYGDAwYGAwMGBgwMGBgMDBgYMDAYGDAwICBAQODgQEDAwYGDAwGBgwMGBgMDBgYMDBgYDAwYGDAwGBgwMCAgQEDg4EBAwMGBgwMBgYMDNwNdNewgYHrK5IAAAAASUVORK5CYII=",
   "base64",
 );
+const lowContrastPng = Buffer.from(
+  "iVBORw0KGgoAAAANSUhEUgAAAUAAAADwCAIAAAD+Tyo8AAACCklEQVR42u3TQQkAAAwDsfrXWwH1sN8gkXBwKfBWJAADAwYGDAwGBgwMGBgwMBgYMDBgYDAwYGDAwICBwcCAgQEDAwYGAwMGBgwMBgYMDBgYMDAYGDAwYGDAwGBgwMCAgcHAgIEBAwMGBgMDBgYMDAYGDAwYGDAwGBgwMGBgwMBgYMDAgIHBwICBAQMDBgYDAwYGDAwYGAwMGBgwMBgYMDBgYMDAYGDAwICBAQODgQEDAwYGAwMGBgwMGBgMDBgYMDAYGDAwYGDAwGBgwMCAgQEDg4EBAwMGBgMDBgYMDBgYDAwYGDAwYGAwMGBgwMBgYMDAgIEBA4OBAQMDBgYMDAYGDAwYGAwMGBgwMGBgMDBgYMDAYGDAwICBAQODgQEDAwYGDAwGBgwMGBgMDBgYMDBgYDAwYGDAwICBwcCAgQEDg4EBAwMGBgwMBgYMDBgYDAwYGDAwYGAwMGBgwMCAgcHAgIEBA4OBAQMDBgYMDAYGDAwYGDAwGBgwMGBgMDBgYMDAgIHBwICBAQMDBgYDAwYGDAwGBgwMGBgwMBgYMDBgYDAwYGDAwICBwcCAgQEDAwYGAwMGBgwMBgYMDBgYMDAYGDAwYGDAwGBgwMCAgcHAgIEBAwMGBgMDBgYMDBgYDAwYGDAwGBgwMGBgwMBgYMDAgIHBwICBAQMDBgYDAwYGDAwYGAwMGBi4G93tAkeaNNfaAAAAAElFTkSuQmCC",
+  "base64",
+);
 const blackPng = Buffer.from(
   "iVBORw0KGgoAAAANSUhEUgAAAUAAAADwCAIAAAD+Tyo8AAAA9UlEQVR42u3BAQEAAACCIP+vbkhAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBohR0AAeRzGuEAAAAASUVORK5CYII=",
   "base64",
@@ -57,6 +61,11 @@ test("Android runner keeps capture and transport failures out of product evidenc
   assert.equal(blank.result.status, "INVALID_EVAL");
   assert.equal(blank.result.passed, false);
   assert.equal(blank.result.error, "Android screenshot content invalid");
+
+  const lowContrast = await runtimeScenario(t, "low-contrast-screenshot");
+  assert.equal(lowContrast.process.status, 1);
+  assert.equal(lowContrast.result.status, "INVALID_EVAL");
+  assert.equal(lowContrast.result.error, "Android screenshot content invalid");
 
   const root = await runtimeScenario(t, "root-screenshot");
   assert.equal(root.process.status, 1);
@@ -131,7 +140,13 @@ async function runtimeScenario(t, scenario) {
   const adbCalls = path.join(root, "adb-calls");
   await mkdir(bin, { recursive: true });
   await writeFile(apk, "apk");
-  const screenshotBytes = scenario === "blank-screenshot" ? blankPng : scenario === "root-screenshot" ? blackPng : png;
+  const screenshotBytes = scenario === "blank-screenshot"
+    ? blankPng
+    : scenario === "low-contrast-screenshot"
+      ? lowContrastPng
+      : scenario === "root-screenshot"
+        ? blackPng
+        : png;
   await writeFile(screenshot, screenshotBytes);
   await writeExecutable(path.join(bin, "apkanalyzer"), "#!/usr/bin/env bash\nprintf com.ardjo.openuidioxus.platformeval\n");
   await writeExecutable(path.join(bin, "sleep"), "#!/usr/bin/env bash\nexit 0\n");
