@@ -9,8 +9,8 @@
 - [x] Frozen component-prop, component/schema, action-policy, DTCG token, catalog-release, and copy-on-write migration drills pass with inert replay and exact compatibility identity.
 - [x] Recursive evidence hashes and a pre-publication credential scan pass; active time, categorized LOC/files/failures, normalized per-family cost, and the 16-hour hard gate are reported.
 - [x] The stacked diff proves zero canonical runtime behavior lines and files changed and contains no model benchmark, production runtime, converter, dynamic plug-in, broad port, or product verdict.
-- [ ] Independent intent and standards reviews pass; owned changes are committed, pushed, and opened as a Draft PR against `codex/ope-9-ecosystem-value-eval` without merge. Reviews pass; push and PR remain.
-- [ ] Linear OPE-10 is synchronized at each transition with branch, worktree, evidence, reviews, and Draft PR.
+- [x] Independent intent and standards reviews pass; owned changes are committed, pushed, and opened as a Draft PR against `codex/ope-9-ecosystem-value-eval` without merge.
+- [x] Linear OPE-10 is synchronized at each transition with branch, worktree, evidence, reviews, and Draft PR.
 
 Verification evidence:
 
@@ -19,6 +19,7 @@ Verification evidence:
 - Web, Desktop, and Mobile feature checks pass; shared behavior matrix covers Web/Desktop/iOS/Android profiles.
 - Measurement: 0.5 active hours; 0 canonical runtime files/lines; 3.75 active minutes and 252.375 non-generated LOC per family.
 - Integrity: generated and recursive evidence hashes pass; credential scan has no credential finding.
+- Delivery: Draft PR #12 targets `codex/ope-9-ecosystem-value-eval`; no merge was performed.
 
 ## OPE-9 ecosystem-relative product-value evaluation design
 
