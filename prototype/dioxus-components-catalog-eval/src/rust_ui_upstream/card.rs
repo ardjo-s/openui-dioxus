@@ -2,13 +2,17 @@ use dioxus::prelude::*;
 use tw_merge::tw_merge;
 
 #[component]
-pub fn Card(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
+pub fn Card(
+    #[props(into, optional)] id: Option<String>,
+    #[props(into, optional)] class: Option<String>,
+    children: Element,
+) -> Element {
     let merged_class = tw_merge!(
         "bg-card text-card-foreground flex flex-col gap-4 rounded-xl border py-6 shadow-sm",
         class.as_deref().unwrap_or("")
     );
 
-    rsx! { div { "data-name": "Card", class: "{merged_class}", {children} } }
+    rsx! { div { id, "data-name": "Card", class: "{merged_class}", {children} } }
 }
 
 #[component]

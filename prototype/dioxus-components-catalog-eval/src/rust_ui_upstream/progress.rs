@@ -3,6 +3,8 @@ use tw_merge::tw_merge;
 
 #[component]
 pub fn Progress(
+    #[props(into, optional)] id: Option<String>,
+    #[props(into, optional)] aria_label: Option<String>,
     #[props(default = 0.0)] value: f64,
     #[props(default = 100.0)] max: f64,
     #[props(into, optional)] class: Option<String>,
@@ -17,8 +19,10 @@ pub fn Progress(
 
     rsx! {
         div {
+            id,
             "data-name": "Progress",
             role: "progressbar",
+            "aria-label": aria_label,
             aria_valuemin: "0",
             aria_valuemax: "{max}",
             aria_valuenow: "{value}",

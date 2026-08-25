@@ -22,7 +22,7 @@ await writeArtifacts(output, {
     "../../src/rust_ui_upstream/input.rs",
     "../../src/rust_ui_upstream/label.rs",
     "../../src/rust_ui_upstream/progress.rs",
-    "../../src/rust_ui_upstream/tabs.rs",
+    "../../src/rust_ui_upstream/table.rs",
   ],
   buildPrefix: "ope10",
 });

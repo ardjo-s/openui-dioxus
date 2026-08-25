@@ -35,7 +35,7 @@
             "$ref": "#/$defs/Button"
           },
           {
-            "$ref": "#/$defs/Tabs"
+            "$ref": "#/$defs/Table"
           },
           {
             "$ref": "#/$defs/Progress"
@@ -55,9 +55,6 @@
         },
         "terms_accepted": {
           "type": "boolean"
-        },
-        "active_tab": {
-          "type": "string"
         }
       }
     }
@@ -180,7 +177,8 @@
         "id",
         "label",
         "action",
-        "target_id"
+        "target_id",
+        "disabled"
       ],
       "properties": {
         "kind": {
@@ -200,52 +198,52 @@
         },
         "target_id": {
           "type": "string"
+        },
+        "disabled": {
+          "type": "boolean"
         }
       }
     },
-    "Tabs": {
+    "Table": {
       "type": "object",
       "additionalProperties": false,
       "required": [
         "kind",
         "id",
-        "state_key",
-        "value",
-        "items"
+        "caption",
+        "columns",
+        "rows"
       ],
       "properties": {
         "kind": {
-          "const": "Tabs"
+          "const": "Table"
         },
         "id": {
           "type": "string"
         },
-        "state_key": {
+        "caption": {
           "type": "string"
         },
-        "value": {
-          "type": "string"
+        "columns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
-        "items": {
+        "rows": {
           "type": "array",
           "items": {
             "type": "object",
             "additionalProperties": false,
             "required": [
-              "value",
-              "label",
-              "child"
+              "cells"
             ],
             "properties": {
-              "value": {
-                "type": "string"
-              },
-              "label": {
-                "type": "string"
-              },
-              "child": {
-                "type": "string",
-                "format": "component-ref"
+              "cells": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               }
             }
           }

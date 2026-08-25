@@ -3,6 +3,7 @@ use tw_merge::tw_merge;
 
 #[component]
 pub fn Label(
+    #[props(into, default)] id: Option<String>,
     #[props(into, default)] html_for: Option<String>,
     #[props(into, default)] class: Option<String>,
     children: Element,
@@ -13,6 +14,7 @@ pub fn Label(
     );
     rsx! {
         label {
+            id,
             r#for: html_for.as_deref().unwrap_or(""),
             class: "{class}",
             {children}

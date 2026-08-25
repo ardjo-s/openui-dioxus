@@ -19,12 +19,12 @@
       "description": "Independent boolean input bound to runtime state."
     },
     "Button": {
-      "signature": "Button(id: string, label: string, action: \"submit_profile\", target_id: string)",
+      "signature": "Button(id: string, label: string, action: \"submit_profile\", target_id: string, disabled: boolean)",
       "description": "Invokes one allowlisted typed host action."
     },
-    "Tabs": {
-      "signature": "Tabs(id: string, state_key: string, value: string, items: object[])",
-      "description": "Local navigation between a closed set of panels."
+    "Table": {
+      "signature": "Table(id: string, caption: string, columns: string[], rows: object[])",
+      "description": "Small reviewed data table with a visible caption and column headers."
     },
     "Progress": {
       "signature": "Progress(id: string, label: string, value: number, max: number)",
@@ -54,8 +54,8 @@
       "Button": {
         "$ref": "#/$defs/Button"
       },
-      "Tabs": {
-        "$ref": "#/$defs/Tabs"
+      "Table": {
+        "$ref": "#/$defs/Table"
       },
       "Progress": {
         "$ref": "#/$defs/Progress"
@@ -118,7 +118,7 @@
                   "$ref": "#/$defs/Button"
                 },
                 {
-                  "$ref": "#/$defs/Tabs"
+                  "$ref": "#/$defs/Table"
                 },
                 {
                   "$ref": "#/$defs/Progress"
@@ -193,7 +193,8 @@
           "id",
           "label",
           "action",
-          "target_id"
+          "target_id",
+          "disabled"
         ],
         "properties": {
           "id": {
@@ -210,79 +211,55 @@
           },
           "target_id": {
             "type": "string"
+          },
+          "disabled": {
+            "type": "boolean"
           }
         },
         "description": "Invokes one allowlisted typed host action."
       },
-      "Tabs": {
+      "Table": {
         "type": "object",
         "additionalProperties": false,
         "required": [
           "id",
-          "state_key",
-          "value",
-          "items"
+          "caption",
+          "columns",
+          "rows"
         ],
         "properties": {
           "id": {
             "type": "string"
           },
-          "state_key": {
+          "caption": {
             "type": "string"
           },
-          "value": {
-            "type": "string"
+          "columns": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           },
-          "items": {
+          "rows": {
             "type": "array",
             "items": {
               "type": "object",
               "additionalProperties": false,
               "required": [
-                "value",
-                "label",
-                "child"
+                "cells"
               ],
               "properties": {
-                "value": {
-                  "type": "string"
-                },
-                "label": {
-                  "type": "string"
-                },
-                "child": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/$defs/Label"
-                    },
-                    {
-                      "$ref": "#/$defs/Card"
-                    },
-                    {
-                      "$ref": "#/$defs/Input"
-                    },
-                    {
-                      "$ref": "#/$defs/Checkbox"
-                    },
-                    {
-                      "$ref": "#/$defs/Button"
-                    },
-                    {
-                      "$ref": "#/$defs/Tabs"
-                    },
-                    {
-                      "$ref": "#/$defs/Progress"
-                    },
-                    {
-                      "$ref": "#/$defs/Alert"
-                    }
-                  ]
+                "cells": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             }
           }
         },
-        "description": "Local navigation between a closed set of panels."
+        "description": "Small reviewed data table with a visible caption and column headers."
       },
       "Progress": {
         "type": "object",

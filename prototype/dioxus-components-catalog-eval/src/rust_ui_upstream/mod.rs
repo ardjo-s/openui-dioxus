@@ -5,4 +5,4 @@ pub mod checkbox;
 pub mod input;
 pub mod label;
 pub mod progress;
-pub mod tabs;
+pub mod table;

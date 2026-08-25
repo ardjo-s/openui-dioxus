@@ -22,6 +22,7 @@ impl AlertVariant {
 
 #[component]
 pub fn Alert(
+    #[props(into, optional)] id: Option<String>,
     #[props(default)] variant: AlertVariant,
     #[props(into, default)] class: Option<String>,
     children: Element,
@@ -32,7 +33,7 @@ pub fn Alert(
         class.as_deref().unwrap_or("")
     );
     rsx! {
-        div { role: "alert", class: "{class}", {children} }
+        div { id, role: "alert", class: "{class}", {children} }
     }
 }
 

@@ -458,6 +458,26 @@ impl CatalogContract {
                         bail!("invalid progress range for {}", node.id);
                     }
                 }
+                "Table" => {
+                    let caption = node.props["caption"].as_str().unwrap();
+                    let columns = node.props["columns"].as_array().unwrap();
+                    let rows = node.props["rows"].as_array().unwrap();
+                    if caption.trim().is_empty() || columns.is_empty() || rows.is_empty() {
+                        bail!("Table {} requires a caption, columns, and rows", node.id);
+                    }
+                    let mut names = BTreeSet::new();
+                    for column in columns {
+                        let name = column.as_str().unwrap();
+                        if name.trim().is_empty() || !names.insert(name) {
+                            bail!("Table {} has an empty or duplicate column", node.id);
+                        }
+                    }
+                    for row in rows {
+                        if row["cells"].as_array().unwrap().len() != columns.len() {
+                            bail!("Table row in {} must match the declared columns", node.id);
+                        }
+                    }
+                }
                 "Tabs" => {
                     let selected = node.props["value"].as_str().unwrap();
                     let key = node.props["state_key"].as_str().unwrap();

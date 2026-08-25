@@ -19,8 +19,8 @@ Label(id: string, for_id: string, text: string) — Accessible text label associ
 Card(id: string, children: Component[]) — Rust/UI Card container for one reviewed workflow.
 Input(id: string, label: string, state_key: string, value: string, placeholder: string) — Single-line text input bound to an allowlisted runtime state key.
 Checkbox(id: string, label: string, state_key: string, checked: boolean) — Independent boolean input bound to runtime state.
-Button(id: string, label: string, action: "submit_profile", target_id: string) — Invokes one allowlisted typed host action.
-Tabs(id: string, state_key: string, value: string, items: object[]) — Local navigation between a closed set of panels.
+Button(id: string, label: string, action: "submit_profile", target_id: string, disabled: boolean) — Invokes one allowlisted typed host action.
+Table(id: string, caption: string, columns: string[], rows: object[]) — Small reviewed data table with a visible caption and column headers.
 Progress(id: string, label: string, value: number, max: number) — Determinate progress with explicit value and maximum.
 Alert(id: string, title: string, message: string, tone: "info" | "warning" | "error") — Rust/UI Alert presenting reviewed feedback.
 
@@ -60,13 +60,12 @@ Before finishing, walk your output and verify:
 - action must be declared by the catalog release.
 - Accessibility: Expose label, disabled state, visible focus, and keyboard activation.
 - Button emits only ActionInvoked.
-- Each item has unique value, label, and child reference.
-- Accessibility: Support roving focus and associate each tab with its panel.
-- Tabs emits only NavigationChanged.
+- caption must be non-empty.
+- Every row must contain exactly one cell per declared column.
+- Accessibility: Expose a visible caption and semantic column headers.
 - value must be between zero and max; max must be positive.
 - Accessibility: Expose label, current value, minimum, and maximum.
 - Do not use as the only record of an action result.
 - Accessibility: Announce feedback without unexpectedly moving focus.
-- Alert emits only Dismissed.
-- Allowed state keys: profile_name, terms_accepted, active_tab.
+- Allowed state keys: profile_name, terms_accepted.
 - Allowed actions: submit_profile.

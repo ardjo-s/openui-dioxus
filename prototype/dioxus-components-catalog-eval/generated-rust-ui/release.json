@@ -16,12 +16,12 @@
     "implementation_commit": "2f87a8d0531d483d5b32df6f89b7979ceb4beb74",
     "implementation_tree": "9e1dd2ab868d704aa9f2737fb2eefbdf3f334fe5"
   },
-  "manifest_hash": "4d9cae3c75f875a3b2818dafe1ebc40a725cd5bc1912fa6b554bc89f0fbf42cb",
-  "schema_hash": "6d7dacf55898822940466af20832eefed8fd315310676a81d23837ccb786f05d",
-  "semantics_hash": "20f433ee84ec538aadf0a71f4d7d01a4fa78f7750e679d1626aa77411788a38c",
-  "openui_library_hash": "969e615427903d77e6c4dd22dc414fc5ce8a1a196975aa0c3d7e3a01e49d9f78",
-  "prompt_hash": "e55a53e996f1401dd7bc7c46f788fe4c94107349dddd56d455c3d11fd1a9f66a",
-  "adapter_source_hash": "9af10f6a72abf4784bc9907e1099694880be898190d250c7eb921090371d1df1",
-  "adapter_build_id": "ope10-9af10f6a72abf478-e2d4d09b",
-  "catalog_release_hash": "d60b5135d946495ae915181fa42397e2fca54b26bbd21e89368d48427578cf0b"
+  "manifest_hash": "4878de73787456e008c409d55cc4f7b72b934a67a3648d79c9572c657accd621",
+  "schema_hash": "18dcb564a6cc3243a3580a8c371d09eaff5cbfea4018ddd2c1cb85f4d159a0f0",
+  "semantics_hash": "0109f352caa60a478361f6ec8b9f1f789172f85ddf6c860e985094075eace34f",
+  "openui_library_hash": "41a1eca0c23c51fb929abc20a4263d14d519717f130337c70bc29dff98419818",
+  "prompt_hash": "1177e4829b796798768e6431b906b4eb859e7d30b3ec83e27e3334f201c08b2d",
+  "adapter_source_hash": "1fac5dd5c04febb1f6b509ea5c4d782ac6980262ddc31ab02d77d3833e9cdbc3",
+  "adapter_build_id": "ope10-1fac5dd5c04febb1-841ab78c",
+  "catalog_release_hash": "e87196bd4cc3e813a18d928d2a2cfe07e7053bc009e926e523683c9b96facca4"
 }

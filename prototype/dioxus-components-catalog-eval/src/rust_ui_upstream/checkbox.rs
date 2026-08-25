@@ -4,6 +4,7 @@ use tw_merge::tw_merge;
 
 #[component]
 pub fn Checkbox(
+    #[props(into, optional)] id: Option<String>,
     #[props(into, default)] class: Option<String>,
     #[props(default = false)] checked: bool,
     #[props(default = false)] disabled: bool,
@@ -18,6 +19,7 @@ pub fn Checkbox(
     );
     rsx! {
         button {
+            id,
             "data-name": "Checkbox",
             class: "{merged}",
             "data-state": checked_state,

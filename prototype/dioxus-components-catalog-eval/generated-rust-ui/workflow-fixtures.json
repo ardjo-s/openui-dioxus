@@ -3,8 +3,7 @@
     "root": "profile",
     "state": {
       "profile_name": "Ada",
-      "terms_accepted": true,
-      "active_tab": "review"
+      "terms_accepted": true
     },
     "nodes": [
       {
@@ -15,8 +14,9 @@
           "name",
           "terms",
           "submit",
-          "review-tabs",
-          "progress"
+          "review-table",
+          "progress",
+          "feedback"
         ]
       },
       {
@@ -45,18 +45,29 @@
         "id": "submit",
         "label": "Submit",
         "action": "submit_profile",
-        "target_id": "profile"
+        "target_id": "profile",
+        "disabled": false
       },
       {
-        "kind": "Tabs",
-        "id": "review-tabs",
-        "state_key": "active_tab",
-        "value": "review",
-        "items": [
+        "kind": "Table",
+        "id": "review-table",
+        "caption": "Profile review",
+        "columns": [
+          "Field",
+          "Value"
+        ],
+        "rows": [
           {
-            "value": "review",
-            "label": "Review",
-            "child": "feedback"
+            "cells": [
+              "Name",
+              "Ada"
+            ]
+          },
+          {
+            "cells": [
+              "Terms",
+              "Accepted"
+            ]
           }
         ]
       },
@@ -80,8 +91,7 @@
     "root": "profile",
     "state": {
       "profile_name": "Grace",
-      "terms_accepted": true,
-      "active_tab": "review"
+      "terms_accepted": true
     },
     "nodes": [
       {
@@ -92,8 +102,9 @@
           "name",
           "terms",
           "submit",
-          "review-tabs",
-          "progress"
+          "review-table",
+          "progress",
+          "feedback"
         ]
       },
       {
@@ -122,18 +133,29 @@
         "id": "submit",
         "label": "Save",
         "action": "submit_profile",
-        "target_id": "profile"
+        "target_id": "profile",
+        "disabled": false
       },
       {
-        "kind": "Tabs",
-        "id": "review-tabs",
-        "state_key": "active_tab",
-        "value": "review",
-        "items": [
+        "kind": "Table",
+        "id": "review-table",
+        "caption": "Preference review",
+        "columns": [
+          "Field",
+          "Value"
+        ],
+        "rows": [
           {
-            "value": "review",
-            "label": "Review",
-            "child": "feedback"
+            "cells": [
+              "Display name",
+              "Grace"
+            ]
+          },
+          {
+            "cells": [
+              "Preferences",
+              "Confirmed"
+            ]
           }
         ]
       },

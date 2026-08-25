@@ -44,6 +44,86 @@ fn rust_ui_catalog_emits_the_typed_host_action() {
 }
 
 #[test]
+fn every_declared_rust_ui_event_has_an_executable_adapter_route() {
+    let manifest: serde_json::Value = serde_json::from_slice(
+        &fs::read(PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("catalog/rust-ui-manifest.json"))
+            .unwrap(),
+    )
+    .unwrap();
+    let declared = manifest["components"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .map(|component| {
+            (
+                component["name"].as_str().unwrap(),
+                component["events"]
+                    .as_array()
+                    .unwrap()
+                    .iter()
+                    .map(|event| event["name"].as_str().unwrap())
+                    .collect::<Vec<_>>(),
+            )
+        })
+        .collect::<std::collections::BTreeMap<_, _>>();
+    assert_eq!(declared["Input"], ["FieldChanged"]);
+    assert_eq!(declared["Checkbox"], ["ToggleChanged"]);
+    assert_eq!(declared["Button"], ["ActionInvoked"]);
+    for kind in ["Label", "Card", "Table", "Progress", "Alert"] {
+        assert!(
+            declared[kind].is_empty(),
+            "{kind} declares an unsupported event"
+        );
+    }
+
+    let adapter = RustUiCatalog::new().unwrap();
+    let surface = adapter.normalize(&fixture("01-profile-submit")).unwrap();
+    assert!(matches!(
+        adapter
+            .event(
+                &surface,
+                "name",
+                EventInput::String {
+                    value: "Lin".into()
+                }
+            )
+            .unwrap(),
+        TypedEvent::FieldChanged { .. }
+    ));
+    assert!(matches!(
+        adapter
+            .event(&surface, "terms", EventInput::Boolean { value: false })
+            .unwrap(),
+        TypedEvent::ToggleChanged { .. }
+    ));
+    assert!(matches!(
+        adapter
+            .event(&surface, "submit", EventInput::Activate)
+            .unwrap(),
+        TypedEvent::ActionInvoked { .. }
+    ));
+}
+
+#[test]
+fn rust_ui_table_rejects_rows_that_do_not_match_the_declared_columns() {
+    let adapter = RustUiCatalog::new().unwrap();
+    let mut source: serde_json::Value =
+        serde_json::from_slice(&fixture("01-profile-submit")).unwrap();
+    let table = source["nodes"]
+        .as_array_mut()
+        .unwrap()
+        .iter_mut()
+        .find(|node| node["kind"] == "Table")
+        .unwrap();
+    table["rows"][0]["cells"].as_array_mut().unwrap().pop();
+
+    let error = adapter
+        .normalize(&serde_json::to_vec(&source).unwrap())
+        .unwrap_err();
+    assert!(error.to_string().contains("Table row"));
+}
+
+#[test]
 fn rust_ui_replay_is_inert_and_identity_exact() {
     let adapter = RustUiCatalog::new().unwrap();
     let source = fixture("01-profile-submit");
@@ -115,7 +195,7 @@ fn rust_ui_components_compile_and_render_through_the_static_adapter() {
         surface,
     ));
     for component in [
-        "Button", "Input", "Label", "Checkbox", "Card", "Alert", "Progress", "Tabs",
+        "Button", "Input", "Label", "Checkbox", "Card", "Alert", "Progress", "Table",
     ] {
         assert!(
             html.contains(&format!("data-component=\"{component}\"")),
@@ -124,4 +204,23 @@ fn rust_ui_components_compile_and_render_through_the_static_adapter() {
     }
     assert!(html.contains("role=\"checkbox\""));
     assert!(html.contains("aria-checked=\"true\""));
+
+    for id in [
+        "profile",
+        "name-label",
+        "name",
+        "terms",
+        "submit",
+        "review-table",
+        "progress",
+        "feedback",
+    ] {
+        assert!(html.contains(&format!("id=\"{id}\"")), "stable id {id}");
+    }
+    assert!(html.contains("<table id=\"review-table\""));
+    assert!(html.contains("<caption"));
+    assert!(html.contains("Preference review"));
+    assert!(html.contains("role=\"progressbar\""));
+    assert!(html.contains("aria-label=\"Preferences complete\""));
+    assert!(html.contains("role=\"alert\""));
 }

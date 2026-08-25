@@ -17,9 +17,9 @@ upstream repository or Rust ABI is stable.
 | Input | text_input | rust_ui::input::Input | FieldChanged |
 | Checkbox | boolean_input | rust_ui::checkbox::Checkbox | ToggleChanged |
 | Button | action | rust_ui::button::Button | ActionInvoked |
-| Tabs | navigation_or_overlay | rust_ui::tabs::Tabs | NavigationChanged |
+| Table | data_table | rust_ui::table::Table | none |
 | Progress | status | rust_ui::progress::Progress | none |
-| Alert | feedback | rust_ui::alert::Alert | Dismissed |
+| Alert | feedback | rust_ui::alert::Alert | none |
 
 All wire props, state keys, events, accessibility expectations, and platform
 adaptations are owned by `catalog/rust-ui-manifest.json`. Generated files must not be
