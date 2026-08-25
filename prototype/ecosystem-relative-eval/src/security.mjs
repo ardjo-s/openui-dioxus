@@ -27,9 +27,19 @@ export function scanProviderPayload(value) {
 export async function scanEvidenceDirectory(directory) {
   const findings = [];
   for (const relative of await filesBelow(directory)) {
+    for (const finding of scanProviderPayload(relative)) findings.push({ ...finding, path: relative, location: "filename" });
     if (!isTextEvidence(relative)) continue;
     const contents = await readFile(path.join(directory, relative), "utf8");
-    for (const finding of scanProviderPayload(contents)) findings.push({ ...finding, path: relative });
+    for (const finding of scanProviderPayload(contents)) findings.push({ ...finding, path: relative, location: "contents" });
+  }
+  return findings;
+}
+
+export function scanPublicationPayloads(payloads) {
+  const findings = [];
+  for (const [relative, value] of Object.entries(payloads)) {
+    for (const finding of scanProviderPayload(relative)) findings.push({ ...finding, path: relative, location: "filename" });
+    for (const finding of scanProviderPayload(value)) findings.push({ ...finding, path: relative, location: "contents" });
   }
   return findings;
 }
@@ -48,6 +58,29 @@ export function assertDecisionNeutral(value, pointer = "$") {
     assertDecisionNeutral(child, `${pointer}.${key}`);
   }
   return value;
+}
+
+export function createForbiddenProductScorer() {
+  let accesses = 0;
+  return Object.freeze({
+    score() {
+      accesses += 1;
+      throw new Error("product scorer is forbidden during OPE-11");
+    },
+    accessCount() {
+      return accesses;
+    },
+  });
+}
+
+export function evaluateEcosystemSignals(facts) {
+  const signals = [];
+  if (facts.external_route_dominates) signals.push("external-route-dominates");
+  if (facts.runtime_passes_without_openui_advantage) signals.push("no-openui-material-advantage");
+  if (facts.second_catalog_hard_gate_failed) signals.push("second-catalog-hard-gate-failed");
+  if (facts.direct_rsx_wins_compile_known_without_runtime_requirement) signals.push("exclude-compile-known-scope");
+  if (facts.direct_rsx_reproduces_platform_advantage) signals.push("credit-platform-to-dioxus-only");
+  return signals;
 }
 
 async function filesBelow(directory, prefix = "") {

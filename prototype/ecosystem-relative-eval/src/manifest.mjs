@@ -169,7 +169,7 @@ export async function buildCandidateManifest() {
         openui: "validated-data-rendered-by-dioxus-runtime",
         "typed-json": "validated-data-rendered-by-dioxus-runtime",
         "json-render": "validated-data-rendered-by-official-react-runtime",
-        "direct-rsx": "compiled-and-executed-in-deny-network-sandbox",
+        "direct-rsx": "source-allowlisted; SSR compiled and executed in a deny-network sandbox; Web rendered with external requests blocked",
       },
       maximum_response_bytes: 262144,
       per_attempt_timeout_ms: 180000,
@@ -199,7 +199,7 @@ export async function buildCandidateManifest() {
       allowed_outcomes: ["PASS", "CANARY_INVALID"],
       promotion: "byte-identical-manifest-only",
     },
-    requirement_applicability: applicabilityRows(),
+    requirement_applicability: applicabilityRows(scenarios),
     scoring_thresholds: {
       primary_pairs: 20,
       minimum_openui_post_repair_validity: 19,
@@ -279,7 +279,7 @@ export async function buildCandidateManifest() {
       canary: {
         dioxus_runtime_routes: ["openui", "typed-json"],
         official_react_route: ["json-render"],
-        direct_rsx: ["compile", "deny-network-native-sandbox", "interactive-web"],
+        direct_rsx: ["source-allowlist", "explicit-non-secret-environment", "deny-network-ssr-sandbox", "interactive-web-external-requests-blocked"],
         direct_rsx_full_device_matrix_deferred_to: "OPE-12",
       },
       complete_run: {
@@ -328,7 +328,7 @@ function schedule(cohort, scenarioId, orderedRoutes) {
   }));
 }
 
-function applicabilityRows() {
+function applicabilityRows(scenarios) {
   return [
     row("content-and-hierarchy", "shared", allRoutes()),
     row("state-transition", "shared", allRoutes()),
@@ -339,7 +339,22 @@ function applicabilityRows() {
     row("dioxus-desktop", "dioxus-specific", only("openui", "typed-json", "direct-rsx")),
     row("dioxus-mobile", "dioxus-specific", only("openui", "typed-json", "direct-rsx")),
     row("official-react-web-renderer", "react-supported", only("json-render")),
+    ...scenarios.flatMap((scenario) => scenarioRequirementRows(scenario)),
   ];
+}
+
+function scenarioRequirementRows(scenario) {
+  const requirementPaths = Object.keys(scenario.shared_contract.acceptance).map((key) => `acceptance.${key}`);
+  const cohorts = [
+    ["runtime-uncertain", only("openui", "typed-json", "json-render")],
+    ...(scenario.variant === 1 ? [["compile-known", allRoutes()]] : []),
+  ];
+  return cohorts.flatMap(([cohort, supported]) => requirementPaths.map((requirementPath) => ({
+    ...row(`${cohort}:${scenario.id}:${requirementPath}`, "scenario-shared", supported),
+    cohort,
+    scenario_id: scenario.id,
+    requirement_path: requirementPath,
+  })));
 }
 
 function row(id, classification, supported) {

@@ -6,7 +6,7 @@ import test from "node:test";
 import { runCanary } from "../src/run-canary.mjs";
 import { verifyEvidencePublication } from "../src/evidence-publication.mjs";
 import { verifyOpe3Archive } from "../src/ope3.mjs";
-import { assertDecisionNeutral, scanProviderPayload } from "../src/security.mjs";
+import { assertDecisionNeutral, createForbiddenProductScorer, evaluateEcosystemSignals, scanEvidenceDirectory, scanProviderPayload, scanPublicationPayloads } from "../src/security.mjs";
 
 const temporaryRoot = new URL("../.tmp/", import.meta.url);
 
@@ -24,6 +24,17 @@ test("pre-provider scanner rejects credential-shaped payloads", () => {
   assert.ok(scanProviderPayload("token sk-test-abcdefghijklmnopqrstuvwxyz").length > 0);
 });
 
+test("publication scanner covers final values and relative filenames", async () => {
+  const output = await mkdtemp(path.join(temporaryRoot.pathname, "publication-scan-"));
+  try {
+    await import("node:fs/promises").then(({ writeFile }) => writeFile(path.join(output, "ghp_abcdefghijklmnopqrstuvwxyz.txt"), "safe"));
+    assert.ok((await scanEvidenceDirectory(output)).some((finding) => finding.location === "filename"));
+    assert.ok(scanPublicationPayloads({ "summary.json": { note: "sk-test-abcdefghijklmnopqrstuvwxyz" } }).some((finding) => finding.path === "summary.json"));
+  } finally {
+    await rm(output, { recursive: true, force: true });
+  }
+});
+
 test("deterministic canary records every rejected attempt and remains decision-neutral", async () => {
   const output = await mkdtemp(path.join(temporaryRoot.pathname, "runner-"));
   try {
@@ -34,6 +45,8 @@ test("deterministic canary records every rejected attempt and remains decision-n
     assert.equal(summary.manifest_promoted, false);
     assert.equal(summary.execution_kind, "deterministic-preflight");
     assert.equal(summary.route_cells, 8);
+    assert.equal(summary.route_aggregates_comparable, false);
+    assert.match(summary.route_aggregate_scope, /operational diagnostics/i);
     assert.equal(summary.calls, 12);
     assert.equal(records.length, 12);
     assert.equal(records.filter((record) => record.attempt === 1 && !record.accepted).length, 4);
@@ -43,12 +56,13 @@ test("deterministic canary records every rejected attempt and remains decision-n
     assert.equal(summary.platform_evidence.verified, true);
     assert.equal(summary.platform_evidence.source, "frozen-reference-preflight");
     assert.equal(summary.platform_proof_mode, "reference");
-    assert.equal(summary.trust_controls.generated_output_execution["direct-rsx"], "sandboxed");
+    assert.match(summary.trust_controls.generated_output_execution["direct-rsx"], /allowlisted source/);
     assert.equal(summary.trust_controls.publication_credential_scan_findings, 0);
     assert.equal(summary.cost.incremental_api_cost_usd, null);
     assert.match(summary.cost.billing_basis, /ChatGPT plan/);
     assert.ok(summary.implementation_footprint.total.nonblank_lines >= 500);
     assert.equal(summary.final_product_scorer_accessed, false);
+    assert.equal(summary.final_product_scorer_access_count, 0);
     assertDecisionNeutral(summary);
     assert.match(await readFile(path.join(output, "SHA256SUMS"), "utf8"), /records\.jsonl/);
     assert.deepEqual((await verifyEvidencePublication(output)).verified, true);
@@ -62,4 +76,23 @@ test("canary serialization vetoes final product outcomes", () => {
     () => assertDecisionNeutral({ outcome: "GO_OPENUI_DIOXUS" }),
     /decision-stage value/,
   );
+});
+
+test("canary stage denies scorer access and exercises every ecosystem signal fixture", () => {
+  const scorer = createForbiddenProductScorer();
+  assert.equal(scorer.accessCount(), 0);
+  assert.throws(() => scorer.score({}), /forbidden during OPE-11/);
+  assert.equal(scorer.accessCount(), 1);
+
+  const fixtures = [
+    [{ external_route_dominates: true }, "external-route-dominates"],
+    [{ runtime_passes_without_openui_advantage: true }, "no-openui-material-advantage"],
+    [{ second_catalog_hard_gate_failed: true }, "second-catalog-hard-gate-failed"],
+    [{ direct_rsx_wins_compile_known_without_runtime_requirement: true }, "exclude-compile-known-scope"],
+    [{ direct_rsx_reproduces_platform_advantage: true }, "credit-platform-to-dioxus-only"],
+  ];
+  for (const [facts, expected] of fixtures) {
+    assert.deepEqual(evaluateEcosystemSignals(facts), [expected]);
+    assertDecisionNeutral(evaluateEcosystemSignals(facts));
+  }
 });

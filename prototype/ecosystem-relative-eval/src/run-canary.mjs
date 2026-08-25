@@ -18,7 +18,7 @@ import { verifyPlatformEvidence } from "./platform-evidence.mjs";
 import { executeGeneratedPlatformProofs } from "./platform-runner.mjs";
 import { generateRouteOutput, repairPrompt } from "./provider.mjs";
 import { routeExtension, validateRoute } from "./routes.mjs";
-import { assertDecisionNeutral, scanEvidenceDirectory, scanProviderPayload } from "./security.mjs";
+import { assertDecisionNeutral, createForbiddenProductScorer, scanEvidenceDirectory, scanProviderPayload, scanPublicationPayloads } from "./security.mjs";
 import { buildScenarios } from "../../openui-typed-json-product-eval/src/scenarios.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -26,7 +26,7 @@ const root = path.resolve(here, "..");
 const repo = path.resolve(root, "../..");
 const maximumResponseBytes = 256 * 1024;
 
-export async function runCanary({ provider, outputDirectory, platformProof = provider === "codex" ? "generated" : "reference" }) {
+export async function runCanary({ provider, outputDirectory, platformProof = provider === "codex" ? "generated" : "reference", productScorer = createForbiddenProductScorer() }) {
   if (!["fake", "codex"].includes(provider)) throw new Error(`unknown provider: ${provider}`);
   if (!["generated", "reference"].includes(platformProof)) throw new Error(`unknown platform proof mode: ${platformProof}`);
   if (provider === "codex" && platformProof !== "generated") throw new Error("real provider canary requires generated-output platform proof");
@@ -256,10 +256,11 @@ export async function runCanary({ provider, outputDirectory, platformProof = pro
     };
   }
   const wallTimeMs = performance.now() - started;
-  const publicationScanFindings = await scanEvidenceDirectory(outputDirectory);
+  const treeScanFindings = await scanEvidenceDirectory(outputDirectory);
   const runtimeDiffLines = canonicalRuntimeDiffLines();
   const implementationFootprint = await measureImplementationFootprint();
-  const outcome = !providerError
+  const productScorerAccessCount = productScorer.accessCount();
+  let outcome = !providerError
     && allAccepted
     && records.length <= manifest.canary.maximum_provider_calls
     && wallTimeMs <= manifest.canary.maximum_wall_time_ms
@@ -268,7 +269,8 @@ export async function runCanary({ provider, outputDirectory, platformProof = pro
     && platformEvidence.verified
     && runtimeDiffLines === 0
     && scanFindings.length === 0
-    && publicationScanFindings.length === 0
+    && treeScanFindings.length === 0
+    && productScorerAccessCount === 0
     ? "PASS"
     : "CANARY_INVALID";
   const summary = {
@@ -280,6 +282,8 @@ export async function runCanary({ provider, outputDirectory, platformProof = pro
     manifest_hash: manifestHash,
     manifest_promoted: outcome === "PASS" && provider === "codex" && platformProof === "generated",
     route_cells: routeCells,
+    route_aggregates_comparable: false,
+    route_aggregate_scope: "operational diagnostics only; route totals cover different scenario and cohort mixes and must not be ranked across routes",
     calls: records.length,
     maximum_calls: manifest.canary.maximum_provider_calls,
     wall_time_ms: wallTimeMs,
@@ -296,14 +300,14 @@ export async function runCanary({ provider, outputDirectory, platformProof = pro
     canonical_runtime_behavior_diff_lines: runtimeDiffLines,
     trust_controls: {
       pre_provider_scan_findings: scanFindings.length,
-      publication_credential_scan_findings: publicationScanFindings.length,
+      publication_credential_scan_findings: treeScanFindings.length,
       generated_output_execution: {
         openui: "validated-data-only",
         "typed-json": "validated-data-only",
         "json-render": "validated-data-rendered-by-official-react-runtime",
-        "direct-rsx": "sandboxed",
+        "direct-rsx": "allowlisted source, sandboxed SSR, and externally blocked Web requests",
       },
-      direct_rsx_sandbox: "compile plus macOS deny-network sandbox",
+      direct_rsx_sandbox: "SSR compile and execution use the macOS deny-network sandbox; interactive Web uses an explicit non-secret environment, rejects direct access to the web-sys feature shim, and blocks external browser requests",
       effect_policy: "deny-by-default",
     },
     implementation_footprint: implementationFootprint,
@@ -315,8 +319,19 @@ export async function runCanary({ provider, outputDirectory, platformProof = pro
       provider_usage: aggregateProviderUsage(records),
     },
     provider_error: providerError,
-    final_product_scorer_accessed: false,
+    final_product_scorer_accessed: productScorerAccessCount > 0,
+    final_product_scorer_access_count: productScorerAccessCount,
   };
+  let reportText = report(summary);
+  const finalPayloadFindings = scanPublicationPayloads({ "summary.json": summary, "REPORT.md": reportText });
+  const publicationScanFindings = [...treeScanFindings, ...finalPayloadFindings];
+  if (finalPayloadFindings.length > 0) {
+    outcome = "CANARY_INVALID";
+    summary.outcome = outcome;
+    summary.manifest_promoted = false;
+    summary.trust_controls.publication_credential_scan_findings = publicationScanFindings.length;
+    reportText = report(summary);
+  }
   assertDecisionNeutral(summary);
   await writeJson(path.join(outputDirectory, "summary.json"), summary);
   await writeJson(path.join(outputDirectory, "credential-scan.json"), {
@@ -324,7 +339,7 @@ export async function runCanary({ provider, outputDirectory, platformProof = pro
     pre_provider_findings: scanFindings,
     publication_findings: publicationScanFindings,
   });
-  await writeFile(path.join(outputDirectory, "REPORT.md"), report(summary), { flag: "wx", mode: 0o600 });
+  await writeFile(path.join(outputDirectory, "REPORT.md"), reportText, { flag: "wx", mode: 0o600 });
   const checksumManifestSha256 = await writeChecksums(outputDirectory);
   await writeJson(path.join(outputDirectory, PUBLICATION_MARKER), {
     status: "complete",

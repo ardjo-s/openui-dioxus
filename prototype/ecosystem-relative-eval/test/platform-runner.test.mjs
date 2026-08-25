@@ -6,7 +6,7 @@ import test from "node:test";
 import { buildScenarios } from "../../openui-typed-json-product-eval/src/scenarios.mjs";
 import { surfaceToJsonRenderSpec } from "../src/json-render-route.mjs";
 import { encodeExpectedRsx } from "../src/direct-rsx-route.mjs";
-import { writeGeneratedPlatformFixtures } from "../src/platform-runner.mjs";
+import { buildPlatformProcessEnv, writeGeneratedPlatformFixtures } from "../src/platform-runner.mjs";
 
 const temporaryRoot = new URL("../.tmp/", import.meta.url);
 
@@ -41,12 +41,39 @@ test("accepted generated outputs become isolated platform fixtures", async () =>
     const directSource = await readFile(result.direct_rsx_crate_source, "utf8");
     assert.match(directSource, /route_0::App/);
     assert.match(directSource, /max-width: 860px/);
-    assert.match(await readFile(path.join(result.direct_rsx_crate, "Cargo.toml"), "utf8"), /web-sys = .*"Location", "Window"/);
+    const cargoManifest = await readFile(path.join(result.direct_rsx_crate, "Cargo.toml"), "utf8");
+    assert.doesNotMatch(cargoManifest, /^web-sys\s*=/m);
+    assert.match(cargoManifest, /^ope11_dioxus_web_features\s*=.*package = "web-sys"/m);
     assert.match(result.provenance.direct_rsx.binding_sha256, /^[a-f0-9]{64}$/);
     assert.match(result.sha256, /^[a-f0-9]{64}$/);
   } finally {
     await rm(directory, { recursive: true, force: true });
   }
+});
+
+test("direct RSX platform proof receives an explicit non-secret environment", () => {
+  const environment = buildPlatformProcessEnv("direct-rsx-web", { REQUIRED: "value" }, {
+    PATH: "/usr/bin",
+    HOME: "/tmp/eval-home",
+    TMPDIR: "/tmp/eval",
+    CARGO_HOME: "/tmp/cargo",
+    RUSTUP_HOME: "/tmp/rustup",
+    PLAYWRIGHT_BROWSERS_PATH: "/tmp/browsers",
+    OPENAI_API_KEY: "must-not-pass",
+    GITHUB_TOKEN: "must-not-pass",
+  });
+
+  assert.deepEqual(environment, {
+    PATH: "/usr/bin",
+    HOME: "/tmp/eval-home",
+    TMPDIR: "/tmp/eval",
+    CARGO_HOME: "/tmp/cargo",
+    RUSTUP_HOME: "/tmp/rustup",
+    PLAYWRIGHT_BROWSERS_PATH: "/tmp/browsers",
+    CARGO_NET_OFFLINE: "true",
+    CI: "1",
+    REQUIRED: "value",
+  });
 });
 
 function accepted(route, scenario, extra) {

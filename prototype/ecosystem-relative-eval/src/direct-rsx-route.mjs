@@ -82,6 +82,8 @@ export function scanSource(source) {
     /dangerous_inner_html/,
     /<script/i,
     /\bdioxus::(?!prelude)/,
+    /\bweb_sys\b/,
+    /\bope11_dioxus_web_features\b/,
     /\b(?:eval|use_eval|use_resource|use_future|use_coroutine|onmounted|onload|onerror)\b/,
     /\b(?:script|iframe|object|embed|link|meta|form|img|video|audio)\s*\{/,
     /\b(?:src|href)\s*:/,

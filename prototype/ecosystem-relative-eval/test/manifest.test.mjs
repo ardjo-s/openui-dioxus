@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
+import { buildScenarios } from "../../openui-typed-json-product-eval/src/scenarios.mjs";
 import { buildCandidateManifest, hashManifest } from "../src/manifest.mjs";
 
 test("candidate manifest freezes the decision-neutral OPE-11 canary", async () => {
@@ -27,7 +28,7 @@ test("candidate manifest freezes the decision-neutral OPE-11 canary", async () =
   assert.equal(manifest.provider.model, "gpt-5.6-luna");
   assert.equal(manifest.provider.reasoning_effort, "low");
   assert.deepEqual(manifest.provider.generated_output_execution, {
-    "direct-rsx": "compiled-and-executed-in-deny-network-sandbox",
+    "direct-rsx": "source-allowlisted; SSR compiled and executed in a deny-network sandbox; Web rendered with external requests blocked",
     "json-render": "validated-data-rendered-by-official-react-runtime",
     openui: "validated-data-rendered-by-dioxus-runtime",
     "typed-json": "validated-data-rendered-by-dioxus-runtime",
@@ -61,8 +62,17 @@ test("candidate manifest freezes the decision-neutral OPE-11 canary", async () =
 test("pairwise applicability excludes route-specific requirements", async () => {
   const manifest = await buildCandidateManifest();
   const rows = manifest.requirement_applicability;
+  const scenarios = await buildScenarios();
+  const scenarioRows = rows.filter((row) => row.scenario_id);
+  const expected = scenarios.flatMap((scenario) => {
+    const paths = Object.keys(scenario.shared_contract.acceptance).map((key) => `acceptance.${key}`);
+    const cohorts = scenario.variant === 1 ? ["runtime-uncertain", "compile-known"] : ["runtime-uncertain"];
+    return cohorts.flatMap((cohort) => paths.map((requirementPath) => `${cohort}:${scenario.id}:${requirementPath}`));
+  }).sort();
 
   assert.ok(rows.length >= 8);
+  assert.deepEqual(scenarioRows.map((row) => row.id).sort(), expected);
+  assert.equal(new Set(scenarioRows.map((row) => row.id)).size, expected.length);
   assert.ok(rows.some((row) => row.classification === "dioxus-specific"));
   assert.ok(rows.some((row) => row.classification === "react-supported"));
   for (const row of rows) {

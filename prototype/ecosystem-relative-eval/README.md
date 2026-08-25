@@ -9,7 +9,7 @@ This prototype is the operational gate between the OPE-9 evaluation design and t
 | OpenUI | Official OpenUI Lang parser, then the shared Dioxus Surface runtime | Runtime-uncertain and compile-known |
 | Typed JSON | Frozen JSON schema, then the shared Dioxus Surface runtime | Runtime-uncertain and compile-known |
 | `json-render` | Official `@json-render/core` catalog and stream compiler plus `@json-render/react` | Runtime-uncertain and compile-known |
-| Direct RSX | Ordinary Dioxus RSX compiled and run in a deny-network macOS sandbox | Compile-known |
+| Direct RSX | Ordinary Dioxus RSX with an allowlisted source, sandboxed SSR proof, and externally blocked browser requests | Compile-known |
 
 Route-specific guarantees are excluded from comparisons where they do not apply. `json-render` is not forced through the Dioxus Surface. Direct RSX is not forced through a runtime interpreter.
 
@@ -26,7 +26,7 @@ An evidence directory is unpublished until the last exclusive write creates
 `PUBLICATION.json`. The marker binds the outcome and manifest to the complete
 `SHA256SUMS` inventory. Interrupted directories without that marker are invalid.
 
-Generated OpenUI, typed JSON, and `json-render` outputs remain validated data. Generated direct RSX is compiled and executed only after the source allowlist accepts it, in an empty environment and a deny-network sandbox.
+Generated OpenUI, typed JSON, and `json-render` outputs remain validated data. Generated direct RSX is accepted only after its source allowlist passes. Its SSR compile and execution use an empty environment and a deny-network sandbox. Its Web proof receives an explicit non-secret environment, rejects direct access to the aliased `web-sys` feature shim, and blocks external browser requests.
 
 ## Commands
 

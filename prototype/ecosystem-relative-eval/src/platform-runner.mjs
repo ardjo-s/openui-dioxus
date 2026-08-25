@@ -175,7 +175,7 @@ function directRsxWrapper(records, provenance) {
 }
 
 function directRsxCargoManifest() {
-  return `[package]\nname = "ope11-direct-rsx-generated"\nversion = "0.0.0"\nedition = "2021"\npublish = false\n\n[features]\ndefault = ["web"]\nweb = ["dioxus/web"]\n\n[dependencies]\ndioxus = { version = "=0.7.10", default-features = false, features = ["minimal", "document"] }\nweb-sys = { version = "=0.3.104", features = ["Location", "Window"] }\n`;
+  return `[package]\nname = "ope11-direct-rsx-generated"\nversion = "0.0.0"\nedition = "2021"\npublish = false\n\n[features]\ndefault = ["web"]\nweb = ["dioxus/web"]\n\n[dependencies]\ndioxus = { version = "=0.7.10", default-features = false, features = ["minimal", "document"] }\nope11_dioxus_web_features = { package = "web-sys", version = "=0.3.104", features = ["Location", "Window"] }\n`;
 }
 
 function directRsxDioxusConfig() {
@@ -195,7 +195,7 @@ async function execute({ id, command, args, env, logRoot, deadlineMs }) {
     command,
     args,
     cwd: root,
-    env: { ...process.env, ...env, CI: "1" },
+    env: buildPlatformProcessEnv(id, env),
     timeoutMs,
     maximumBytes: 16 * 1024 * 1024,
   });
@@ -213,6 +213,19 @@ async function execute({ id, command, args, env, logRoot, deadlineMs }) {
     stdout_sha256: digest(stdout),
     stderr_sha256: digest(stderr),
   };
+}
+
+export function buildPlatformProcessEnv(id, required, ambient = process.env) {
+  if (id !== "direct-rsx-web") return { ...ambient, ...required, CI: "1" };
+  const allowed = Object.fromEntries([
+    "PATH",
+    "HOME",
+    "TMPDIR",
+    "CARGO_HOME",
+    "RUSTUP_HOME",
+    "PLAYWRIGHT_BROWSERS_PATH",
+  ].filter((name) => ambient[name] !== undefined).map((name) => [name, ambient[name]]));
+  return { ...allowed, CARGO_NET_OFFLINE: "true", CI: "1", ...required };
 }
 
 function digest(value) {
