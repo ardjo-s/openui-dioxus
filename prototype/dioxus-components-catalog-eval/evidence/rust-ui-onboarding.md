@@ -1,6 +1,6 @@
 # OPE-10 Rust/UI onboarding evidence
 
-Status: implementation evidence from frozen commit `9453ea8`
+Status: implementation evidence from frozen commit `6ac73b7`
 
 Captured: 2026-08-25T10:00:04Z
 
@@ -18,7 +18,7 @@ The Rust/UI product repository and Dioxus implementation repository are recorded
 
 ## Frozen drill results
 
-All six drills start from the byte-identical catalog source at commit `9453ea8`, regenerate complete isolated artifact directories twice, and compare result identities. The test requires equal result hashes across runs, a distinct result hash from the source, eight generated files per drill, and an unchanged source hash.
+All six drills start from the byte-identical catalog source at commit `6ac73b7`, regenerate complete isolated artifact directories twice, compile each generated Rust registry, behavior-check both workflows, and compare result identities. The test requires equal result hashes across runs, a distinct result hash from the source, and an unchanged source hash.
 
 | Drill | Changed boundary | Result |
 | --- | --- | --- |
@@ -33,7 +33,7 @@ All six drills start from the byte-identical catalog source at commit `9453ea8`,
 
 ## Runtime, replay, accessibility, and targets
 
-- Canonical runtime diff: 0 files and 0 lines under `prototype/openui-dioxus-preview` and `prototype/openui-typed-json-product-eval` across the full `709cff1..9453ea8` frozen range.
+- Canonical runtime diff: 0 files and 0 lines under `prototype/openui-dioxus-preview` and `prototype/openui-typed-json-product-eval` across the full `709cff1..6ac73b7` frozen range.
 - Catalog-only work changes the evaluation adapter and copied catalog source; it does not change canonical runtime behavior.
 - Inert replay normalizes the same frozen bytes twice and requires complete `SurfaceRevision`, semantic fingerprint, release hash, and adapter build identity equality. Capability-confinement tests reject model, network, tool, navigation, or host-effect imports in the replay and Rust/UI adapter sources; the replay helper accepts only the closed `CatalogAdapter` seam.
 - Executable migration verifies the exact source release, creates a distinct target compatibility identity, preserves the source value, and requires semantic fingerprint equality.
@@ -42,19 +42,19 @@ All six drills start from the byte-identical catalog source at commit `9453ea8`,
 
 ## Cost and failures
 
-Active onboarding time through independent-review corrections: 0.5 hours. This is below the 16-hour hard gate. Build/download queue time is excluded. Raw intervals and failure categories live in `ope10-activity.json`; `scripts/measure-rust-ui.mjs 709cff1 9453ea8` recomputes the table and normalization.
+Active onboarding time through independent-review corrections: 0.5 hours. This is below the 16-hour hard gate. Build/download queue time is excluded. Raw intervals and failure categories live in `ope10-activity.json`; `node scripts/measure-rust-ui.mjs 709cff1 6ac73b7` recomputes the table and normalization from either the repository root or crate directory.
 
 | Category | Added LOC | Files | Notes |
 | --- | ---: | ---: | --- |
-| handwritten generator/docs/source metadata | 155 | 7 | excludes this evidence report |
+| handwritten generator/docs/source metadata | 311 | 10 | includes measurement and evidence sources |
 | generated | 1,029 | 8 | prompt, schemas, docs, registry, fixtures, release, hashes |
-| test | 196 | 2 | generator/drill and Rust behavior tests |
+| test | 226 | 2 | generator/drill and Rust behavior tests |
 | catalog | 1,199 | 11 | reviewed manifest, MIT notice, eight copied components, module index |
-| adapter/dependencies | 341 | 4 | static adapter, renderer, Cargo manifests |
+| adapter/dependencies | 283 | 4 | static adapter, renderer, Cargo manifests |
 | platform | 0 | 0 | no platform implementation change |
 | canonical runtime behavior | 0 | 0 | hard gate |
 
-Normalized over eight certified families: 3.75 active minutes, 236.375 non-generated added LOC, and 128.625 generated LOC per family. The non-generated change touches 24 files, or 3.0 files per family.
+Normalized over eight certified families: 3.75 active minutes, 252.375 non-generated added LOC, and 128.625 generated LOC per family. The non-generated change touches 27 files, or 3.375 files per family.
 
 Observed failures were retained by category: one expected TDD compile failure before implementation; one source-discovery correction from `rust-ui/ui` to the separate Dioxus repository; one unavailable npm script replaced with the repository's direct Node test command; and one stale patch-context retry. Product behavior failures after implementation: zero.
 
