@@ -1,0 +1,12 @@
+{
+  "platform": "web",
+  "route": "json-render",
+  "official_runtime": "@json-render/react@0.19.0",
+  "manifest_hash": "frozen-reference-fixtures-v1",
+  "binding_sha256": "17cb5567c7e4770dc7ba09db8f8fd12c26e0e5e19a55b520350655109668f1dc",
+  "passed": true,
+  "state_changed": true,
+  "action_receipt": "receipt:ApplyFilter:preferences",
+  "accessibility_blocking_findings": 0,
+  "screenshot": "json-render-react-web.png"
+}
