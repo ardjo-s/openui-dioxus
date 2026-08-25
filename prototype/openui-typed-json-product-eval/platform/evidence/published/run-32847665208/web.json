@@ -1,0 +1,10 @@
+{
+  "platform": "web",
+  "passed": true,
+  "evidence_complete": true,
+  "surfaces": 40,
+  "families": 5,
+  "keyboard": true,
+  "axe": true,
+  "feedback_announcements": true
+}

@@ -1,0 +1,657 @@
+--------- beginning of main
+08-25 12:34:03.580   505   588 I RoleService: Granting default roles...
+08-25 12:34:03.582   795   885 I PermissionControllerServiceImpl: Updating user sensitive for uid 10141
+--------- beginning of system
+08-25 12:34:03.600   505   731 D CompatibilityChangeReporter: Compat change id reported: 151105954; UID 1000; state: ENABLED
+08-25 12:34:03.600   505   731 E AppOps  : attributionTag VCN not declared in manifest of android
+08-25 12:34:03.601   505   764 I SdkSandboxManager: No SDKs used. Skipping SDK data reconcilation for CallingInfo{mUid=10141, mPackageName='com.ardjo.openuidioxus.platformeval, mAppProcessToken='null'}
+08-25 12:34:03.603   505   600 I InputReader: Reconfiguring input devices, changes=KEYBOARD_LAYOUTS
+08-25 12:34:03.617   793   860 D StylusManager: Stylus InputDevice changed: 14 virtio_input_multi_touch_11
+08-25 12:34:03.617   793   860 D StylusManager: Stylus InputDevice changed: 13 virtio_input_multi_touch_10
+08-25 12:34:03.622   795   885 I PermissionControllerServiceImpl: Updating user sensitive for uid 10141
+08-25 12:34:03.622   999   999 D CarrierSvcBindHelper: onPackageModified: com.ardjo.openuidioxus.platformeval
+08-25 12:34:03.622   999   999 D CarrierSvcBindHelper: No carrier app for: 0
+08-25 12:34:03.622   973   973 V MediaPlayerList: mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+08-25 12:34:03.623   973   973 V MediaPlayerList: mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_CHANGED
+08-25 12:34:03.625   505   531 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+08-25 12:34:03.634   999  1275 D ImsResolver: maybeAddedImsService, packageName: com.ardjo.openuidioxus.platformeval
+08-25 12:34:03.639   505   600 I InputReader: Reconfiguring input devices, changes=KEYBOARD_LAYOUTS
+08-25 12:34:03.647   793   860 D StylusManager: Stylus InputDevice changed: 11 virtio_input_multi_touch_8
+08-25 12:34:03.655   793   860 D StylusManager: Stylus InputDevice changed: 10 virtio_input_multi_touch_7
+08-25 12:34:03.665   793   860 D StylusManager: Stylus InputDevice changed: 8 virtio_input_multi_touch_5
+08-25 12:34:03.670   793   860 D StylusManager: Stylus InputDevice changed: 12 virtio_input_multi_touch_9
+08-25 12:34:03.672   793   860 D StylusManager: Stylus InputDevice changed: 7 virtio_input_multi_touch_4
+08-25 12:34:03.674  2253  2253 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+08-25 12:34:03.676   793   860 D StylusManager: Stylus InputDevice changed: 4 virtio_input_multi_touch_1
+08-25 12:34:03.677  2253  2253 I AndroidRuntime: Using default boot image
+08-25 12:34:03.677  2253  2253 I AndroidRuntime: Leaving lock profiling enabled
+08-25 12:34:03.678   793   860 D StylusManager: Stylus InputDevice changed: 5 virtio_input_multi_touch_2
+08-25 12:34:03.679  2253  2253 I app_process: Core platform API reporting enabled, enforcing=false
+08-25 12:34:03.679  2253  2253 I app_process: Using CollectorTypeCC GC.
+08-25 12:34:03.681   793   860 D StylusManager: Stylus InputDevice changed: 6 virtio_input_multi_touch_3
+08-25 12:34:03.684   793   860 D StylusManager: Stylus InputDevice changed: 9 virtio_input_multi_touch_6
+08-25 12:34:03.685   793   860 D StylusManager: Stylus InputDevice changed: 14 virtio_input_multi_touch_11
+08-25 12:34:03.687   793   860 D StylusManager: Stylus InputDevice changed: 13 virtio_input_multi_touch_10
+08-25 12:34:03.689   793   860 D StylusManager: Stylus InputDevice changed: 11 virtio_input_multi_touch_8
+08-25 12:34:03.707   505   531 W PackageManager: Failed registering loading progress callback. Package is fully loaded.
+08-25 12:34:03.707   505   531 W VoiceInteractionManager: no available voice recognition services found for user 0
+08-25 12:34:03.718   505   531 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+08-25 12:34:03.729  2253  2253 D nativeloader: InitDefaultPublicLibraries for_preload=1: libandroid.so:libaaudio.so:libamidi.so:libbinder_ndk.so:libc.so:libcamera2ndk.so:libdl.so:libEGL.so:libGLESv1_CM.so:libGLESv2.so:libGLESv3.so:libicu.so:libicui18n.so:libicuuc.so:libjnigraphics.so:liblog.so:libmediandk.so:libm.so:libnativehelper.so:libnativewindow.so:libOpenMAXAL.so:libOpenSLES.so:libRS.so:libstdc++.so:libsync.so:libvulkan.so:libwebviewchromium_plat_support.so:libz.so
+08-25 12:34:03.732   505   531 W VoiceInteractionManager: no available voice recognition services found for user 0
+08-25 12:34:03.738  2253  2253 D app_process: Time zone APEX ICU file found: /apex/com.android.tzdata/etc/icu/icu_tzdata.dat
+08-25 12:34:03.739  2253  2253 D app_process: I18n APEX ICU file found: /apex/com.android.i18n/etc/icu/icudt72l.dat
+08-25 12:34:03.743  2253  2253 W app_process: Unexpected CPU variant for x86: x86_64.
+08-25 12:34:03.743  2253  2253 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+08-25 12:34:03.760  2253  2253 W libc    : Access denied finding property "ro.product.name_for_attestation"
+08-25 12:34:03.760  2253  2253 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+08-25 12:34:03.757  2253  2253 W main    : type=1400 audit(0.0:15): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+08-25 12:34:03.757  2253  2253 W main    : type=1400 audit(0.0:16): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=86 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+--------- beginning of kernel
+08-25 12:34:03.952     0     0 W audit   : audit_lost=1 audit_rate_limit=5 audit_backlog_limit=64
+08-25 12:34:03.956     0     0 E audit   : rate limit exceeded
+08-25 12:34:03.768  2253  2253 W libc    : Access denied finding property "ro.product.model_for_attestation"
+08-25 12:34:03.770  2253  2253 D AndroidRuntime: Calling main entry com.android.commands.monkey.Monkey
+08-25 12:34:03.770  2253  2253 W Monkey  : args: [-p, com.ardjo.openuidioxus.platformeval, -c, android.intent.category.LAUNCHER, 1]
+08-25 12:34:03.770  2253  2253 W Monkey  :  arg: "-p"
+08-25 12:34:03.770  2253  2253 W Monkey  :  arg: "com.ardjo.openuidioxus.platformeval"
+08-25 12:34:03.770  2253  2253 W Monkey  :  arg: "-c"
+08-25 12:34:03.771  2253  2253 W Monkey  :  arg: "android.intent.category.LAUNCHER"
+08-25 12:34:03.771  2253  2253 W Monkey  :  arg: "1"
+08-25 12:34:03.771  2253  2253 W Monkey  : data="com.ardjo.openuidioxus.platformeval"
+08-25 12:34:03.771  2253  2253 W Monkey  : data="android.intent.category.LAUNCHER"
+08-25 12:34:03.779   505   574 W ActivityManager: registerReceiverWithFeature: no app for null
+08-25 12:34:03.780  2253  2253 W System  : No Compatibility callbacks set! Querying change 263076149
+08-25 12:34:03.780  2253  2253 W System  : No Compatibility callbacks set! Querying change 263076149
+08-25 12:34:03.780  2253  2253 W System  : No Compatibility callbacks set! Querying change 263076149
+08-25 12:34:03.782   505   514 I system_server: Background concurrent copying GC freed 305369(14MB) AllocSpace objects, 29(964KB) LOS objects, 49% free, 16MB/32MB, paused 29us,84us total 237.802ms
+08-25 12:34:03.783   505   574 D CompatibilityChangeReporter: Compat change id reported: 161252188; UID 10141; state: DISABLED
+08-25 12:34:03.783   505   574 W ActivityTaskManager: callingPackage for (uid=2000, pid=2253) has no WPC
+08-25 12:34:03.783   505   574 D CompatibilityChangeReporter: Compat change id reported: 244637991; UID 2000; state: ENABLED
+08-25 12:34:03.784   505   574 D CompatibilityChangeReporter: Compat change id reported: 265464455; UID 10141; state: DISABLED
+08-25 12:34:03.784   505   574 D CompatibilityChangeReporter: Compat change id reported: 265452344; UID 10141; state: DISABLED
+08-25 12:34:03.784   505   574 D CompatibilityChangeReporter: Compat change id reported: 266124927; UID 10141; state: DISABLED
+08-25 12:34:03.784   505   574 D CompatibilityChangeReporter: Compat change id reported: 265451093; UID 10141; state: DISABLED
+08-25 12:34:03.784   505   574 D CompatibilityChangeReporter: Compat change id reported: 265456536; UID 10141; state: DISABLED
+08-25 12:34:03.784   505   574 D CompatibilityChangeReporter: Compat change id reported: 255940284; UID 10141; state: DISABLED
+08-25 12:34:03.784   505   574 D CompatibilityChangeReporter: Compat change id reported: 236283604; UID 10141; state: DISABLED
+08-25 12:34:03.784   505   574 D CompatibilityChangeReporter: Compat change id reported: 263959004; UID 10141; state: DISABLED
+08-25 12:34:03.784   505   574 D CompatibilityChangeReporter: Compat change id reported: 264304459; UID 10141; state: DISABLED
+08-25 12:34:03.784   505   574 D CompatibilityChangeReporter: Compat change id reported: 264301586; UID 10141; state: DISABLED
+08-25 12:34:03.784   505   574 D CompatibilityChangeReporter: Compat change id reported: 254631730; UID 10141; state: DISABLED
+08-25 12:34:03.784   505   574 D CompatibilityChangeReporter: Compat change id reported: 273509367; UID 10141; state: DISABLED
+08-25 12:34:03.784   505   574 D CompatibilityChangeReporter: Compat change id reported: 263259275; UID 10141; state: DISABLED
+08-25 12:34:03.785   505   574 D CompatibilityChangeReporter: Compat change id reported: 174042980; UID 10141; state: DISABLED
+08-25 12:34:03.785   505   574 D CompatibilityChangeReporter: Compat change id reported: 174042936; UID 10141; state: DISABLED
+08-25 12:34:03.785   505   574 D CompatibilityChangeReporter: Compat change id reported: 181136395; UID 10141; state: DISABLED
+08-25 12:34:03.786   505   574 D CompatibilityChangeReporter: Compat change id reported: 194480991; UID 10141; state: ENABLED
+08-25 12:34:03.789   505   574 D CompatibilityChangeReporter: Compat change id reported: 184838306; UID 10141; state: DISABLED
+08-25 12:34:03.789   505   574 D CompatibilityChangeReporter: Compat change id reported: 185004937; UID 10141; state: DISABLED
+08-25 12:34:03.789   505   574 D CompatibilityChangeReporter: Compat change id reported: 197654537; UID 10141; state: ENABLED
+08-25 12:34:03.790   505   574 V SplashScreenExceptionList: SplashScreen checking exception for package com.ardjo.openuidioxus.platformeval (target sdk:34) -> false
+08-25 12:34:03.790   505   574 D CompatibilityChangeReporter: Compat change id reported: 205907456; UID 10141; state: ENABLED
+08-25 12:34:03.791   505   574 D CompatibilityChangeReporter: Compat change id reported: 194833441; UID 10141; state: ENABLED
+08-25 12:34:03.791   505   574 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.ardjo.openuidioxus.platformeval/dev.dioxus.main.MainActivity} with LAUNCH_MULTIPLE from uid 2000 (BAL_ALLOW_PERMISSION) result code=0
+08-25 12:34:03.791  2253  2253 I Monkey  : Events injected: 1
+08-25 12:34:03.792  2253  2253 I Monkey  : ## Network stats: elapsed time=9ms (0ms mobile, 0ms wifi, 9ms not connected)
+08-25 12:34:03.792  2253  2253 I app_process: System.exit called, status: 0
+08-25 12:34:03.792  2253  2253 I AndroidRuntime: VM exiting with result code 0.
+08-25 12:34:03.800   505   525 D CompatibilityChangeReporter: Compat change id reported: 135634846; UID 10141; state: DISABLED
+08-25 12:34:03.811   505   574 D WifiNl80211Manager: Scan result ready event
+08-25 12:34:03.811   505   574 D WifiNative: Scan result ready event
+08-25 12:34:03.813   505   533 D CompatibilityChangeReporter: Compat change id reported: 143937733; UID 10141; state: ENABLED
+08-25 12:34:03.814   505   524 I DropBoxManagerService: add tag=system_server_strictmode isTagEnabled=true flags=0x2
+08-25 12:34:03.817   793   825 V WindowManagerShell: Transition requested: android.os.BinderProxy@a0a9d54 TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=8 displayId=0 isRunning=true baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.ardjo.openuidioxus.platformeval/dev.dioxus.main.MainActivity } baseActivity=ComponentInfo{com.ardjo.openuidioxus.platformeval/dev.dioxus.main.MainActivity} topActivity=ComponentInfo{com.ardjo.openuidioxus.platformeval/dev.dioxus.main.MainActivity} origActivity=null realActivity=ComponentInfo{com.ardjo.openuidioxus.platformeval/dev.dioxus.main.MainActivity} numActivities=1 lastActiveTime=36878 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{android.window.IWindowContainerToken$Stub$Proxy@56cc4fd} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=null topActivityInfo=ActivityInfo{c0325f2 dev.dioxus.main.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false isVisible=false isVisibleRequested=false isSleeping=false topActivityInSizeCompat=false topActivityEligibleForLetterboxEducation= false topActivityLetterboxed= false isFromDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 locusId=null displayAreaFeatureId=1 cameraCompatControlState=hidden}, remoteTransition = null, displayChange = null }
+08-25 12:34:03.831   325   325 D Zygote  : Forked child process 2270
+08-25 12:34:03.839   387   387 I BpBinder: onLastStrongRef automatically unlinking death recipients: 
+08-25 12:34:03.841   505   533 I ActivityManager: Start proc 2270:com.ardjo.openuidioxus.platformeval/u0a141 for next-top-activity {com.ardjo.openuidioxus.platformeval/dev.dioxus.main.MainActivity}
+08-25 12:34:03.842   505   580 D CompatibilityChangeReporter: Compat change id reported: 265195908; UID 10141; state: ENABLED
+08-25 12:34:03.847   793   856 D CompatibilityChangeReporter: Compat change id reported: 289878283; UID 10118; state: ENABLED
+08-25 12:34:03.849   793   856 D SplashScreenView: Build android.window.SplashScreenView{ed4e931 V.E...... ......ID 0,0-0,0}
+08-25 12:34:03.849   793   856 D SplashScreenView: Icon: view: android.widget.ImageView{c9a6816 V.ED..... ......I. 0,0-0,0 #10204f0 android:id/splashscreen_icon_view} drawable: com.android.wm.shell.startingsurface.SplashscreenIconDrawableFactory$ImmobileIconDrawable@793597 size: 440
+08-25 12:34:03.849   793   856 D SplashScreenView: Branding: view: android.view.View{bba0384 G.ED..... ......I. 0,0-0,0 #10204ef android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+08-25 12:34:04.040     0     0 I logd    : logdr: UID=2000 GID=2000 PID=2269 n tail=0 logMask=99 pid=0 start=0ns deadline=0ns
+08-25 12:34:03.860   505   574 D CoreBackPreview: Window{bf750b0 u0 Splash Screen com.ardjo.openuidioxus.platformeval}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@211744f, mPriority=0, mIsAnimationCallback=false}
+08-25 12:34:03.868  2270  2270 I us.platformeval: Late-enabling -Xcheck:jni
+08-25 12:34:03.931  2270  2270 I us.platformeval: Using CollectorTypeCC GC.
+08-25 12:34:03.932  2270  2270 W us.platformeval: Unexpected CPU variant for x86: x86_64.
+08-25 12:34:03.932  2270  2270 W us.platformeval: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+08-25 12:34:04.019  1656  1656 D CompatibilityChangeReporter: Compat change id reported: 253665015; UID 10061; state: ENABLED
+08-25 12:34:04.019  1656  1656 D CompatibilityChangeReporter: Compat change id reported: 194532703; UID 10061; state: ENABLED
+08-25 12:34:04.020   505   574 D CompatibilityChangeReporter: Compat change id reported: 253665015; UID 10061; state: ENABLED
+08-25 12:34:04.021   505   574 D CompatibilityChangeReporter: Compat change id reported: 194532703; UID 10061; state: ENABLED
+08-25 12:34:04.045   399   418 I adbd    : jdwp connection from 2270
+08-25 12:34:04.079   505   522 V WindowManager: Sent Transition #8 createdAt=08-25 12:34:03.786 via request=TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=8 displayId=0 isRunning=true baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.ardjo.openuidioxus.platformeval/dev.dioxus.main.MainActivity } baseActivity=ComponentInfo{com.ardjo.openuidioxus.platformeval/dev.dioxus.main.MainActivity} topActivity=ComponentInfo{com.ardjo.openuidioxus.platformeval/dev.dioxus.main.MainActivity} origActivity=null realActivity=ComponentInfo{com.ardjo.openuidioxus.platformeval/dev.dioxus.main.MainActivity} numActivities=1 lastActiveTime=36878 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{RemoteToken{ae605b Task{9c3d14e #8 type=standard A=10141:com.ardjo.openuidioxus.platformeval}}} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=null topActivityInfo=ActivityInfo{cfcf0f8 dev.dioxus.main.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false isVisible=false isVisibleRequested=false isSleeping=false topActivityInSizeCompat=false topActivityEligibleForLetterboxEducation= false topActivityLetterboxed= false isFromDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 locusId=null displayAreaFeatureId=1 cameraCompatControlState=hidden}, remoteTransition = null, displayChange = null }
+08-25 12:34:04.081   793   825 V WindowManagerShell: onTransitionReady android.os.BinderProxy@a0a9d54: {id=8 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{WCT{android.window.IWindowContainerToken$Stub$Proxy@8e99725} m=OPEN f=NONE leash=Surface(name=Task=8)/@0x2ae63ee sb=Rect(0, 0 - 1080, 2220) eb=Rect(0, 0 - 1080, 2220) d=0},{WCT{android.window.IWindowContainerToken$Stub$Proxy@320d0fa} m=TO_BACK f=SHOW_WALLPAPER leash=Surface(name=Task=1)/@0xec7408f sb=Rect(0, 0 - 1080, 2220) eb=Rect(0, 0 - 1080, 2220) d=0}]}
+08-25 12:34:04.081   793   825 V WindowManagerShell: Playing animation for (#8)android.os.BinderProxy@a0a9d54@0
+08-25 12:34:04.081   793   825 V WindowManagerShell:  try handler com.android.wm.shell.transition.DefaultMixedHandler@2b276f4
+08-25 12:34:04.081   793   825 V WindowManagerShell:  try handler com.android.wm.shell.keyguard.KeyguardTransitionHandler@af32e1d
+08-25 12:34:04.081   793   825 V WindowManagerShell:  try handler com.android.wm.shell.activityembedding.ActivityEmbeddingController@905a892
+08-25 12:34:04.081   793   825 V WindowManagerShell:  try handler com.android.wm.shell.recents.RecentsTransitionHandler@3b17263
+08-25 12:34:04.081   793   825 V ShellRecents: RecentsTransitionHandler.startAnimation: no controller found
+08-25 12:34:04.081   793   825 V WindowManagerShell:  try handler com.android.wm.shell.pip.PipTransition@efa0e60
+08-25 12:34:04.081   793   825 V WindowManagerShell:  try handler com.android.wm.shell.splitscreen.StageCoordinator@f198f19
+08-25 12:34:04.081   793   825 V WindowManagerShell:  try handler com.android.wm.shell.transition.RemoteTransitionHandler@dd1bbde
+08-25 12:34:04.081   793   825 V WindowManagerShell: Transition doesn't have explicit remote, search filters for match for {id=8 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{WCT{android.window.IWindowContainerToken$Stub$Proxy@8e99725} m=OPEN f=NONE leash=Surface(name=Task=8)/@0x2ae63ee sb=Rect(0, 0 - 1080, 2220) eb=Rect(0, 0 - 1080, 2220) d=0},{WCT{android.window.IWindowContainerToken$Stub$Proxy@320d0fa} m=TO_BACK f=SHOW_WALLPAPER leash=Surface(name=Task=1)/@0xec7408f sb=Rect(0, 0 - 1080, 2220) eb=Rect(0, 0 - 1080, 2220) d=0}]}
+08-25 12:34:04.081   793   825 V WindowManagerShell:  Checking filter Pair{{types=[] flags=0x0] notFlags=0x100 checks=[{atype=home independent=true modes=[OPEN,TO_FRONT] flags=NONE mustBeTask=false order=TOP topActivity=ComponentInfo{com.android.launcher3/com.android.launcher3.uioverrides.QuickstepLauncher}},{atype=standard independent=true modes=[CLOSE,TO_BACK] flags=NONE mustBeTask=false order=ANY topActivity=null}]} RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Proxy@156ab, appThread = android.app.IApplicationThread$Stub$Proxy@c3c3108, debugName = QuickstepLaunchHome }}
+08-25 12:34:04.081   793   825 V WindowManagerShell:  Delegate animation for #8 to null
+08-25 12:34:04.081   793   825 V WindowManagerShell:  try handler com.android.wm.shell.transition.DefaultTransitionHandler@dab03d5
+08-25 12:34:04.081   793   825 V WindowManagerShell: start default transition animation, info = {id=8 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{WCT{android.window.IWindowContainerToken$Stub$Proxy@8e99725} m=OPEN f=NONE leash=Surface(name=Task=8)/@0x2ae63ee sb=Rect(0, 0 - 1080, 2220) eb=Rect(0, 0 - 1080, 2220) d=0},{WCT{android.window.IWindowContainerToken$Stub$Proxy@320d0fa} m=TO_BACK f=SHOW_WALLPAPER leash=Surface(name=Task=1)/@0xec7408f sb=Rect(0, 0 - 1080, 2220) eb=Rect(0, 0 - 1080, 2220) d=0}]}
+08-25 12:34:04.081   793   825 V WindowManagerShell: loadAnimation: anim=android.view.animation.AnimationSet@51b02c6 animAttr=0x13 type=OPEN isEntrance=false
+08-25 12:34:04.082   793   825 V WindowManagerShell: loadAnimation: anim=android.view.animation.AnimationSet@8348552 animAttr=0x12 type=OPEN isEntrance=true
+08-25 12:34:04.082   505   522 V WindowManager:     startWCT=WindowContainerTransaction { changes = {} hops = [] errorCallbackToken=null taskFragmentOrganizer=null }
+08-25 12:34:04.083   793   825 V WindowManagerShell:  animated by com.android.wm.shell.transition.DefaultTransitionHandler@dab03d5
+08-25 12:34:04.087  1042  1509 D EGL_emulation: app_time_stats: avg=2527.93ms min=2527.93ms max=2527.93ms count=1
+08-25 12:34:04.088   505   522 V WindowManager:     info={id=8 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{WCT{RemoteToken{ae605b Task{9c3d14e #8 type=standard A=10141:com.ardjo.openuidioxus.platformeval}}} m=OPEN f=NONE leash=Surface(name=Task=8)/@0xd5e0f3f sb=Rect(0, 0 - 1080, 2220) eb=Rect(0, 0 - 1080, 2220) d=0},{WCT{RemoteToken{48c24a4 Task{1f7c152 #1 type=home}}} m=TO_BACK f=SHOW_WALLPAPER leash=Surface(name=Task=1)/@0x66d806c sb=Rect(0, 0 - 1080, 2220) eb=Rect(0, 0 - 1080, 2220) d=0}]}
+08-25 12:34:04.088   793   832 W Looper  : Drained
+08-25 12:34:04.089   793   793 D ControlsListingControllerImpl: ServiceConfig reloaded, count: 0
+08-25 12:34:04.117   793   793 D ControlsListingControllerImpl: ServiceConfig reloaded, count: 0
+08-25 12:34:04.121   793   832 W Looper  : Slow delivery took 30ms wmshell.anim h=android.view.Choreographer$FrameHandler c=android.view.Choreographer$FrameDisplayEventReceiver@b52d88e m=0
+08-25 12:34:04.142   793   825 V WindowManagerShell: Transition animation finished (aborted=false), notifying core (#8)android.os.BinderProxy@a0a9d54@0
+08-25 12:34:04.150   505   522 V WindowManager: Finish Transition #8: created at 08-25 12:34:03.786 collect-started=0.05ms request-sent=4.381ms started=31.714ms ready=279.767ms sent=285.472ms finished=362.255ms
+08-25 12:34:04.196   793   825 V WindowManagerShell: Track 0 became idle
+08-25 12:34:04.196   793   825 V WindowManagerShell: All active transition animations finished
+08-25 12:34:04.196   793   825 W Looper  : Slow dispatch took 54ms wmshell.main h=android.os.Handler c=com.android.wm.shell.transition.DefaultTransitionHandler$$ExternalSyntheticLambda7@de9409b m=0
+08-25 12:34:04.197   793   825 W Looper  : Slow delivery took 36ms wmshell.main h=android.os.Handler c=android.window.TaskOrganizer$1$$ExternalSyntheticLambda3@e1ec38 m=0
+08-25 12:34:04.212  2270  2270 D CompatibilityChangeReporter: Compat change id reported: 171979766; UID 10141; state: ENABLED
+08-25 12:34:04.214  2270  2270 D CompatibilityChangeReporter: Compat change id reported: 242716250; UID 10141; state: ENABLED
+08-25 12:34:04.221   505   574 D CompatibilityChangeReporter: Compat change id reported: 170503758; UID 10141; state: ENABLED
+08-25 12:34:04.228  2270  2270 W ziparchive: Unable to open '/data/app/~~v5QSGlOZwy3SPoLUZy4yHQ==/com.ardjo.openuidioxus.platformeval-Vfa2WO_iRkf76ouCGsUl0w==/base.dm': No such file or directory
+08-25 12:34:04.228  2270  2270 W ziparchive: Unable to open '/data/app/~~v5QSGlOZwy3SPoLUZy4yHQ==/com.ardjo.openuidioxus.platformeval-Vfa2WO_iRkf76ouCGsUl0w==/base.dm': No such file or directory
+08-25 12:34:04.410   793   861 D EGL_emulation: app_time_stats: avg=1334.18ms min=1334.18ms max=1334.18ms count=1
+08-25 12:34:04.412   793   861 D EGL_emulation: app_time_stats: avg=1796.45ms min=948.44ms max=2644.47ms count=2
+08-25 12:34:04.456  2270  2270 D nativeloader: Configuring clns-6 for other apk /data/app/~~v5QSGlOZwy3SPoLUZy4yHQ==/com.ardjo.openuidioxus.platformeval-Vfa2WO_iRkf76ouCGsUl0w==/base.apk. target_sdk_version=34, uses_libraries=, library_path=/data/app/~~v5QSGlOZwy3SPoLUZy4yHQ==/com.ardjo.openuidioxus.platformeval-Vfa2WO_iRkf76ouCGsUl0w==/lib/x86_64:/data/app/~~v5QSGlOZwy3SPoLUZy4yHQ==/com.ardjo.openuidioxus.platformeval-Vfa2WO_iRkf76ouCGsUl0w==/base.apk!/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/com.ardjo.openuidioxus.platformeval
+08-25 12:34:04.463  2270  2270 V GraphicsEnvironment: Currently set values for:
+08-25 12:34:04.463  2270  2270 V GraphicsEnvironment:   angle_gl_driver_selection_pkgs=[]
+08-25 12:34:04.463  2270  2270 V GraphicsEnvironment:   angle_gl_driver_selection_values=[]
+08-25 12:34:04.464  2270  2270 V GraphicsEnvironment: ANGLE GameManagerService for com.ardjo.openuidioxus.platformeval: false
+08-25 12:34:04.464  2270  2270 V GraphicsEnvironment: com.ardjo.openuidioxus.platformeval is not listed in per-application setting
+08-25 12:34:04.464  2270  2270 V GraphicsEnvironment: Neither updatable production driver nor prerelease driver is supported.
+08-25 12:34:04.477   505   574 I ActivityManager: Flag disabled. Ignoring finishAttachApplication from uid: 10141. pid: 2270
+08-25 12:34:04.489  2270  2302 D libEGL  : loaded /vendor/lib64/egl/libEGL_emulation.so
+08-25 12:34:04.491  2270  2302 D libEGL  : loaded /vendor/lib64/egl/libGLESv1_CM_emulation.so
+08-25 12:34:04.492  2270  2302 D libEGL  : loaded /vendor/lib64/egl/libGLESv2_emulation.so
+08-25 12:34:04.499  2270  2270 D AppCompatDelegate: Checking for metadata for AppLocalesMetadataHolderService : Service not found
+08-25 12:34:04.507   793   825 W Looper  : Drained
+08-25 12:34:04.546  2270  2270 W us.platformeval: Accessing hidden method Landroid/view/ViewGroup;->makeOptionalFitsSystemWindows()V (unsupported, reflection, allowed)
+08-25 12:34:04.550  2270  2270 D CompatibilityChangeReporter: Compat change id reported: 237531167; UID 10141; state: DISABLED
+08-25 12:34:04.551  2270  2270 W OpenGLRenderer: Unknown dataspace 0
+08-25 12:34:04.569  2270  2270 I WebViewFactory: Loading com.android.webview version 113.0.5672.136 (code 567263606)
+08-25 12:34:04.574   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{cdc04be com.android.cts.priv.ctsshim/10131} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{c14191f com.android.uwb.resources/10140} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{130546c com.android.internal.display.cutout.emulation.corner/10035} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{2d50a35 com.android.internal.display.cutout.emulation.double/10010} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{7cfaeca com.android.healthconnect.controller/10120} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{4eb283b com.android.health.connect.backuprestore/10121} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{7044b58 com.android.internal.systemui.navbar.gestural_wide_back/10045} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{9d914b1 com.android.virtualmachine.res/10119} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{7a1ed96 com.android.carrierconfig.auto_generated_rro_vendor__/10052} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{e5a0d17 com.android.systemui.emulation.pixel_3_xl/10018} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{31ec504 com.android.systemui.emulation.pixel_4_xl/10039} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{9394aed com.android.systemui.emulation.pixel_fold/10016} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{2874d22 com.android.htmlviewer/10091} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{76863b3 com.android.quicksearchbox/10106} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{5452d70 com.android.federatedcompute.services/10123} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{6eca8e9 com.android.networkstack.tethering.emulator/10031} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{b71196e com.android.internal.emulation.pixel_3a_xl/10006} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{dfb880f com.android.internal.emulation.pixel_6_pro/10013} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{227b09c com.android.internal.emulation.pixel_7_pro/10040} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{75deaa5 com.android.internal.emulation.pixel_8_pro/10029} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{1195e7a com.android.internal.emulation.pixel_3a/10047} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{ef2962b com.android.internal.emulation.pixel_4a/10000} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{74d3a88 com.android.internal.emulation.pixel_6a/10044} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{e78c21 com.android.internal.emulation.pixel_7a/10025} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{1cee846 com.android.safetycenter.resources/10130} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{c026a07 com.android.simappdialog/10077} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{1bf7734 com.android.connectivity.resources/10126} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{b0fc95d com.android.internal.display.cutout.emulation.hole/10019} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{142d2 com.android.internal.display.cutout.emulation.tall/10038} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{3519fa3 com.android.modulemetadata/10097} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{376d2a0 com.android.internal.systemui.navbar.threebutton/10037} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{5849e59 com.android.wifi.dialog/10137} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{38cba1e com.android.contacts/10095} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{4d492ff com.android.camera2/10104} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{38678cc com.android.launcher3/10112} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{2d7c715 com.android.systemui.auto_generated_rro_vendor__/10056} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{3c65a2a com.android.internal.systemui.navbar.twobutton/10030} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{169601b com.android.settings.intelligence/10093} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{50855b8 com.android.calendar/10100} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{2fabf91 com.android.internal.systemui.navbar.gestural_extra_wide_back/10012} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{647eef6 com.android.systemui.emulation.pixel_3/10048} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{fb3e2f7 com.android.systemui.emulation.pixel_4/10049} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{c91564 com.android.systemui.emulation.pixel_5/10046} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{97ac3cd com.android.systemui.emulation.pixel_6/10008} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{e7c0482 com.android.systemui.emulation.pixel_7/10036} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{2b9b793 com.android.systemui.emulation.pixel_8/10043} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{db423d0 com.android.printspooler/10078} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{b7ccfc9 com.android.dreams.basic/10086} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{9e9e6ce com.android.rkpdapp/10125} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{e3e39ef com.android.internal.emulation.pixel_3/10011} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{3ffacfc com.android.internal.emulation.pixel_4/10022} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{1799f85 com.android.internal.emulation.pixel_5/10009} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{541a1da com.android.internal.emulation.pixel_6/10017} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{4de860b com.android.internal.emulation.pixel_7/10003} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{7189ce8 com.android.internal.emulation.pixel_8/10001} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{8b9af01 com.android.musicfx/10075} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{62801a6 com.android.providers.settings.auto_generated_rro_vendor__/10051} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{bed77e7 com.android.printservice.recommendation/10080} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{24e9f94 com.android.dialer/10096} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{913a3d com.android.gallery3d/10107} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{5c29232 com.android.wifi.resources/10135} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{10fab83 com.android.theme.font.notoserifsource/10034} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{4402100 com.android.internal.display.cutout.emulation.waterfall/10042} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{f5c3d39 com.android.nearby.halfsheet/10127} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{8039f7e com.android.inputmethod.latin/10108} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{d977cdf com.android.internal.systemui.navbar.transparent/10033} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{5064d2c org.chromium.webview_shell/10101} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{b3a73f5 com.android.systemui.emulation.pixel_3a_xl/10028} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{bb6358a com.android.systemui.emulation.pixel_6_pro/10050} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{3a107fb com.android.systemui.emulation.pixel_7_pro/10020} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{3211018 com.android.systemui.emulation.pixel_8_pro/10023} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{28b5a71 com.android.dreams.phototable/10098} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{f4a2056 com.android.providers.partnerbookmarks/10084} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{ee28d7 com.android.wallpaper.livepicker/10068} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{32315c4 com.android.cellbroadcastreceiver.module/10134} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{2a2cad com.android.phone.auto_generated_rro_vendor__/10054} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{65febe2 com.android.apps.tag/10073} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{3827b73 com.android.imsserviceentitlement/10094} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{e1dca30 com.android.internal.emulation.pixel_2_xl/10041} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{769e6a9 com.android.internal.emulation.pixel_3_xl/10007} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{c14e42e com.android.internal.emulation.pixel_4_xl/10002} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{bff5bcf com.android.internal.emulation.pixel_fold/10032} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{acd595c com.android.bookmarkprovider/10090} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{3d14465 com.android.systemui.emulation.pixel_3a/10024} BLOCKED
+08-25 12:34:04.575   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{e0f153a com.android.systemui.emulation.pixel_4a/10021} BLOCKED
+08-25 12:34:04.576   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{9bfe5eb com.android.systemui.emulation.pixel_6a/10027} BLOCKED
+08-25 12:34:04.576   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{d84af48 com.android.systemui.emulation.pixel_7a/10015} BLOCKED
+08-25 12:34:04.576   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{a0dd556 com.android.cts.ctsshim/10132} BLOCKED
+08-25 12:34:04.576   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{896c1e1 com.android.connectivity.resources.goldfish.overlay/10055} BLOCKED
+08-25 12:34:04.576   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{c494b06 com.android.music/10102} BLOCKED
+08-25 12:34:04.576   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{cb4f5c7 com.android.hotspot2.osulogin/10136} BLOCKED
+08-25 12:34:04.576   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{ad977f4 com.android.internal.systemui.navbar.gestural/10014} BLOCKED
+08-25 12:34:04.576   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{bdc9b1d com.android.deskclock/10105} BLOCKED
+08-25 12:34:04.576   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{99f1192 com.android.bluetoothmidiservice/10089} BLOCKED
+08-25 12:34:04.576   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{9012763 com.android.wallpaperpicker/10099} BLOCKED
+08-25 12:34:04.576   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{9101f60 com.android.captiveportallogin/10079} BLOCKED
+08-25 12:34:04.576   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{9accc19 com.android.internal.systemui.navbar.gestural_narrow_back/10005} BLOCKED
+08-25 12:34:04.576   505   574 I AppsFilter: interaction: PackageSetting{8edef79 com.ardjo.openuidioxus.platformeval/10141} -> PackageSetting{918b4de android.auto_generated_rro_vendor__/10053} BLOCKED
+08-25 12:34:04.578  2270  2270 D nativeloader: InitLlndkLibrariesProduct: libEGL.so:libGLESv1_CM.so:libGLESv2.so:libGLESv3.so:libRS.so:libandroid_net.so:libbinder_ndk.so:libc.so:libcgrouprc.so:libclang_rt.asan-x86_64-android.so:libcom.android.tethering.connectivity_native.so:libdl.so:libft2.so:liblog.so:libm.so:libmediandk.so:libnativewindow.so:libneuralnetworks.so:libselinux.so:libsync.so:libvndksupport.so:libvulkan.so
+08-25 12:34:04.578  2270  2270 D nativeloader: Configuring product-clns-7 for unbundled product apk /product/app/webview/webview.apk. target_sdk_version=34, uses_libraries=, library_path=/product/app/webview/lib/x86_64:/product/app/webview/webview.apk!/lib/x86_64:/product/lib64:/system/product/lib64, permitted_path=/data:/mnt/expand:/product/lib64:/system/product/lib64
+08-25 12:34:04.579  2270  2270 D nativeloader: InitVndkspLibrariesProduct: android.hardware.common-V2-ndk.so:android.hardware.common.fmq-V1-ndk.so:android.hardware.graphics.allocator-V2-ndk.so:android.hardware.graphics.common-V4-ndk.so:android.hardware.graphics.common@1.0.so:android.hardware.graphics.common@1.1.so:android.hardware.graphics.common@1.2.so:android.hardware.graphics.composer3-V1-ndk.so:android.hardware.graphics.mapper@2.0.so:android.hardware.graphics.mapper@2.1.so:android.hardware.graphics.mapper@3.0.so:android.hardware.graphics.mapper@4.0.so:android.hardware.renderscript@1.0.so:android.hidl.memory.token@1.0.so:android.hidl.memory@1.0-impl.so:android.hidl.memory@1.0.so:android.hidl.safe_union@1.0.so:libRSCpuRef.so:libRSDriver.so:libRS_internal.so:libbase.so:libbcinfo.so:libblas.so:libc++.so:libcompiler_rt.so:libcutils.so:libdmabufheap.so:libgralloctypes.so:libhardware.so:libhidlbase.so:libhidlmemory.so:libion.so:libjsoncpp.so:liblzma.so:libprocessgroup.so:libunwindstack.so:libutils.so:libutilscallstack.so:libz.so
+08-25 12:34:04.598  2270  2270 W us.platformeval: Accessing hidden method Landroid/os/Trace;->isTagEnabled(J)Z (unsupported, reflection, allowed)
+08-25 12:34:04.598  2270  2270 W us.platformeval: Accessing hidden method Landroid/os/Trace;->traceBegin(JLjava/lang/String;)V (unsupported, reflection, allowed)
+08-25 12:34:04.598  2270  2270 W us.platformeval: Accessing hidden method Landroid/os/Trace;->traceEnd(J)V (unsupported, reflection, allowed)
+08-25 12:34:04.598  2270  2270 W us.platformeval: Accessing hidden method Landroid/os/Trace;->asyncTraceBegin(JLjava/lang/String;I)V (unsupported, reflection, allowed)
+08-25 12:34:04.599  2270  2270 W us.platformeval: Accessing hidden method Landroid/os/Trace;->asyncTraceEnd(JLjava/lang/String;I)V (unsupported, reflection, allowed)
+08-25 12:34:04.601  2270  2270 I cr_WVCFactoryProvider: Loaded version=113.0.5672.136 minSdkVersion=1 isBundle=false multiprocess=true packageId=2
+08-25 12:34:04.607   973   973 D AvrcpBrowsablePlayerConnector: Received a message: msg.what=2
+08-25 12:34:04.607   973   973 V AvrcpBrowsablePlayerConnector: Timed out waiting for players
+08-25 12:34:04.607   973   973 I AvrcpBrowsablePlayerConnector: Successfully connected to 0 browsable players.
+08-25 12:34:04.607   973   973 I MediaPlayerList: init: Browsable Player list size is 0
+08-25 12:34:04.617  2129  2219 V RkpdServerInterface: Network request completed successfully.
+08-25 12:34:04.618  2129  2219 I RkpdPeriodicProvisioner: Total services found implementing IRPC: 1
+08-25 12:34:04.618  2129  2219 I RkpdPeriodicProvisioner: Starting provisioning for com.android.rkpdapp.interfaces.SystemInterface{android.hardware.security.keymint.IRemotelyProvisionedComponent/default}
+08-25 12:34:04.619  2129  2219 I RkpdKeyPoolStats: PoolStats{keysInUse=0, idealTotalSignedKeys=12, keysToGenerate=12, keysUnassigned=0}
+08-25 12:34:04.619  2129  2219 I RkpdProvisioner: Requested number of keys for provisioning: 12
+08-25 12:34:04.625  2129  2219 W RkpdSystemInterface: HAL returned a batch size that's too small (20), defaulting to 20
+08-25 12:34:04.626  2129  2219 I RkpdServerInterface: request_id: fa8d3176-6ff8-4cff-bb4c-f8dc6c887756
+08-25 12:34:04.626  2129  2219 V RkpdServerInterface: Requesting data from server. Attempt 1
+08-25 12:34:04.626  2270  2270 I cr_LibraryLoader: Successfully loaded native library
+08-25 12:34:04.627  2270  2270 I cr_CachingUmaRecorder: Flushed 8 samples from 8 histograms.
+08-25 12:34:04.630  2270  2314 I cr_VariationsUtils: Failed reading seed file "/data/user/0/com.ardjo.openuidioxus.platformeval/app_webview/variations_seed_new"
+08-25 12:34:04.630  2270  2314 I cr_VariationsUtils: Failed reading seed file "/data/user/0/com.ardjo.openuidioxus.platformeval/app_webview/variations_seed"
+08-25 12:34:04.632   505   574 D CompatibilityChangeReporter: Compat change id reported: 161145287; UID 10141; state: ENABLED
+08-25 12:34:04.641  2270  2270 D CompatibilityChangeReporter: Compat change id reported: 183155436; UID 10141; state: ENABLED
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: Failed to apply ContentProviderOperation(type=insert uri=content://media/internal/file values={instance_id=null, compilation=null, disc_number=0, duration=4383, is_ringtone=0, album_artist=null, resolution=null, orientation=null, artist=Unknown, author=null, height=null, is_drm=0, is_audiobook=0, date_modified=1702767290, writer=null, composer=null, _modifier=3, is_recording=0, datetaken=null, mime_type=audio/ogg, is_notification=1, bitrate=96000, cd_track_number=null, xmp=[], year=null, _data=/product/media/audio/notifications/Vega.ogg, _size=29310, album=notifications, genre=null, is_alarm=0, title=Vega, track=null, width=null, is_music=0, document_id=null, is_podcast=0, capture_framerate=null, num_tracks=1, original_document_id=null, media_type=2} exceptionAllowed)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: android.database.sqlite.SQLiteConstraintException: UNIQUE constraint failed: files._data (code 2067 SQLITE_CONSTRAINT_UNIQUE)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at android.database.sqlite.SQLiteConnection.nativeExecuteForLastInsertedRowId(Native Method)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at android.database.sqlite.SQLiteConnection.executeForLastInsertedRowId(SQLiteConnection.java:961)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at android.database.sqlite.SQLiteSession.executeForLastInsertedRowId(SQLiteSession.java:790)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at android.database.sqlite.SQLiteStatement.executeInsert(SQLiteStatement.java:89)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.util.DatabaseUtils.executeInsert(DatabaseUtils.java:488)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.util.SQLiteQueryBuilder.insert(SQLiteQueryBuilder.java:611)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.util.SQLiteQueryBuilder.lambda$insert$1(SQLiteQueryBuilder.java:575)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.util.SQLiteQueryBuilder.$r8$lambda$z6PmNgi8nEawad46M5nyYc14aRM(SQLiteQueryBuilder.java:0)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.util.SQLiteQueryBuilder$$ExternalSyntheticLambda4.apply(R8$$SyntheticClass:0)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.DatabaseHelper.runWithTransaction(DatabaseHelper.java:850)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.util.SQLiteQueryBuilder.insert(SQLiteQueryBuilder.java:574)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.lambda$insertAllowingUpsert$20(MediaProvider.java:4846)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.$r8$lambda$A8_bSAcDGkyGiCcvRo57xoMQkf8(MediaProvider.java:0)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider$$ExternalSyntheticLambda39.apply(R8$$SyntheticClass:0)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.DatabaseHelper.runWithTransaction(DatabaseHelper.java:850)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.insertAllowingUpsert(MediaProvider.java:4836)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.insertFile(MediaProvider.java:4818)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.insertInternal(MediaProvider.java:5287)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.insert(MediaProvider.java:4980)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at android.content.ContentProviderOperation.applyInternal(ContentProviderOperation.java:375)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at android.content.ContentProviderOperation.apply(ContentProviderOperation.java:347)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at android.content.ContentProvider.applyBatch(ContentProvider.java:2653)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.applyBatch(MediaProvider.java:5339)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at android.content.ContentProvider.applyBatch(ContentProvider.java:2644)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at android.content.ContentResolver.applyBatch(ContentResolver.java:2246)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.applyPending(ModernMediaScanner.java:957)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.maybeApplyPending(ModernMediaScanner.java:947)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.visitFile(ModernMediaScanner.java:853)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.visitFile(ModernMediaScanner.java:338)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at java.nio.file.Files.walkFileTree(Files.java:2670)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at java.nio.file.Files.walkFileTree(Files.java:2742)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.walkFileTree(ModernMediaScanner.java:454)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.runInternal(ModernMediaScanner.java:417)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.run(ModernMediaScanner.java:406)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner.scanDirectory(ModernMediaScanner.java:252)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.scanDirectory(MediaProvider.java:1939)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.MediaService.onScanVolume(MediaService.java:204)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.MediaService.onScanVolume(MediaService.java:172)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.MediaService.onHandleWork(MediaService.java:95)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at androidx.core.app.JobIntentService$CommandProcessor.doInBackground(JobIntentService.java:396)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at androidx.core.app.JobIntentService$CommandProcessor.doInBackground(JobIntentService.java:387)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at android.os.AsyncTask$3.call(AsyncTask.java:394)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at java.util.concurrent.FutureTask.run(FutureTask.java:264)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at java.lang.Thread.run(Thread.java:1012)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: Failed to apply ContentProviderOperation(type=insert uri=content://media/internal/file values={instance_id=null, compilation=null, disc_number=null, duration=1000, is_ringtone=0, album_artist=null, resolution=null, orientation=null, artist=pdx, author=null, height=null, is_drm=0, is_audiobook=0, date_modified=1702767290, writer=null, composer=null, _modifier=3, is_recording=0, datetaken=null, mime_type=audio/ogg, is_notification=1, bitrate=80000, cd_track_number=2dB214a, xmp=[], year=null, _data=/product/media/audio/notifications/arcturus.ogg, _size=7908, album=notifications, genre=null, is_alarm=0, title=Arcturus, track=null, width=null, is_music=0, document_id=null, is_podcast=0, capture_framerate=null, num_tracks=1, original_document_id=null, media_type=2} exceptionAllowed)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: android.database.sqlite.SQLiteConstraintException: UNIQUE constraint failed: files._data (code 2067 SQLITE_CONSTRAINT_UNIQUE)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at android.database.sqlite.SQLiteConnection.nativeExecuteForLastInsertedRowId(Native Method)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at android.database.sqlite.SQLiteConnection.executeForLastInsertedRowId(SQLiteConnection.java:961)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at android.database.sqlite.SQLiteSession.executeForLastInsertedRowId(SQLiteSession.java:790)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at android.database.sqlite.SQLiteStatement.executeInsert(SQLiteStatement.java:89)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.util.DatabaseUtils.executeInsert(DatabaseUtils.java:488)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.util.SQLiteQueryBuilder.insert(SQLiteQueryBuilder.java:611)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.util.SQLiteQueryBuilder.lambda$insert$1(SQLiteQueryBuilder.java:575)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.util.SQLiteQueryBuilder.$r8$lambda$z6PmNgi8nEawad46M5nyYc14aRM(SQLiteQueryBuilder.java:0)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.util.SQLiteQueryBuilder$$ExternalSyntheticLambda4.apply(R8$$SyntheticClass:0)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.DatabaseHelper.runWithTransaction(DatabaseHelper.java:850)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.util.SQLiteQueryBuilder.insert(SQLiteQueryBuilder.java:574)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.lambda$insertAllowingUpsert$20(MediaProvider.java:4846)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.$r8$lambda$A8_bSAcDGkyGiCcvRo57xoMQkf8(MediaProvider.java:0)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider$$ExternalSyntheticLambda39.apply(R8$$SyntheticClass:0)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.DatabaseHelper.runWithTransaction(DatabaseHelper.java:850)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.insertAllowingUpsert(MediaProvider.java:4836)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.insertFile(MediaProvider.java:4818)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.insertInternal(MediaProvider.java:5287)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.insert(MediaProvider.java:4980)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at android.content.ContentProviderOperation.applyInternal(ContentProviderOperation.java:375)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at android.content.ContentProviderOperation.apply(ContentProviderOperation.java:347)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at android.content.ContentProvider.applyBatch(ContentProvider.java:2653)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.applyBatch(MediaProvider.java:5339)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at android.content.ContentProvider.applyBatch(ContentProvider.java:2644)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at android.content.ContentResolver.applyBatch(ContentResolver.java:2246)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.applyPending(ModernMediaScanner.java:957)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.maybeApplyPending(ModernMediaScanner.java:947)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.visitFile(ModernMediaScanner.java:853)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.visitFile(ModernMediaScanner.java:338)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at java.nio.file.Files.walkFileTree(Files.java:2670)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at java.nio.file.Files.walkFileTree(Files.java:2742)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.walkFileTree(ModernMediaScanner.java:454)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.runInternal(ModernMediaScanner.java:417)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner$Scan.run(ModernMediaScanner.java:406)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.scan.ModernMediaScanner.scanDirectory(ModernMediaScanner.java:252)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.MediaProvider.scanDirectory(MediaProvider.java:1939)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.MediaService.onScanVolume(MediaService.java:204)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.MediaService.onScanVolume(MediaService.java:172)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at com.android.providers.media.MediaService.onHandleWork(MediaService.java:95)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at androidx.core.app.JobIntentService$CommandProcessor.doInBackground(JobIntentService.java:396)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at androidx.core.app.JobIntentService$CommandProcessor.doInBackground(JobIntentService.java:387)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at android.os.AsyncTask$3.call(AsyncTask.java:394)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at java.util.concurrent.FutureTask.run(FutureTask.java:264)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+08-25 12:34:04.642  1462  1817 W ModernMediaScanner: 	at java.lang.Thread.run(Thread.java:1012)
+08-25 12:34:04.651  2270  2314 I cr_VariationsUtils: Requesting new seed from IVariationsSeedServer
+08-25 12:34:04.652   505   533 D CompatibilityChangeReporter: Compat change id reported: 143937733; UID 10103; state: ENABLED
+08-25 12:34:04.660   325   325 D Zygote  : Forked child process 2321
+08-25 12:34:04.662   505   533 I ActivityManager: Start proc 2321:com.android.webview:webview_service/u0a103 for service {com.android.webview/org.chromium.android_webview.services.VariationsSeedServer}
+08-25 12:34:04.679  2321  2321 I webview_service: Using CollectorTypeCC GC.
+08-25 12:34:04.680  2270  2318 W chromium: [WARNING:dns_config_service_android.cc(115)] Failed to read DnsConfig.
+08-25 12:34:04.680  2270  2303 I RustStdoutStderr: [WARNING:dns_config_service_android.cc(115)] Failed to read DnsConfig.
+08-25 12:34:04.680  2321  2321 W webview_service: Unexpected CPU variant for x86: x86_64.
+08-25 12:34:04.680  2321  2321 W webview_service: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+08-25 12:34:04.681  2321  2321 E webview_service: Not starting debugger since process cannot load the jdwp agent.
+08-25 12:34:04.685   505   574 D CompatibilityChangeReporter: Compat change id reported: 168419799; UID 10103; state: DISABLED
+08-25 12:34:04.685   505   574 D CompatibilityChangeReporter: Compat change id reported: 273564678; UID 10103; state: DISABLED
+08-25 12:34:04.687   505   574 D CompatibilityChangeReporter: Compat change id reported: 261072174; UID 10141; state: ENABLED
+08-25 12:34:04.688  2321  2321 D CompatibilityChangeReporter: Compat change id reported: 171979766; UID 10103; state: ENABLED
+08-25 12:34:04.689  2321  2321 D CompatibilityChangeReporter: Compat change id reported: 242716250; UID 10103; state: ENABLED
+08-25 12:34:04.689   505   519 D CompatibilityChangeReporter: Compat change id reported: 135634846; UID 99000; state: DISABLED
+08-25 12:34:04.689   505   533 D CompatibilityChangeReporter: Compat change id reported: 143937733; UID 10141; state: ENABLED
+08-25 12:34:04.689   505   580 D CompatibilityChangeReporter: Compat change id reported: 265195908; UID 10103; state: ENABLED
+08-25 12:34:04.692   937   937 I Zygote  : Entering forkRepeatedly native zygote loop
+08-25 12:34:04.696   937   937 D Zygote  : Forked child process 2338
+08-25 12:34:04.697   505   533 I ActivityManager: Start proc 2338:com.android.webview:sandboxed_process0:org.chromium.content.app.SandboxedProcessService0:0/u0ai9000 for  {com.ardjo.openuidioxus.platformeval/org.chromium.content.app.SandboxedProcessService0:0}
+08-25 12:34:04.700  2338  2338 I ocessService0:0: Using CollectorTypeCC GC.
+08-25 12:34:04.700  2338  2338 W ocessService0:0: Unexpected CPU variant for x86: x86_64.
+08-25 12:34:04.700  2338  2338 W ocessService0:0: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+08-25 12:34:04.702  1462  1817 I MediaProvider: Scanned internal due to REASON_MOUNTED, found 225 items in 3849ms, 221 inserts 4 updates 0 deletes
+08-25 12:34:04.705   505   519 D CompatibilityChangeReporter: Compat change id reported: 170503758; UID 10103; state: ENABLED
+08-25 12:34:04.705  2321  2321 D CompatibilityChangeReporter: Compat change id reported: 3400644; UID 10103; state: ENABLED
+08-25 12:34:04.706   505  1970 D CompatibilityChangeReporter: Compat change id reported: 182734110; UID 1000; state: ENABLED
+08-25 12:34:04.709  2321  2321 D nativeloader: InitLlndkLibrariesProduct: libEGL.so:libGLESv1_CM.so:libGLESv2.so:libGLESv3.so:libRS.so:libandroid_net.so:libbinder_ndk.so:libc.so:libcgrouprc.so:libclang_rt.asan-x86_64-android.so:libcom.android.tethering.connectivity_native.so:libdl.so:libft2.so:liblog.so:libm.so:libmediandk.so:libnativewindow.so:libneuralnetworks.so:libselinux.so:libsync.so:libvndksupport.so:libvulkan.so
+08-25 12:34:04.709  2321  2321 D nativeloader: Configuring product-clns-6 for unbundled product apk /product/app/webview/webview.apk. target_sdk_version=34, uses_libraries=, library_path=/product/app/webview/lib/x86_64:/product/app/webview/webview.apk!/lib/x86_64:/product/lib64:/system/product/lib64, permitted_path=/data:/mnt/expand:/data/user/0/com.android.webview:/product/lib64:/system/product/lib64
+08-25 12:34:04.709  2321  2321 D nativeloader: InitVndkspLibrariesProduct: android.hardware.common-V2-ndk.so:android.hardware.common.fmq-V1-ndk.so:android.hardware.graphics.allocator-V2-ndk.so:android.hardware.graphics.common-V4-ndk.so:android.hardware.graphics.common@1.0.so:android.hardware.graphics.common@1.1.so:android.hardware.graphics.common@1.2.so:android.hardware.graphics.composer3-V1-ndk.so:android.hardware.graphics.mapper@2.0.so:android.hardware.graphics.mapper@2.1.so:android.hardware.graphics.mapper@3.0.so:android.hardware.graphics.mapper@4.0.so:android.hardware.renderscript@1.0.so:android.hidl.memory.token@1.0.so:android.hidl.memory@1.0-impl.so:android.hidl.memory@1.0.so:android.hidl.safe_union@1.0.so:libRSCpuRef.so:libRSDriver.so:libRS_internal.so:libbase.so:libbcinfo.so:libblas.so:libc++.so:libcompiler_rt.so:libcutils.so:libdmabufheap.so:libgralloctypes.so:libhardware.so:libhidlbase.so:libhidlmemory.so:libion.so:libjsoncpp.so:liblzma.so:libprocessgroup.so:libunwindstack.so:libutils.so:libutilscallstack.so:libz.so
+08-25 12:34:04.713  2338  2338 E ocessService0:0: Not starting debugger since process cannot load the jdwp agent.
+08-25 12:34:04.719  2270  2270 D CompatibilityChangeReporter: Compat change id reported: 214741472; UID 10141; state: ENABLED
+08-25 12:34:04.723  2129  2219 E RkpdServerInterface: Server connection failed for url: https://remoteprovisioning.googleapis.com/v1:signCertificates?challenge=AAABoDjp2XoBILStY1vIxnqYA5eugDQ4hGVm2w4=&request_id=fa8d3176-6ff8-4cff-bb4c-f8dc6c887756, response code: 400
+08-25 12:34:04.723  2129  2219 E RkpdServerInterface: Repeated failure count: 1
+08-25 12:34:04.723  2129  2219 E RkpdServerInterface: {
+08-25 12:34:04.723  2129  2219 E RkpdServerInterface:   "error": {
+08-25 12:34:04.723  2129  2219 E RkpdServerInterface:     "code": 400,
+08-25 12:34:04.723  2129  2219 E RkpdServerInterface:     "message": "Invalid request payload: vendor_patch_level`0` should be in the format YYYYMMDD or YYYYMM if present.\nRequestId: fa8d3176-6ff8-4cff-bb4c-f8dc6c887756",
+08-25 12:34:04.723  2129  2219 E RkpdServerInterface:     "status": "INVALID_ARGUMENT"
+08-25 12:34:04.723  2129  2219 E RkpdServerInterface:   }
+08-25 12:34:04.723  2129  2219 E RkpdServerInterface: }
+08-25 12:34:04.724  2129  2219 E RkpdPeriodicProvisioner: Error provisioning keys for com.android.rkpdapp.interfaces.SystemInterface{android.hardware.security.keymint.IRemotelyProvisionedComponent/default}
+08-25 12:34:04.724  2129  2219 E RkpdPeriodicProvisioner: com.android.rkpdapp.RkpdException: HTTP error status encountered: 400
+08-25 12:34:04.724  2129  2219 E RkpdPeriodicProvisioner: 	at com.android.rkpdapp.interfaces.ServerInterface.requestData(ServerInterface.java:341)
+08-25 12:34:04.724  2129  2219 E RkpdPeriodicProvisioner: 	at com.android.rkpdapp.interfaces.ServerInterface.connectAndGetData(ServerInterface.java:287)
+08-25 12:34:04.724  2129  2219 E RkpdPeriodicProvisioner: 	at com.android.rkpdapp.interfaces.ServerInterface.requestSignedCertificates(ServerInterface.java:121)
+08-25 12:34:04.724  2129  2219 E RkpdPeriodicProvisioner: 	at com.android.rkpdapp.provisioner.Provisioner.batchProvision(Provisioner.java:157)
+08-25 12:34:04.724  2129  2219 E RkpdPeriodicProvisioner: 	at com.android.rkpdapp.provisioner.Provisioner.fetchCertificates(Provisioner.java:136)
+08-25 12:34:04.724  2129  2219 E RkpdPeriodicProvisioner: 	at com.android.rkpdapp.provisioner.Provisioner.provisionKeys(Provisioner.java:89)
+08-25 12:34:04.724  2129  2219 E RkpdPeriodicProvisioner: 	at com.android.rkpdapp.provisioner.PeriodicProvisioner.doWork(PeriodicProvisioner.java:110)
+08-25 12:34:04.724  2129  2219 E RkpdPeriodicProvisioner: 	at androidx.work.Worker$1.run(Worker.java:82)
+08-25 12:34:04.724  2129  2219 E RkpdPeriodicProvisioner: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+08-25 12:34:04.724  2129  2219 E RkpdPeriodicProvisioner: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+08-25 12:34:04.724  2129  2219 E RkpdPeriodicProvisioner: 	at java.lang.Thread.run(Thread.java:1012)
+08-25 12:34:04.724  2270  2270 D CompatibilityChangeReporter: Compat change id reported: 171228096; UID 10141; state: ENABLED
+08-25 12:34:04.730  2338  2338 D CompatibilityChangeReporter: Compat change id reported: 171979766; UID 99000; state: ENABLED
+08-25 12:34:04.730  2338  2338 D CompatibilityChangeReporter: Compat change id reported: 242716250; UID 99000; state: ENABLED
+08-25 12:34:04.730  2321  2321 V GraphicsEnvironment: Currently set values for:
+08-25 12:34:04.730  2321  2321 V GraphicsEnvironment:   angle_gl_driver_selection_pkgs=[]
+08-25 12:34:04.730  2321  2321 V GraphicsEnvironment:   angle_gl_driver_selection_values=[]
+08-25 12:34:04.731  2321  2321 V GraphicsEnvironment: ANGLE GameManagerService for com.android.webview: false
+08-25 12:34:04.731  2321  2321 V GraphicsEnvironment: com.android.webview is not listed in per-application setting
+08-25 12:34:04.731  2321  2321 V GraphicsEnvironment: Neither updatable production driver nor prerelease driver is supported.
+08-25 12:34:04.734  2129  2162 I WM-WorkerWrapper: Worker result FAILURE for Work [ id=4e4773d7-dee6-4477-9bf8-30e824379c85, tags={ com.android.rkpdapp.provisioner.PeriodicProvisioner } ]
+08-25 12:34:04.734  1462  1817 W MediaProvider: Didn't find any volume for getVolume(/product/media/audio/ringtones/Ring_Synth_04.ogg)
+08-25 12:34:04.743  2321  2321 I cr_WebViewApkApp: Launched version=113.0.5672.136 minSdkVersion=1 isBundle=false processName=com.android.webview:webview_service
+08-25 12:34:04.745   505  1970 W JobScheduler: Job didn't exist in JobStore: 5e52595 #u0a125/0 com.android.rkpdapp/androidx.work.impl.background.systemjob.SystemJobService
+08-25 12:34:04.747   505  1945 I ActivityManager: Flag disabled. Ignoring finishAttachApplication from uid: 10103. pid: 2321
+08-25 12:34:04.756   505   781 D CompatibilityChangeReporter: Compat change id reported: 261072174; UID 10103; state: ENABLED
+08-25 12:34:04.758  1462  1817 I MediaProvider: Open with lower FS for /product/media/audio/ringtones/Ring_Synth_04.ogg. Uid: 10124
+08-25 12:34:04.762  2338  2338 I cr_WebViewApkApp: Launched version=113.0.5672.136 minSdkVersion=1 isBundle=false processName=com.android.webview:sandboxed_process0:org.chromium.content.app.SandboxedProcessService0:0
+08-25 12:34:04.763  2321  2321 D CompatibilityChangeReporter: Compat change id reported: 194532703; UID 10103; state: ENABLED
+08-25 12:34:04.763  2321  2321 D CompatibilityChangeReporter: Compat change id reported: 253665015; UID 10103; state: ENABLED
+08-25 12:34:04.763   505   781 I ActivityManager: Flag disabled. Ignoring finishAttachApplication from uid: 99000. pid: 2338
+08-25 12:34:04.763   505  1945 D CompatibilityChangeReporter: Compat change id reported: 271850009; UID 10103; state: ENABLED
+08-25 12:34:04.763   505  1945 D CompatibilityChangeReporter: Compat change id reported: 253665015; UID 10103; state: ENABLED
+08-25 12:34:04.763   505  1945 D CompatibilityChangeReporter: Compat change id reported: 194532703; UID 10103; state: ENABLED
+08-25 12:34:04.764   505  1945 D ConnectivityService: requestNetwork for uid/pid:1000/505 asUid: 10103 activeRequest: null callbackRequest: 51 [NetworkRequest [ REQUEST id=52, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10103 RequestorUid: 1000 RequestorPkg: android UnderlyingNetworks: Null] ]] callback flags: 0 order: 2147483647
+08-25 12:34:04.764   505   725 D ConnectivityService: NetReassign [52 : null → 100] [c 0] [a 1] [i 0]
+08-25 12:34:04.765   505   718 D WifiNetworkFactory: got request NetworkRequest [ REQUEST id=52, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10103 RequestorUid: 1000 RequestorPkg: android UnderlyingNetworks: Null] ]
+08-25 12:34:04.765   505   718 D UntrustedWifiNetworkFactory: got request NetworkRequest [ REQUEST id=52, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10103 RequestorUid: 1000 RequestorPkg: android UnderlyingNetworks: Null] ]
+08-25 12:34:04.765   505   718 D OemPaidWifiNetworkFactory: got request NetworkRequest [ REQUEST id=52, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10103 RequestorUid: 1000 RequestorPkg: android UnderlyingNetworks: Null] ]
+08-25 12:34:04.765   505   718 D MultiInternetWifiNetworkFactory: got request NetworkRequest [ REQUEST id=52, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10103 RequestorUid: 1000 RequestorPkg: android UnderlyingNetworks: Null] ]
+08-25 12:34:04.768  2270  2270 D AutofillManager: Fill dialog is enabled:false, hints=[]
+08-25 12:34:04.772   505  1432 D AutofillManagerServiceImpl: Reset component for user 0:null
+08-25 12:34:04.773   505   523 D AutofillUI: destroySaveUiUiThread(): already destroyed
+08-25 12:34:04.780  2338  2338 W SystemServiceRegistry: No service published for: virtualdevice
+08-25 12:34:04.780  2338  2338 I cr_ChildProcessService: Creating new ChildProcessService pid=2338
+08-25 12:34:04.782   505   580 D CompatibilityChangeReporter: Compat change id reported: 135634846; UID 10103; state: DISABLED
+08-25 12:34:04.782   505   533 D CompatibilityChangeReporter: Compat change id reported: 143937733; UID 10103; state: ENABLED
+08-25 12:34:04.977     0     0 E SELinux : avc:  denied  { find } for pid=2338 uid=99000 name=content_capture scontext=u:r:isolated_app:s0:c512,c768 tcontext=u:object_r:content_capture_service:s0 tclass=service_manager permissive=0
+08-25 12:34:04.804   325   325 D Zygote  : Forked child process 2368
+08-25 12:34:04.808  2270  2270 D CompatibilityChangeReporter: Compat change id reported: 193247900; UID 10141; state: ENABLED
+08-25 12:34:04.809   505   533 I ActivityManager: Start proc 2368:com.android.webview:webview_apk/u0a103 for service {com.android.webview/org.chromium.android_webview.nonembedded.AwComponentUpdateService}
+08-25 12:34:04.812   505   781 D CoreBackPreview: Window{ba0487d u0 com.ardjo.openuidioxus.platformeval/dev.dioxus.main.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@75bd8c8, mPriority=0, mIsAnimationCallback=false}
+08-25 12:34:04.817   387  1031 W ServiceManagerCppClient: Permission failure: android.permission.ROTATE_SURFACE_FLINGER from uid=10141 pid=0
+08-25 12:34:04.817   387   552 W ServiceManagerCppClient: Permission failure: android.permission.ROTATE_SURFACE_FLINGER from uid=10141 pid=2270
+08-25 12:34:04.817   387   552 D PermissionCache: checking android.permission.ROTATE_SURFACE_FLINGER for uid=10141 => denied (138 us)
+08-25 12:34:04.817   387  1031 D PermissionCache: checking android.permission.ROTATE_SURFACE_FLINGER for uid=10141 => denied (467 us)
+08-25 12:34:04.817   387  1031 W ServiceManagerCppClient: Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10141 pid=0
+08-25 12:34:04.817   387  1031 D PermissionCache: checking android.permission.INTERNAL_SYSTEM_WINDOW for uid=10141 => denied (115 us)
+08-25 12:34:04.817   387   552 W ServiceManagerCppClient: Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10141 pid=2270
+08-25 12:34:04.817   387   552 D PermissionCache: checking android.permission.INTERNAL_SYSTEM_WINDOW for uid=10141 => denied (121 us)
+08-25 12:34:04.817   387   552 W ServiceManagerCppClient: Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10141 pid=2270
+08-25 12:34:04.817   387   552 D PermissionCache: checking android.permission.ACCESS_SURFACE_FLINGER for uid=10141 => denied (41 us)
+08-25 12:34:04.821   387  1031 W ServiceManagerCppClient: Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10141 pid=0
+08-25 12:34:04.821   387  1031 D PermissionCache: checking android.permission.ACCESS_SURFACE_FLINGER for uid=10141 => denied (3960 us)
+08-25 12:34:04.827  2270  2300 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+08-25 12:34:04.830  1462  1817 W MediaProvider: Didn't find any volume for getVolume(/product/media/audio/notifications/pixiedust.ogg)
+08-25 12:34:04.831  1462  1817 I MediaProvider: Open with lower FS for /product/media/audio/notifications/pixiedust.ogg. Uid: 10124
+08-25 12:34:04.834  2368  2368 I iew:webview_apk: Using CollectorTypeCC GC.
+08-25 12:34:04.835  2368  2368 W iew:webview_apk: Unexpected CPU variant for x86: x86_64.
+08-25 12:34:04.835  2368  2368 W iew:webview_apk: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+08-25 12:34:04.837  2368  2368 E iew:webview_apk: Not starting debugger since process cannot load the jdwp agent.
+08-25 12:34:04.842  2368  2368 D CompatibilityChangeReporter: Compat change id reported: 171979766; UID 10103; state: ENABLED
+08-25 12:34:04.842  2368  2368 D CompatibilityChangeReporter: Compat change id reported: 242716250; UID 10103; state: ENABLED
+08-25 12:34:04.844  2368  2368 D CompatibilityChangeReporter: Compat change id reported: 3400644; UID 10103; state: ENABLED
+08-25 12:34:04.846  2368  2368 D nativeloader: InitLlndkLibrariesProduct: libEGL.so:libGLESv1_CM.so:libGLESv2.so:libGLESv3.so:libRS.so:libandroid_net.so:libbinder_ndk.so:libc.so:libcgrouprc.so:libclang_rt.asan-x86_64-android.so:libcom.android.tethering.connectivity_native.so:libdl.so:libft2.so:liblog.so:libm.so:libmediandk.so:libnativewindow.so:libneuralnetworks.so:libselinux.so:libsync.so:libvndksupport.so:libvulkan.so
+08-25 12:34:04.846  2368  2368 D nativeloader: Configuring product-clns-6 for unbundled product apk /product/app/webview/webview.apk. target_sdk_version=34, uses_libraries=, library_path=/product/app/webview/lib/x86_64:/product/app/webview/webview.apk!/lib/x86_64:/product/lib64:/system/product/lib64, permitted_path=/data:/mnt/expand:/data/user/0/com.android.webview:/product/lib64:/system/product/lib64
+08-25 12:34:04.847  2368  2368 D nativeloader: InitVndkspLibrariesProduct: android.hardware.common-V2-ndk.so:android.hardware.common.fmq-V1-ndk.so:android.hardware.graphics.allocator-V2-ndk.so:android.hardware.graphics.common-V4-ndk.so:android.hardware.graphics.common@1.0.so:android.hardware.graphics.common@1.1.so:android.hardware.graphics.common@1.2.so:android.hardware.graphics.composer3-V1-ndk.so:android.hardware.graphics.mapper@2.0.so:android.hardware.graphics.mapper@2.1.so:android.hardware.graphics.mapper@3.0.so:android.hardware.graphics.mapper@4.0.so:android.hardware.renderscript@1.0.so:android.hidl.memory.token@1.0.so:android.hidl.memory@1.0-impl.so:android.hidl.memory@1.0.so:android.hidl.safe_union@1.0.so:libRSCpuRef.so:libRSDriver.so:libRS_internal.so:libbase.so:libbcinfo.so:libblas.so:libc++.so:libcompiler_rt.so:libcutils.so:libdmabufheap.so:libgralloctypes.so:libhardware.so:libhidlbase.so:libhidlmemory.so:libion.so:libjsoncpp.so:liblzma.so:libprocessgroup.so:libunwindstack.so:libutils.so:libutilscallstack.so:libz.so
+08-25 12:34:04.855  2368  2368 V GraphicsEnvironment: Currently set values for:
+08-25 12:34:04.859   134   134 I hwservicemanager: getTransport: Cannot find entry android.hardware.graphics.mapper@4.0::IMapper/default in either framework or device VINTF manifest.
+08-25 12:34:04.859  2270  2300 I Gralloc4: mapper 4.x is not supported
+08-25 12:34:05.047     0     0 I servicemanager: Could not find android.hardware.graphics.allocator.IAllocator/default in the VINTF manifest.
+08-25 12:34:04.862  2368  2368 V GraphicsEnvironment:   angle_gl_driver_selection_pkgs=[]
+08-25 12:34:04.862  2368  2368 V GraphicsEnvironment:   angle_gl_driver_selection_values=[]
+08-25 12:34:04.863  2368  2368 V GraphicsEnvironment: ANGLE GameManagerService for com.android.webview: false
+08-25 12:34:04.865  2368  2368 V GraphicsEnvironment: com.android.webview is not listed in per-application setting
+08-25 12:34:04.865  2368  2368 V GraphicsEnvironment: Neither updatable production driver nor prerelease driver is supported.
+08-25 12:34:04.867  1462  1817 W MediaProvider: Didn't find any volume for getVolume(/product/media/audio/alarms/Alarm_Classic.ogg)
+08-25 12:34:04.867  2368  2368 I cr_WebViewApkApp: Launched version=113.0.5672.136 minSdkVersion=1 isBundle=false processName=com.android.webview:webview_apk
+08-25 12:34:04.877   505  1432 I ActivityManager: Flag disabled. Ignoring finishAttachApplication from uid: 10103. pid: 2368
+08-25 12:34:04.886  1462  1817 I MediaProvider: Open with lower FS for /product/media/audio/alarms/Alarm_Classic.ogg. Uid: 10124
+08-25 12:34:04.898  1462  1817 W MediaProvider: isAppCloneUserPair for user 0: false
+08-25 12:34:04.899  1462  1817 W MediaProvider: isAppCloneUserPair for user 0: false
+08-25 12:34:04.901  1462  1619 E StorageManager: Failed to set extended attributes for /storage/emulated/0/Android to set project id.: Operation not permitted
+08-25 12:34:04.901  1462  1817 W MediaProvider: isAppCloneUserPair for user 0: false
+08-25 12:34:04.908  1462  1817 I MediaProvider: Scanned external_primary due to REASON_MOUNTED, found 15 items in 12ms, 3 inserts 0 updates 0 deletes
+08-25 12:34:04.908  1462  1619 W MediaProvider: Failed to update quota type for /storage/emulated/0/Android
+08-25 12:34:04.908  1462  1619 W MediaProvider: java.io.IOException: Failed to update quota type for /storage/emulated/0/Android
+08-25 12:34:04.908  1462  1619 W MediaProvider: 	at android.os.storage.StorageManager.updateExternalStorageFileQuotaType(StorageManager.java:2551)
+08-25 12:34:04.908  1462  1619 W MediaProvider: 	at com.android.providers.media.MediaProvider.updateQuotaTypeForFileInternal(MediaProvider.java:882)
+08-25 12:34:04.908  1462  1619 W MediaProvider: 	at com.android.providers.media.MediaProvider.updateQuotaTypeForUri(MediaProvider.java:857)
+08-25 12:34:04.908  1462  1619 W MediaProvider: 	at com.android.providers.media.MediaProvider.-$$Nest$mupdateQuotaTypeForUri(MediaProvider.java:0)
+08-25 12:34:04.908  1462  1619 W MediaProvider: 	at com.android.providers.media.MediaProvider$5.lambda$onInsert$0(MediaProvider.java:916)
+08-25 12:34:04.908  1462  1619 W MediaProvider: 	at com.android.providers.media.MediaProvider$5.$r8$lambda$fpXVCCb4tNgN0rBFXazZWCUznbc(MediaProvider.java:0)
+08-25 12:34:04.908  1462  1619 W MediaProvider: 	at com.android.providers.media.MediaProvider$5$$ExternalSyntheticLambda1.run(R8$$SyntheticClass:0)
+08-25 12:34:04.908  1462  1619 W MediaProvider: 	at android.os.Handler.handleCallback(Handler.java:958)
+08-25 12:34:04.908  1462  1619 W MediaProvider: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+08-25 12:34:04.908  1462  1619 W MediaProvider: 	at android.os.Looper.loopOnce(Looper.java:205)
+08-25 12:34:04.908  1462  1619 W MediaProvider: 	at android.os.Looper.loop(Looper.java:294)
+08-25 12:34:04.908  1462  1619 W MediaProvider: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+08-25 12:34:04.909  1462  1817 I MediaProvider: End Intent { act=com.android.providers.media.action.SCAN_VOLUME (has extras) }
+08-25 12:34:04.910  1462  1817 I MediaProvider: Begin Intent { act=android.intent.action.MEDIA_MOUNTED dat=file:///... flg=0x5000010 cmp=com.android.providers.media.module/com.android.providers.media.MediaService (has extras) }
+08-25 12:34:04.911  1462  1817 I MediaProvider: Volume MediaVolume name: [external_primary] id: [emulated;0] user: [UserHandle{0}] path: [/storage/emulated/0] externallyManaged: [false] mPublicVolume: [false] already attached
+08-25 12:34:04.911  1462  1817 I MediaProvider: End Intent { act=android.intent.action.MEDIA_MOUNTED dat=file:///... flg=0x5000010 cmp=com.android.providers.media.module/com.android.providers.media.MediaService (has extras) }
+08-25 12:34:04.917  2368  2368 I cr_LibraryLoader: Successfully loaded native library
+08-25 12:34:04.918  1462  1619 E StorageManager: Failed to set extended attributes for /storage/emulated/0/Android/media to set project id.: Operation not permitted
+08-25 12:34:04.918  1462  1619 W MediaProvider: Failed to update quota type for /storage/emulated/0/Android/media
+08-25 12:34:04.918  1462  1619 W MediaProvider: java.io.IOException: Failed to update quota type for /storage/emulated/0/Android/media
+08-25 12:34:04.918  1462  1619 W MediaProvider: 	at android.os.storage.StorageManager.updateExternalStorageFileQuotaType(StorageManager.java:2551)
+08-25 12:34:04.918  1462  1619 W MediaProvider: 	at com.android.providers.media.MediaProvider.updateQuotaTypeForFileInternal(MediaProvider.java:882)
+08-25 12:34:04.918  1462  1619 W MediaProvider: 	at com.android.providers.media.MediaProvider.updateQuotaTypeForUri(MediaProvider.java:857)
+08-25 12:34:04.918  1462  1619 W MediaProvider: 	at com.android.providers.media.MediaProvider.-$$Nest$mupdateQuotaTypeForUri(MediaProvider.java:0)
+08-25 12:34:04.918  1462  1619 W MediaProvider: 	at com.android.providers.media.MediaProvider$5.lambda$onInsert$0(MediaProvider.java:916)
+08-25 12:34:04.918  1462  1619 W MediaProvider: 	at com.android.providers.media.MediaProvider$5.$r8$lambda$fpXVCCb4tNgN0rBFXazZWCUznbc(MediaProvider.java:0)
+08-25 12:34:04.918  1462  1619 W MediaProvider: 	at com.android.providers.media.MediaProvider$5$$ExternalSyntheticLambda1.run(R8$$SyntheticClass:0)
+08-25 12:34:04.918  1462  1619 W MediaProvider: 	at android.os.Handler.handleCallback(Handler.java:958)
+08-25 12:34:04.918  1462  1619 W MediaProvider: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+08-25 12:34:04.918  1462  1619 W MediaProvider: 	at android.os.Looper.loopOnce(Looper.java:205)
+08-25 12:34:04.918  1462  1619 W MediaProvider: 	at android.os.Looper.loop(Looper.java:294)
+08-25 12:34:04.918  1462  1619 W MediaProvider: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+08-25 12:34:04.929  2270  2303 I RustStdoutStderr: s_glBindAttribLocation: bind attrib 0 name position
+08-25 12:34:04.929  2270  2303 I RustStdoutStderr: s_glBindAttribLocation: bind attrib 1 name color
+08-25 12:34:04.949   324  2394 I resolv  : GetAddrInfoHandler::run: {100 100 100 983140 10103 0}
+08-25 12:34:04.950   324  2396 I resolv  : res_nmkquery: (QUERY, IN, A)
+08-25 12:34:04.957   324  2395 I resolv  : res_nmkquery: (QUERY, IN, AAAA)
+08-25 12:34:05.056   505   519 W ServiceManagerCppClient: Permission failure: android.permission.ROTATE_SURFACE_FLINGER from uid=10141 pid=0
+08-25 12:34:05.056   505   519 D PermissionCache: checking android.permission.ROTATE_SURFACE_FLINGER for uid=10141 => denied (111 us)
+08-25 12:34:05.056   505   519 W ServiceManagerCppClient: Permission failure: android.permission.INTERNAL_SYSTEM_WINDOW from uid=10141 pid=0
+08-25 12:34:05.056   505   519 D PermissionCache: checking android.permission.INTERNAL_SYSTEM_WINDOW for uid=10141 => denied (31 us)
+08-25 12:34:05.056   505   519 W ServiceManagerCppClient: Permission failure: android.permission.ACCESS_SURFACE_FLINGER from uid=10141 pid=0
+08-25 12:34:05.056   505   519 D PermissionCache: checking android.permission.ACCESS_SURFACE_FLINGER for uid=10141 => denied (19 us)
+08-25 12:34:05.060  2321  2398 I cr_VariationsUtils: Scheduling seed download job
+08-25 12:34:05.065  2321  2362 I cr_VariationsUtils: Downloading new seed
+08-25 12:34:05.067   324  2399 I resolv  : GetAddrInfoHandler::run: {100 100 100 983140 10103 0}
+08-25 12:34:05.067   324  2400 I resolv  : res_nmkquery: (QUERY, IN, AAAA)
+08-25 12:34:05.068   505   522 W ziparchive: Unable to open '/data/app/~~v5QSGlOZwy3SPoLUZy4yHQ==/com.ardjo.openuidioxus.platformeval-Vfa2WO_iRkf76ouCGsUl0w==/base.dm': No such file or directory
+08-25 12:34:05.069   505   522 I ActivityTaskManager: Displayed com.ardjo.openuidioxus.platformeval/dev.dioxus.main.MainActivity for user 0: +1s284ms
+08-25 12:34:05.070   324  2401 I resolv  : res_nmkquery: (QUERY, IN, A)
+08-25 12:34:05.085   793   848 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@75de76d
+08-25 12:34:05.086   505  1033 D CoreBackPreview: Window{bf750b0 u0 Splash Screen com.ardjo.openuidioxus.platformeval EXITING}: Setting back callback null
+08-25 12:34:05.086   505  1033 W InputManager-JNI: Input channel object 'bf750b0 Splash Screen com.ardjo.openuidioxus.platformeval (client)' was disposed without first being removed with the input manager!
+08-25 12:34:05.094  2270  2324 W cr_media: BLUETOOTH_CONNECT permission is missing.
+08-25 12:34:05.098  1042  1090 I ImeTracker: com.android.launcher3:38fa8a11: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT
+08-25 12:34:05.098   505  1432 I ImeTracker: com.android.launcher3:38fa8a11: onCancelled at PHASE_SERVER_SHOULD_HIDE
+08-25 12:34:05.099  2270  2324 W cr_media: registerBluetoothIntentsIfNeeded: Requires BLUETOOTH permission
+08-25 12:34:05.105  2338  2366 I cr_LibraryLoader: Successfully loaded native library
+08-25 12:34:05.105  2338  2366 I cr_CachingUmaRecorder: Flushed 2 samples from 2 histograms.
+08-25 12:34:05.133  2338  2366 W SystemServiceRegistry: No service published for: uimode
+08-25 12:34:05.163   505  1033 D CompatibilityChangeReporter: Compat change id reported: 214016041; UID 10141; state: ENABLED
+08-25 12:34:05.163   505  1033 I ImeTracker: com.ardjo.openuidioxus.platformeval:790c691d: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+08-25 12:34:05.163   505  1033 I ImeTracker: com.ardjo.openuidioxus.platformeval:790c691d: onCancelled at PHASE_SERVER_SHOULD_HIDE
+08-25 12:34:05.170  2270  2360 W chromium: [WARNING:display_webview.cc(32)] WebView overlays are enabled!
+08-25 12:34:05.170  2270  2303 I RustStdoutStderr: [WARNING:display_webview.cc(32)] WebView overlays are enabled!
+08-25 12:34:05.404     0     0 I logd    : logdr: UID=2000 GID=2000 PID=2409 n tail=0 logMask=99 pid=0 start=0ns deadline=0ns
+08-25 12:34:05.233   505   587 D ActivityManager: freezing 1474 com.android.music
+08-25 12:34:05.281   324  2401 I resolv  : res_nsend: used send_dg 143 terrno: 0
+08-25 12:34:05.281   324  2401 I resolv  : doQuery: rcode=0, ancount=6, return value=143
+08-25 12:34:05.281   324  2396 I resolv  : res_nsend: used send_dg 135 terrno: 0
+08-25 12:34:05.281   324  2396 I resolv  : doQuery: rcode=0, ancount=6, return value=135
+08-25 12:34:05.282   324  2400 I resolv  : res_nsend: used send_dg 159 terrno: 0
+08-25 12:34:05.282   324  2400 I resolv  : doQuery: rcode=0, ancount=4, return value=159
+08-25 12:34:05.282   324  2395 I resolv  : res_nsend: used send_dg 151 terrno: 0
+08-25 12:34:05.282   324  2395 I resolv  : doQuery: rcode=0, ancount=4, return value=151
+08-25 12:34:05.283  2368  2390 D TrafficStats: tagSocket(76) with statsTag=0xffffffff, statsUid=-1
+08-25 12:34:05.289  2321  2362 D TrafficStats: tagSocket(63) with statsTag=0xffffffff, statsUid=-1
+08-25 12:34:05.309   505   524 I DropBoxManagerService: add tag=system_app_strictmode isTagEnabled=true flags=0x2
+08-25 12:34:05.352   505   524 I DropBoxManagerService: add tag=system_app_strictmode isTagEnabled=true flags=0x2
+08-25 12:34:05.431  2270  2303 I RustStdoutStderr: PLATFORM_RENDERED surfaces=40 families=5
+08-25 12:34:05.431  2270  2303 I RustStdoutStderr: PLATFORM_SELF_TEST_PASS surfaces=40 families=5
+08-25 12:34:05.453  2270  2303 I RustStdoutStderr: s_glBindAttribLocation: bind attrib 0 name inPosition
+08-25 12:34:05.453  2270  2303 I RustStdoutStderr: s_glBindAttribLocation: bind attrib 1 name inColor
+08-25 12:34:05.454  2270  2303 I RustStdoutStderr: s_glBindAttribLocation: bind attrib 2 name inCircleEdge
+08-25 12:34:05.516  2270  2303 I RustStdoutStderr: s_glBindAttribLocation: bind attrib 0 name a_vertex
+08-25 12:34:05.577  2270  2303 I RustStdoutStderr: s_glBindAttribLocation: bind attrib 0 name position
+08-25 12:34:05.577  2270  2303 I RustStdoutStderr: s_glBindAttribLocation: bind attrib 1 name localCoord
+08-25 12:34:05.664  2270  2303 I RustStdoutStderr: s_glBindAttribLocation: bind attrib 0 name position
+08-25 12:34:05.665  2270  2303 I RustStdoutStderr: s_glBindAttribLocation: bind attrib 1 name localCoord
+08-25 12:34:05.744  2270  2303 I RustStdoutStderr: s_glBindAttribLocation: bind attrib 0 name position
+08-25 12:34:05.744  2270  2303 I RustStdoutStderr: s_glBindAttribLocation: bind attrib 1 name localCoord
+08-25 12:34:05.822  2270  2303 I RustStdoutStderr: s_glBindAttribLocation: bind attrib 0 name position
+08-25 12:34:05.822  2270  2303 I RustStdoutStderr: s_glBindAttribLocation: bind attrib 1 name localCoord
+08-25 12:34:05.865   505   587 D ActivityManager: freezing 1503 com.android.sdksetup
+08-25 12:34:05.877  2270  2303 I RustStdoutStderr: s_glBindAttribLocation: bind attrib 0 name position
+08-25 12:34:05.877  2270  2303 I RustStdoutStderr: s_glBindAttribLocation: bind attrib 1 name color
+08-25 12:34:05.961  2270  2303 I RustStdoutStderr: s_glBindAttribLocation: bind attrib 0 name inPosition
+08-25 12:34:05.961  2270  2303 I RustStdoutStderr: s_glBindAttribLocation: bind attrib 1 name inColor
+08-25 12:34:05.961  2270  2303 I RustStdoutStderr: s_glBindAttribLocation: bind attrib 2 name inTextureCoords
+08-25 12:34:06.023  2270  2303 I RustStdoutStderr: s_glBindAttribLocation: bind attrib 0 name position
+08-25 12:34:06.023  2270  2303 I RustStdoutStderr: s_glBindAttribLocation: bind attrib 1 name color
+08-25 12:34:06.080  2270  2303 I RustStdoutStderr: s_glBindAttribLocation: bind attrib 0 name inPosition
+08-25 12:34:06.080  2270  2303 I RustStdoutStderr: s_glBindAttribLocation: bind attrib 1 name inColor
+08-25 12:34:06.080  2270  2303 I RustStdoutStderr: s_glBindAttribLocation: bind attrib 2 name inCircleEdge
+08-25 12:34:06.154  1497  1497 D CompatibilityChangeReporter: Compat change id reported: 150939131; UID 10072; state: ENABLED
+08-25 12:34:06.154  1497  1497 I ProvidersCache: Updating roots due to change on user 0at content://com.android.providers.media.documents/root
+08-25 12:34:06.160  2270  2303 I RustStdoutStderr: s_glBindAttribLocation: bind attrib 0 name position
+08-25 12:34:06.160  2270  2303 I RustStdoutStderr: s_glBindAttribLocation: bind attrib 1 name color
+08-25 12:34:06.220  2270  2303 I RustStdoutStderr: s_glBindAttribLocation: bind attrib 0 name inPosition
+08-25 12:34:06.220  2270  2303 I RustStdoutStderr: s_glBindAttribLocation: bind attrib 1 name inColor
+08-25 12:34:06.220  2270  2303 I RustStdoutStderr: s_glBindAttribLocation: bind attrib 2 name inCircleEdge
+08-25 12:34:06.294   505  1033 D OomAdjuster: Not killing cached processes
+08-25 12:34:06.297  2270  2303 I RustStdoutStderr: s_glBindAttribLocation: bind attrib 0 name position
+08-25 12:34:06.297  2270  2303 I RustStdoutStderr: s_glBindAttribLocation: bind attrib 1 name localCoord
+08-25 12:34:06.317  2321  2362 I cr_VariationsSeedFetch: Fetched first run seed in 1251 ms
+08-25 12:34:06.578     0     0 I logd    : logdr: UID=2000 GID=2000 PID=2435 n tail=0 logMask=99 pid=0 start=0ns deadline=0ns
+08-25 12:34:06.397  2270  2300 D EGL_emulation: app_time_stats: avg=335.65ms min=61.52ms max=1058.12ms count=4

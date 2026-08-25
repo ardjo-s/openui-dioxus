@@ -1,0 +1,12 @@
+{
+  "platform": "desktop",
+  "passed": true,
+  "evidence_complete": true,
+  "surfaces": 40,
+  "families": 5,
+  "marker": "PLATFORM_SELF_TEST_PASS surfaces=40 families=5",
+  "screenshot": {
+    "width": 800,
+    "height": 600
+  }
+}
