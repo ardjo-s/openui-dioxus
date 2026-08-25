@@ -55,3 +55,9 @@ Repair the narrow Android execution path on the existing OPE-6 branch. Reuse the
 ## Further Notes
 
 The failed full run is GitHub Actions run `32828706017`: Web/Desktop and iOS passed, while Android recorded `Android system image became unresponsive`. The fix must increase the solvency of the existing evidence path, not add parallel infrastructure.
+
+## Resolution
+
+Run `32847665208` passed at commit `d7bb0a9`. The release APK was built before emulator startup, the API 34 x86_64 `pixel_3a` image produced the exact 40-surface and five-family marker, and the strict screenshot gate accepted a visibly rendered Android frame. The same run also produced visible Web, Desktop, and iOS captures. Its aggregate, traces, screenshots, result JSON, and recursive checksums are published under `prototype/openui-typed-json-product-eval/platform/evidence/published/run-32847665208/`.
+
+The intermediate `aosp_atd` run `32846772231` remained `INVALID_EVAL`: its runtime marker passed, but its framebuffer was fully black. That rejection is retained as evidence that runtime markers cannot replace rendered visual proof.

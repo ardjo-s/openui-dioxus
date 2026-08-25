@@ -14,13 +14,13 @@
 
 ## Mobile
 
-- [ ] Install and launch one representative Surface per workflow family on an iOS Simulator.
-- [ ] Install and launch one representative Surface per workflow family on an Android Emulator.
-- [ ] Exercise state, typed action, update, and replay on both mobile families; compilation alone does not pass.
+- [x] Install and launch one representative Surface per workflow family on an iOS Simulator.
+- [x] Install and launch one representative Surface per workflow family on an Android Emulator.
+- [x] Exercise state, typed action, update, and replay on both mobile families; compilation alone does not pass.
 - [x] Missing iOS or Android execution produces `INVALID_EVAL`, never an inferred pass.
 
 ## Evidence
 
-- [ ] Recursively hash reports, traces, markers, and screenshots.
-- [ ] Scan committed artifacts for credentials.
+- [x] Recursively hash reports, traces, markers, and screenshots.
+- [x] Scan committed artifacts for credentials.
 - [x] Keep all platform claims explicitly scoped to simulator/emulator and prototype behavior.

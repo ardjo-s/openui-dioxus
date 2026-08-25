@@ -2,12 +2,12 @@
 
 ## OPE-6 Android evidence recovery
 
-- [ ] The release APK is built before the Android Emulator starts, so Rust compilation cannot starve the system image.
-- [ ] The Android evaluation enables KVM for the API 34 x86_64 Emulator while preserving the existing Dioxus binary and evidence contract.
-- [ ] The Android runner consumes the CI-prebuilt APK, retains a standalone local-build fallback, and still requires the exact runtime marker plus a non-blank rendered screenshot before reporting `PASS`.
-- [ ] Desktop captures the largest visible app window and rejects a root-screen or blank-window screenshot.
-- [ ] Build, toolchain, ADB transport, marker, and screenshot failures retain explicit honest tri-state results with no stale or empty evidence artifact.
-- [ ] Local regression checks pass, then one complete cloud run reports `PASS` for Web, Desktop, iOS, Android, and aggregate evidence.
+- [x] The release APK is built before the Android Emulator starts, so Rust compilation cannot starve the system image.
+- [x] The Android evaluation enables KVM for the API 34 x86_64 Emulator while preserving the existing Dioxus binary and evidence contract.
+- [x] The Android runner consumes the CI-prebuilt APK, retains a standalone local-build fallback, and still requires the exact runtime marker plus a non-blank rendered screenshot before reporting `PASS`.
+- [x] Desktop captures the largest visible app window and rejects a root-screen or blank-window screenshot.
+- [x] Build, toolchain, ADB transport, marker, and screenshot failures retain explicit honest tri-state results with no stale or empty evidence artifact.
+- [x] Local regression checks pass, then one complete cloud run reports `PASS` for Web, Desktop, iOS, Android, and aggregate evidence.
 
 Verification evidence:
 
@@ -15,6 +15,9 @@ Verification evidence:
 - `bash -n prototype/openui-typed-json-product-eval/platform/run-android.sh`
 - `git diff --check`
 - Full `OPE-6 platform evaluation` workflow run and downloaded evidence artifacts
+- Passing run: `32847665208` at commit `d7bb0a9`.
+- Published aggregate: `prototype/openui-typed-json-product-eval/platform/evidence/published/run-32847665208/`.
+- Recursive hashes, four visual captures, exact runtime markers, and credential scans were independently rechecked after download.
 
 ## Open-source decision trail
 

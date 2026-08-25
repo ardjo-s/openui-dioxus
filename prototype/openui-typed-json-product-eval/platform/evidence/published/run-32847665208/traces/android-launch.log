@@ -1,0 +1,15 @@
+  bash arg: -p
+  bash arg: com.ardjo.openuidioxus.platformeval
+  bash arg: -c
+  bash arg: android.intent.category.LAUNCHER
+  bash arg: 1
+args: [-p, com.ardjo.openuidioxus.platformeval, -c, android.intent.category.LAUNCHER, 1]
+ arg: "-p"
+ arg: "com.ardjo.openuidioxus.platformeval"
+ arg: "-c"
+ arg: "android.intent.category.LAUNCHER"
+ arg: "1"
+data="com.ardjo.openuidioxus.platformeval"
+data="android.intent.category.LAUNCHER"
+Events injected: 1
+## Network stats: elapsed time=9ms (0ms mobile, 0ms wifi, 9ms not connected)
