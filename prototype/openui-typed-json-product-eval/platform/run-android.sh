@@ -5,11 +5,12 @@ repo_root=$(git rev-parse --show-toplevel)
 catalog="$repo_root/prototype/dioxus-components-catalog-eval"
 platform="$repo_root/prototype/openui-typed-json-product-eval/platform"
 evidence=${OPE6_EVIDENCE_DIR:-$platform/evidence/platform-android}
-dx_bin=${DIOXUS_CLI_BIN:-$(command -v dx)}
 mkdir -p "$evidence/screenshots" "$evidence/traces"
 result="$evidence/android.json"
+rm -f "$result"
 status=INVALID_EVAL
 error=""
+apk=""
 
 finish() {
   jq -n --arg status "$status" --arg error "$error" \
@@ -17,23 +18,51 @@ finish() {
 }
 trap finish EXIT
 
-if ! command -v adb >/dev/null; then error="adb unavailable"; exit 1; fi
-if ! adb get-state >/dev/null 2>&1; then error="Android Emulator unavailable"; exit 1; fi
-status=FAIL
-rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
+build_apk() {
+  local dx_bin=${DIOXUS_CLI_BIN:-}
+  if [ -z "$dx_bin" ]; then dx_bin=$(command -v dx || true); fi
+  if [ -z "$dx_bin" ] || [ ! -x "$dx_bin" ]; then error="Dioxus CLI unavailable"; return 1; fi
+  if ! command -v rustup >/dev/null; then error="rustup unavailable"; return 1; fi
+  if ! rustup target add x86_64-linux-android; then error="Android Rust target unavailable"; return 1; fi
+  cd "$catalog"
+  status=FAIL
+  if ! "$dx_bin" build --platform android --target x86_64-linux-android --release --bin platform-app > "$evidence/traces/android-build.log" 2>&1; then error="Dioxus Android build failed"; exit 1; fi
+  apk=$(find "$catalog/target/dx" -name '*.apk' -type f -print -quit)
+  if [ ! -f "$apk" ]; then error="Android APK not found"; return 1; fi
+}
 
-cd "$catalog"
-if ! "$dx_bin" build --platform android --release --bin platform-app > "$evidence/traces/android-build.log" 2>&1; then error="Dioxus Android build failed"; exit 1; fi
-apk=$(find "$catalog/target/dx" -name '*.apk' -type f | head -1)
-if [ -z "$apk" ]; then error="Android APK not found"; exit 1; fi
+if [ "${OPE6_ANDROID_BUILD_ONLY:-false}" = true ]; then
+  if ! build_apk; then exit 1; fi
+  if [ -z "${GITHUB_ENV:-}" ]; then status=INVALID_EVAL; error="GITHUB_ENV unavailable for APK handoff"; exit 1; fi
+  echo "OPE6_ANDROID_APK=$apk" >> "$GITHUB_ENV"
+  trap - EXIT
+  exit 0
+fi
+
+apk=${OPE6_ANDROID_APK:-}
+if [ -z "$apk" ]; then
+  if ! build_apk; then exit 1; fi
+elif [ -f "$apk" ]; then
+  printf 'Using prebuilt APK: %s\n' "$apk" >> "$evidence/traces/android-build.log"
+else
+  error="Prebuilt Android APK unavailable"
+  exit 1
+fi
+
+if ! command -v adb >/dev/null; then status=INVALID_EVAL; error="adb unavailable"; exit 1; fi
+if ! adb get-state >/dev/null 2>&1; then status=INVALID_EVAL; error="Android Emulator unavailable"; exit 1; fi
+
 package=""
-if command -v apkanalyzer >/dev/null; then package=$(apkanalyzer manifest application-id "$apk"); fi
-if [ -z "$package" ] && command -v aapt >/dev/null; then package=$(aapt dump badging "$apk" | sed -n "s/package: name='\([^']*\)'.*/\1/p" | head -1); fi
+analyzer_available=false
+if command -v apkanalyzer >/dev/null; then analyzer_available=true; package=$(apkanalyzer manifest application-id "$apk" || true); fi
+if [ -z "$package" ] && command -v aapt >/dev/null; then analyzer_available=true; package=$(aapt dump badging "$apk" 2>/dev/null | sed -n "s/package: name='\([^']*\)'.*/\1/p" | head -1); fi
 if [ -z "$package" ] && [ -n "${ANDROID_HOME:-}" ]; then
   aapt_bin=$(find "$ANDROID_HOME/build-tools" -name aapt -type f | sort -V | tail -1)
-  if [ -n "$aapt_bin" ]; then package=$($aapt_bin dump badging "$apk" | sed -n "s/package: name='\([^']*\)'.*/\1/p" | head -1); fi
+  if [ -n "$aapt_bin" ]; then analyzer_available=true; package=$($aapt_bin dump badging "$apk" 2>/dev/null | sed -n "s/package: name='\([^']*\)'.*/\1/p" | head -1); fi
 fi
-if [ -z "$package" ]; then error="Android package id unavailable"; exit 1; fi
+if [ "$analyzer_available" != true ]; then status=INVALID_EVAL; error="Android APK analyzer unavailable"; exit 1; fi
+if [ -z "$package" ]; then status=FAIL; error="Android package id unavailable"; exit 1; fi
+status=FAIL
 
 package_manager_ready=false
 for _ in $(seq 1 60); do
@@ -61,20 +90,41 @@ if [ "$installed" != true ]; then
   exit 1
 fi
 if ! adb logcat -c; then status=INVALID_EVAL; error="Android logcat unavailable"; exit 1; fi
-adb shell monkey -p "$package" -c android.intent.category.LAUNCHER 1 > "$evidence/traces/android-launch.log"
+launch_log="$evidence/traces/android-launch.log"
+if ! adb shell monkey -p "$package" -c android.intent.category.LAUNCHER 1 > "$launch_log" 2>&1; then
+  if grep -Eq 'No activities found|monkey aborted|Events injected: 0' "$launch_log"; then
+    error="Android app launch failed"
+  else
+    status=INVALID_EVAL
+    error="Android launch transport failed"
+  fi
+  exit 1
+fi
+if grep -Eq 'No activities found|monkey aborted|Events injected: 0' "$launch_log"; then error="Android app launch failed"; exit 1; fi
 marker="PLATFORM_SELF_TEST_PASS surfaces=40 families=5"
+marker_observed=false
 for _ in $(seq 1 90); do
-  adb logcat -d > "$evidence/traces/android-logcat.log"
+  if ! adb logcat -d > "$evidence/traces/android-logcat.log"; then status=INVALID_EVAL; error="Android logcat transport failed"; exit 1; fi
   persisted_marker=$(adb shell run-as "$package" cat cache/openui-dioxus-platform.marker 2>/dev/null | tr -d '\r' || true)
-  if [ "$persisted_marker" = "$marker" ] || grep -q "$marker" "$evidence/traces/android-logcat.log"; then
-    printf '%s\n' "$persisted_marker" > "$evidence/traces/android-marker.log"
-    status=PASS
+  if [ "$persisted_marker" = "$marker" ] || grep -Fq "$marker" "$evidence/traces/android-logcat.log"; then
+    printf '%s\n' "$marker" > "$evidence/traces/android-marker.log"
+    marker_observed=true
     break
   fi
   sleep 1
 done
-adb exec-out screencap -p > "$evidence/screenshots/android-emulator.png"
-if [ "$status" != PASS ]; then
+screenshot="$evidence/screenshots/android-emulator.png"
+if ! adb exec-out screencap -p > "$screenshot"; then status=INVALID_EVAL; error="Android screenshot capture failed"; exit 1; fi
+if [ ! -s "$screenshot" ]; then status=INVALID_EVAL; error="Android screenshot missing"; exit 1; fi
+if ! dimensions=$(python3 -c 'import struct,sys; data=open(sys.argv[1],"rb").read(24); assert len(data) == 24 and data[:8] == b"\x89PNG\r\n\x1a\n" and data[12:16] == b"IHDR"; print(*struct.unpack(">II",data[16:24]))' "$screenshot"); then
+  status=INVALID_EVAL
+  error="Android screenshot PNG invalid"
+  exit 1
+fi
+width=${dimensions%% *}
+height=${dimensions##* }
+if [ "$width" -lt 320 ] || [ "$height" -lt 240 ]; then status=INVALID_EVAL; error="Android screenshot dimensions invalid"; exit 1; fi
+if [ "$marker_observed" != true ]; then
   if grep -Eq 'ANR in com\.android\.(phone|systemui)|System UI.*not responding' "$evidence/traces/android-logcat.log"; then
     status=INVALID_EVAL
     error="Android system image became unresponsive"
@@ -83,8 +133,5 @@ if [ "$status" != PASS ]; then
   fi
   exit 1
 fi
-if [ ! -s "$evidence/screenshots/android-emulator.png" ]; then status=INVALID_EVAL; error="Android screenshot missing"; exit 1; fi
-dimensions=$(python3 -c 'import struct,sys; data=open(sys.argv[1],"rb").read(24); print(*struct.unpack(">II",data[16:24]))' "$evidence/screenshots/android-emulator.png")
-width=${dimensions%% *}
-height=${dimensions##* }
-if [ "$width" -lt 320 ] || [ "$height" -lt 240 ]; then status=INVALID_EVAL; error="Android screenshot dimensions invalid"; exit 1; fi
+if [ "$(tr -d '\r\n' < "$evidence/traces/android-marker.log")" != "$marker" ]; then status=INVALID_EVAL; error="Android marker artifact invalid"; exit 1; fi
+status=PASS
