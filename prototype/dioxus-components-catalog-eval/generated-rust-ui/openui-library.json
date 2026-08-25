@@ -1,0 +1,344 @@
+{
+  "id": "rust-ui-dioxus-eval@0.0.1-ope10",
+  "root": "Card",
+  "components": {
+    "Label": {
+      "signature": "Label(id: string, for_id: string, text: string)",
+      "description": "Accessible text label associated with a known control."
+    },
+    "Card": {
+      "signature": "Card(id: string, children: Component[])",
+      "description": "Rust/UI Card container for one reviewed workflow."
+    },
+    "Input": {
+      "signature": "Input(id: string, label: string, state_key: string, value: string, placeholder: string)",
+      "description": "Single-line text input bound to an allowlisted runtime state key."
+    },
+    "Checkbox": {
+      "signature": "Checkbox(id: string, label: string, state_key: string, checked: boolean)",
+      "description": "Independent boolean input bound to runtime state."
+    },
+    "Button": {
+      "signature": "Button(id: string, label: string, action: \"submit_profile\", target_id: string)",
+      "description": "Invokes one allowlisted typed host action."
+    },
+    "Tabs": {
+      "signature": "Tabs(id: string, state_key: string, value: string, items: object[])",
+      "description": "Local navigation between a closed set of panels."
+    },
+    "Progress": {
+      "signature": "Progress(id: string, label: string, value: number, max: number)",
+      "description": "Determinate progress with explicit value and maximum."
+    },
+    "Alert": {
+      "signature": "Alert(id: string, title: string, message: string, tone: \"info\" | \"warning\" | \"error\")",
+      "description": "Rust/UI Alert presenting reviewed feedback."
+    }
+  },
+  "schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "Label": {
+        "$ref": "#/$defs/Label"
+      },
+      "Card": {
+        "$ref": "#/$defs/Card"
+      },
+      "Input": {
+        "$ref": "#/$defs/Input"
+      },
+      "Checkbox": {
+        "$ref": "#/$defs/Checkbox"
+      },
+      "Button": {
+        "$ref": "#/$defs/Button"
+      },
+      "Tabs": {
+        "$ref": "#/$defs/Tabs"
+      },
+      "Progress": {
+        "$ref": "#/$defs/Progress"
+      },
+      "Alert": {
+        "$ref": "#/$defs/Alert"
+      }
+    },
+    "$defs": {
+      "Label": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "for_id",
+          "text"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "for_id": {
+            "type": "string",
+            "format": "component-id-ref"
+          },
+          "text": {
+            "type": "string"
+          }
+        },
+        "description": "Accessible text label associated with a known control."
+      },
+      "Card": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "children"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/Label"
+                },
+                {
+                  "$ref": "#/$defs/Card"
+                },
+                {
+                  "$ref": "#/$defs/Input"
+                },
+                {
+                  "$ref": "#/$defs/Checkbox"
+                },
+                {
+                  "$ref": "#/$defs/Button"
+                },
+                {
+                  "$ref": "#/$defs/Tabs"
+                },
+                {
+                  "$ref": "#/$defs/Progress"
+                },
+                {
+                  "$ref": "#/$defs/Alert"
+                }
+              ]
+            }
+          }
+        },
+        "description": "Rust/UI Card container for one reviewed workflow."
+      },
+      "Input": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "label",
+          "state_key",
+          "value",
+          "placeholder"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "state_key": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "placeholder": {
+            "type": "string"
+          }
+        },
+        "description": "Single-line text input bound to an allowlisted runtime state key."
+      },
+      "Checkbox": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "label",
+          "state_key",
+          "checked"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "state_key": {
+            "type": "string"
+          },
+          "checked": {
+            "type": "boolean"
+          }
+        },
+        "description": "Independent boolean input bound to runtime state."
+      },
+      "Button": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "label",
+          "action",
+          "target_id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "submit_profile"
+            ]
+          },
+          "target_id": {
+            "type": "string"
+          }
+        },
+        "description": "Invokes one allowlisted typed host action."
+      },
+      "Tabs": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "state_key",
+          "value",
+          "items"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "state_key": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "value",
+                "label",
+                "child"
+              ],
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "label": {
+                  "type": "string"
+                },
+                "child": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/$defs/Label"
+                    },
+                    {
+                      "$ref": "#/$defs/Card"
+                    },
+                    {
+                      "$ref": "#/$defs/Input"
+                    },
+                    {
+                      "$ref": "#/$defs/Checkbox"
+                    },
+                    {
+                      "$ref": "#/$defs/Button"
+                    },
+                    {
+                      "$ref": "#/$defs/Tabs"
+                    },
+                    {
+                      "$ref": "#/$defs/Progress"
+                    },
+                    {
+                      "$ref": "#/$defs/Alert"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "description": "Local navigation between a closed set of panels."
+      },
+      "Progress": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "label",
+          "value",
+          "max"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "value": {
+            "type": "number"
+          },
+          "max": {
+            "type": "number"
+          }
+        },
+        "description": "Determinate progress with explicit value and maximum."
+      },
+      "Alert": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "title",
+          "message",
+          "tone"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "tone": {
+            "type": "string",
+            "enum": [
+              "info",
+              "warning",
+              "error"
+            ]
+          }
+        },
+        "description": "Rust/UI Alert presenting reviewed feedback."
+      }
+    }
+  }
+}

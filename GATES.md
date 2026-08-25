@@ -1,5 +1,21 @@
 # Acceptance gates
 
+## OPE-10 measured Rust/UI catalog onboarding
+
+- [ ] Rust/UI is pinned to `7fd792520ba5e3ad5354c26ac4e6816c2d156b7c`, with exact source and dependency identities recorded.
+- [ ] One reviewed catalog source generates prompt material, schemas, documentation, registry data, fixtures, and immutable release identity for at least eight components across six certified capability families.
+- [ ] The catalog covers two complete workflows, one typed host action, and one accessibility-sensitive control through the existing static `CatalogAdapter` seam.
+- [ ] Public-seam tests are observed red before implementation, then compile and behavior tests pass on every applicable Dioxus target family.
+- [ ] Frozen component-prop, component/schema, action-policy, DTCG token, catalog-release, and copy-on-write migration drills pass with inert replay and exact compatibility identity.
+- [ ] Recursive evidence hashes and a pre-publication credential scan pass; active time, categorized LOC/files/failures, normalized per-family cost, and the 16-hour hard gate are reported.
+- [ ] The stacked diff proves zero canonical runtime behavior lines and files changed and contains no model benchmark, production runtime, converter, dynamic plug-in, broad port, or product verdict.
+- [ ] Independent intent and standards reviews pass; owned changes are committed, pushed, and opened as a Draft PR against `codex/ope-9-ecosystem-value-eval` without merge.
+- [ ] Linear OPE-10 is synchronized at each transition with branch, worktree, evidence, reviews, and Draft PR.
+
+Verification evidence:
+
+- Pending implementation.
+
 ## OPE-9 ecosystem-relative product-value evaluation design
 
 - [x] Current primary-source research is recorded with facts, inferences, unknowns, and source/version pins; no new model benchmark is run.

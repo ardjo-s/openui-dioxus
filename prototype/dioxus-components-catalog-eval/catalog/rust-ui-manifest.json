@@ -1,0 +1,556 @@
+{
+  "catalog_id": "rust-ui-dioxus-eval",
+  "catalog_contract_version": "0.1.0",
+  "release_version": "0.0.1-ope10",
+  "execution_profile": "static_rust_v1",
+  "root": "Card",
+  "source": {
+    "repository": "https://github.com/rust-ui/ui",
+    "commit": "7fd792520ba5e3ad5354c26ac4e6816c2d156b7c",
+    "tree": "7fd792520ba5e3ad5354c26ac4e6816c2d156b7c",
+    "crate": "copy-on-write-registry",
+    "crate_version": "not-published",
+    "upstream_dioxus_requirement": "0.7",
+    "resolved_dioxus_version": "0.7.10",
+    "license": "MIT",
+    "implementation_repository": "https://github.com/rust-ui/dioxus-ui",
+    "implementation_commit": "2f87a8d0531d483d5b32df6f89b7979ceb4beb74"
+  },
+  "state_keys": [
+    "profile_name",
+    "terms_accepted",
+    "active_tab"
+  ],
+  "state_schema": {
+    "profile_name": "string",
+    "terms_accepted": "boolean",
+    "active_tab": "string"
+  },
+  "actions": [
+    {
+      "name": "submit_profile",
+      "input": {
+        "target_id": "string"
+      }
+    }
+  ],
+  "tokens": {
+    "$schema": "https://www.designtokens.org/tr/drafts/format/",
+    "color": {
+      "accent": { "$type": "color", "$value": "#2563eb" },
+      "danger": { "$type": "color", "$value": "#dc2626" }
+    }
+  },
+  "components": [
+    {
+      "name": "Label",
+      "capability_families": [
+        "content"
+      ],
+      "description": "Accessible text label associated with a known control.",
+      "prop_order": [
+        "id",
+        "for_id",
+        "text"
+      ],
+      "props": {
+        "id": {
+          "type": "string",
+          "required": true
+        },
+        "for_id": {
+          "type": "string",
+          "format": "component-id-ref",
+          "required": true
+        },
+        "text": {
+          "type": "string",
+          "required": true
+        }
+      },
+      "events": [],
+      "semantics": {
+        "role": "label",
+        "state_owner": "runtime"
+      },
+      "usage_rules": [
+        "for_id must identify an input in the same Surface."
+      ],
+      "accessibility": [
+        "Expose a programmatic label for the referenced control."
+      ],
+      "platform_adaptations": {
+        "web": "html-label",
+        "desktop": "webview-label",
+        "mobile": "webview-label"
+      },
+      "implementation": {
+        "module": "rust_ui::label",
+        "component": "Label",
+        "source_kind": "copied_upstream_component"
+      }
+    },
+    {
+      "name": "Card",
+      "capability_families": [
+        "layout"
+      ],
+      "description": "Rust/UI Card container for one reviewed workflow.",
+      "prop_order": [
+        "id",
+        "children"
+      ],
+      "props": {
+        "id": {
+          "type": "string",
+          "required": true
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "component-ref"
+          },
+          "required": true
+        }
+      },
+      "events": [],
+      "semantics": {
+        "role": "toolbar",
+        "state_owner": "runtime"
+      },
+      "usage_rules": [
+        "Children remain in declared order.",
+        "Every child reference must resolve."
+      ],
+      "accessibility": [
+        "Preserve logical focus order when orientation changes."
+      ],
+      "platform_adaptations": {
+        "web": "flex",
+        "desktop": "flex",
+        "mobile": "wrap-or-vertical"
+      },
+      "implementation": {
+        "module": "rust_ui::card",
+        "component": "Card",
+        "source_kind": "copied_upstream_component"
+      }
+    },
+    {
+      "name": "Input",
+      "capability_families": [
+        "text_input"
+      ],
+      "description": "Single-line text input bound to an allowlisted runtime state key.",
+      "prop_order": [
+        "id",
+        "label",
+        "state_key",
+        "value",
+        "placeholder"
+      ],
+      "props": {
+        "id": {
+          "type": "string",
+          "required": true
+        },
+        "label": {
+          "type": "string",
+          "required": true
+        },
+        "state_key": {
+          "type": "string",
+          "required": true
+        },
+        "value": {
+          "type": "string",
+          "required": true
+        },
+        "placeholder": {
+          "type": "string",
+          "required": true
+        }
+      },
+      "events": [
+        {
+          "name": "FieldChanged",
+          "payload": {
+            "state_key": "string",
+            "value": "string"
+          }
+        }
+      ],
+      "semantics": {
+        "role": "textbox",
+        "state_owner": "runtime"
+      },
+      "usage_rules": [
+        "state_key must be declared by the catalog release."
+      ],
+      "accessibility": [
+        "Expose a non-empty accessible name and visible focus."
+      ],
+      "platform_adaptations": {
+        "web": "html-input",
+        "desktop": "webview-input",
+        "mobile": "virtual-keyboard-input"
+      },
+      "implementation": {
+        "module": "rust_ui::input",
+        "component": "Input",
+        "source_kind": "copied_upstream_component"
+      }
+    },
+    {
+      "name": "Checkbox",
+      "capability_families": [
+        "boolean_input"
+      ],
+      "description": "Independent boolean input bound to runtime state.",
+      "prop_order": [
+        "id",
+        "label",
+        "state_key",
+        "checked"
+      ],
+      "props": {
+        "id": {
+          "type": "string",
+          "required": true
+        },
+        "label": {
+          "type": "string",
+          "required": true
+        },
+        "state_key": {
+          "type": "string",
+          "required": true
+        },
+        "checked": {
+          "type": "boolean",
+          "required": true
+        }
+      },
+      "events": [
+        {
+          "name": "ToggleChanged",
+          "payload": {
+            "state_key": "string",
+            "checked": "boolean"
+          }
+        }
+      ],
+      "semantics": {
+        "role": "checkbox",
+        "state_owner": "runtime"
+      },
+      "usage_rules": [
+        "Use for an independent agreement or inclusion choice."
+      ],
+      "accessibility": [
+        "Expose checked state and keyboard activation."
+      ],
+      "platform_adaptations": {
+        "web": "aria-checkbox",
+        "desktop": "aria-checkbox",
+        "mobile": "large-touch-checkbox"
+      },
+      "implementation": {
+        "module": "rust_ui::checkbox",
+        "component": "Checkbox",
+        "source_kind": "copied_upstream_component"
+      }
+    },
+    {
+      "name": "Button",
+      "capability_families": [
+        "action"
+      ],
+      "description": "Invokes one allowlisted typed host action.",
+      "prop_order": [
+        "id",
+        "label",
+        "action",
+        "target_id"
+      ],
+      "props": {
+        "id": {
+          "type": "string",
+          "required": true
+        },
+        "label": {
+          "type": "string",
+          "required": true
+        },
+        "action": {
+          "type": "string",
+          "enum": [
+            "submit_profile"
+          ],
+          "required": true
+        },
+        "target_id": {
+          "type": "string",
+          "required": true
+        }
+      },
+      "events": [
+        {
+          "name": "ActionInvoked",
+          "payload": {
+            "action": "string",
+            "target_id": "string"
+          }
+        }
+      ],
+      "semantics": {
+        "role": "button",
+        "state_owner": "runtime"
+      },
+      "usage_rules": [
+        "action must be declared by the catalog release."
+      ],
+      "accessibility": [
+        "Expose label, disabled state, visible focus, and keyboard activation."
+      ],
+      "platform_adaptations": {
+        "web": "html-button",
+        "desktop": "webview-button",
+        "mobile": "minimum-44px-touch-button"
+      },
+      "implementation": {
+        "module": "rust_ui::button",
+        "component": "Button",
+        "source_kind": "copied_upstream_component"
+      }
+    },
+    {
+      "name": "Tabs",
+      "capability_families": [
+        "navigation_or_overlay"
+      ],
+      "description": "Local navigation between a closed set of panels.",
+      "prop_order": [
+        "id",
+        "state_key",
+        "value",
+        "items"
+      ],
+      "props": {
+        "id": {
+          "type": "string",
+          "required": true
+        },
+        "state_key": {
+          "type": "string",
+          "required": true
+        },
+        "value": {
+          "type": "string",
+          "required": true
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "value",
+              "label",
+              "child"
+            ],
+            "properties": {
+              "value": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "child": {
+                "type": "string",
+                "format": "component-ref"
+              }
+            }
+          },
+          "required": true
+        }
+      },
+      "events": [
+        {
+          "name": "NavigationChanged",
+          "payload": {
+            "state_key": "string",
+            "value": "string"
+          }
+        }
+      ],
+      "semantics": {
+        "role": "tablist",
+        "state_owner": "runtime"
+      },
+      "usage_rules": [
+        "Each item has unique value, label, and child reference."
+      ],
+      "accessibility": [
+        "Support roving focus and associate each tab with its panel."
+      ],
+      "platform_adaptations": {
+        "web": "aria-tabs",
+        "desktop": "aria-tabs",
+        "mobile": "scrollable-tab-strip"
+      },
+      "implementation": {
+        "module": "rust_ui::tabs",
+        "component": "Tabs",
+        "source_kind": "copied_upstream_component"
+      }
+    },
+    {
+      "name": "Progress",
+      "capability_families": [
+        "status"
+      ],
+      "description": "Determinate progress with explicit value and maximum.",
+      "prop_order": [
+        "id",
+        "label",
+        "value",
+        "max"
+      ],
+      "props": {
+        "id": {
+          "type": "string",
+          "required": true
+        },
+        "label": {
+          "type": "string",
+          "required": true
+        },
+        "value": {
+          "type": "number",
+          "required": true
+        },
+        "max": {
+          "type": "number",
+          "required": true
+        }
+      },
+      "events": [],
+      "semantics": {
+        "role": "progressbar",
+        "state_owner": "runtime"
+      },
+      "usage_rules": [
+        "value must be between zero and max; max must be positive."
+      ],
+      "accessibility": [
+        "Expose label, current value, minimum, and maximum."
+      ],
+      "platform_adaptations": {
+        "web": "aria-progressbar",
+        "desktop": "aria-progressbar",
+        "mobile": "aria-progressbar"
+      },
+      "implementation": {
+        "module": "rust_ui::progress",
+        "component": "Progress",
+        "source_kind": "copied_upstream_component"
+      }
+    },
+    {
+      "name": "Alert",
+      "capability_families": [
+        "feedback"
+      ],
+      "description": "Rust/UI Alert presenting reviewed feedback.",
+      "prop_order": [
+        "id",
+        "title",
+        "message",
+        "tone"
+      ],
+      "props": {
+        "id": {
+          "type": "string",
+          "required": true
+        },
+        "tone": {
+          "type": "string",
+          "enum": [
+            "info",
+            "warning",
+            "error"
+          ],
+          "required": true
+        },
+        "title": {
+          "type": "string",
+          "required": true
+        },
+        "message": {
+          "type": "string",
+          "required": true
+        }
+      },
+      "events": [
+        {
+          "name": "Dismissed",
+          "payload": {
+            "id": "string"
+          }
+        }
+      ],
+      "semantics": {
+        "role": "status",
+        "state_owner": "runtime"
+      },
+      "usage_rules": [
+        "Do not use as the only record of an action result."
+      ],
+      "accessibility": [
+        "Announce feedback without unexpectedly moving focus."
+      ],
+      "platform_adaptations": {
+        "web": "live-region",
+        "desktop": "live-region",
+        "mobile": "safe-area-live-region"
+      },
+      "implementation": {
+        "module": "rust_ui::alert",
+        "component": "Alert",
+        "source_kind": "copied_upstream_component"
+      }
+    }
+  ],
+  "workflow_fixtures": {
+    "01-profile-submit": {
+      "root": "profile",
+      "state": { "profile_name": "Ada", "terms_accepted": true, "active_tab": "review" },
+      "nodes": [
+        { "kind": "Card", "id": "profile", "children": ["name-label", "name", "terms", "submit", "review-tabs", "progress"] },
+        { "kind": "Label", "id": "name-label", "for_id": "name", "text": "Name" },
+        { "kind": "Input", "id": "name", "label": "Name", "state_key": "profile_name", "value": "Ada", "placeholder": "Your name" },
+        { "kind": "Checkbox", "id": "terms", "label": "Accept terms", "state_key": "terms_accepted", "checked": true },
+        { "kind": "Button", "id": "submit", "label": "Submit", "action": "submit_profile", "target_id": "profile" },
+        { "kind": "Tabs", "id": "review-tabs", "state_key": "active_tab", "value": "review", "items": [{ "value": "review", "label": "Review", "child": "feedback" }] },
+        { "kind": "Progress", "id": "progress", "label": "Profile complete", "value": 100, "max": 100 },
+        { "kind": "Alert", "id": "feedback", "title": "Ready", "message": "Profile can be submitted.", "tone": "info" }
+      ]
+    },
+    "02-preferences-review": {
+      "root": "profile",
+      "state": { "profile_name": "Grace", "terms_accepted": true, "active_tab": "review" },
+      "nodes": [
+        { "kind": "Card", "id": "profile", "children": ["name-label", "name", "terms", "submit", "review-tabs", "progress"] },
+        { "kind": "Label", "id": "name-label", "for_id": "name", "text": "Display name" },
+        { "kind": "Input", "id": "name", "label": "Display name", "state_key": "profile_name", "value": "Grace", "placeholder": "Display name" },
+        { "kind": "Checkbox", "id": "terms", "label": "Confirm preferences", "state_key": "terms_accepted", "checked": true },
+        { "kind": "Button", "id": "submit", "label": "Save", "action": "submit_profile", "target_id": "profile" },
+        { "kind": "Tabs", "id": "review-tabs", "state_key": "active_tab", "value": "review", "items": [{ "value": "review", "label": "Review", "child": "feedback" }] },
+        { "kind": "Progress", "id": "progress", "label": "Preferences complete", "value": 80, "max": 100 },
+        { "kind": "Alert", "id": "feedback", "title": "Review", "message": "Preferences are ready.", "tone": "warning" }
+      ]
+    }
+  }
+}

@@ -153,7 +153,7 @@ function promptMaterial(manifest, components) {
       components,
     },
     promptOptions: {
-      preamble: "Generate only an OpenUI Lang program using this closed Dioxus Components catalog.",
+      preamble: `Generate only an OpenUI Lang program using this closed ${manifest.catalog_id} catalog.`,
       additionalRules,
     },
   }).trim()}\n`;
@@ -245,7 +245,7 @@ function documentation(manifest) {
   const rows = manifest.components.map((component) =>
     `| ${component.name} | ${component.capability_families.join(", ")} | ${component.implementation.module}::${component.implementation.component} | ${component.events.map((event) => event.name).join(", ") || "none"} |`,
   );
-  return `# Frozen Dioxus Components evaluation catalog
+  return `# Frozen ${manifest.catalog_id} evaluation catalog
 
 This catalog exposes exactly 12 reviewed components through the
 \`static_rust_v1\` profile. It is an evaluation artifact, not a claim that the
@@ -307,8 +307,8 @@ function semanticContract(manifest) {
   }));
 }
 
-export async function writeArtifacts(outputDirectory) {
-  const manifest = await loadManifest();
+export async function writeArtifacts(outputDirectory, options = {}) {
+  const manifest = await loadManifest(options.manifestUrl);
   const artifacts = deriveArtifacts(manifest);
   const files = new Map([
     ["openui-library.json", stableJson(artifacts.librarySpec)],
@@ -317,11 +317,14 @@ export async function writeArtifacts(outputDirectory) {
     ["CATALOG.md", documentation(manifest)],
     ["registry.rs", rustRegistry(manifest)],
   ]);
+  if (manifest.workflow_fixtures) {
+    files.set("workflow-fixtures.json", stableJson(manifest.workflow_fixtures));
+  }
   const adapterSource = Buffer.concat([
     await readFile(new URL("../../Cargo.toml", import.meta.url)),
     await readFile(new URL("../../Cargo.lock", import.meta.url)),
     await readFile(new URL("../../src/lib.rs", import.meta.url)),
-    await readFile(new URL("../../src/ui.rs", import.meta.url)),
+    await readFile(new URL(options.adapterSource ?? "../../src/ui.rs", import.meta.url)),
   ]);
   const adapterSourceHash = sha256(adapterSource);
   const releaseInputs = {
@@ -336,7 +339,7 @@ export async function writeArtifacts(outputDirectory) {
     openui_library_hash: sha256(files.get("openui-library.json")),
     prompt_hash: sha256(files.get("catalog-prompt.md")),
     adapter_source_hash: adapterSourceHash,
-    adapter_build_id: `ope4-${adapterSourceHash.slice(0, 16)}-${sha256(files.get("registry.rs")).slice(0, 8)}`,
+    adapter_build_id: `${options.buildPrefix ?? "ope4"}-${adapterSourceHash.slice(0, 16)}-${sha256(files.get("registry.rs")).slice(0, 8)}`,
   };
   const release = {
     ...releaseInputs,

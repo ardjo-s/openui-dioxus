@@ -8,10 +8,16 @@ use sha2::{Digest, Sha256};
 #[cfg(feature = "ui")]
 pub mod platform;
 #[cfg(feature = "ui")]
+pub mod rust_ui;
+#[cfg(feature = "ui")]
+pub mod rust_ui_upstream;
+#[cfg(feature = "ui")]
 pub mod ui;
 
 const MANIFEST: &str = include_str!("../catalog/manifest.json");
 const RELEASE: &str = include_str!("../generated/release.json");
+const RUST_UI_MANIFEST: &str = include_str!("../catalog/rust-ui-manifest.json");
+const RUST_UI_RELEASE: &str = include_str!("../generated-rust-ui/release.json");
 const MAX_SOURCE_BYTES: usize = 256 * 1024;
 const MAX_NODES: usize = 64;
 
@@ -30,6 +36,15 @@ include!(concat!(
     env!("CARGO_MANIFEST_DIR"),
     "/generated/registry.rs"
 ));
+
+#[allow(dead_code)]
+mod rust_ui_generated {
+    use super::GeneratedComponentSpec;
+    include!(concat!(
+        env!("CARGO_MANIFEST_DIR"),
+        "/generated-rust-ui/registry.rs"
+    ));
+}
 
 #[derive(Clone, Debug, Deserialize)]
 struct Manifest {
@@ -156,6 +171,10 @@ pub struct ThinCatalog {
     contract: CatalogContract,
 }
 
+pub struct RustUiCatalog {
+    contract: CatalogContract,
+}
+
 struct CatalogContract {
     manifest: Manifest,
     public_id: String,
@@ -166,7 +185,7 @@ struct CatalogContract {
 impl DioxusComponentsCatalog {
     pub fn new() -> anyhow::Result<Self> {
         Ok(Self {
-            contract: CatalogContract::new(None)?,
+            contract: CatalogContract::new(MANIFEST, RELEASE, GENERATED_COMPONENTS, None)?,
         })
     }
 }
@@ -174,22 +193,44 @@ impl DioxusComponentsCatalog {
 impl ThinCatalog {
     pub fn new() -> anyhow::Result<Self> {
         Ok(Self {
-            contract: CatalogContract::new(Some("thin-reference-catalog"))?,
+            contract: CatalogContract::new(
+                MANIFEST,
+                RELEASE,
+                GENERATED_COMPONENTS,
+                Some("thin-reference-catalog"),
+            )?,
+        })
+    }
+}
+
+impl RustUiCatalog {
+    pub fn new() -> anyhow::Result<Self> {
+        Ok(Self {
+            contract: CatalogContract::new(
+                RUST_UI_MANIFEST,
+                RUST_UI_RELEASE,
+                rust_ui_generated::GENERATED_COMPONENTS,
+                None,
+            )?,
         })
     }
 }
 
 impl CatalogContract {
-    fn new(public_id: Option<&str>) -> anyhow::Result<Self> {
+    fn new(
+        manifest_source: &str,
+        release_source: &str,
+        generated_components: &[GeneratedComponentSpec],
+        public_id: Option<&str>,
+    ) -> anyhow::Result<Self> {
         let manifest: Manifest =
-            serde_json::from_str(MANIFEST).context("parse catalog manifest")?;
-        let release: Release = serde_json::from_str(RELEASE).context("parse catalog release")?;
-        if manifest.components.len() != GENERATED_COMPONENTS.len()
-            || GENERATED_COMPONENTS.len() != 12
-        {
+            serde_json::from_str(manifest_source).context("parse catalog manifest")?;
+        let release: Release =
+            serde_json::from_str(release_source).context("parse catalog release")?;
+        if manifest.components.len() != generated_components.len() {
             bail!("generated registry and manifest disagree");
         }
-        for (definition, generated) in manifest.components.iter().zip(GENERATED_COMPONENTS) {
+        for (definition, generated) in manifest.components.iter().zip(generated_components) {
             let events = definition
                 .events
                 .iter()
@@ -533,6 +574,29 @@ impl CatalogContract {
             }),
             _ => bail!("invalid event input for {}", node.kind),
         }
+    }
+}
+
+impl CatalogAdapter for RustUiCatalog {
+    fn catalog_id(&self) -> &str {
+        &self.contract.public_id
+    }
+
+    fn adapter_build_id(&self) -> &str {
+        &self.contract.adapter_build_id
+    }
+
+    fn normalize(&self, source: &[u8]) -> anyhow::Result<SurfaceRevision> {
+        self.contract.normalize(source)
+    }
+
+    fn event(
+        &self,
+        surface: &SurfaceRevision,
+        node_id: &str,
+        input: EventInput,
+    ) -> anyhow::Result<TypedEvent> {
+        self.contract.event(surface, node_id, input)
     }
 }
 
