@@ -17,6 +17,10 @@ const blankPng = Buffer.from(
   "iVBORw0KGgoAAAANSUhEUgAAAUAAAADwCAIAAAD+Tyo8AAACCUlEQVR42u3TQQkAAAwDsfo33XrYb5BIOLgUeCsSgIEBAwMGBgMDBgYMDBgYDAwYGDAwGBgwMGBgwMBgYMDAgIEBA4OBAQMDBgYDAwYGDAwYGAwMGBgwMGBgMDBgYMDAYGDAwICBAQODgQEDAwYGAwMGBgwMGBgMDBgYMDBgYDAwYGDAwGBgwMCAgQEDg4EBAwMGBgwMBgYMDBgYDAwYGDAwYGAwMGBgwMCAgcHAgIEBA4OBAQMDBgYMDAYGDAwYGAwMGBgwMGBgMDBgYMDAgIHBwICBAQODgQEDAwYGDAwGBgwMGBgwMBgYMDBgYDAwYGDAwICBwcCAgQEDAwYGAwMGBgwMBgYMDBgYMDAYGDAwYGAwMGBgwMCAgcHAgIEBAwMGBgMDBgYMDAYGDAwYGDAwGBgwMGBgwMBgYMDAgIHBwICBAQMDBgYDAwYGDAwGBgwMGBgwMBgYMDBgYMDAYGDAwICBwcCAgQEDAwYGAwMGBgwMGBgMDBgYMDAYGDAwYGDAwGBgwMCAgQEDg4EBAwMGBgMDBgYMDBgYDAwYGDAwGBgwMGBgwMBgYMDAgIEBA4OBAQMDBgYDAwYGDAwYGAwMGBgwMGBgMDBgYMDAYGDAwICBAQODgQEDAwYGDAwGBgwMGBgMDBgYMDBgYDAwYGDAwGBgwMCAgQEDg4EBAwMGBgwMBgYMDNwNdNewgYHrK5IAAAAASUVORK5CYII=",
   "base64",
 );
+const blackPng = Buffer.from(
+  "iVBORw0KGgoAAAANSUhEUgAAAUAAAADwCAIAAAD+Tyo8AAAA9UlEQVR42u3BAQEAAACCIP+vbkhAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPBohR0AAeRzGuEAAAAASUVORK5CYII=",
+  "base64",
+);
 
 test("Android runner passes only with exact marker and valid screenshot evidence", async (t) => {
   const run = await runtimeScenario(t, "success");
@@ -53,6 +57,11 @@ test("Android runner keeps capture and transport failures out of product evidenc
   assert.equal(blank.result.status, "INVALID_EVAL");
   assert.equal(blank.result.passed, false);
   assert.equal(blank.result.error, "Android screenshot content invalid");
+
+  const root = await runtimeScenario(t, "root-screenshot");
+  assert.equal(root.process.status, 1);
+  assert.equal(root.result.status, "INVALID_EVAL");
+  assert.equal(root.result.error, "Android screenshot content invalid");
 });
 
 test("Android build-only mode hands off the APK without starting adb", async (t) => {
@@ -122,7 +131,8 @@ async function runtimeScenario(t, scenario) {
   const adbCalls = path.join(root, "adb-calls");
   await mkdir(bin, { recursive: true });
   await writeFile(apk, "apk");
-  await writeFile(screenshot, scenario === "blank-screenshot" ? blankPng : png);
+  const screenshotBytes = scenario === "blank-screenshot" ? blankPng : scenario === "root-screenshot" ? blackPng : png;
+  await writeFile(screenshot, screenshotBytes);
   await writeExecutable(path.join(bin, "apkanalyzer"), "#!/usr/bin/env bash\nprintf com.ardjo.openuidioxus.platformeval\n");
   await writeExecutable(path.join(bin, "sleep"), "#!/usr/bin/env bash\nexit 0\n");
   await writeExecutable(

@@ -58,6 +58,7 @@ def inspect(path):
 
     previous = bytearray(stride)
     non_white = 0
+    near_black = 0
     sampled = 0
     top = int(height * 0.08)
     bottom = int(height * 0.9)
@@ -79,18 +80,23 @@ def inspect(path):
                 sampled += 1
                 if min(row[offset : offset + 3]) < 245:
                     non_white += 1
+                if max(row[offset : offset + 3]) < 20:
+                    near_black += 1
         previous = row
 
     foreground_ratio = non_white / sampled
+    black_ratio = near_black / sampled
     if foreground_ratio < 0.01:
         fail("app viewport is visually blank")
-    return width, height, foreground_ratio
+    if black_ratio > 0.25:
+        fail("screenshot contains an uncovered root viewport")
+    return width, height, foreground_ratio, black_ratio
 
 
 try:
-    width, height, ratio = inspect(sys.argv[1])
+    width, height, ratio, black_ratio = inspect(sys.argv[1])
 except (IndexError, OSError, ValueError, zlib.error, struct.error) as error:
     print(error, file=sys.stderr)
     raise SystemExit(1)
 
-print(width, height, f"{ratio:.6f}")
+print(width, height, f"{ratio:.6f}", f"{black_ratio:.6f}")

@@ -27,6 +27,7 @@ test("Android evidence isolates the build from an optimized emulator", async () 
   assert.ok(buildStep < emulatorStep, "APK build must finish before the emulator starts");
   assert.ok(kvmStep >= 0 && kvmStep < emulatorStep, "KVM must be enabled before the emulator starts");
   assert.match(workflow, /OPE6_ANDROID_BUILD_ONLY: "true"/);
+  assert.match(workflow, /xdotool/);
   assert.match(runner, /apk=\$\{OPE6_ANDROID_APK:-\}/);
   assert.match(runner, /status=PASS\s*$/m);
 });
