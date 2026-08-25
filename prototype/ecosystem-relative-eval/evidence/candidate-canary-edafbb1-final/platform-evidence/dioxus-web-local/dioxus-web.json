@@ -1,0 +1,16 @@
+{
+  "platform": "web",
+  "routes": [
+    "openui",
+    "typed-json"
+  ],
+  "manifest_hash": "eac280627d3042ef777d01142408661659aede6c16ca50cb8bd28120a9c3dd2c",
+  "binding_sha256": "9c3a209f78bde2a17e9acfd08513d89cd447791313786ef62c308f544f2c437c",
+  "passed": true,
+  "state_action_update_replay": true,
+  "accessibility_blocking_findings": 0,
+  "screenshots": [
+    "dioxus-web-1.png",
+    "dioxus-web-2.png"
+  ]
+}

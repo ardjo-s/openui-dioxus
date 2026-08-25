@@ -1,0 +1,12 @@
+{
+  "platform": "web",
+  "route": "json-render",
+  "official_runtime": "@json-render/react@0.19.0",
+  "manifest_hash": "eac280627d3042ef777d01142408661659aede6c16ca50cb8bd28120a9c3dd2c",
+  "binding_sha256": "831e428baeb65f0583bc47968e89b6b81197ad7227f0cedc601e589119ba0ef2",
+  "passed": true,
+  "state_changed": true,
+  "action_receipt": "receipt:ApplyFilter:preferences",
+  "accessibility_blocking_findings": 0,
+  "screenshot": "json-render-react-web.png"
+}

@@ -2,6 +2,13 @@
 
 ## OPE-11 ecosystem-relative harness and canary
 
+Current result: `CANARY_INVALID`. The final Luna low candidate accepted all
+eight generation cells on the first attempt, but Direct RSX Web produced one
+critical `aria-allowed-attr` accessibility finding. React Web, Dioxus Web, and
+Dioxus Desktop passed. The independent recomputation correctly refused a
+complete publication marker, so OPE-12 remains blocked. See
+[`docs/evaluation/ope-11-canary-result.md`](docs/evaluation/ope-11-canary-result.md).
+
 - [ ] OPE-3 protocol evidence is imported as immutable context without rerunning A2UI.
 - [ ] The frozen manifest defines 20 runtime-uncertain scenarios across five workflow families plus five compile-known representatives.
 - [ ] OpenUI and typed JSON use the shared canonical runtime seam, json-render uses its official React and TypeScript seam, and direct RSX remains ordinary compiled Dioxus code.

@@ -1,0 +1,122 @@
+
+> openui-dioxus-ecosystem-relative-eval@0.0.0 platform:direct-rsx:web
+> playwright test --config platform/direct-rsx/playwright.config.mjs
+
+
+Running 1 test using 1 worker
+F
+
+  1) platform/direct-rsx/web.spec.mjs:9:1 › accepted direct RSX executes state, typed action receipt, and visible feedback 
+
+    Error: [
+      {
+        "id": "aria-allowed-attr",
+        "impact": "critical",
+        "tags": [
+          "cat.aria",
+          "wcag2a",
+          "wcag412",
+          "EN-301-549",
+          "EN-9.4.1.2",
+          "RGAAv4",
+          "RGAA-7.1.1"
+        ],
+        "description": "Ensure an element's role supports its ARIA attributes",
+        "help": "Elements must only use supported ARIA attributes",
+        "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/aria-allowed-attr?application=playwright",
+        "nodes": [
+          {
+            "any": [],
+            "all": [
+              {
+                "id": "aria-allowed-attr",
+                "data": [
+                  "aria-orientation=\"horizontal\""
+                ],
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "ARIA attribute is not allowed: aria-orientation=\"horizontal\""
+              }
+            ],
+            "none": [],
+            "impact": "critical",
+            "html": "<div id=\"filter_toolbar\" data-component=\"Toolbar\" aria-orientation=\"horizontal\">",
+            "target": [
+              "div[data-component=\"Toolbar\"]"
+            ],
+            "failureSummary": "Fix all of the following:\n  ARIA attribute is not allowed: aria-orientation=\"horizontal\""
+          }
+        ]
+      }
+    ]
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 42
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "description": "Ensure an element's role supports its ARIA attributes",
+    +     "help": "Elements must only use supported ARIA attributes",
+    +     "helpUrl": "https://dequeuniversity.com/rules/axe/4.13/aria-allowed-attr?application=playwright",
+    +     "id": "aria-allowed-attr",
+    +     "impact": "critical",
+    +     "nodes": Array [
+    +       Object {
+    +         "all": Array [
+    +           Object {
+    +             "data": Array [
+    +               "aria-orientation=\"horizontal\"",
+    +             ],
+    +             "id": "aria-allowed-attr",
+    +             "impact": "critical",
+    +             "message": "ARIA attribute is not allowed: aria-orientation=\"horizontal\"",
+    +             "relatedNodes": Array [],
+    +           },
+    +         ],
+    +         "any": Array [],
+    +         "failureSummary": "Fix all of the following:
+    +   ARIA attribute is not allowed: aria-orientation=\"horizontal\"",
+    +         "html": "<div id=\"filter_toolbar\" data-component=\"Toolbar\" aria-orientation=\"horizontal\">",
+    +         "impact": "critical",
+    +         "none": Array [],
+    +         "target": Array [
+    +           "div[data-component=\"Toolbar\"]",
+    +         ],
+    +       },
+    +     ],
+    +     "tags": Array [
+    +       "cat.aria",
+    +       "wcag2a",
+    +       "wcag412",
+    +       "EN-301-549",
+    +       "EN-9.4.1.2",
+    +       "RGAAv4",
+    +       "RGAA-7.1.1",
+    +     ],
+    +   },
+    + ]
+
+      48 |     const accessibility = await new AxeBuilder({ page }).analyze();
+      49 |     const blocking = accessibility.violations.filter((violation) => ["critical", "serious"].includes(violation.impact));
+    > 50 |     expect(blocking, JSON.stringify(blocking, null, 2)).toEqual([]);
+         |                                                         ^
+      51 |     await page.screenshot({ path: path.join(evidence, "screenshots", `direct-rsx-web-${index + 1}.png`), fullPage: true });
+      52 |     if (index === 0) await page.getByRole("button", { name: "Next Source" }).click();
+      53 |   }
+        at /Users/ardjo/CODE/worktrees/openui-dioxus-ope-11-ecosystem-canary/prototype/ecosystem-relative-eval/platform/direct-rsx/web.spec.mjs:50:57
+
+    Error Context: evidence/candidate-canary-edafbb1-final/platform-evidence/direct-rsx-web-local/traces/web-accepted-direct-RSX-ex-424ef-eceipt-and-visible-feedback/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    evidence/candidate-canary-edafbb1-final/platform-evidence/direct-rsx-web-local/traces/web-accepted-direct-RSX-ex-424ef-eceipt-and-visible-feedback/trace.zip
+    Usage:
+
+        npx playwright show-trace evidence/candidate-canary-edafbb1-final/platform-evidence/direct-rsx-web-local/traces/web-accepted-direct-RSX-ex-424ef-eceipt-and-visible-feedback/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    platform/direct-rsx/web.spec.mjs:9:1 › accepted direct RSX executes state, typed action receipt, and visible feedback 
