@@ -1,0 +1,456 @@
+  0.00s  INFO Building project...
+[33mwarning[0m: Waiting for cargo-metadata...
+ 14.00s  INFO Compiled [  1/505]: cfg_if
+ 14.03s  INFO Compiled [  2/505]: unicode_ident
+ 14.10s  INFO Compiled [  3/505]: build-script-build
+ 14.16s  INFO Compiled [  5/505]: build-script-build
+ 14.17s  INFO Compiled [  6/505]: build-script-build
+ 14.26s  INFO Compiled [  9/505]: build-script-build
+ 14.32s  INFO Compiled [ 11/505]: version_check
+ 14.48s  INFO Compiled [ 12/505]: build-script-build
+ 14.83s  INFO Compiled [ 14/505]: libc
+ 14.93s  INFO Compiled [ 15/505]: proc_macro2
+ 15.04s  INFO Compiled [ 16/505]: quote
+ 15.16s  INFO Compiled [ 17/505]: build-script-build
+ 15.79s  INFO Compiled [ 18/505]: memchr
+ 16.00s  INFO Compiled [ 20/505]: smallvec
+ 16.84s  INFO Compiled [ 21/505]: serde_core
+ 16.87s  INFO Compiled [ 22/505]: cfg_if
+ 16.98s  INFO Compiled [ 23/505]: libc
+ 17.01s  INFO Compiled [ 24/505]: stable_deref_trait
+ 17.09s  INFO Compiled [ 25/505]: build-script-build
+ 17.37s  INFO Compiled [ 27/505]: bitflags
+ 17.56s  INFO Compiled [ 28/505]: build-script-build
+ 17.74s  INFO Compiled [ 29/505]: build-script-build
+ 18.10s  INFO Compiled [ 32/505]: autocfg
+ 18.19s  INFO Compiled [ 33/505]: build-script-build
+ 18.58s  INFO Compiled [ 34/505]: rustversion
+ 18.75s  INFO Compiled [ 35/505]: once_cell
+ 18.87s  INFO Compiled [ 37/505]: pin_project_lite
+ 19.79s  INFO Compiled [ 38/505]: num_traits
+ 19.91s  INFO Compiled [ 39/505]: build-script-build
+ 20.06s  INFO Compiled [ 40/505]: syn
+ 20.07s  INFO Compiled [ 41/505]: log
+ 20.31s  INFO Compiled [ 42/505]: syn
+ 20.78s  INFO Compiled [ 44/505]: zerocopy
+ 20.81s  INFO Compiled [ 45/505]: synstructure
+ 20.85s  INFO Compiled [ 46/505]: scopeguard
+ 21.04s  INFO Compiled [ 47/505]: lock_api
+ 21.13s  INFO Compiled [ 48/505]: ppv_lite86
+ 21.20s  INFO Compiled [ 49/505]: thiserror_impl
+ 21.25s  INFO Compiled [ 50/505]: thiserror
+ 21.27s  INFO Compiled [ 51/505]: getrandom
+ 21.34s  INFO Compiled [ 52/505]: parking_lot_core
+ 21.41s  INFO Compiled [ 53/505]: rand_core
+ 21.42s  INFO Compiled [ 54/505]: build-script-build
+ 22.10s  INFO Compiled [ 56/505]: anyhow
+ 22.27s  INFO Compiled [ 57/505]: parking_lot
+ 22.47s  INFO Compiled [ 58/505]: rand_chacha
+ 22.51s  INFO Compiled [ 59/505]: zerofrom_derive
+ 22.58s  INFO Compiled [ 60/505]: zerofrom
+ 23.07s  INFO Compiled [ 61/505]: serde_derive
+ 23.23s  INFO Compiled [ 62/505]: yoke_derive
+ 23.34s  INFO Compiled [ 63/505]: errno
+ 23.49s  INFO Compiled [ 64/505]: build-script-build
+ 23.62s  INFO Compiled [ 66/505]: tracing_core
+ 23.64s  INFO Compiled [ 67/505]: tracing_attributes
+ 23.66s  INFO Compiled [ 68/505]: yoke
+ 23.77s  INFO Compiled [ 69/505]: serde
+ 23.94s  INFO Compiled [ 70/505]: tracing
+ 24.00s  INFO Compiled [ 71/505]: build-script-build
+ 24.00s  INFO Compiled [ 72/505]: futures_sink
+ 24.08s  INFO Compiled [ 74/505]: futures_core
+ 24.28s  INFO Compiled [ 75/505]: futures_channel
+ 24.29s  INFO Compiled [ 76/505]: rand
+ 24.58s  INFO Compiled [ 77/505]: bytes
+ 24.72s  INFO Compiled [ 78/505]: siphasher
+ 24.75s  INFO Compiled [ 79/505]: crossbeam_utils
+ 24.85s  INFO Compiled [ 80/505]: build-script-build
+ 24.86s  INFO Compiled [ 81/505]: futures_task
+ 24.95s  INFO Compiled [ 82/505]: futures_macro
+ 25.00s  INFO Compiled [ 83/505]: slab
+ 25.07s  INFO Compiled [ 85/505]: futures_io
+ 25.22s  INFO Compiled [ 86/505]: linux_raw_sys
+ 25.33s  INFO Compiled [ 87/505]: zerovec_derive
+ 25.57s  INFO Compiled [ 88/505]: displaydoc
+ 25.66s  INFO Compiled [ 89/505]: build-script-build
+ 25.72s  INFO Compiled [ 90/505]: unicode_xid
+ 25.84s  INFO Compiled [ 91/505]: konst_macro_rules
+ 26.02s  INFO Compiled [ 92/505]: zerovec
+ 26.04s  INFO Compiled [ 93/505]: itoa
+ 26.13s  INFO Compiled [ 94/505]: dioxus_core_types
+ 26.41s  INFO Compiled [ 95/505]: konst
+ 26.58s  INFO Compiled [ 97/505]: getrandom
+ 26.69s  INFO Compiled [ 98/505]: subsecond_types
+ 26.83s  INFO Compiled [ 99/505]: const_format_proc_macros
+ 27.04s  INFO Compiled [100/505]: jni_sys_macros
+ 27.08s  INFO Compiled [101/505]: memmap2
+ 27.20s  INFO Compiled [102/505]: libloading
+ 27.32s  INFO Compiled [103/505]: build-script-build
+ 27.44s  INFO Compiled [104/505]: build-script-build
+ 27.52s  INFO Compiled [107/505]: memfd
+ 27.79s  INFO Compiled [108/505]: jni_sys
+ 28.01s  INFO Compiled [109/505]: subsecond
+ 28.15s  INFO Compiled [110/505]: rand_core
+ 28.27s  INFO Compiled [111/505]: const_format
+ 28.33s  INFO Compiled [112/505]: futures_util
+ 28.53s  INFO Compiled [113/505]: rustix
+ 28.63s  INFO Compiled [114/505]: build-script-build
+ 28.72s  INFO Compiled [115/505]: generational_box
+ 28.78s  INFO Compiled [116/505]: rustc_hash
+ 28.79s  INFO Compiled [117/505]: siphasher
+ 28.89s  INFO Compiled [118/505]: slotmap
+ 28.91s  INFO Compiled [119/505]: siphasher
+ 28.97s  INFO Compiled [120/505]: lazy_js_bundle
+ 29.03s  INFO Compiled [121/505]: build-script-build
+ 29.04s  INFO Compiled [122/505]: longest_increasing_subsequence
+ 29.04s  INFO Compiled [123/505]: build-script-build
+ 29.06s  INFO Compiled [126/505]: debug_unreachable
+ 29.18s  INFO Compiled [128/505]: phf_shared
+ 29.35s  INFO Compiled [129/505]: tinystr
+ 29.50s  INFO Compiled [130/505]: crossbeam_epoch
+ 29.59s  INFO Compiled [131/505]: build-script-build
+ 29.62s  INFO Compiled [132/505]: equivalent
+ 29.84s  INFO Compiled [133/505]: zerocopy_derive
+ 30.36s  INFO Compiled [134/505]: typenum
+ 30.37s  INFO Compiled [135/505]: pin_project_internal
+ 30.47s  INFO Compiled [136/505]: build-script-build
+ 30.64s  INFO Compiled [137/505]: litemap
+ 31.21s  INFO Compiled [138/505]: hashbrown
+ 31.46s  INFO Compiled [139/505]: writeable
+ 31.55s  INFO Compiled [140/505]: winnow
+ 32.08s  INFO Compiled [141/505]: toml_parser
+ 32.74s  INFO Compiled [142/505]: indexmap
+ 32.79s  INFO Compiled [144/505]: pin_project
+ 33.42s  INFO Compiled [145/505]: generic_array
+ 33.58s  INFO Compiled [147/505]: crossbeam_deque
+ 33.70s  INFO Compiled [148/505]: phf_generator
+ 34.26s  INFO Compiled [149/505]: zerocopy
+ 34.60s  INFO Compiled [150/505]: rand_chacha
+ 34.66s  INFO Compiled [151/505]: rand_pcg
+ 34.77s  INFO Compiled [152/505]: potential_utf
+ 35.00s  INFO Compiled [153/505]: icu_locale_core
+ 35.20s  INFO Compiled [154/505]: zerotrie
+ 35.27s  INFO Compiled [155/505]: warnings_macro
+ 35.37s  INFO Compiled [156/505]: build-script-build
+ 35.47s  INFO Compiled [157/505]: build-script-build
+ 35.57s  INFO Compiled [158/505]: utf8_iter
+ 35.74s  INFO Compiled [159/505]: toml_datetime
+ 35.77s  INFO Compiled [160/505]: equator_macro
+ 35.80s  INFO Compiled [161/505]: fnv
+ 35.90s  INFO Compiled [162/505]: build-script-build
+ 35.91s  INFO Compiled [163/505]: siphasher
+ 36.16s  INFO Compiled [164/505]: simd_adler32
+ 36.22s  INFO Compiled [165/505]: ident_case
+ 36.28s  INFO Compiled [166/505]: unicode_segmentation
+ 36.37s  INFO Compiled [167/505]: build-script-build
+ 36.42s  INFO Compiled [169/505]: build-script-build
+ 36.68s  INFO Compiled [171/505]: convert_case
+ 36.91s  INFO Compiled [173/505]: equator
+ 37.97s  INFO Compiled [174/505]: toml_edit
+ 38.69s  INFO Compiled [175/505]: icu_collections
+ 38.79s  INFO Compiled [178/505]: warnings
+ 38.80s  INFO Compiled [179/505]: syn
+ 39.09s  INFO Compiled [180/505]: dioxus_core
+ 39.31s  INFO Compiled [181/505]: darling_core
+ 39.37s  INFO Compiled [182/505]: jni_sys
+ 39.40s  INFO Compiled [183/505]: icu_provider
+ 39.49s  INFO Compiled [184/505]: phf_shared
+ 39.50s  INFO Compiled [185/505]: phf_shared
+ 39.52s  INFO Compiled [186/505]: rand
+ 39.84s  INFO Compiled [187/505]: const_serialize_macro
+ 40.36s  INFO Compiled [188/505]: num_integer
+ 40.54s  INFO Compiled [189/505]: build-script-build
+ 40.61s  INFO Compiled [190/505]: thiserror_impl
+ 40.71s  INFO Compiled [191/505]: build-script-build
+ 40.83s  INFO Compiled [192/505]: byteorder
+ 40.83s  INFO Compiled [193/505]: utf8
+ 40.88s  INFO Compiled [194/505]: rayon_core
+ 40.93s  INFO Compiled [196/505]: thiserror
+ 40.98s  INFO Compiled [198/505]: build-script-build
+ 41.02s  INFO Compiled [200/505]: either
+ 41.05s  INFO Compiled [201/505]: phf_generator
+ 41.07s  INFO Compiled [202/505]: phf_generator
+ 41.27s  INFO Compiled [203/505]: darling_macro
+ 41.42s  INFO Compiled [204/505]: proc_macro2_diagnostics
+ 41.47s  INFO Compiled [205/505]: icu_normalizer_data
+ 41.84s  INFO Compiled [206/505]: dioxus_signals
+ 41.90s  INFO Compiled [207/505]: proc_macro_crate
+ 42.00s  INFO Compiled [208/505]: icu_properties_data
+ 42.03s  INFO Compiled [209/505]: aligned_vec
+ 42.10s  INFO Compiled [210/505]: phf_codegen
+ 42.43s  INFO Compiled [211/505]: string_cache_codegen
+ 42.52s  INFO Compiled [212/505]: block_buffer
+ 42.57s  INFO Compiled [213/505]: proc_macro_hack
+ 42.59s  INFO Compiled [214/505]: crypto_common
+ 42.74s  INFO Compiled [215/505]: build-script-build
+ 42.76s  INFO Compiled [216/505]: phf_shared
+ 42.79s  INFO Compiled [217/505]: precomputed_hash
+ 42.84s  INFO Compiled [218/505]: adler2
+ 42.87s  INFO Compiled [219/505]: mac
+ 43.01s  INFO Compiled [220/505]: arrayvec
+ 43.11s  INFO Compiled [221/505]: semver
+ 43.18s  INFO Compiled [222/505]: build-script-build
+ 43.22s  INFO Compiled [224/505]: build-script-build
+ 43.31s  INFO Compiled [226/505]: futf
+ 43.43s  INFO Compiled [227/505]: rustc_version
+ 43.71s  INFO Compiled [229/505]: digest
+ 44.41s  INFO Compiled [230/505]: phf_macros
+ 44.50s  INFO Compiled [231/505]: combine
+ 44.83s  INFO Compiled [232/505]: build-script-build
+ 45.04s  INFO Compiled [233/505]: v_frame
+ 45.14s  INFO Compiled [234/505]: miniz_oxide
+ 45.96s  INFO Compiled [235/505]: num_enum_derive
+ 46.04s  INFO Compiled [236/505]: num_bigint
+ 46.10s  INFO Compiled [237/505]: num_rational
+ 46.14s  INFO Compiled [238/505]: darling
+ 46.19s  INFO Compiled [239/505]: phf_codegen
+ 47.02s  INFO Compiled [240/505]: icu_properties
+ 47.25s  INFO Compiled [241/505]: dioxus_rsx
+ 47.36s  INFO Compiled [242/505]: zmij
+ 47.38s  INFO Compiled [243/505]: icu_normalizer
+ 47.55s  INFO Compiled [244/505]: getrandom
+ 47.60s  INFO Compiled [245/505]: paste
+ 47.74s  INFO Compiled [246/505]: phf_shared
+ 47.79s  INFO Compiled [247/505]: as_slice
+ 47.94s  INFO Compiled [248/505]: const_serialize_macro
+ 47.96s  INFO Compiled [249/505]: build-script-build
+ 48.01s  INFO Compiled [250/505]: same_file
+ 48.09s  INFO Compiled [251/505]: zeroize
+ 48.12s  INFO Compiled [252/505]: cpufeatures
+ 48.18s  INFO Compiled [253/505]: build-script-build
+ 48.31s  INFO Compiled [254/505]: build-script-build
+ 48.36s  INFO Compiled [255/505]: bytemuck
+ 48.45s  INFO Compiled [256/505]: dtoa
+ 48.63s  INFO Compiled [257/505]: cesu8
+ 48.70s  INFO Compiled [258/505]: build-script-build
+ 48.75s  INFO Compiled [259/505]: built
+ 48.80s  INFO Compiled [260/505]: dioxus_cli_config
+ 48.87s  INFO Compiled [261/505]: build-script-build
+ 48.90s  INFO Compiled [262/505]: percent_encoding
+ 48.91s  INFO Compiled [263/505]: rayon
+ 49.01s  INFO Compiled [266/505]: dtoa_short
+ 49.18s  INFO Compiled [269/505]: aligned
+ 49.23s  INFO Compiled [270/505]: walkdir
+ 49.31s  INFO Compiled [271/505]: phf
+ 49.41s  INFO Compiled [272/505]: rand_core
+ 49.49s  INFO Compiled [273/505]: idna_adapter
+ 49.74s  INFO Compiled [274/505]: build-script-build
+ 49.89s  INFO Compiled [275/505]: rustls_pki_types
+ 49.95s  INFO Compiled [276/505]: num_enum
+ 50.54s  INFO Compiled [278/505]: crc32fast
+ 50.64s  INFO Compiled [279/505]: build-script-build
+ 50.81s  INFO Compiled [280/505]: enumset_derive
+ 50.90s  INFO Compiled [281/505]: tendril
+ 51.11s  INFO Compiled [282/505]: string_cache
+ 51.24s  INFO Compiled [283/505]: phf
+ 52.05s  INFO Compiled [284/505]: ndk_sys
+ 52.23s  INFO Compiled [285/505]: phf_shared
+ 52.30s  INFO Compiled [286/505]: serde_json
+ 52.57s  INFO Compiled [287/505]: ppv_lite86
+ 52.98s  INFO Compiled [288/505]: arg_enum_proc_macro
+ 53.16s  INFO Compiled [289/505]: serde_core
+ 53.17s  INFO Compiled [290/505]: profiling_procmacros
+ 53.42s  INFO Compiled [291/505]: cssparser_macros
+ 53.46s  INFO Compiled [292/505]: no_std_io2
+ 53.64s  INFO Compiled [293/505]: build-script-build
+ 53.86s  INFO Compiled [294/505]: y4m
+ 53.91s  INFO Compiled [295/505]: quick_error
+ 53.97s  INFO Compiled [296/505]: untrusted
+ 54.05s  INFO Compiled [297/505]: build-script-build
+ 54.09s  INFO Compiled [298/505]: matches
+ 54.19s  INFO Compiled [299/505]: num_conv
+ 54.41s  INFO Compiled [300/505]: raw_window_handle
+ 54.46s  INFO Compiled [301/505]: http
+ 54.47s  INFO Compiled [302/505]: jni
+ 54.51s  INFO Compiled [303/505]: nodrop
+ 54.58s  INFO Compiled [304/505]: simdutf8
+ 54.67s  INFO Compiled [305/505]: time_core
+ 54.73s  INFO Compiled [306/505]: ndk_context
+ 54.83s  INFO Compiled [307/505]: convert_case
+ 54.83s  INFO Compiled [308/505]: pastey
+ 54.93s  INFO Compiled [309/505]: build-script-build
+ 54.98s  INFO Compiled [311/505]: build-script-build
+ 55.91s  INFO Compiled [312/505]: av_scenechange
+ 56.01s  INFO Compiled [313/505]: simd_cesu8
+ 56.16s  INFO Compiled [314/505]: servo_arc
+ 56.25s  INFO Compiled [315/505]: time_macros
+ 56.72s  INFO Compiled [316/505]: nom
+ 57.42s  INFO Compiled [317/505]: ndk
+ 57.47s  INFO Compiled [319/505]: derive_more
+ 58.01s  INFO Compiled [321/505]: cssparser
+ 58.04s  INFO Compiled [322/505]: profiling
+ 58.17s  INFO Compiled [323/505]: bitstream_io
+ 58.56s  INFO Compiled [324/505]: serde
+ 58.63s  INFO Compiled [325/505]: rand_chacha
+ 58.63s  INFO Compiled [326/505]: phf
+ 59.03s  INFO Compiled [327/505]: enumset
+ 59.54s  INFO Compiled [329/505]: av1_grain
+ 59.57s  INFO Compiled [331/505]: flate2
+ 59.58s  INFO Compiled [332/505]: markup5ever
+ 59.68s  INFO Compiled [333/505]: build-script-build
+ 59.91s  INFO Compiled [335/505]: form_urlencoded
+ 59.94s  INFO Compiled [336/505]: maybe_rayon
+ 60.26s  INFO Compiled [337/505]: webpki
+ 60.44s  INFO Compiled [338/505]: num_complex
+ 61.32s  INFO Compiled [339/505]: dioxus_hooks
+ 61.59s  INFO Compiled [340/505]: dioxus_core_macro
+ 61.66s  INFO Compiled [341/505]: fxhash
+ 61.66s  INFO Compiled [342/505]: libm
+ 61.81s  INFO Compiled [343/505]: const_serialize
+ 61.88s  INFO Compiled [344/505]: dioxus_html_internal_macro
+ 62.03s  INFO Compiled [345/505]: idna
+ 62.28s  INFO Compiled [346/505]: half
+ 63.02s  INFO Compiled [347/505]: itertools
+ 63.09s  INFO Compiled [348/505]: num_derive
+ 63.17s  INFO Compiled [349/505]: euclid
+ 63.32s  INFO Compiled [350/505]: match_token
+ 63.47s  INFO Compiled [351/505]: serde_repr
+ 63.56s  INFO Compiled [352/505]: keyboard_types
+ 63.63s  INFO Compiled [353/505]: simd_helpers
+ 63.65s  INFO Compiled [354/505]: build-script-build
+ 63.75s  INFO Compiled [355/505]: subtle
+ 63.84s  INFO Compiled [356/505]: imgref
+ 63.86s  INFO Compiled [357/505]: async_trait
+ 63.89s  INFO Compiled [358/505]: pulp_wasm_simd_flag
+ 63.94s  INFO Compiled [359/505]: reborrow
+ 64.09s  INFO Compiled [360/505]: num_threads
+ 64.21s  INFO Compiled [361/505]: num_conv
+ 64.25s  INFO Compiled [362/505]: fnv
+ 64.99s  INFO Compiled [363/505]: weezl
+ 65.12s  INFO Compiled [364/505]: deranged
+ 65.19s  INFO Compiled [365/505]: powerfmt
+ 65.23s  INFO Compiled [366/505]: equivalent
+ 65.48s  INFO Compiled [367/505]: zune_core
+ 65.51s  INFO Compiled [368/505]: bitflags
+ 65.63s  INFO Compiled [369/505]: uuid
+ 65.79s  INFO Compiled [370/505]: time_core
+ 65.89s  INFO Compiled [371/505]: simdutf8
+ 65.93s  INFO Compiled [372/505]: noop_proc_macro
+ 66.60s  INFO Compiled [373/505]: hashbrown
+ 67.04s  INFO Compiled [374/505]: raw_cpuid
+ 67.43s  INFO Compiled [375/505]: indexmap
+ 67.54s  INFO Compiled [376/505]: simd_cesu8
+ 70.51s  INFO Compiled [377/505]: time
+ 71.66s  INFO Compiled [378/505]: selectors
+ 71.75s  INFO Compiled [379/505]: regex_syntax
+ 73.45s  INFO Compiled [380/505]: zune_jpeg
+ 73.51s  INFO Compiled [381/505]: cfb
+ 75.59s  INFO Compiled [382/505]: rav1e
+ 75.65s  INFO Compiled [383/505]: loop9
+ 77.38s  INFO Compiled [384/505]: pulp
+ 78.20s  INFO Compiled [386/505]: regex_automata
+ 78.40s  INFO Compiled [387/505]: const_serialize
+ 78.79s  INFO Compiled [388/505]: html5ever
+ 81.15s  INFO Compiled [390/505]: url
+ 81.26s  INFO Compiled [391/505]: jni_macros
+ 81.68s  INFO Compiled [392/505]: httparse
+ 81.83s  INFO Compiled [393/505]: dioxus_html
+ 81.85s  INFO Compiled [394/505]: rand
+ 82.09s  INFO Compiled [395/505]: sha1
+ 82.10s  INFO Compiled [396/505]: const_serialize
+ 82.63s  INFO Compiled [397/505]: zune_inflate
+ 82.67s  INFO Compiled [398/505]: avif_serialize
+ 82.72s  INFO Compiled [399/505]: build-script-build
+ 82.78s  INFO Compiled [400/505]: build-script-build
+ 83.08s  INFO Compiled [401/505]: fdeflate
+ 83.38s  INFO Compiled [402/505]: tao_macros
+ 83.42s  INFO Compiled [403/505]: crossbeam_channel
+ 83.91s  INFO Compiled [404/505]: tokio_macros
+ 84.04s  INFO Compiled [405/505]: sledgehammer_bindgen_macro
+ 84.13s  INFO Compiled [406/505]: build-script-build
+ 84.39s  INFO Compiled [407/505]: byteorder_lite
+ 84.66s  INFO Compiled [408/505]: color_quant
+ 85.22s  INFO Compiled [409/505]: winnow
+ 85.26s  INFO Compiled [410/505]: lazy_static
+ 85.37s  INFO Compiled [411/505]: bit_field
+ 85.52s  INFO Compiled [412/505]: lebe
+ 85.84s  INFO Compiled [413/505]: fax
+ 86.15s  INFO Compiled [414/505]: rgb
+ 86.20s  INFO Compiled [415/505]: rustc_hash
+ 86.39s  INFO Compiled [416/505]: build-script-build
+ 86.53s  INFO Compiled [417/505]: dpi
+ 86.76s  INFO Compiled [419/505]: sledgehammer_utils
+ 88.07s  INFO Compiled [420/505]: data_encoding
+ 95.25s  INFO Compiled [421/505]: rustls
+ 99.28s  INFO Compiled [422/505]: tiff
+100.04s  INFO Compiled [423/505]: pxfm
+100.65s  INFO Compiled [424/505]: sharded_slab
+101.64s  INFO Compiled [425/505]: manganis_core
+104.81s  INFO Compiled [426/505]: tungstenite
+106.77s  INFO Compiled [427/505]: gif
+109.61s  INFO Compiled [428/505]: exr
+109.65s  INFO Compiled [430/505]: sledgehammer_bindgen
+109.73s  INFO Compiled [431/505]: moxcms
+110.48s  INFO Compiled [434/505]: image_webp
+111.08s  INFO Compiled [435/505]: const_serialize
+112.87s  INFO Compiled [436/505]: png
+114.47s  INFO Compiled [437/505]: kuchikiki
+116.85s  INFO Compiled [438/505]: cookie
+118.26s  INFO Compiled [439/505]: infer
+118.34s  INFO Compiled [440/505]: matchers
+118.53s  INFO Compiled [441/505]: qoi
+119.07s  INFO Compiled [442/505]: tokio
+119.25s  INFO Compiled [443/505]: dioxus_devtools_types
+119.37s  INFO Compiled [444/505]: build-script-build
+119.74s  INFO Compiled [445/505]: signal_hook_registry
+119.96s  INFO Compiled [446/505]: macro_string
+120.19s  INFO Compiled [447/505]: thread_local
+120.23s  INFO Compiled [448/505]: dunce
+120.39s  INFO Compiled [449/505]: sha2
+120.46s  INFO Compiled [450/505]: raw_window_handle
+120.87s  INFO Compiled [451/505]: base64
+122.05s  INFO Compiled [452/505]: jni
+122.76s  INFO Compiled [453/505]: winnow
+125.39s  INFO Compiled [454/505]: manganis_core
+125.43s  INFO Compiled [455/505]: tao
+126.37s  INFO Compiled [456/505]: manganis_macro
+126.74s  INFO Compiled [457/505]: signal_hook
+127.07s  INFO Compiled [459/505]: ravif
+128.60s  INFO Compiled [460/505]: wry
+130.81s  INFO Compiled [461/505]: dioxus_asset_resolver
+131.65s  INFO Compiled [462/505]: tracing_subscriber
+132.15s  INFO Compiled [463/505]: webbrowser
+132.32s  INFO Compiled [464/505]: dioxus_devtools
+132.94s  INFO Compiled [466/505]: dioxus_stores_macro
+133.22s  INFO Compiled [467/505]: dioxus_history
+133.26s  INFO Compiled [468/505]: dunce
+133.77s  INFO Compiled [469/505]: dioxus_interpreter_js
+133.83s  INFO Compiled [470/505]: dioxus_document
+134.01s  INFO Compiled [471/505]: wasm_bindgen_shared
+135.33s  INFO Compiled [472/505]: dioxus_stores
+136.25s  INFO Compiled [473/505]: dioxus_logger
+136.53s  INFO Compiled [475/505]: phf_shared
+136.99s  INFO Compiled [476/505]: futures_executor
+137.14s  INFO Compiled [477/505]: dioxus_config_macro
+137.33s  INFO Compiled [478/505]: bumpalo
+137.38s  INFO Compiled [479/505]: by_address
+137.38s  INFO Compiled [480/505]: manganis
+137.41s  INFO Compiled [481/505]: dioxus_config_macros
+137.56s  INFO Compiled [482/505]: dioxus
+138.16s  INFO Compiled [483/505]: palette_derive
+138.20s  INFO Compiled [484/505]: futures
+138.31s  INFO Compiled [485/505]: phf
+138.41s  INFO Compiled [486/505]: build-script-build
+138.50s  INFO Compiled [487/505]: approx
+138.62s  INFO Compiled [488/505]: build-script-build
+138.68s  INFO Compiled [489/505]: unicode_ident
+138.79s  INFO Compiled [490/505]: palette_math
+141.58s  INFO Compiled [491/505]: wasm_bindgen_macro_support
+141.79s  INFO Compiled [492/505]: wasm_bindgen_macro
+142.43s  INFO Compiled [493/505]: wasm_bindgen_shared
+142.89s  INFO Compiled [496/505]: dioxus_sdk_time
+143.11s  INFO Compiled [497/505]: dioxus_attributes
+144.63s  INFO Compiled [498/505]: wasm_bindgen
+144.88s  INFO Compiled [499/505]: hex
+145.67s  INFO Compiled [500/505]: palette
+151.15s  INFO Compiled [501/505]: dioxus_desktop
+159.72s  INFO Compiled [502/505]: image
+170.70s  INFO Compiled [503/505]: dioxus_components_catalog_eval
+179.48s  INFO Compiled [504/505]: dioxus_primitives
+185.41s  INFO Compiled [505/505]: platform-app
+185.44s  INFO Bundling app...
+185.50s  WARN esbuild binary path not set. Copying JS without processing.
+185.50s  INFO Copying asset (1/1): /home/runner/.cargo/git/checkouts/dioxus-components-34ac1aefbfd57469/bf007c1/primitives/src/js/focus-trap.js
+312.82s  INFO Client build completed successfully! 🚀 path="/home/runner/work/openui-dioxus/openui-dioxus/prototype/dioxus-components-catalog-eval/target/dx/platform-app/release/android/app"
+Using prebuilt APK: /home/runner/work/openui-dioxus/openui-dioxus/prototype/dioxus-components-catalog-eval/target/dx/platform-app/release/android/app/app/build/outputs/apk/debug/app-debug.apk

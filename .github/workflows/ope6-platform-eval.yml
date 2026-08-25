@@ -39,7 +39,7 @@ jobs:
       - name: Install Linux WebView and capture dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libwebkit2gtk-4.1-dev libxdo-dev libayatana-appindicator3-dev librsvg2-dev patchelf xvfb imagemagick jq
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libxdo-dev libayatana-appindicator3-dev librsvg2-dev patchelf xvfb xdotool imagemagick jq
       - name: Install Dioxus CLI
         run: prototype/openui-typed-json-product-eval/platform/install-dioxus-cli.sh
       - name: Install Node dependencies and Chromium
@@ -101,6 +101,11 @@ jobs:
     steps:
       - uses: actions/checkout@v7.0.1
       - uses: dtolnay/rust-toolchain@stable
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
       - name: Install Dioxus CLI
         run: prototype/openui-typed-json-product-eval/platform/install-dioxus-cli.sh
       - name: Configure Android NDK
@@ -109,6 +114,11 @@ jobs:
           test -n "$ndk_home"
           echo "ANDROID_NDK_HOME=$ndk_home" >> "$GITHUB_ENV"
           echo "NDK_HOME=$ndk_home" >> "$GITHUB_ENV"
+      - name: Build Android evaluation APK
+        env:
+          OPE6_ANDROID_BUILD_ONLY: "true"
+          OPE6_EVIDENCE_DIR: ${{ github.workspace }}/prototype/openui-typed-json-product-eval/platform/evidence/android
+        run: prototype/openui-typed-json-product-eval/platform/run-android.sh
       - name: Run Android Emulator evaluation
         continue-on-error: true
         uses: reactivecircus/android-emulator-runner@v2.38.0
@@ -117,7 +127,6 @@ jobs:
           arch: x86_64
           profile: pixel_3a
           disable-animations: true
-          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -memory 4096 -cores 2
           script: prototype/openui-typed-json-product-eval/platform/run-android.sh
         env:
           OPE6_EVIDENCE_DIR: ${{ github.workspace }}/prototype/openui-typed-json-product-eval/platform/evidence/android
