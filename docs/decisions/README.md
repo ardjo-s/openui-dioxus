@@ -54,6 +54,8 @@ The proof must cover an MCP-driven generative interface constrained by a design 
 
 - [Prototype the enriched MCP vertical](09-prototype-the-mcp-vertical.md)
 
+The Linear OPE-9 research ticket adds a supporting [ecosystem-relative evaluation design](../evaluation/ecosystem-relative-product-value-decisions.md) and [implementation-ready specification](../evaluation/ecosystem-relative-product-value-spec.md). Those documents define the evidence required by decisions 09 and 10; they do not resolve either decision or change the Wayfinder frontier.
+
 ## Following decisions
 
 1. [Make the go or no-go decision](10-make-the-go-no-go-decision.md) after the prototype comparison.

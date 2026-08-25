@@ -77,6 +77,8 @@ This is a contract target, not yet a released compatibility claim. The current p
 | [Design-system bridge](docs/decisions/07-design-the-design-system-bridge.md) | The catalog manifest, generated artifacts, and future converter boundary. |
 | [Cross-platform contract](docs/decisions/08-lock-cross-platform-v01-contract.md) | The web, desktop, mobile, accessibility, catalog portability, and ABI decisions. |
 | [Decision-review register](docs/architecture/runtime-contract-review-register.md) | The evidence required to reopen an existing runtime decision during implementation. |
+| [Ecosystem-relative evaluation decisions](docs/evaluation/ecosystem-relative-product-value-decisions.md) | The four separate value questions, fair baseline scopes, canary, decision cadence, and thresholds. |
+| [Ecosystem-relative evaluation spec](docs/evaluation/ecosystem-relative-product-value-spec.md) | The implementation-ready cohorts, evidence contract, testing decisions, and non-goals. |
 | [ELI5 explainers](docs/explainers/) | Visual explanations of runtime history, catalog generation, adapter seams, and UI primitive layers. |
 | [Prototype](prototype/openui-dioxus-preview/README.md) | The runnable eight-component proof, its checks, and its explicit limitations. |
 | [Three-arm protocol evaluation](prototype/openui-a2ui-cloud-eval/README.md) | The controlled OpenUI, A2UI, and strict typed-JSON comparison and its archived evidence. |
@@ -103,7 +105,7 @@ repair, and sends both validated representations through the same Rust catalog
 normalizer. Its committed 20-pair fake-provider run is only a pipeline preflight;
 it is not product evidence.
 
-The remaining evaluation must compare generated interface quality, correction and maintenance cost, accessibility, and real web, desktop, and mobile behavior before the project claims product value or begins a production runtime.
+The remaining evaluation must compare generated interface quality, correction and maintenance cost, accessibility, and real web, desktop, and mobile behavior before the project claims product value or begins a production runtime. The [ecosystem-relative evaluation design](docs/evaluation/ecosystem-relative-product-value-decisions.md) now keeps protocol promptability, constrained-runtime value, design-system maintenance, and cross-platform leverage separate. Typed JSON remains the primary product baseline; frozen A2UI evidence remains protocol context; direct RSX is tested on compile-known UI; and `json-render` is the external React/TypeScript dynamic-UI baseline.
 
 ## `v0.1` non-goals
 
