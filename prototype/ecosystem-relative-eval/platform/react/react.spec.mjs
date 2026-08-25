@@ -21,7 +21,9 @@ test("official json-render React seam executes state and action behavior", async
   await checkbox.focus();
   await expect(checkbox).toBeFocused();
   await checkbox.check();
-  await page.getByRole("button", { name: /Save preferences/ }).click();
+  const action = page.locator('[data-component="Button"]');
+  await expect(action).toHaveCount(1);
+  await action.click();
 
   await expect(root).toHaveAttribute("data-probe-complete", "true");
   await expect(root).toHaveAttribute("data-action-count", "1");

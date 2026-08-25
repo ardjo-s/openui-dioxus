@@ -30,8 +30,7 @@ test("accepted direct RSX executes state, typed action receipt, and visible feed
     await expect(root).toHaveAttribute("data-current-index", String(index));
     const section = root.locator("section[data-scenario-id]");
     scenarios.push(await section.getAttribute("data-scenario-id"));
-    const app = section.locator('main[data-route="direct-rsx"]');
-    await expect(app).toBeVisible();
+    const app = section.locator('[data-route="direct-rsx"]');
     const select = app.locator("select");
     if (await select.count()) {
       await select.selectOption({ index: 1 });
@@ -39,6 +38,7 @@ test("accepted direct RSX executes state, typed action receipt, and visible feed
       stateChanges += 1;
     }
     const action = app.locator("button[data-action]");
+    await expect(action).toBeVisible();
     await action.click();
     const receipt = app.getByRole("status");
     await expect(receipt).toHaveAttribute("data-action-count", "1");

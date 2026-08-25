@@ -69,6 +69,7 @@ export function scanSource(source) {
   if (!source.includes("pub fn App() -> Element") || !source.includes("rsx!")) diagnostics.push({ code: "source-contract", message: "missing App or rsx" });
   if (!source.includes('"data-route": "direct-rsx"')) diagnostics.push({ code: "source-contract", message: "missing route marker" });
   if (!source.includes("use_signal") || !source.includes('"data-action-count"') || !source.includes('"data-receipt"')) diagnostics.push({ code: "source-contract", message: "missing executable state or action receipt probe" });
+  if ((source.match(/"\{receipt(?:\(\))?\}"/g) ?? []).length < 2) diagnostics.push({ code: "source-contract", message: "receipt must be bound to both metadata and visible status content" });
   const imports = source.split("\n").map((line) => line.trim()).filter((line) => line.startsWith("use "));
   if (imports.length !== 1 || imports[0] !== "use dioxus::prelude::*;") diagnostics.push({ code: "forbidden-source", message: "only the Dioxus prelude import is allowed" });
   const forbidden = [

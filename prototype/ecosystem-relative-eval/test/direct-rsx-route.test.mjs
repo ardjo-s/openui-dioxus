@@ -34,6 +34,7 @@ test("direct RSX rejects Dioxus escape hatches and remote resource elements", as
   assert.ok(scanSource(source.replace("main {", "main { img { src: \"https://example.com/x\" },")).some((item) => item.code === "forbidden-source"));
   assert.ok(scanSource(`${source}\nfn escape() { let _ = web_sys::window(); }`).some((item) => item.code === "forbidden-source"));
   assert.ok(scanSource(`${source}\nfn escape() { let _ = ope11_dioxus_web_features::window(); }`).some((item) => item.code === "forbidden-source"));
+  assert.ok(scanSource(source.replaceAll('"{receipt()}"', '""')).some((item) => item.code === "source-contract"));
 });
 
 test("direct RSX rejects host-capable Rust before compilation", async () => {
