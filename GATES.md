@@ -15,9 +15,9 @@
 Verification evidence:
 
 - Frozen implementation commits: `ad829ba`, `9453ea8`.
-- Generator/drill suite: 9/9; Rust suite: 18/18 including 7 Rust/UI tests.
-- Web, Desktop, and Mobile feature checks pass; shared behavior matrix covers Web/Desktop/iOS/Android profiles.
-- Measurement: 0.5 active hours; 0 canonical runtime files/lines; 3.75 active minutes and 252.375 non-generated LOC per family.
+- Generator/drill suite: 9/9; Rust suite: 20/20 including 9 Rust/UI tests.
+- Web, Desktop, and Mobile feature checks pass; this ticket makes no distinct device-launch claim.
+- Measurement: 0.833 active hours, including 5 active drill minutes; 0 canonical runtime files/lines; 6.25 active minutes and 272.125 non-generated LOC per family.
 - Integrity: generated and recursive evidence hashes pass; credential scan has no credential finding.
 - Delivery: Draft PR #12 targets `codex/ope-9-ecosystem-value-eval`; no merge was performed.
 
