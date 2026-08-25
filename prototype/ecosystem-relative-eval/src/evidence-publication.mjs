@@ -4,6 +4,7 @@ import path from "node:path";
 import { sha } from "./hash.mjs";
 
 export const PUBLICATION_MARKER = "PUBLICATION.json";
+export const CANDIDATE_MARKER = "CANDIDATE.json";
 
 export async function verifyEvidencePublication(directory) {
   const marker = JSON.parse(await readFile(path.join(directory, PUBLICATION_MARKER), "utf8"));
@@ -26,6 +27,22 @@ export async function verifyEvidencePublication(directory) {
       throw new Error(`evidence checksum differs: ${entry.relative}`);
     }
   }
+  const summary = JSON.parse(await readFile(path.join(directory, "summary.json"), "utf8"));
+  const manifest = JSON.parse(await readFile(path.join(directory, "candidate-manifest.json"), "utf8"));
+  const candidate = JSON.parse(await readFile(path.join(directory, CANDIDATE_MARKER), "utf8"));
+  const reviewBytes = await readFile(path.join(directory, "INDEPENDENT_REVIEW.json"));
+  const review = JSON.parse(reviewBytes);
+  if (summary.outcome !== marker.outcome) throw new Error("evidence outcome differs from publication marker");
+  if (summary.manifest_hash !== marker.manifest_hash || manifest.hash !== marker.manifest_hash) {
+    throw new Error("evidence manifest hash differs from publication marker");
+  }
+  if (!review.passed || review.manifest_hash !== marker.manifest_hash || review.outcome !== marker.outcome) {
+    throw new Error("independent review differs from publication marker");
+  }
+  if (review.candidate_checksum_manifest_sha256 !== candidate.checksum_manifest_sha256) {
+    throw new Error("independent review differs from candidate evidence");
+  }
+  if (sha(reviewBytes) !== marker.independent_review_sha256) throw new Error("independent review hash differs from publication marker");
   return {
     verified: true,
     outcome: marker.outcome,

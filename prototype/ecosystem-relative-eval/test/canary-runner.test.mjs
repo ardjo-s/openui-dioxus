@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdtemp, readFile, rm } from "node:fs/promises";
+import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
 
@@ -27,7 +27,7 @@ test("pre-provider scanner rejects credential-shaped payloads", () => {
 test("publication scanner covers final values and relative filenames", async () => {
   const output = await mkdtemp(path.join(temporaryRoot.pathname, "publication-scan-"));
   try {
-    await import("node:fs/promises").then(({ writeFile }) => writeFile(path.join(output, "ghp_abcdefghijklmnopqrstuvwxyz.txt"), "safe"));
+    await writeFile(path.join(output, "ghp_abcdefghijklmnopqrstuvwxyz.txt"), "safe");
     assert.ok((await scanEvidenceDirectory(output)).some((finding) => finding.location === "filename"));
     assert.ok(scanPublicationPayloads({ "summary.json": { note: "sk-test-abcdefghijklmnopqrstuvwxyz" } }).some((finding) => finding.path === "summary.json"));
   } finally {
@@ -66,6 +66,10 @@ test("deterministic canary records every rejected attempt and remains decision-n
     assertDecisionNeutral(summary);
     assert.match(await readFile(path.join(output, "SHA256SUMS"), "utf8"), /records\.jsonl/);
     assert.deepEqual((await verifyEvidencePublication(output)).verified, true);
+    const publicationPath = path.join(output, "PUBLICATION.json");
+    const publication = JSON.parse(await readFile(publicationPath, "utf8"));
+    await writeFile(publicationPath, `${JSON.stringify({ ...publication, manifest_hash: "0".repeat(64) }, null, 2)}\n`);
+    await assert.rejects(() => verifyEvidencePublication(output), /manifest hash differs/);
   } finally {
     await rm(output, { recursive: true, force: true });
   }

@@ -8,7 +8,8 @@ import { fileURLToPath } from "node:url";
 import { get_encoding } from "tiktoken";
 
 import { verifySecondCatalogFixtures } from "./catalog-fixtures.mjs";
-import { PUBLICATION_MARKER } from "./evidence-publication.mjs";
+import { boundedTimeout } from "./deadline.mjs";
+import { CANDIDATE_MARKER, PUBLICATION_MARKER } from "./evidence-publication.mjs";
 import { measureImplementationFootprint } from "./footprint.mjs";
 import { sha, stableJson } from "./hash.mjs";
 import { buildCandidateManifest, hashManifest } from "./manifest.mjs";
@@ -19,6 +20,7 @@ import { executeGeneratedPlatformProofs } from "./platform-runner.mjs";
 import { generateRouteOutput, repairPrompt } from "./provider.mjs";
 import { routeExtension, validateRoute } from "./routes.mjs";
 import { assertDecisionNeutral, createForbiddenProductScorer, scanEvidenceDirectory, scanProviderPayload, scanPublicationPayloads } from "./security.mjs";
+import { runBoundedProcess } from "./subprocess.mjs";
 import { buildScenarios } from "../../openui-typed-json-product-eval/src/scenarios.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -341,13 +343,29 @@ export async function runCanary({ provider, outputDirectory, platformProof = pro
   });
   await writeFile(path.join(outputDirectory, "REPORT.md"), reportText, { flag: "wx", mode: 0o600 });
   const checksumManifestSha256 = await writeChecksums(outputDirectory);
-  await writeJson(path.join(outputDirectory, PUBLICATION_MARKER), {
-    status: "complete",
+  await writeJson(path.join(outputDirectory, CANDIDATE_MARKER), {
+    status: "awaiting-independent-review",
     outcome,
     manifest_hash: manifestHash,
     checksum_manifest_sha256: checksumManifestSha256,
   });
+  await runPublicationStep("review-evidence.mjs", outputDirectory, deadlineMs);
+  await runPublicationStep("finalize-evidence.mjs", outputDirectory, deadlineMs);
   return summary;
+}
+
+async function runPublicationStep(script, outputDirectory, deadlineMs) {
+  const result = await runBoundedProcess({
+    command: process.execPath,
+    args: [path.join(root, "scripts", script), outputDirectory],
+    cwd: root,
+    env: Object.fromEntries(["PATH", "HOME", "TMPDIR"].filter((name) => process.env[name] !== undefined).map((name) => [name, process.env[name]])),
+    timeoutMs: boundedTimeout(deadlineMs, 60_000, script),
+    maximumBytes: 2 * 1024 * 1024,
+  });
+  if (result.error || result.exitCode !== 0 || !result.process_group_reaped) {
+    throw new Error(`${script} failed: ${result.error ?? result.stderr ?? result.stdout ?? result.exitCode}`);
+  }
 }
 
 function providerFailureRecord({
@@ -501,7 +519,7 @@ async function writeJson(destination, value) {
 }
 
 async function writeChecksums(directory) {
-  const files = (await filesBelow(directory)).filter((relative) => !["SHA256SUMS", PUBLICATION_MARKER].includes(relative)).sort();
+  const files = (await filesBelow(directory)).filter((relative) => !["SHA256SUMS", CANDIDATE_MARKER, PUBLICATION_MARKER].includes(relative)).sort();
   const lines = await Promise.all(files.map(async (relative) => `${sha(await readFile(path.join(directory, relative)))}  ${relative}`));
   const contents = `${lines.join("\n")}\n`;
   await writeFile(path.join(directory, "SHA256SUMS"), contents, { flag: "wx", mode: 0o600 });

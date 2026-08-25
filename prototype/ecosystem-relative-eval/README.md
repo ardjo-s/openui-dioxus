@@ -23,8 +23,11 @@ Route-specific guarantees are excluded from comparisons where they do not apply.
 6. Verify the frozen OPE-3 archive, the second Dioxus catalog and migration drills, zero canonical runtime changes, credential scans, the 30 minute ceiling, and recursive hashes.
 
 An evidence directory is unpublished until the last exclusive write creates
-`PUBLICATION.json`. The marker binds the outcome and manifest to the complete
-`SHA256SUMS` inventory. Interrupted directories without that marker are invalid.
+`PUBLICATION.json`. The runner first freezes `CANDIDATE.json`, then a separate
+process recomputes the records into `INDEPENDENT_REVIEW.json`. Finalization
+includes both files in `SHA256SUMS` and binds the outcome, manifest, review, and
+complete inventory in the publication marker. Interrupted directories without
+that marker are invalid.
 
 Generated OpenUI, typed JSON, and `json-render` outputs remain validated data. Generated direct RSX is accepted only after its source allowlist passes. Its SSR compile and execution use an empty environment and a deny-network sandbox. Its Web proof receives an explicit non-secret environment, rejects direct access to the aliased `web-sys` feature shim, and blocks external browser requests.
 
