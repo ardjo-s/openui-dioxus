@@ -65,7 +65,12 @@ adb shell monkey -p "$package" -c android.intent.category.LAUNCHER 1 > "$evidenc
 marker="PLATFORM_SELF_TEST_PASS surfaces=40 families=5"
 for _ in $(seq 1 90); do
   adb logcat -d > "$evidence/traces/android-logcat.log"
-  if grep -q "$marker" "$evidence/traces/android-logcat.log"; then status=PASS; break; fi
+  persisted_marker=$(adb shell run-as "$package" cat cache/openui-dioxus-platform.marker 2>/dev/null | tr -d '\r' || true)
+  if [ "$persisted_marker" = "$marker" ] || grep -q "$marker" "$evidence/traces/android-logcat.log"; then
+    printf '%s\n' "$persisted_marker" > "$evidence/traces/android-marker.log"
+    status=PASS
+    break
+  fi
   sleep 1
 done
 adb exec-out screencap -p > "$evidence/screenshots/android-emulator.png"
