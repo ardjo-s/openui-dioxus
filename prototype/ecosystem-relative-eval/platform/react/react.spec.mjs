@@ -27,7 +27,9 @@ test("official json-render React seam executes state and action behavior", async
 
   await expect(root).toHaveAttribute("data-probe-complete", "true");
   await expect(root).toHaveAttribute("data-action-count", "1");
-  await expect(page.getByRole("status")).toHaveAttribute("data-receipt", "receipt:ApplyFilter:preferences");
+  const receipt = page.locator('[role="status"][data-receipt]');
+  await expect(receipt).toHaveCount(1);
+  await expect(receipt).toHaveAttribute("data-receipt", "receipt:ApplyFilter:preferences");
   const accessibility = await new AxeBuilder({ page }).analyze();
   const blocking = accessibility.violations.filter((violation) => ["critical", "serious"].includes(violation.impact));
   expect(blocking, JSON.stringify(blocking, null, 2)).toEqual([]);

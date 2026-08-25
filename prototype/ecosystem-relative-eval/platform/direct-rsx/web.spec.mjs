@@ -40,7 +40,8 @@ test("accepted direct RSX executes state, typed action receipt, and visible feed
     const action = app.locator("button[data-action]");
     await expect(action).toBeVisible();
     await action.click();
-    const receipt = app.getByRole("status");
+    const receipt = app.locator('[role="status"][data-receipt]');
+    await expect(receipt).toHaveCount(1);
     await expect(receipt).toHaveAttribute("data-action-count", "1");
     await expect(receipt).toHaveAttribute("data-receipt", /^receipt:[A-Za-z]+:[a-z]+$/);
     await expect(receipt).toContainText("receipt:");
