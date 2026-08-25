@@ -15,7 +15,7 @@
 Verification evidence:
 
 - Frozen implementation commits: `ad829ba`, `9453ea8`.
-- Generator/drill suite: 9/9; Rust suite: 17/17 including 6 Rust/UI tests.
+- Generator/drill suite: 9/9; Rust suite: 18/18 including 7 Rust/UI tests.
 - Web, Desktop, and Mobile feature checks pass; shared behavior matrix covers Web/Desktop/iOS/Android profiles.
 - Measurement: 0.5 active hours; 0 canonical runtime files/lines; 3.75 active minutes and 252.375 non-generated LOC per family.
 - Integrity: generated and recursive evidence hashes pass; credential scan has no credential finding.
