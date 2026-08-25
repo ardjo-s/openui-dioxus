@@ -1,4 +1,3 @@
-import { spawn } from "node:child_process";
 import { createHash } from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
@@ -7,6 +6,7 @@ import { fileURLToPath } from "node:url";
 import { verifyPlatformEvidence } from "./platform-evidence.mjs";
 import { buildPlatformProvenance } from "./platform-provenance.mjs";
 import { boundedTimeout } from "./deadline.mjs";
+import { runBoundedProcess } from "./subprocess.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..");
@@ -191,7 +191,9 @@ function requiredRoute(records, route) {
 async function execute({ id, command, args, env, logRoot, deadlineMs }) {
   const started = performance.now();
   const timeoutMs = boundedTimeout(deadlineMs, 8 * 60 * 1000, `${id} platform proof`);
-  const result = await spawnBounded(command, args, {
+  const result = await runBoundedProcess({
+    command,
+    args,
     cwd: root,
     env: { ...process.env, ...env, CI: "1" },
     timeoutMs,
@@ -203,7 +205,7 @@ async function execute({ id, command, args, env, logRoot, deadlineMs }) {
   await writeFile(path.join(logRoot, `${id}.stderr.log`), stderr);
   return {
     id,
-    passed: !result.error && result.exitCode === 0,
+    passed: !result.error && result.exitCode === 0 && result.process_group_reaped,
     exit_code: result.exitCode,
     signal: result.signal,
     error: result.error,
@@ -211,59 +213,6 @@ async function execute({ id, command, args, env, logRoot, deadlineMs }) {
     stdout_sha256: digest(stdout),
     stderr_sha256: digest(stderr),
   };
-}
-
-function spawnBounded(command, args, { cwd, env, timeoutMs, maximumBytes }) {
-  return new Promise((resolve) => {
-    const child = spawn(command, args, { cwd, env, detached: true, stdio: ["ignore", "pipe", "pipe"] });
-    let stdout = Buffer.alloc(0);
-    let stderr = Buffer.alloc(0);
-    let error = null;
-    let timedOut = false;
-    const append = (current, chunk) => {
-      const next = Buffer.concat([current, chunk]);
-      if (next.length > maximumBytes) {
-        error = `subprocess output exceeded ${maximumBytes} bytes`;
-        killGroup(child.pid);
-        return next.subarray(0, maximumBytes);
-      }
-      return next;
-    };
-    child.stdout.on("data", (chunk) => { stdout = append(stdout, chunk); });
-    child.stderr.on("data", (chunk) => { stderr = append(stderr, chunk); });
-    child.on("error", (cause) => { error = cause.message; });
-    const timer = setTimeout(() => {
-      timedOut = true;
-      error = `subprocess exceeded ${timeoutMs} ms`;
-      killGroup(child.pid);
-    }, timeoutMs);
-    child.on("close", (exitCode, signal) => {
-      clearTimeout(timer);
-      resolve({
-        exitCode,
-        signal,
-        error: error ?? (timedOut ? `subprocess exceeded ${timeoutMs} ms` : null),
-        stdout: stdout.toString("utf8"),
-        stderr: stderr.toString("utf8"),
-      });
-    });
-  });
-}
-
-function killGroup(pid) {
-  if (!pid) return;
-  try {
-    process.kill(-pid, "SIGTERM");
-  } catch (error) {
-    if (error.code !== "ESRCH") throw error;
-  }
-  setTimeout(() => {
-    try {
-      process.kill(-pid, "SIGKILL");
-    } catch (error) {
-      if (error.code !== "ESRCH") throw error;
-    }
-  }, 1000).unref();
 }
 
 function digest(value) {

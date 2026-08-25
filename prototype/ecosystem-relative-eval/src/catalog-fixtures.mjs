@@ -1,10 +1,10 @@
-import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { boundedTimeout } from "./deadline.mjs";
+import { runBoundedProcess } from "./subprocess.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const repo = path.resolve(here, "../../..");
@@ -25,17 +25,24 @@ export async function verifySecondCatalogFixtures({ execute = true, deadlineMs =
     if (actual !== entry.expected) throw new Error(`OPE-10 checksum mismatch: ${entry.relative}`);
   }
   if (execute && !executableVerified) {
-    const result = spawnSync("cargo", [
-      "test",
-      "--quiet",
-      "--manifest-path",
-      path.join(catalog, "Cargo.toml"),
-      "--features",
-      "ssr",
-      "--test",
-      "rust_ui_catalog",
-    ], { cwd: repo, encoding: "utf8", timeout: boundedTimeout(deadlineMs, 240_000, "second-catalog fixture execution"), maxBuffer: 4 * 1024 * 1024 });
-    if (result.error || result.status !== 0) throw new Error(String(result.error?.message ?? result.stderr ?? `Rust/UI fixtures exited ${result.status}`));
+    const result = await runBoundedProcess({
+      command: "cargo",
+      args: [
+        "test",
+        "--quiet",
+        "--manifest-path",
+        path.join(catalog, "Cargo.toml"),
+        "--features",
+        "ssr",
+        "--test",
+        "rust_ui_catalog",
+      ],
+      cwd: repo,
+      env: process.env,
+      timeoutMs: boundedTimeout(deadlineMs, 240_000, "second-catalog fixture execution"),
+      maximumBytes: 4 * 1024 * 1024,
+    });
+    if (result.error || result.exitCode !== 0 || !result.process_group_reaped) throw new Error(String(result.error ?? result.stderr ?? `Rust/UI fixtures exited ${result.exitCode}`));
     executableVerified = true;
   }
   const release = JSON.parse(await readFile(path.join(catalog, "generated-rust-ui/release.json"), "utf8"));

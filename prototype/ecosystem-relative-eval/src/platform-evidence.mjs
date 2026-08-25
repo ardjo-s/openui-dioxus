@@ -1,8 +1,9 @@
-import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { access, readFile, readdir, stat } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+
+import { runBoundedProcess } from "./subprocess.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..");
@@ -113,8 +114,15 @@ async function requireArtifact(file, diagnostics, label, minimumBytes) {
   try {
     const metadata = await stat(file);
     check(metadata.isFile() && metadata.size >= minimumBytes, diagnostics, label, `artifact smaller than ${minimumBytes} bytes`);
-    const inspection = spawnSync("python3", [screenshotChecker, file], { encoding: "utf8", timeout: 15_000, maxBuffer: 1024 * 1024 });
-    check(!inspection.error && inspection.status === 0, diagnostics, label, `invalid or blank PNG: ${String(inspection.error?.message ?? inspection.stderr).trim()}`);
+    const inspection = await runBoundedProcess({
+      command: "python3",
+      args: [screenshotChecker, file],
+      cwd: root,
+      env: process.env,
+      timeoutMs: 15_000,
+      maximumBytes: 1024 * 1024,
+    });
+    check(!inspection.error && inspection.exitCode === 0 && inspection.process_group_reaped, diagnostics, label, `invalid or blank PNG: ${String(inspection.error ?? inspection.stderr).trim()}`);
   } catch (error) {
     diagnostics.push({ code: "platform-evidence", label, message: String(error.message) });
   }
