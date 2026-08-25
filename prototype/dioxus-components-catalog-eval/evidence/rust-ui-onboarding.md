@@ -42,7 +42,7 @@ All six drills start from the byte-identical catalog source at commit `1c7637d`,
 
 ## Cost and failures
 
-Active onboarding time through the second independent-review corrections: 0.833 hours, including 5 active minutes for the six-drill cycle. This is below the 16-hour hard gate. Dependency downloads, compilation waits, and unrelated OPE-6 work are excluded. Raw intervals and failure categories live in `ope10-activity.json`; `node scripts/measure-rust-ui.mjs 709cff1 <final-evidence-commit>` recomputes the table and normalization from either the repository root or crate directory.
+Active onboarding time through the second independent-review corrections: 0.833 hours, including 5 active minutes for the six-drill cycle. This is below the 16-hour hard gate. Dependency downloads, compilation waits, and unrelated OPE-6 work are excluded. Raw intervals and failure categories live in `ope10-activity.json`; `node scripts/measure-rust-ui.mjs 709cff1 fb12026` recomputes the table and normalization from either the repository root or crate directory.
 
 | Category | Added LOC | Files | Notes |
 | --- | ---: | ---: | --- |
