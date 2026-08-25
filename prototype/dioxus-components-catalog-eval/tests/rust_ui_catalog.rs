@@ -1,7 +1,8 @@
 use std::{fs, path::PathBuf};
 
 use dioxus_components_catalog_eval::{
-    copy_on_write_migrate, inert_replay, CatalogAdapter, EventInput, RustUiCatalog, TypedEvent,
+    catalog_evidence::{copy_on_write_migrate, inert_replay},
+    CatalogAdapter, EventInput, RustUiCatalog, TypedEvent,
 };
 
 fn fixture(name: &str) -> Vec<u8> {
@@ -47,19 +48,32 @@ fn rust_ui_replay_is_inert_and_identity_exact() {
     let adapter = RustUiCatalog::new().unwrap();
     let source = fixture("01-profile-submit");
     let first = adapter.normalize(&source).unwrap();
-    let (replay, audit) = inert_replay(&adapter, &source).unwrap();
+    let replay = inert_replay(&adapter, &source).unwrap();
     assert_eq!(first, replay);
     assert_eq!(first.fingerprint(), replay.fingerprint());
     assert_eq!(first.catalog_release_hash, replay.catalog_release_hash);
-    assert_eq!(
-        audit.model_calls
-            + audit.network_calls
-            + audit.tool_calls
-            + audit.navigation_calls
-            + audit.host_effect_calls,
-        0
-    );
     assert!(!adapter.adapter_build_id().is_empty());
+}
+
+#[test]
+fn catalog_evidence_code_has_no_effect_capability() {
+    let evidence = include_str!("../src/catalog_evidence.rs");
+    let adapter = include_str!("../src/rust_ui.rs");
+    for forbidden in [
+        "reqwest",
+        "std::net",
+        "Command::",
+        "use_effect",
+        "navigator",
+        "web_sys",
+        "tokio::net",
+    ] {
+        assert!(
+            !evidence.contains(forbidden),
+            "evidence imports {forbidden}"
+        );
+        assert!(!adapter.contains(forbidden), "adapter imports {forbidden}");
+    }
 }
 
 #[test]
@@ -79,21 +93,15 @@ fn migration_is_copy_on_write_and_pins_both_compatibility_identities() {
 }
 
 #[test]
-fn applicable_platform_profiles_share_the_same_observable_behavior() {
+fn shared_platform_behavior_contract_is_target_neutral() {
     let adapter = RustUiCatalog::new().unwrap();
-    for profile in ["web", "desktop", "ios", "android"] {
-        let source = fixture("02-preferences-review");
-        let (surface, audit) = inert_replay(&adapter, &source).unwrap();
-        let event = adapter
-            .event(&surface, "submit", EventInput::Activate)
-            .unwrap();
-        assert!(
-            matches!(event, TypedEvent::ActionInvoked { .. }),
-            "{profile}"
-        );
-        assert_eq!(audit.host_effect_calls, 0, "{profile}");
-        assert_eq!(surface.nodes.len(), 8, "{profile}");
-    }
+    let source = fixture("02-preferences-review");
+    let surface = inert_replay(&adapter, &source).unwrap();
+    let event = adapter
+        .event(&surface, "submit", EventInput::Activate)
+        .unwrap();
+    assert!(matches!(event, TypedEvent::ActionInvoked { .. }));
+    assert_eq!(surface.nodes.len(), 8);
 }
 
 #[cfg(feature = "ssr")]

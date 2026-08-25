@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { mkdtemp, readFile, readdir } from "node:fs/promises";
+import { execFileSync } from "node:child_process";
+import { mkdtemp, readFile, readdir, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
@@ -8,9 +9,18 @@ import test from "node:test";
 import { deriveArtifacts, loadManifest, writeArtifacts } from "../src/catalog-generator.mjs";
 
 const manifestUrl = new URL("../../catalog/rust-ui-manifest.json", import.meta.url);
-const adapterSources = ["../../Cargo.toml", "../../Cargo.lock", "../../src/lib.rs", "../../src/rust_ui.rs", ...["alert", "button", "card", "checkbox", "input", "label", "progress", "tabs"].map((name) => `../../src/rust_ui_upstream/${name}.rs`)];
+const adapterSources = ["../../Cargo.toml", "../../Cargo.lock", "../../src/lib.rs", "../../src/catalog_evidence.rs", "../../src/rust_ui.rs", "../../src/rust_ui_upstream/mod.rs", ...["alert", "button", "card", "checkbox", "input", "label", "progress", "tabs"].map((name) => `../../src/rust_ui_upstream/${name}.rs`)];
 const options = { manifestUrl, adapterSources, buildPrefix: "ope10" };
 const sha = (value) => createHash("sha256").update(value).digest("hex");
+
+function validateWorkflowBehavior(manifest) {
+  const components = new Set(manifest.components.map((component) => component.name));
+  const actions = new Set(manifest.actions.map((action) => action.name));
+  for (const fixture of Object.values(manifest.workflow_fixtures)) {
+    for (const node of fixture.nodes) assert.ok(components.has(node.kind), node.kind);
+    for (const button of fixture.nodes.filter((node) => node.kind === "Button")) assert.ok(actions.has(button.action), button.action);
+  }
+}
 
 test("Rust/UI source certifies eight components, six families, and two workflows", async () => {
   const manifest = await loadManifest(manifestUrl);
@@ -27,6 +37,8 @@ test("Rust/UI source certifies eight components, six families, and two workflows
 });
 
 test("one source deterministically generates all reviewed catalog artifacts", async () => {
+  assert.ok(adapterSources.includes("../../src/rust_ui_upstream/mod.rs"));
+  assert.ok(adapterSources.includes("../../src/catalog_evidence.rs"));
   const first = await mkdtemp(join(tmpdir(), "ope10-rust-ui-a-"));
   const second = await mkdtemp(join(tmpdir(), "ope10-rust-ui-b-"));
   await writeArtifacts(first, options);
@@ -58,6 +70,11 @@ test("six frozen maintenance drills regenerate isolated artifacts reproducibly",
     mutate(next);
     const output = await mkdtemp(join(tmpdir(), `ope10-${name}-`));
     const release = await writeArtifacts(output, { ...options, manifest: next });
+    validateWorkflowBehavior(next);
+    const harness = join(output, "registry-compile.rs");
+    const binary = join(output, "registry-compile");
+    await writeFile(harness, `struct GeneratedComponentSpec { name: &'static str, prop_order: &'static [&'static str], capability_families: &'static [&'static str], events: &'static [&'static str], source_module: &'static str, source_component: &'static str, source_kind: &'static str }\ninclude!(r#"${join(output, "registry.rs")}"#);\nfn main() { assert!(!GENERATED_COMPONENTS.is_empty()); }\n`);
+    execFileSync("rustc", [harness, "--edition=2021", "-Awarnings", "-o", binary]);
     return {
       name,
       source_hash: sourceHash,
@@ -65,13 +82,18 @@ test("six frozen maintenance drills regenerate isolated artifacts reproducibly",
       schema_hash: release.schema_hash,
       release_hash: release.catalog_release_hash,
       generated_files: (await readdir(output)).length,
+      behavior_checked: true,
+      registry_compiled: true,
+      changed_source_files: 1,
+      failures: 0,
     };
   }));
   const first = await run();
   assert.equal(new Set(first.map((result) => result.name)).size, 6);
   assert.ok(first.every((result) => result.result_hash !== sourceHash));
   assert.equal(sha(JSON.stringify(source)), sourceHash, "copy-on-write drills preserve source");
-  assert.ok(first.every((result) => result.generated_files === 8));
+  assert.ok(first.every((result) => result.generated_files === 10));
+  assert.ok(first.every((result) => result.behavior_checked && result.registry_compiled));
   assert.deepEqual(first, await run());
   assert.equal(Object.keys(deriveArtifacts(source).librarySpec.components).length, 8);
 });

@@ -1,11 +1,13 @@
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 
 const base = process.argv[2] ?? "709cff1";
 const head = process.argv[3] ?? "HEAD";
 const root = new URL("../", import.meta.url);
+const repositoryRoot = fileURLToPath(new URL("../../../", import.meta.url));
 const activity = JSON.parse(readFileSync(new URL("evidence/ope10-activity.json", root)));
-const numstat = execFileSync("git", ["diff", "--numstat", base, head, "--", "prototype/dioxus-components-catalog-eval", "GATES.md"], { encoding: "utf8" });
+const numstat = execFileSync("git", ["diff", "--numstat", base, head, "--", "prototype/dioxus-components-catalog-eval", "GATES.md"], { cwd: repositoryRoot, encoding: "utf8" });
 const categories = {};
 for (const line of numstat.trim().split("\n").filter(Boolean)) {
   const [added, removed, file] = line.split("\t");

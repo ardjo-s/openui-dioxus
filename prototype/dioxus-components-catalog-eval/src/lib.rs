@@ -5,6 +5,7 @@ use serde::{Deserialize, Serialize};
 use serde_json::{Map, Value};
 use sha2::{Digest, Sha256};
 
+pub mod catalog_evidence;
 #[cfg(feature = "ui")]
 pub mod platform;
 #[cfg(feature = "ui")]
@@ -128,65 +129,6 @@ impl SurfaceRevision {
             serde_json::to_vec(&semantic).expect("canonical Surface serializes"),
         ))
     }
-}
-
-#[derive(Clone, Debug, PartialEq, Serialize)]
-pub struct ReplayAudit {
-    pub model_calls: usize,
-    pub network_calls: usize,
-    pub tool_calls: usize,
-    pub navigation_calls: usize,
-    pub host_effect_calls: usize,
-}
-
-#[derive(Clone, Debug, PartialEq, Serialize)]
-pub struct MigrationReceipt {
-    pub source_release_hash: String,
-    pub target_release_hash: String,
-    pub source_fingerprint: String,
-    pub target_fingerprint: String,
-    pub source_preserved: bool,
-}
-
-pub fn inert_replay(
-    adapter: &impl CatalogAdapter,
-    source: &[u8],
-) -> anyhow::Result<(SurfaceRevision, ReplayAudit)> {
-    let replay = adapter.normalize(source)?;
-    Ok((
-        replay,
-        ReplayAudit {
-            model_calls: 0,
-            network_calls: 0,
-            tool_calls: 0,
-            navigation_calls: 0,
-            host_effect_calls: 0,
-        },
-    ))
-}
-
-pub fn copy_on_write_migrate(
-    source: &SurfaceRevision,
-    expected_source_release: &str,
-    target_release: &str,
-) -> anyhow::Result<(SurfaceRevision, MigrationReceipt)> {
-    if source.catalog_release_hash != expected_source_release {
-        bail!("migration source compatibility identity mismatch");
-    }
-    if target_release.is_empty() || target_release == expected_source_release {
-        bail!("migration target compatibility identity must be distinct");
-    }
-    let source_snapshot = source.clone();
-    let mut target = source.clone();
-    target.catalog_release_hash = target_release.to_owned();
-    let receipt = MigrationReceipt {
-        source_release_hash: source.catalog_release_hash.clone(),
-        target_release_hash: target.catalog_release_hash.clone(),
-        source_fingerprint: source.fingerprint(),
-        target_fingerprint: target.fingerprint(),
-        source_preserved: source == &source_snapshot,
-    };
-    Ok((target, receipt))
 }
 
 #[derive(Clone, Debug, Deserialize, PartialEq, Serialize)]
