@@ -124,8 +124,8 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2.38.0
         with:
           api-level: 34
-          target: aosp_atd
           arch: x86_64
+          profile: pixel_3a
           disable-animations: true
           script: prototype/openui-typed-json-product-eval/platform/run-android.sh
         env:
