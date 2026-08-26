@@ -1,5 +1,24 @@
 # Acceptance gates
 
+## OPE-16 final semantic-pattern canary
+
+Current state: explicitly authorized, not yet executed. This ticket may perform
+exactly one provider-backed canary using the byte-identical OPE-15 candidate.
+No silent rerun is permitted.
+
+- [ ] OPE-13 and OPE-14 evidence remain byte-identical, invalid, unpooled, and outside every new aggregate.
+- [ ] The locally recomputed candidate manifest equals `49b71bd46638f1301c59fa345204d12896d0c2175197ec8df4563c2092ad9cf0` before generation.
+- [ ] The OPE-16 execution register and all source inputs are committed before the provider call.
+- [ ] The OPE-15 deterministic preflight remains PASS across all four routes and real Web and Desktop executions.
+- [ ] Codex plan authentication is valid in the isolated evaluator; model is `gpt-5.6-luna`, effort is `low`, and tools are disabled.
+- [ ] Exactly one provider-backed canary runs with no pooling, no silent retry, at most one repair per cell, at most 16 calls, and at most 30 minutes.
+- [ ] Every accepted final output crosses the registered validator and generated-output platform proof.
+- [ ] Raw outputs, attempts, diagnostics, usage, latency, normalized artifacts, traces, screenshots, hashes, and credential scan are retained.
+- [ ] Independent recomputation and finalization emit exactly PASS or CANARY_INVALID.
+- [ ] PASS reopens OPE-12 using only the byte-identical manifest; CANARY_INVALID stops with OPE-12 still canceled.
+- [ ] No OPE-7 product verdict, push, PR, merge, publication, or public compatibility claim occurs.
+- [ ] Immutable evidence is committed locally and Linear is synchronized.
+
 ## OPE-15 route-neutral accessible component patterns
 
 Current state: completed. OPE-13 and OPE-14 remain immutable and
