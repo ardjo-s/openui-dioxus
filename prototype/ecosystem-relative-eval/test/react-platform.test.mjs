@@ -12,5 +12,7 @@ test("official json-render React app bundles the frozen canary fixture", async (
   assert.match(html, /id="app"/);
   assert.ok(bundle.length > 10_000);
   assert.match(bundle, /official-react-web/);
+  assert.match(bundle, /aria-orientation/);
+  assert.match(bundle, /Generated interface/);
   assert.equal(result.component_count, 12);
 });

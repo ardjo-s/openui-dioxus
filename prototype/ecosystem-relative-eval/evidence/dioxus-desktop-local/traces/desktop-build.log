@@ -1,2 +1,3 @@
-   Compiling ope11-dioxus-canary v0.0.0 (/Users/ardjo/CODE/worktrees/openui-dioxus-ope-11-ecosystem-canary/prototype/ecosystem-relative-eval/platform/dioxus)
-    Finished `release` profile [optimized] target(s) in 2.68s
+   Compiling ope11-dioxus-canary v0.0.0 (/Users/ardjo/CODE/worktrees/openui-dioxus-ope-13-accessibility-contract/prototype/ecosystem-relative-eval/platform/dioxus)
+   Compiling dioxus-components-catalog-eval v0.0.0 (/Users/ardjo/CODE/worktrees/openui-dioxus-ope-13-accessibility-contract/prototype/dioxus-components-catalog-eval)
+    Finished `release` profile [optimized] target(s) in 7.39s

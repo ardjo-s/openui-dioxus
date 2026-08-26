@@ -6,6 +6,7 @@ import {
 } from "../../openui-typed-json-product-eval/src/protocols.mjs";
 
 import { directRsxPrompt, encodeExpectedRsx, validateDirectRsx } from "./direct-rsx-route.mjs";
+import { accessibilityContractForSurface, validateStructuredAccessibility } from "./accessibility-contract.mjs";
 import { encodeExpectedJsonRender, jsonRenderPrompt, validateJsonRender } from "./json-render-route.mjs";
 import { sha, stableJson } from "./hash.mjs";
 
@@ -17,17 +18,24 @@ export function routeInstructions(route, scenario) {
 }
 
 export function routeUserPrompt(_route, scenario, cohort) {
+  const accessibility = [
+    "BYTE-IDENTICAL OBSERVABLE ACCESSIBILITY CONTRACT",
+    JSON.stringify(accessibilityContractForSurface(scenario.expected)),
+    "Meet this contract through route-native semantics. Equivalent markup is allowed, but semantic roles, allowed ARIA, accessible names, keyboard operation, visible focus, and announced feedback are mandatory.",
+  ].join("\n\n");
   if (cohort === "compile-known") {
     return [
       "COMPILE-KNOWN COHORT",
       scenario.shared_prompt,
       "FROZEN COMPLETE UI SPECIFICATION",
       JSON.stringify(scenario.expected),
+      accessibility,
     ].join("\n\n");
   }
   return [
     "RUNTIME-UNCERTAIN COHORT",
     scenario.shared_prompt,
+    accessibility,
   ].join("\n\n");
 }
 
@@ -55,6 +63,16 @@ export async function validateRoute(route, source, scenario, { deadlineMs = Numb
         semantic_fingerprint: null,
       };
     }
+    const accessibility = validateStructuredAccessibility(result.wire, accessibilityContractForSurface(scenario.expected));
+    if (!accessibility.passed) {
+      return {
+        ok: false,
+        diagnostics: accessibility.diagnostics.map((diagnostic) => ({ code: "accessibility-contract", message: diagnostic.message, diagnostic })),
+        wire: null,
+        route_artifact: null,
+        semantic_fingerprint: null,
+      };
+    }
     return {
       ok: true,
       diagnostics: [],
@@ -68,11 +86,16 @@ export async function validateRoute(route, source, scenario, { deadlineMs = Numb
     const coverage = result.ok && !exact
       ? runtimeContractCoverage(result.observable, scenario.shared_contract)
       : { passed: result.ok, diagnostics: [] };
+    const accessibility = result.ok && coverage.passed
+      ? validateStructuredAccessibility(result.observable, accessibilityContractForSurface(scenario.expected))
+      : { passed: false, diagnostics: [] };
     return {
-      ok: result.ok && coverage.passed,
+      ok: result.ok && coverage.passed && accessibility.passed,
       diagnostics: result.ok && !coverage.passed
         ? coverage.diagnostics.map((message) => ({ code: "semantic-coverage", message }))
-        : result.diagnostics,
+        : result.ok && coverage.passed && !accessibility.passed
+          ? accessibility.diagnostics.map((diagnostic) => ({ code: "accessibility-contract", message: diagnostic.message, diagnostic }))
+          : result.diagnostics,
       wire: null,
       route_artifact: result.spec,
       observable: result.observable,

@@ -23,12 +23,16 @@ test("OpenUI and typed JSON execute through the same Dioxus Web runtime", async 
     routes.push(route);
     await expect(panel.locator("[data-component]").first()).toBeVisible();
     for (const step of ["state", "action", "update", "replay"]) {
-      await panel.locator(`[data-probe-step="${step}"]`).click();
+      const control = panel.locator(`[data-probe-step="${step}"]`);
+      await focusByKeyboard(page, control);
+      expect(await hasVisibleFocus(control)).toBe(true);
+      await page.keyboard.press("Enter");
     }
     const status = panel.getByRole("status");
     await expect(status).toHaveAttribute("data-probe-complete", "true");
     await expect(status).toHaveAttribute("data-action-exactly-once", "true");
     await expect(status).toHaveAttribute("data-replay-effects", "0");
+    await expect(status).toHaveAttribute("aria-live", "polite");
     const accessibility = await new AxeBuilder({ page }).analyze();
     const blocking = accessibility.violations.filter((violation) => ["critical", "serious"].includes(violation.impact));
     expect(blocking, JSON.stringify(blocking, null, 2)).toEqual([]);
@@ -43,7 +47,26 @@ test("OpenUI and typed JSON execute through the same Dioxus Web runtime", async 
     binding_sha256: bindingSha256,
     passed: true,
     state_action_update_replay: true,
+    accessibility_contract_version: "ope-13-observable-accessibility-v1",
+    keyboard_operable: true,
+    focus_visible: true,
+    feedback_announced: true,
     accessibility_blocking_findings: 0,
     screenshots: ["dioxus-web-1.png", "dioxus-web-2.png"],
   }, null, 2)}\n`);
 });
+
+async function focusByKeyboard(page, target) {
+  for (let attempt = 0; attempt < 48; attempt += 1) {
+    await page.keyboard.press("Tab");
+    if (await target.evaluate((element) => element === document.activeElement)) return;
+  }
+  throw new Error("target was not reachable by keyboard");
+}
+
+async function hasVisibleFocus(target) {
+  return target.evaluate((element) => {
+    const style = getComputedStyle(element);
+    return (style.outlineStyle !== "none" && Number.parseFloat(style.outlineWidth) > 0) || style.boxShadow !== "none";
+  });
+}

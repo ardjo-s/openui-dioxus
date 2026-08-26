@@ -18,18 +18,23 @@ test("official json-render React seam executes state and action behavior", async
   expect(bindingSha256).toMatch(/^[a-f0-9]{64}$/);
 
   const checkbox = page.getByRole("checkbox", { name: /Accept terms/ });
-  await checkbox.focus();
+  await focusByKeyboard(page, checkbox);
   await expect(checkbox).toBeFocused();
-  await checkbox.check();
+  expect(await hasVisibleFocus(checkbox)).toBe(true);
+  await page.keyboard.press("Space");
+  await expect(checkbox).toBeChecked();
   const action = page.locator('[data-component="Button"]');
   await expect(action).toHaveCount(1);
-  await action.click();
+  await focusByKeyboard(page, action);
+  expect(await hasVisibleFocus(action)).toBe(true);
+  await page.keyboard.press("Enter");
 
   await expect(root).toHaveAttribute("data-probe-complete", "true");
   await expect(root).toHaveAttribute("data-action-count", "1");
   const receipt = page.locator('[role="status"][data-receipt]');
   await expect(receipt).toHaveCount(1);
   await expect(receipt).toHaveAttribute("data-receipt", "receipt:ApplyFilter:preferences");
+  await expect(receipt).toHaveAttribute("aria-live", "polite");
   const accessibility = await new AxeBuilder({ page }).analyze();
   const blocking = accessibility.violations.filter((violation) => ["critical", "serious"].includes(violation.impact));
   expect(blocking, JSON.stringify(blocking, null, 2)).toEqual([]);
@@ -45,7 +50,26 @@ test("official json-render React seam executes state and action behavior", async
     passed: true,
     state_changed: true,
     action_receipt: "receipt:ApplyFilter:preferences",
+    accessibility_contract_version: "ope-13-observable-accessibility-v1",
+    keyboard_operable: true,
+    focus_visible: true,
+    feedback_announced: true,
     accessibility_blocking_findings: 0,
     screenshot: path.basename(screenshot),
   }, null, 2)}\n`);
 });
+
+async function focusByKeyboard(page, target) {
+  for (let attempt = 0; attempt < 32; attempt += 1) {
+    await page.keyboard.press("Tab");
+    if (await target.evaluate((element) => element === document.activeElement)) return;
+  }
+  throw new Error("target was not reachable by keyboard");
+}
+
+async function hasVisibleFocus(target) {
+  return target.evaluate((element) => {
+    const style = getComputedStyle(element);
+    return (style.outlineStyle !== "none" && Number.parseFloat(style.outlineWidth) > 0) || style.boxShadow !== "none";
+  });
+}

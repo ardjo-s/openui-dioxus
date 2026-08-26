@@ -1,9 +1,11 @@
-import { copyFile, mkdtemp, mkdir, rm, writeFile } from "node:fs/promises";
+import { copyFile, mkdtemp, mkdir, open, readFile, realpath, rm, unlink, writeFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import path from "node:path";
+import { setTimeout as delay } from "node:timers/promises";
 import { fileURLToPath } from "node:url";
 
 import { boundedTimeout } from "./deadline.mjs";
+import { accessibilityContractForSurface, validateRenderedAccessibility } from "./accessibility-contract.mjs";
 import { runBoundedProcess } from "./subprocess.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -18,6 +20,7 @@ export function directRsxPrompt() {
     "Use exactly one import: use dioxus::prelude::*;",
     "Define pub fn App() -> Element and return one rsx! tree. Do not use a Surface, catalog interpreter, JSON renderer, macro definition, unsafe code, filesystem, network, process, thread, environment, include, script, or dynamic HTML API.",
     "Use standard Dioxus HTML elements. Every component becomes a stable HTML subtree with id and data-component. The root contains data-route set to direct-rsx.",
+    "Implement the supplied observable accessibility contract with route-native HTML semantics. Do not emit an ARIA attribute unless it is allowed for the element's computed role.",
     "Use one Dioxus use_signal for every supplied state key. Bind every interactive control to its matching signal and update that signal from the normal Dioxus event.",
     "Represent each Button action with data-action and data-target-id. Its click callback must increment a local synthetic action_count exactly once and set a visible synthetic receipt to receipt:<action>:<target_id>. Expose one role=status node with data-action-count and data-receipt. This probe has no external host authority.",
     "Preserve every value and behavior declared below. Return Rust only, with no code fence or explanation.",
@@ -52,6 +55,8 @@ export async function validateDirectRsx(source, expected, { deadlineMs = Number.
   if (diagnostics.length) return { ok: false, diagnostics, compiled: false, rendered_html: null, compile_ms: 0, run_ms: 0 };
   const compiled = await compileAndRender(source, deadlineMs);
   if (!compiled.ok) return { ...compiled, diagnostics: [{ code: "rust-compiler", message: compiled.stderr.slice(0, 4000) }] };
+  const accessibility = validateRenderedAccessibility(compiled.rendered_html, accessibilityContractForSurface(expected));
+  if (!accessibility.passed) return { ...compiled, ok: false, diagnostics: accessibility.diagnostics };
   const missing = requiredMarkers(expected).filter((marker) => !compiled.rendered_html.includes(marker));
   if (missing.length) {
     return {
@@ -98,7 +103,10 @@ export function scanSource(source) {
 async function compileAndRender(source, deadlineMs) {
   await mkdir(temporaryRoot, { recursive: true });
   const directory = await mkdtemp(path.join(temporaryRoot, "direct-rsx-"));
-  const targetDir = path.join(directory, "target");
+  const targetDir = process.env.EVAL_DIRECT_RSX_TARGET_DIR ?? path.join(root, "platform/dioxus/target");
+  await mkdir(targetDir, { recursive: true });
+  const resolvedTargetDir = await realpath(targetDir);
+  const releaseTarget = await acquireTargetLock(path.join(resolvedTargetDir, ".ope13-direct-rsx.lock"), deadlineMs);
   const sourceDirectory = path.join(directory, "src");
   try {
     await mkdir(sourceDirectory);
@@ -112,7 +120,8 @@ async function compileAndRender(source, deadlineMs) {
       CARGO_HOME: process.env.CARGO_HOME ?? path.join(homedir(), ".cargo"),
       RUSTUP_HOME: process.env.RUSTUP_HOME ?? path.join(homedir(), ".rustup"),
       CARGO_NET_OFFLINE: "true",
-      CARGO_TARGET_DIR: targetDir,
+      CARGO_INCREMENTAL: "0",
+      CARGO_TARGET_DIR: resolvedTargetDir,
       RUST_BACKTRACE: "0",
     };
     await mkdir(environment.TMPDIR);
@@ -123,6 +132,7 @@ async function compileAndRender(source, deadlineMs) {
       "(allow sysctl-read)",
       "(allow file-read*)",
       `(allow file-write* (subpath ${sandboxString(directory)}))`,
+      `(allow file-write* (subpath ${sandboxString(resolvedTargetDir)}))`,
       "(deny network*)",
     ].join(" ");
     const compileStarted = performance.now();
@@ -152,7 +162,7 @@ async function compileAndRender(source, deadlineMs) {
         stderr: String(build.error ?? build.stderr ?? `cargo exited ${build.exitCode}`),
       };
     }
-    const binary = path.join(targetDir, "debug", "ope11-direct-rsx-probe");
+    const binary = path.join(resolvedTargetDir, "debug", "ope11-direct-rsx-probe");
     const profile = "(version 1) (deny default) (allow process*) (allow sysctl-read) (allow file-read*) (deny network*)";
     const runStarted = performance.now();
     const run = await runBoundedProcess({
@@ -186,6 +196,39 @@ async function compileAndRender(source, deadlineMs) {
     };
   } finally {
     await rm(directory, { recursive: true, force: true });
+    await releaseTarget();
+  }
+}
+
+async function acquireTargetLock(lockPath, deadlineMs) {
+  while (true) {
+    try {
+      const handle = await open(lockPath, "wx", 0o600);
+      await handle.writeFile(`${process.pid}\n`);
+      await handle.close();
+      return async () => unlink(lockPath).catch((error) => {
+        if (error.code !== "ENOENT") throw error;
+      });
+    } catch (error) {
+      if (error.code !== "EEXIST") throw error;
+      const owner = Number.parseInt(await readFile(lockPath, "utf8").catch(() => ""), 10);
+      if (!processIsAlive(owner)) {
+        await unlink(lockPath).catch(() => {});
+        continue;
+      }
+      if (Number.isFinite(deadlineMs) && performance.now() >= deadlineMs) throw new Error("direct RSX target lock deadline reached");
+      await delay(50);
+    }
+  }
+}
+
+function processIsAlive(pid) {
+  if (!Number.isInteger(pid) || pid <= 0) return false;
+  try {
+    process.kill(pid, 0);
+    return true;
+  } catch (error) {
+    return error.code === "EPERM";
   }
 }
 
@@ -199,7 +242,7 @@ function renderNode(id, nodes, depth, stateVariables) {
   const attrs = [`id: ${rust(node.id)}`, `"data-component": ${rust(node.kind)}`];
   const children = [];
   if (node.kind === "Toolbar") {
-    attrs.push('role: "toolbar"', `"data-orientation": ${rust(node.orientation)}`);
+    attrs.push('role: "toolbar"', 'aria_label: "Generated interface"', `aria_orientation: ${rust(node.orientation)}`, `"data-orientation": ${rust(node.orientation)}`);
     children.push(...node.children.map((child) => renderNode(child, nodes, depth + 1, stateVariables)));
     return element("div", attrs, children, depth);
   }

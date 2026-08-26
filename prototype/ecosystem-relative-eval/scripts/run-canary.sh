@@ -62,6 +62,7 @@ env -i \
   CARGO_HOME="$source_cargo_root" \
   RUSTUP_HOME="$source_rustup_root" \
   CARGO_NET_OFFLINE="true" \
+  EVAL_DIRECT_RSX_TARGET_DIR="$eval_root/platform/dioxus/target" \
   PLAYWRIGHT_BROWSERS_PATH="$playwright_browser_root" \
   EVAL_CODEX_HOME="$evaluation_auth_root" \
   EVAL_CODEX_WORKDIR="$evaluation_workdir" \

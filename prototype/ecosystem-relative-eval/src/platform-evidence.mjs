@@ -25,6 +25,7 @@ export async function verifyPlatformEvidence({ evidenceRoot = path.join(root, "e
   check(reactWeb?.official_runtime === "@json-render/react@0.19.0", diagnostics, "react_web", "official runtime pin differs");
   check(reactWeb?.state_changed === true && typeof reactWeb?.action_receipt === "string", diagnostics, "react_web", "state or typed action proof missing");
   check(reactWeb?.accessibility_blocking_findings === 0, diagnostics, "react_web", "blocking accessibility finding");
+  checkObservableAccessibility(reactWeb, diagnostics, "react_web");
   checkBinding(reactWeb, diagnostics, "react_web");
   await requireArtifact(path.join(evidenceRoot, "react-web-local", "screenshots", reactWeb?.screenshot ?? ""), diagnostics, "react_web:screenshot", 1024);
 
@@ -32,6 +33,7 @@ export async function verifyPlatformEvidence({ evidenceRoot = path.join(root, "e
   check(sameStrings(dioxusWeb?.routes, ["openui", "typed-json"]), diagnostics, "dioxus_web", "route set differs");
   check(dioxusWeb?.state_action_update_replay === true, diagnostics, "dioxus_web", "state, action, update, or replay proof missing");
   check(dioxusWeb?.accessibility_blocking_findings === 0, diagnostics, "dioxus_web", "blocking accessibility finding");
+  checkObservableAccessibility(dioxusWeb, diagnostics, "dioxus_web");
   checkBinding(dioxusWeb, diagnostics, "dioxus_web");
   for (const screenshot of dioxusWeb?.screenshots ?? []) {
     await requireArtifact(path.join(evidenceRoot, "dioxus-web-local", "screenshots", screenshot), diagnostics, `dioxus_web:${screenshot}`, 1024);
@@ -41,6 +43,7 @@ export async function verifyPlatformEvidence({ evidenceRoot = path.join(root, "e
   check(dioxusDesktop?.passed === true && dioxusDesktop?.evidence_complete === true, diagnostics, "dioxus_desktop", "executed evidence is incomplete");
   check(sameStrings(dioxusDesktop?.routes, ["openui", "typed-json"]), diagnostics, "dioxus_desktop", "route set differs");
   check(dioxusDesktop?.marker === "OPE11_DIOXUS_SELF_TEST_PASS surfaces=2", diagnostics, "dioxus_desktop", "runtime marker differs");
+  check(dioxusDesktop?.accessibility_contract_version === "ope-13-observable-accessibility-v1", diagnostics, "dioxus_desktop", "accessibility contract version differs");
   checkBinding(dioxusDesktop, diagnostics, "dioxus_desktop");
   check(dioxusDesktop?.manifest_hash === dioxusWeb?.manifest_hash, diagnostics, "dioxus", "Web and Desktop manifest bindings differ");
   check(dioxusDesktop?.binding_sha256 === dioxusWeb?.binding_sha256, diagnostics, "dioxus", "Web and Desktop artifact bindings differ");
@@ -64,6 +67,7 @@ export async function verifyPlatformEvidence({ evidenceRoot = path.join(root, "e
     check((directRsx?.scenarios?.length ?? 0) === 2, diagnostics, "direct_rsx_web", "expected two compile-known scenarios");
     check(directRsx?.state_changed === true && directRsx?.action_receipts_exactly_once === true && directRsx?.visible_feedback === true, diagnostics, "direct_rsx_web", "state, action, or feedback proof missing");
     check(directRsx?.accessibility_blocking_findings === 0, diagnostics, "direct_rsx_web", "blocking accessibility finding");
+    checkObservableAccessibility(directRsx, diagnostics, "direct_rsx_web");
     checkBinding(directRsx, diagnostics, "direct_rsx_web");
     for (const screenshot of directRsx?.screenshots ?? []) {
       await requireArtifact(path.join(evidenceRoot, "direct-rsx-web-local", "screenshots", screenshot), diagnostics, `direct_rsx_web:${screenshot}`, 1024);
@@ -131,6 +135,19 @@ async function requireArtifact(file, diagnostics, label, minimumBytes) {
 function checkBinding(proof, diagnostics, label) {
   check(typeof proof?.manifest_hash === "string" && /^[a-zA-Z0-9_-]{16,64}$/.test(proof.manifest_hash), diagnostics, label, "manifest binding missing");
   check(typeof proof?.binding_sha256 === "string" && /^[a-f0-9]{64}$/.test(proof.binding_sha256), diagnostics, label, "artifact binding missing");
+}
+
+function checkObservableAccessibility(proof, diagnostics, label) {
+  diagnostics.push(...validateObservableAccessibilityProof(proof, label).diagnostics);
+}
+
+export function validateObservableAccessibilityProof(proof, label = "platform") {
+  const diagnostics = [];
+  check(proof?.accessibility_contract_version === "ope-13-observable-accessibility-v1", diagnostics, label, "accessibility contract version differs");
+  check(proof?.keyboard_operable === true, diagnostics, label, "keyboard operation proof missing");
+  check(proof?.focus_visible === true, diagnostics, label, "visible focus proof missing");
+  check(proof?.feedback_announced === true, diagnostics, label, "feedback announcement proof missing");
+  return { passed: diagnostics.length === 0, diagnostics };
 }
 
 async function digestDirectory(directory, prefix) {

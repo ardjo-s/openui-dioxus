@@ -46,3 +46,14 @@ test("compile-known routes still enforce the frozen complete specification", asy
   const result = await validateRoute("typed-json", JSON.stringify(changed), profile, { cohort: "compile-known" });
   assert.equal(result.ok, false);
 });
+
+test("all structured route validators enforce the shared accessibility contract", async () => {
+  const scenarios = await buildScenarios();
+  const profile = scenarios.find((scenario) => scenario.id === "01-validated-profile-v1");
+  const invalid = structuredClone(profile);
+  invalid.expected.nodes.find((node) => node.kind === "Input").label = "";
+
+  const typed = await validateRoute("typed-json", JSON.stringify(invalid.expected), invalid, { cohort: "compile-known" });
+  assert.equal(typed.ok, false);
+  assert.ok(typed.diagnostics.some((diagnostic) => diagnostic.code === "accessibility-contract"));
+});

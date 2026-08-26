@@ -13,6 +13,7 @@ import { IMPLEMENTATION_FOOTPRINT_POLICY } from "./footprint.mjs";
 import { sha, stableJson } from "./hash.mjs";
 import { repairInstruction } from "./provider.mjs";
 import { routeInstructions, routeUserPrompt } from "./routes.mjs";
+import { accessibilityContractForSurface } from "./accessibility-contract.mjs";
 
 export { sha, stableJson } from "./hash.mjs";
 
@@ -70,7 +71,12 @@ export async function buildCandidateManifest() {
       user_prompt_sha256: sha(userPrompt),
     };
   });
+  const accessibilityContracts = scenarios.map((scenario) => {
+    const contract = accessibilityContractForSurface(scenario.expected);
+    return { scenario_id: scenario.id, sha256: sha(stableJson(contract)), contract };
+  });
   const inputHashes = await hashInputs({
+    ope13_preregistration: "docs/evaluation/ope-13-accessibility-preregistration.md",
     ope9_spec: "docs/evaluation/ecosystem-relative-product-value-spec.md",
     ope9_decisions: "docs/evaluation/ecosystem-relative-product-value-decisions.md",
     ope3_archive: "prototype/openui-a2ui-cloud-eval/evidence/three-arm-controlled-run-2026-08-24/SHA256SUMS",
@@ -123,9 +129,42 @@ export async function buildCandidateManifest() {
   };
 
   return {
-    version: "ope-11-ecosystem-canary-v1",
+    version: "ope-13-ecosystem-canary-v2",
     purpose: "non-decision operational canary",
     product_outcome_forbidden: true,
+    preregistration: {
+      ticket: "OPE-13",
+      permitted_change: "symmetric observable accessibility contract and derived hashes only",
+      prior_candidate: {
+        outcome: "CANARY_INVALID",
+        source_commit: "edafbb1",
+        evidence_path: "prototype/ecosystem-relative-eval/evidence/candidate-canary-edafbb1-final",
+        manifest_sha256: "eac280627d3042ef777d01142408661659aede6c16ca50cb8bd28120a9c3dd2c",
+        checksum_manifest_sha256: "cab4a27ee5c199f4462c47a29a2ed726f3b9c16247defc7d6e6452bb63d9e553",
+        independent_review_sha256: "33d1da72f69bf8e9cc8c41fc89e78170a8265a1a1f36ee09c7204f2ba28911be",
+        pooled_with_new_canary: false,
+      },
+      unchanged_dimensions: [
+        "provider",
+        "model",
+        "reasoning-effort",
+        "scenarios",
+        "schedule",
+        "ordering",
+        "repair-ceiling",
+        "scoring-thresholds",
+        "scorer",
+        "trust-controls",
+        "evidence-schema",
+      ],
+    },
+    accessibility_contract: {
+      version: "ope-13-observable-accessibility-v1",
+      routes: [...routes],
+      strength: "symmetric",
+      source_style_oracle: false,
+      scenarios: accessibilityContracts,
+    },
     source_pins: {
       openui: {
         authoritative_identity: npmPackages.openui,
@@ -334,6 +373,12 @@ function applicabilityRows(scenarios) {
     row("state-transition", "shared", allRoutes()),
     row("registered-action", "shared", allRoutes()),
     row("visible-feedback", "shared", allRoutes()),
+    row("semantic-role", "accessibility-shared", allRoutes()),
+    row("allowed-aria", "accessibility-shared", allRoutes()),
+    row("accessible-name", "accessibility-shared", allRoutes()),
+    row("keyboard-operation", "accessibility-shared", allRoutes()),
+    row("focus-visible", "accessibility-shared", allRoutes()),
+    row("feedback-announcement", "accessibility-shared", allRoutes()),
     { ...row("canonical-surface-fingerprint", "route-specific", only("openui", "typed-json")), cohorts: ["compile-known"] },
     row("inert-replay", "route-specific", only("openui", "typed-json")),
     row("dioxus-desktop", "dioxus-specific", only("openui", "typed-json", "direct-rsx")),

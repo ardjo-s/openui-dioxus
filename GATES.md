@@ -1,5 +1,24 @@
 # Acceptance gates
 
+## OPE-13 symmetric accessibility contract and canary rerun
+
+Current state: implementation authorized. OPE-11 remains immutable and
+`CANARY_INVALID`; no OPE-12 execution or product verdict is authorized until
+this ticket produces a byte-identical promoted `PASS` manifest.
+
+- [x] The OPE-11 critical `aria-allowed-attr` failure and its frozen evidence remain unchanged and are referenced by the new preregistration.
+- [x] One route-neutral observable accessibility contract covers semantic roles, allowed ARIA, accessible names, native or equivalent keyboard behavior, focus, feedback announcement, and explicit applicability.
+- [x] OpenUI, typed JSON, official json-render, and direct RSX receive equal-strength requirements with no route waiver or hidden source-style oracle.
+- [x] Public-seam TDD fixtures prove equivalent valid implementations pass and invalid ARIA, missing semantics, broken keyboard behavior, inaccessible feedback, and inconsistent applicability fail.
+- [x] All four route validators and generated-output platform probes enforce the frozen contract.
+- [x] Model, Luna low reasoning, scenarios, ordering, repair ceiling, thresholds, schedule, scorer, trust controls, and evidence schema remain unchanged except for the accessibility contract and derived hashes.
+- [x] A complete candidate manifest is frozen and hashed before any provider call; any later input or methodology change invalidates the run.
+- [ ] Exactly one new provider-backed canary runs under the existing 16-call and 30-minute ceilings, with no pooling against earlier candidates.
+- [ ] Independent recomputation, recursive hashes, credential scan, and publication finalization emit only `PASS` or `CANARY_INVALID`.
+- [ ] On `PASS`, only the byte-identical manifest is promoted and OPE-12 becomes eligible. On `CANARY_INVALID`, execution stops before OPE-12.
+- [x] Narrow tests, typecheck, generated preflight, full tests, `git diff --check`, and two-pass standards and intent review pass.
+- [ ] Owned changes are committed on `codex/ope-13-symmetric-accessibility`; OPE-13 is synchronized with evidence and no merge occurs.
+
 ## OPE-11 ecosystem-relative harness and canary
 
 Current result: `CANARY_INVALID`. The final Luna low candidate accepted all

@@ -7,6 +7,10 @@
   "passed": true,
   "state_changed": true,
   "action_receipt": "receipt:ApplyFilter:preferences",
+  "accessibility_contract_version": "ope-13-observable-accessibility-v1",
+  "keyboard_operable": true,
+  "focus_visible": true,
+  "feedback_announced": true,
   "accessibility_blocking_findings": 0,
   "screenshot": "json-render-react-web.png"
 }

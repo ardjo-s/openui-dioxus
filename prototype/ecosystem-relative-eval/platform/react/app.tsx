@@ -33,7 +33,7 @@ function withProps(render: (context: ComponentContext) => React.ReactNode) {
 
 const components = {
   Label: withProps(({ props }: ComponentContext) => <label id={props.id} htmlFor={props.for_id} data-component="Label">{props.text}</label>),
-  Toolbar: withProps(({ props, children }: ComponentContext) => <div id={props.id} role="toolbar" data-component="Toolbar" data-orientation={props.orientation}>{children}</div>),
+  Toolbar: withProps(({ props, children }: ComponentContext) => <div id={props.id} role="toolbar" aria-label="Generated interface" aria-orientation={props.orientation} data-component="Toolbar" data-orientation={props.orientation}>{children}</div>),
   Avatar: withProps(({ props }: ComponentContext) => <div id={props.id} role="img" aria-label={props.alt} data-component="Avatar">{props.fallback}</div>),
   Input: withProps(({ props, bindings }: ComponentContext) => {
     const [value, setValue] = useBoundProp<string>(props.value, bindings?.value);

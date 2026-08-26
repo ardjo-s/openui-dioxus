@@ -49,3 +49,15 @@ test("direct RSX rejects host-capable Rust before compilation", async () => {
   assert.ok(result.diagnostics.some((item) => item.code === "forbidden-source"));
   assert.equal(result.compiled, false);
 });
+
+test("direct RSX rejects rendered ARIA that violates the shared contract", async () => {
+  const scenarios = await buildScenarios();
+  const scenario = scenarios.find((candidate) => candidate.family === "filter-action" && candidate.variant === 1);
+  const invalid = encodeExpectedRsx(scenario.expected)
+    .replace('role: "toolbar", ', "");
+  assert.notEqual(invalid, encodeExpectedRsx(scenario.expected));
+
+  const result = await validateDirectRsx(invalid, scenario.expected);
+  assert.equal(result.ok, false);
+  assert.ok(result.diagnostics.some((diagnostic) => diagnostic.code === "aria-allowed-attr"));
+});
