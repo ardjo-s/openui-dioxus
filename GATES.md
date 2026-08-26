@@ -1,5 +1,19 @@
 # Acceptance gates
 
+## OPE-18 rendered receipt canary
+
+Current state: preregistered before the single authorized provider run. OPE-12
+remains canceled until this canary returns `PASS`.
+
+- [x] User approval explicitly authorizes one new provider-backed canary after OPE-17 PASS.
+- [x] OPE-17 source, evidence, tests, platform proofs, reviews, and Linear state are complete.
+- [x] The recomputed candidate manifest equals `9623a1457dee64555a2595cd878ddf7a7d13187747206a0ad7c1554b1208190e`.
+- [x] The execution register and candidate manifest are committed before the provider run.
+- [ ] Exactly one Luna-low canary runs with no pooling, silent rerun, or product verdict.
+- [ ] Raw outputs, repairs, diagnostics, tokens, traces, screenshots, checksums, credential scan, and independent review are archived.
+- [ ] `PASS` reopens OPE-12 with the byte-identical manifest; `CANARY_INVALID` keeps OPE-12 canceled.
+- [ ] Owned evidence is committed locally and Linear is synchronized.
+
 ## OPE-17 rendered receipt semantics
 
 Current state: completed. No provider call occurred. OPE-18 is eligible for its
