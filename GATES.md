@@ -13,11 +13,11 @@ this ticket produces a byte-identical promoted `PASS` manifest.
 - [x] All four route validators and generated-output platform probes enforce the frozen contract.
 - [x] Model, Luna low reasoning, scenarios, ordering, repair ceiling, thresholds, schedule, scorer, trust controls, and evidence schema remain unchanged except for the accessibility contract and derived hashes.
 - [x] A complete candidate manifest is frozen and hashed before any provider call; any later input or methodology change invalidates the run.
-- [ ] Exactly one new provider-backed canary runs under the existing 16-call and 30-minute ceilings, with no pooling against earlier candidates.
-- [ ] Independent recomputation, recursive hashes, credential scan, and publication finalization emit only `PASS` or `CANARY_INVALID`.
-- [ ] On `PASS`, only the byte-identical manifest is promoted and OPE-12 becomes eligible. On `CANARY_INVALID`, execution stops before OPE-12.
+- [x] Exactly one new provider-backed canary runs under the existing 16-call and 30-minute ceilings, with no pooling against earlier candidates.
+- [x] Independent recomputation, recursive hashes, credential scan, and publication finalization emit only `PASS` or `CANARY_INVALID`.
+- [x] On `PASS`, only the byte-identical manifest is promoted and OPE-12 becomes eligible. On `CANARY_INVALID`, execution stops before OPE-12.
 - [x] Narrow tests, typecheck, generated preflight, full tests, `git diff --check`, and two-pass standards and intent review pass.
-- [ ] Owned changes are committed on `codex/ope-13-symmetric-accessibility`; OPE-13 is synchronized with evidence and no merge occurs.
+- [x] Owned changes are committed on `codex/ope-13-symmetric-accessibility`; OPE-13 is synchronized with evidence and no merge occurs.
 
 ## OPE-11 ecosystem-relative harness and canary
 

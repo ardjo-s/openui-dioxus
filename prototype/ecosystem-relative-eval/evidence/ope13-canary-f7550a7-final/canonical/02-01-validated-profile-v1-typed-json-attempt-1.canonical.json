@@ -1,0 +1,66 @@
+{
+  "fingerprint": "333e437b52ef2fa8aff985d37ac152fc74aca67e81be652fae5f3b8269587c51",
+  "surface": {
+    "catalog_id": "openui-dioxus-components-eval",
+    "catalog_release_hash": "2bf7df132bc99576fb431e2fb8cd40cf35731e3fd2ee29e2d6d7f6bed45a5ae7",
+    "root": "profile-toolbar",
+    "nodes": {
+      "profile-avatar": {
+        "id": "profile-avatar",
+        "kind": "Avatar",
+        "props": {
+          "alt": "Ada Lovelace · variant 1",
+          "fallback": "AL",
+          "id": "profile-avatar"
+        }
+      },
+      "profile-input": {
+        "id": "profile-input",
+        "kind": "Input",
+        "props": {
+          "id": "profile-input",
+          "label": "Profile name · variant 1",
+          "placeholder": "Enter a name · variant 1",
+          "state_key": "profile_name",
+          "value": "Ada-1"
+        }
+      },
+      "profile-label": {
+        "id": "profile-label",
+        "kind": "Label",
+        "props": {
+          "for_id": "profile-input",
+          "id": "profile-label",
+          "text": "Profile name · variant 1"
+        }
+      },
+      "profile-submit": {
+        "id": "profile-submit",
+        "kind": "Button",
+        "props": {
+          "action": "SubmitProfile",
+          "id": "profile-submit",
+          "label": "Save profile · variant 1",
+          "target_id": "profile"
+        }
+      },
+      "profile-toolbar": {
+        "id": "profile-toolbar",
+        "kind": "Toolbar",
+        "props": {
+          "children": [
+            "profile-avatar",
+            "profile-label",
+            "profile-input",
+            "profile-submit"
+          ],
+          "id": "profile-toolbar",
+          "orientation": "vertical"
+        }
+      }
+    },
+    "state": {
+      "profile_name": "Ada-1"
+    }
+  }
+}
