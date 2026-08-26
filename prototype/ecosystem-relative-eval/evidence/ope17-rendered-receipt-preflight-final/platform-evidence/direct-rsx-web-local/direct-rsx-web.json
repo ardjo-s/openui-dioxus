@@ -1,0 +1,25 @@
+{
+  "platform": "web",
+  "route": "direct-rsx",
+  "scenarios": [
+    "03-filter-action-v1",
+    "04-status-dialog-v1"
+  ],
+  "manifest_hash": "9623a1457dee64555a2595cd878ddf7a7d13187747206a0ad7c1554b1208190e",
+  "binding_sha256": "85ec307a8fdb0ea1bd0b85c1cfc6d0f10634b9f1e75d26419863380c0eada9f4",
+  "passed": true,
+  "state_changed": true,
+  "action_receipts_exactly_once": true,
+  "visible_feedback": true,
+  "accessibility_contract_version": "ope-15-route-neutral-patterns-v1",
+  "keyboard_operable": true,
+  "focus_visible": true,
+  "feedback_announced": true,
+  "host_receipt_outside_component_coverage": true,
+  "semantic_patterns_verified": true,
+  "accessibility_blocking_findings": 0,
+  "screenshots": [
+    "direct-rsx-web-1.png",
+    "direct-rsx-web-2.png"
+  ]
+}

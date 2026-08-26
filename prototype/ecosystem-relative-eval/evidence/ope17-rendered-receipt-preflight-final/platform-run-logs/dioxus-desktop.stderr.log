@@ -1,0 +1,1 @@
+platform/dioxus/run-desktop.sh: line 21: 11173 Terminated: 15          "$binary" > "$log" 2>&1

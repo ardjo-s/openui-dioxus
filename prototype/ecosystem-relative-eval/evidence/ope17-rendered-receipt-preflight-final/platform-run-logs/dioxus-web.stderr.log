@@ -1,0 +1,6 @@
+[WebServer] 127.0.0.1 - - [27/Aug/2026 00:01:53] "GET / HTTP/1.1" 200 -
+(node:10702) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] 127.0.0.1 - - [27/Aug/2026 00:01:53] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [27/Aug/2026 00:01:53] "GET /assets/ope11-dioxus-canary-dxhcaad4ba5e3c8b534.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [27/Aug/2026 00:01:53] "GET /assets/ope11-dioxus-canary_bg-dxh4d6537c0e6bfa0c1.wasm HTTP/1.1" 200 -

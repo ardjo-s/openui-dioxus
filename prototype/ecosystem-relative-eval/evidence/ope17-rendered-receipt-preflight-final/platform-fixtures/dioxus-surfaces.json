@@ -1,0 +1,120 @@
+{
+  "provenance": {
+    "manifest_hash": "9623a1457dee64555a2595cd878ddf7a7d13187747206a0ad7c1554b1208190e",
+    "source_records": [
+      {
+        "route": "openui",
+        "scenario_id": "01-validated-profile-v1",
+        "attempt": 2,
+        "raw_sha256": "a1b063f6ff05c8e78a7c1a4e7da7d8cfb5639212373778760346acd93495e9ef",
+        "platform_artifact_sha256": "2725e2c4e56e385143a32e58d002fe25073c3f3c4ba53c0934604e5e3ae2bc4a"
+      },
+      {
+        "route": "typed-json",
+        "scenario_id": "02-preferences-v1",
+        "attempt": 2,
+        "raw_sha256": "d48073b2905141f54f6e3b38213e759b5f2ffe7a73b0da6162c6746d495de964",
+        "platform_artifact_sha256": "06d39265ea5b7ab6c6a8fc48b99aa5c329379263f202f66123e48aec5d9a384c"
+      }
+    ],
+    "binding_sha256": "7555855641bb9601d3704d71d7939f53314a161fed7371f7b9355941d917efec"
+  },
+  "entries": [
+    {
+      "route": "openui",
+      "scenario_id": "01-validated-profile-v1",
+      "family": "validated-profile",
+      "surface": {
+        "root": "profile_toolbar",
+        "nodes": [
+          {
+            "kind": "Toolbar",
+            "id": "profile_toolbar",
+            "orientation": "vertical",
+            "children": [
+              "profile_avatar",
+              "name_label",
+              "name_input",
+              "submit_button"
+            ]
+          },
+          {
+            "kind": "Avatar",
+            "id": "profile_avatar",
+            "alt": "Ada Lovelace · variant 1",
+            "fallback": "AL"
+          },
+          {
+            "kind": "Label",
+            "id": "name_label",
+            "for_id": "name_input",
+            "text": "Profile name · variant 1"
+          },
+          {
+            "kind": "Input",
+            "id": "name_input",
+            "label": "Profile name · variant 1",
+            "state_key": "profile_name",
+            "value": "Ada-1",
+            "placeholder": "Enter a name · variant 1"
+          },
+          {
+            "kind": "Button",
+            "id": "submit_button",
+            "label": "Save profile · variant 1",
+            "action": "SubmitProfile",
+            "target_id": "profile"
+          }
+        ],
+        "state": {
+          "profile_name": "Ada-1"
+        }
+      }
+    },
+    {
+      "route": "typed-json",
+      "scenario_id": "02-preferences-v1",
+      "family": "preferences",
+      "surface": {
+        "root": "preferences_toolbar",
+        "nodes": [
+          {
+            "kind": "Toolbar",
+            "id": "preferences_toolbar",
+            "orientation": "vertical",
+            "children": [
+              "notifications_switch",
+              "terms_checkbox",
+              "preferences_button"
+            ]
+          },
+          {
+            "kind": "Switch",
+            "id": "notifications_switch",
+            "label": "Enable notifications · variant 1",
+            "state_key": "notifications_enabled",
+            "checked": true
+          },
+          {
+            "kind": "Checkbox",
+            "id": "terms_checkbox",
+            "label": "Accept terms · variant 1",
+            "state_key": "terms_accepted",
+            "checked": false
+          },
+          {
+            "kind": "Button",
+            "id": "preferences_button",
+            "label": "Save preferences · variant 1",
+            "action": "ApplyFilter",
+            "target_id": "preferences"
+          }
+        ],
+        "state": {
+          "notifications_enabled": true,
+          "terms_accepted": false
+        }
+      }
+    }
+  ]
+}

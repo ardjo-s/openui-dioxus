@@ -1,0 +1,470 @@
+{
+  "outcome": "PASS",
+  "execution_kind": "deterministic-preflight",
+  "provider": "fake",
+  "model": "gpt-5.6-luna",
+  "reasoning_effort": "low",
+  "manifest_hash": "9623a1457dee64555a2595cd878ddf7a7d13187747206a0ad7c1554b1208190e",
+  "manifest_promoted": false,
+  "route_cells": 8,
+  "route_aggregates_comparable": false,
+  "route_aggregate_scope": "operational diagnostics only; route totals cover different scenario and cohort mixes and must not be ranked across routes",
+  "calls": 12,
+  "maximum_calls": 16,
+  "wall_time_ms": 153914.293083,
+  "maximum_wall_time_ms": 1800000,
+  "first_pass_validity": {
+    "openui": 1,
+    "typed-json": 1,
+    "json-render": 1,
+    "direct-rsx": 1
+  },
+  "post_repair_validity": {
+    "openui": 2,
+    "typed-json": 2,
+    "json-render": 2,
+    "direct-rsx": 2
+  },
+  "cumulative_raw_tokens": {
+    "openui": 7064,
+    "typed-json": 7850,
+    "json-render": 16329,
+    "direct-rsx": 5245
+  },
+  "balanced_order": true,
+  "rejected_attempts_retained_and_charged": true,
+  "ope3_import": {
+    "verified": true,
+    "files_verified": 414,
+    "checksum_manifest_sha256": "848fbf33924fda4456da518975e06e133e3c5195e801d4961eec48acacf92001",
+    "summary": {
+      "outcome": "VALID_EVAL",
+      "pairs_complete": 20,
+      "calls": 83,
+      "first_pass_validity": {
+        "openui": 17,
+        "a2ui": 0,
+        "typed-json": 20
+      },
+      "post_repair_validity": {
+        "openui": 19,
+        "a2ui": 12,
+        "typed-json": 20
+      }
+    },
+    "provider_calls": 0
+  },
+  "second_catalog": {
+    "verified": true,
+    "files_verified": 33,
+    "executable_fixtures": true,
+    "inert_replay": true,
+    "copy_on_write_migration": true,
+    "catalog_release_hash": "e87196bd4cc3e813a18d928d2a2cfe07e7053bc009e926e523683c9b96facca4",
+    "adapter_build_id": "ope10-1fac5dd5c04febb1-841ab78c",
+    "source_commit": "7fd792520ba5e3ad5354c26ac4e6816c2d156b7c",
+    "implementation_commit": "2f87a8d0531d483d5b32df6f89b7979ceb4beb74"
+  },
+  "platform_evidence": {
+    "verified": true,
+    "diagnostics": [],
+    "proofs": {
+      "react_web": {
+        "platform": "web",
+        "route": "json-render",
+        "official_runtime": "@json-render/react@0.19.0",
+        "manifest_hash": "9623a1457dee64555a2595cd878ddf7a7d13187747206a0ad7c1554b1208190e",
+        "binding_sha256": "7d1c698ac5f8b3d761f8a2c0fbcfdf09ac86a01faf74413b463b1d67ad883766",
+        "passed": true,
+        "state_changed": true,
+        "action_receipt": "receipt:ApplyFilter:preferences",
+        "accessibility_contract_version": "ope-15-route-neutral-patterns-v1",
+        "keyboard_operable": true,
+        "focus_visible": true,
+        "feedback_announced": true,
+        "host_receipt_outside_component_coverage": true,
+        "semantic_patterns_verified": true,
+        "accessibility_blocking_findings": 0,
+        "screenshot": "json-render-react-web.png"
+      },
+      "dioxus_web": {
+        "platform": "web",
+        "routes": [
+          "openui",
+          "typed-json"
+        ],
+        "manifest_hash": "9623a1457dee64555a2595cd878ddf7a7d13187747206a0ad7c1554b1208190e",
+        "binding_sha256": "7555855641bb9601d3704d71d7939f53314a161fed7371f7b9355941d917efec",
+        "passed": true,
+        "state_action_update_replay": true,
+        "accessibility_contract_version": "ope-15-route-neutral-patterns-v1",
+        "keyboard_operable": true,
+        "focus_visible": true,
+        "feedback_announced": true,
+        "host_receipt_outside_component_coverage": true,
+        "semantic_patterns_verified": true,
+        "accessibility_blocking_findings": 0,
+        "screenshots": [
+          "dioxus-web-1.png",
+          "dioxus-web-2.png"
+        ]
+      },
+      "dioxus_desktop": {
+        "platform": "desktop",
+        "routes": [
+          "openui",
+          "typed-json"
+        ],
+        "passed": true,
+        "evidence_complete": true,
+        "marker": "OPE11_DIOXUS_SELF_TEST_PASS surfaces=2",
+        "manifest_hash": "9623a1457dee64555a2595cd878ddf7a7d13187747206a0ad7c1554b1208190e",
+        "binding_sha256": "7555855641bb9601d3704d71d7939f53314a161fed7371f7b9355941d917efec",
+        "accessibility_contract_version": "ope-15-route-neutral-patterns-v1",
+        "screenshot": {
+          "file": "dioxus-desktop.png",
+          "width": 1736,
+          "height": 1400
+        }
+      },
+      "direct_rsx_web": {
+        "platform": "web",
+        "route": "direct-rsx",
+        "scenarios": [
+          "03-filter-action-v1",
+          "04-status-dialog-v1"
+        ],
+        "manifest_hash": "9623a1457dee64555a2595cd878ddf7a7d13187747206a0ad7c1554b1208190e",
+        "binding_sha256": "85ec307a8fdb0ea1bd0b85c1cfc6d0f10634b9f1e75d26419863380c0eada9f4",
+        "passed": true,
+        "state_changed": true,
+        "action_receipts_exactly_once": true,
+        "visible_feedback": true,
+        "accessibility_contract_version": "ope-15-route-neutral-patterns-v1",
+        "keyboard_operable": true,
+        "focus_visible": true,
+        "feedback_announced": true,
+        "host_receipt_outside_component_coverage": true,
+        "semantic_patterns_verified": true,
+        "accessibility_blocking_findings": 0,
+        "screenshots": [
+          "direct-rsx-web-1.png",
+          "direct-rsx-web-2.png"
+        ]
+      }
+    },
+    "artifact_count": 18,
+    "recursive_sha256": "196f87b5efaf23f76622e23275872e3c7884db8a8da64bc0a1648dd72448e27b",
+    "source": "generated-canary-outputs",
+    "fixture_sha256": "27dfc3c89e2b9da25e9c0579988c72a08294043c8ba1cac1999cf7f33724ee29",
+    "fixture_provenance": {
+      "dioxus": {
+        "manifest_hash": "9623a1457dee64555a2595cd878ddf7a7d13187747206a0ad7c1554b1208190e",
+        "source_records": [
+          {
+            "route": "openui",
+            "scenario_id": "01-validated-profile-v1",
+            "attempt": 2,
+            "raw_sha256": "a1b063f6ff05c8e78a7c1a4e7da7d8cfb5639212373778760346acd93495e9ef",
+            "platform_artifact_sha256": "2725e2c4e56e385143a32e58d002fe25073c3f3c4ba53c0934604e5e3ae2bc4a"
+          },
+          {
+            "route": "typed-json",
+            "scenario_id": "02-preferences-v1",
+            "attempt": 2,
+            "raw_sha256": "d48073b2905141f54f6e3b38213e759b5f2ffe7a73b0da6162c6746d495de964",
+            "platform_artifact_sha256": "06d39265ea5b7ab6c6a8fc48b99aa5c329379263f202f66123e48aec5d9a384c"
+          }
+        ],
+        "binding_sha256": "7555855641bb9601d3704d71d7939f53314a161fed7371f7b9355941d917efec"
+      },
+      "react": {
+        "manifest_hash": "9623a1457dee64555a2595cd878ddf7a7d13187747206a0ad7c1554b1208190e",
+        "source_records": [
+          {
+            "route": "json-render",
+            "scenario_id": "02-preferences-v1",
+            "attempt": 1,
+            "raw_sha256": "370be27d12c24aec4399ccca74ca79876104ab0057804849fba1f49fea9fab4f",
+            "platform_artifact_sha256": "edf783c352e60aee741a36ccd0d2abfbe14ddfe2f871cb6c0614d908c3d7c62a"
+          }
+        ],
+        "binding_sha256": "7d1c698ac5f8b3d761f8a2c0fbcfdf09ac86a01faf74413b463b1d67ad883766"
+      },
+      "direct_rsx": {
+        "manifest_hash": "9623a1457dee64555a2595cd878ddf7a7d13187747206a0ad7c1554b1208190e",
+        "source_records": [
+          {
+            "route": "direct-rsx",
+            "scenario_id": "03-filter-action-v1",
+            "attempt": 2,
+            "raw_sha256": "ffcdbc8e8652ccd0302bb816532b82623f8debd05a27bda3e55aeb5ae7ae5faf",
+            "platform_artifact_sha256": "1daf23eb5c69a175cde58608d310b2875c678e365bcd7df273341bef169f8847"
+          },
+          {
+            "route": "direct-rsx",
+            "scenario_id": "04-status-dialog-v1",
+            "attempt": 1,
+            "raw_sha256": "506e3f586daccabccd004d8f73f2db2de303c7de39ff25f10a333eaf40d681bf",
+            "platform_artifact_sha256": "1b7dc38cfcd6f47bd1f15b09867238176048edfe53d298cfb8de6696e677a58e"
+          }
+        ],
+        "binding_sha256": "85ec307a8fdb0ea1bd0b85c1cfc6d0f10634b9f1e75d26419863380c0eada9f4"
+      }
+    },
+    "executions": [
+      {
+        "id": "react-web",
+        "passed": true,
+        "exit_code": 0,
+        "signal": null,
+        "error": null,
+        "elapsed_ms": 2577.2339999999967,
+        "stdout_sha256": "acbae9964b4a12714462b58c28e29f71f7a2dbdb228b53f5376b4597e11c85eb",
+        "stderr_sha256": "8d69b287d2fc238bb2b50600adaff14af81ba8b79ebbc0377cf4e6742e2107b0"
+      },
+      {
+        "id": "direct-rsx-web",
+        "passed": true,
+        "exit_code": 0,
+        "signal": null,
+        "error": null,
+        "elapsed_ms": 6318.899041000004,
+        "stdout_sha256": "729086dbc503a6fb63e081ba99c395ffc45ee037d0026d69d090416b83c4396f",
+        "stderr_sha256": "82d579fcdbe9b0d847d12f47cad5f3f1057dcd41a999a0260997ae47edd44d43"
+      },
+      {
+        "id": "dioxus-web",
+        "passed": true,
+        "exit_code": 0,
+        "signal": null,
+        "error": null,
+        "elapsed_ms": 8596.867041999998,
+        "stdout_sha256": "f5fa7ad35a2a4d061d6d04abf25c50d768bd82247465e61e28020b889e761d9c",
+        "stderr_sha256": "a0446a588e446610d9bf457851418109e0c0eda7f85e29efc8b5c52ec116d507"
+      },
+      {
+        "id": "dioxus-desktop",
+        "passed": true,
+        "exit_code": 0,
+        "signal": null,
+        "error": null,
+        "elapsed_ms": 73310.68008399999,
+        "stdout_sha256": "3ddb5a8bdd7191c5f8b8c959807118facad2004b3658ebff162c0c70d5a9efe1",
+        "stderr_sha256": "c45a8c4edf8e258792de1d9a2bb6fe41f70c3db4b9f5dfd30b4b2e3b836468e5"
+      }
+    ]
+  },
+  "platform_proof_mode": "generated",
+  "canonical_runtime_behavior_diff_lines": 0,
+  "trust_controls": {
+    "pre_provider_scan_findings": 0,
+    "publication_credential_scan_findings": 0,
+    "generated_output_execution": {
+      "openui": "validated-data-only",
+      "typed-json": "validated-data-only",
+      "json-render": "validated-data-rendered-by-official-react-runtime",
+      "direct-rsx": "allowlisted source, sandboxed SSR, and externally blocked Web requests"
+    },
+    "direct_rsx_sandbox": "SSR compile and execution use the macOS deny-network sandbox; interactive Web uses an explicit non-secret environment, rejects direct access to the web-sys feature shim, and blocks external browser requests",
+    "effect_policy": "deny-by-default"
+  },
+  "implementation_footprint": {
+    "policy": {
+      "version": "ope-11-footprint-v1",
+      "base_ref": "codex/ope-10-rust-ui-catalog",
+      "counting": "nonblank physical lines and regular files",
+      "dimensions": {
+        "authorship": [
+          "handwritten",
+          "generated"
+        ],
+        "role": [
+          "test",
+          "catalog",
+          "adapter",
+          "runtime",
+          "platform",
+          "baseline",
+          "support"
+        ]
+      },
+      "generated_files": [
+        "dependency lockfiles",
+        "frozen platform fixture JSON"
+      ],
+      "version_control_method": "git diff --numstat against the frozen base plus an untracked-source check"
+    },
+    "total": {
+      "file_count": 66,
+      "nonblank_lines": 13470,
+      "bytes": 497811
+    },
+    "authorship": {
+      "handwritten": {
+        "file_count": 61,
+        "nonblank_lines": 5561,
+        "bytes": 279352
+      },
+      "generated": {
+        "file_count": 5,
+        "nonblank_lines": 7909,
+        "bytes": 218459
+      }
+    },
+    "role": {
+      "test": {
+        "file_count": 17,
+        "nonblank_lines": 1245,
+        "bytes": 72033
+      },
+      "catalog": {
+        "file_count": 1,
+        "nonblank_lines": 57,
+        "bytes": 2573
+      },
+      "adapter": {
+        "file_count": 2,
+        "nonblank_lines": 205,
+        "bytes": 10053
+      },
+      "runtime": {
+        "file_count": 11,
+        "nonblank_lines": 2167,
+        "bytes": 97257
+      },
+      "platform": {
+        "file_count": 14,
+        "nonblank_lines": 7034,
+        "bytes": 209101
+      },
+      "baseline": {
+        "file_count": 12,
+        "nonblank_lines": 1647,
+        "bytes": 63550
+      },
+      "support": {
+        "file_count": 9,
+        "nonblank_lines": 1115,
+        "bytes": 43244
+      }
+    },
+    "required_categories": {
+      "handwritten": {
+        "file_count": 61,
+        "nonblank_lines": 5561,
+        "bytes": 279352
+      },
+      "generated": {
+        "file_count": 5,
+        "nonblank_lines": 7909,
+        "bytes": 218459
+      },
+      "test": {
+        "file_count": 17,
+        "nonblank_lines": 1245,
+        "bytes": 72033
+      },
+      "catalog": {
+        "file_count": 1,
+        "nonblank_lines": 57,
+        "bytes": 2573
+      },
+      "adapter": {
+        "file_count": 2,
+        "nonblank_lines": 205,
+        "bytes": 10053
+      },
+      "runtime": {
+        "file_count": 11,
+        "nonblank_lines": 2167,
+        "bytes": 97257
+      },
+      "platform": {
+        "file_count": 14,
+        "nonblank_lines": 7034,
+        "bytes": 209101
+      },
+      "baseline": {
+        "file_count": 12,
+        "nonblank_lines": 1647,
+        "bytes": 63550
+      }
+    },
+    "version_control": {
+      "base_ref": "codex/ope-10-rust-ui-catalog",
+      "head_commit": "e4e9207d10d75e8537bb75cc0caa9f5b70ac3a7f",
+      "tracked_changed_files": 465,
+      "added_lines": 70010,
+      "removed_lines": 0,
+      "binary_files": 22,
+      "authorship": {
+        "handwritten": {
+          "files": 458,
+          "added_lines": 54865,
+          "removed_lines": 0
+        },
+        "generated": {
+          "files": 7,
+          "added_lines": 15145,
+          "removed_lines": 0
+        }
+      },
+      "role": {
+        "test": {
+          "files": 17,
+          "added_lines": 1368,
+          "removed_lines": 0
+        },
+        "catalog": {
+          "files": 1,
+          "added_lines": 60,
+          "removed_lines": 0
+        },
+        "adapter": {
+          "files": 2,
+          "added_lines": 218,
+          "removed_lines": 0
+        },
+        "runtime": {
+          "files": 11,
+          "added_lines": 2295,
+          "removed_lines": 0
+        },
+        "platform": {
+          "files": 14,
+          "added_lines": 7738,
+          "removed_lines": 0
+        },
+        "baseline": {
+          "files": 12,
+          "added_lines": 1809,
+          "removed_lines": 0
+        },
+        "support": {
+          "files": 408,
+          "added_lines": 56522,
+          "removed_lines": 0
+        }
+      },
+      "untracked_source_files": [],
+      "source_entries_measured": 66
+    }
+  },
+  "cost": {
+    "billing_basis": "ChatGPT plan is reserved for the real canary; deterministic fake provider uses no model calls",
+    "incremental_api_cost_usd": null,
+    "provider_usage": {
+      "measured_records": 0,
+      "input_tokens": 0,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 0,
+      "reasoning_tokens": 0,
+      "total_tokens": 0
+    }
+  },
+  "provider_error": null,
+  "final_product_scorer_accessed": false,
+  "final_product_scorer_access_count": 0
+}
