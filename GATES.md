@@ -2,9 +2,9 @@
 
 ## OPE-15 route-neutral accessible component patterns
 
-Current state: deterministic implementation verified. OPE-13 and OPE-14 remain
-immutable and `CANARY_INVALID`. OPE-15 is a no-provider methodology slice.
-OPE-16 and OPE-12 remain blocked until source, evidence, and Linear are synced.
+Current state: completed. OPE-13 and OPE-14 remain immutable and
+`CANARY_INVALID`. OPE-15 used no external provider. OPE-16 is now eligible for
+its one preregistered canary. OPE-12 remains blocked until OPE-16 returns PASS.
 
 - [x] OPE-13 and OPE-14 evidence, manifests, records, checksums, and outcomes remain byte-identical and unpooled.
 - [x] The preregistration records the exact OPE-14 wrapper-versus-semantic-descendant asymmetry using pinned Dioxus source and rendered evidence.
@@ -16,7 +16,17 @@ OPE-16 and OPE-12 remain blocked until source, evidence, and Linear are synced.
 - [x] The OPE-15 candidate manifest changes only preregistered semantic-pattern methodology, the single shared Toolbar correction, probes, preregistration, and derived hashes relative to OPE-14.
 - [x] Deterministic generated-output Web and Desktop preflight passes across all four routes with zero external provider calls.
 - [x] Typecheck, full tests, Dioxus contract tests, diff check, standards review, and intent review pass.
-- [ ] Source and deterministic evidence are committed locally; Linear is synchronized; no provider, push, PR, merge, publication, promotion, or product verdict occurs.
+- [x] Source and deterministic evidence are committed locally; Linear is synchronized; no provider, push, PR, merge, publication, promotion, or product verdict occurs.
+
+Verification evidence:
+
+- Source commits: `7b76fa3`, `7d50a6f`; evidence commit: `eada9f1`.
+- Candidate manifest: `49b71bd46638f1301c59fa345204d12896d0c2175197ec8df4563c2092ad9cf0`.
+- Deterministic generated-output preflight: PASS for 8 route cells and four real platform executions.
+- `SHA256SUMS` SHA-256: `a23a850a8e77b7a45cb30ed71fb1121bf084e93fdfe604fe13bb5aba1060083d`.
+- Independent review SHA-256: `1e2547d471f59f4ae53a464ef352efff470dea76dbb88722a7b875d9a2a3b88f`.
+- JavaScript 48/48, Catalog Rust 17/17, Dioxus platform 1/1, typecheck and diff check pass.
+- Canonical runtime behavior diff: 0 lines; credential findings: 0; external provider calls: 0.
 
 ## OPE-14 host receipt and Surface feedback ownership
 
