@@ -2,22 +2,32 @@
 
 ## OPE-16 final semantic-pattern canary
 
-Current state: explicitly authorized, not yet executed. This ticket may perform
-exactly one provider-backed canary using the byte-identical OPE-15 candidate.
-No silent rerun is permitted.
+Current state: completed as `CANARY_INVALID`. The one authorized provider run
+used the byte-identical OPE-15 candidate. No rerun is permitted. OPE-12 remains
+canceled and OPE-7 emits no product verdict.
 
-- [ ] OPE-13 and OPE-14 evidence remain byte-identical, invalid, unpooled, and outside every new aggregate.
-- [ ] The locally recomputed candidate manifest equals `49b71bd46638f1301c59fa345204d12896d0c2175197ec8df4563c2092ad9cf0` before generation.
-- [ ] The OPE-16 execution register and all source inputs are committed before the provider call.
-- [ ] The OPE-15 deterministic preflight remains PASS across all four routes and real Web and Desktop executions.
-- [ ] Codex plan authentication is valid in the isolated evaluator; model is `gpt-5.6-luna`, effort is `low`, and tools are disabled.
-- [ ] Exactly one provider-backed canary runs with no pooling, no silent retry, at most one repair per cell, at most 16 calls, and at most 30 minutes.
+- [x] OPE-13 and OPE-14 evidence remain byte-identical, invalid, unpooled, and outside every new aggregate.
+- [x] The locally recomputed candidate manifest equals `49b71bd46638f1301c59fa345204d12896d0c2175197ec8df4563c2092ad9cf0` before generation.
+- [x] The OPE-16 execution register and all source inputs are committed before the provider call.
+- [x] The OPE-15 deterministic preflight remains PASS across all four routes and real Web and Desktop executions.
+- [x] Codex plan authentication is valid in the isolated evaluator; model is `gpt-5.6-luna`, effort is `low`, and tools are disabled.
+- [x] Exactly one provider-backed canary runs with no pooling, no silent retry, at most one repair per cell, at most 16 calls, and at most 30 minutes.
 - [ ] Every accepted final output crosses the registered validator and generated-output platform proof.
-- [ ] Raw outputs, attempts, diagnostics, usage, latency, normalized artifacts, traces, screenshots, hashes, and credential scan are retained.
-- [ ] Independent recomputation and finalization emit exactly PASS or CANARY_INVALID.
-- [ ] PASS reopens OPE-12 using only the byte-identical manifest; CANARY_INVALID stops with OPE-12 still canceled.
-- [ ] No OPE-7 product verdict, push, PR, merge, publication, or public compatibility claim occurs.
+- [x] Raw outputs, attempts, diagnostics, usage, latency, normalized artifacts, hashes, and credential scan are retained; platform traces and screenshots are correctly absent because generation was incomplete.
+- [x] Independent recomputation emits `CANARY_INVALID` with `platform-evidence-invalid`; no complete publication marker is created.
+- [x] `CANARY_INVALID` stops with OPE-12 still canceled.
+- [x] No OPE-7 product verdict, push, PR, merge, publication, or public compatibility claim occurs.
 - [ ] Immutable evidence is committed locally and Linear is synchronized.
+
+Verification evidence:
+
+- Source commit: `9572c9b`.
+- Manifest: `49b71bd46638f1301c59fa345204d12896d0c2175197ec8df4563c2092ad9cf0`.
+- One run: 10 provider attempts in 111.738 seconds, with no provider error and no credential finding.
+- Final accepted cells: 7/8. OpenUI 2/2, typed JSON 2/2, json-render 2/2, Direct RSX 1/2.
+- Blocking cell: `compile-04-status-dialog-v1` Direct RSX remained rejected after its one repair.
+- `SHA256SUMS` SHA-256: `144d0a4a197fc6e70798ec79e8321a0048c381657d08af5b381ab9f9e6c22c5c`.
+- Independent review SHA-256: `6a02786b744974b94b1ecc52d481b3f8f31bb940ce85bd8ec25a8f6676845079`.
 
 ## OPE-15 route-neutral accessible component patterns
 

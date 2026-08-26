@@ -1,0 +1,61 @@
+{
+  "root": "preferences_toolbar",
+  "elements": {
+    "preferences_switch": {
+      "type": "Switch",
+      "props": {
+        "id": "preferences_switch",
+        "label": "Enable notifications · variant 1",
+        "state_key": "notifications_enabled",
+        "checked": {
+          "$bindState": "/notifications_enabled"
+        }
+      },
+      "children": []
+    },
+    "preferences_checkbox": {
+      "type": "Checkbox",
+      "props": {
+        "id": "preferences_checkbox",
+        "label": "Accept terms · variant 1",
+        "state_key": "terms_accepted",
+        "checked": {
+          "$bindState": "/terms_accepted"
+        }
+      },
+      "children": []
+    },
+    "preferences_apply": {
+      "type": "Button",
+      "props": {
+        "id": "preferences_apply",
+        "label": "Apply preferences"
+      },
+      "on": {
+        "press": {
+          "action": "ApplyFilter",
+          "params": {
+            "target_id": "preferences"
+          }
+        }
+      },
+      "children": []
+    },
+    "preferences_toolbar": {
+      "type": "Toolbar",
+      "props": {
+        "id": "preferences_toolbar",
+        "orientation": "vertical"
+      },
+      "children": [
+        "preferences_switch",
+        "preferences_checkbox",
+        "preferences_apply"
+      ]
+    }
+  },
+  "state": {
+    "notifications_enabled": true,
+    "terms_accepted": false
+  }
+}

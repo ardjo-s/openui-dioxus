@@ -1,0 +1,11 @@
+{
+  "ok": false,
+  "diagnostics": [
+    {
+      "code": "host-receipt",
+      "component": null,
+      "id": null,
+      "message": "one visible host receipt must use role=status and aria-live=polite"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "ok": false,
+  "diagnostics": [
+    {
+      "code": "source-contract",
+      "message": "receipt must be bound to both metadata and visible status content"
+    }
+  ]
+}

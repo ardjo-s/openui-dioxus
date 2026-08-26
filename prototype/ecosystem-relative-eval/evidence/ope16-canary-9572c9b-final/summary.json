@@ -1,0 +1,294 @@
+{
+  "outcome": "CANARY_INVALID",
+  "execution_kind": "real-provider-canary",
+  "provider": "codex",
+  "model": "gpt-5.6-luna",
+  "reasoning_effort": "low",
+  "manifest_hash": "49b71bd46638f1301c59fa345204d12896d0c2175197ec8df4563c2092ad9cf0",
+  "manifest_promoted": false,
+  "route_cells": 8,
+  "route_aggregates_comparable": false,
+  "route_aggregate_scope": "operational diagnostics only; route totals cover different scenario and cohort mixes and must not be ranked across routes",
+  "calls": 10,
+  "maximum_calls": 16,
+  "wall_time_ms": 111737.958958,
+  "maximum_wall_time_ms": 1800000,
+  "first_pass_validity": {
+    "openui": 2,
+    "typed-json": 2,
+    "json-render": 2,
+    "direct-rsx": 0
+  },
+  "post_repair_validity": {
+    "openui": 2,
+    "typed-json": 2,
+    "json-render": 2,
+    "direct-rsx": 1
+  },
+  "cumulative_raw_tokens": {
+    "openui": 4730,
+    "typed-json": 5288,
+    "json-render": 10761,
+    "direct-rsx": 7280
+  },
+  "balanced_order": true,
+  "rejected_attempts_retained_and_charged": true,
+  "ope3_import": {
+    "verified": true,
+    "files_verified": 414,
+    "checksum_manifest_sha256": "848fbf33924fda4456da518975e06e133e3c5195e801d4961eec48acacf92001",
+    "summary": {
+      "outcome": "VALID_EVAL",
+      "pairs_complete": 20,
+      "calls": 83,
+      "first_pass_validity": {
+        "openui": 17,
+        "a2ui": 0,
+        "typed-json": 20
+      },
+      "post_repair_validity": {
+        "openui": 19,
+        "a2ui": 12,
+        "typed-json": 20
+      }
+    },
+    "provider_calls": 0
+  },
+  "second_catalog": {
+    "verified": true,
+    "files_verified": 33,
+    "executable_fixtures": true,
+    "inert_replay": true,
+    "copy_on_write_migration": true,
+    "catalog_release_hash": "e87196bd4cc3e813a18d928d2a2cfe07e7053bc009e926e523683c9b96facca4",
+    "adapter_build_id": "ope10-1fac5dd5c04febb1-841ab78c",
+    "source_commit": "7fd792520ba5e3ad5354c26ac4e6816c2d156b7c",
+    "implementation_commit": "2f87a8d0531d483d5b32df6f89b7979ceb4beb74"
+  },
+  "platform_evidence": {
+    "verified": false,
+    "source": "not-executed-after-generation-failure",
+    "diagnostics": [
+      {
+        "code": "platform-runner",
+        "message": "provider outputs were not all accepted"
+      }
+    ],
+    "proofs": {},
+    "artifact_count": 0,
+    "recursive_sha256": null,
+    "executions": []
+  },
+  "platform_proof_mode": "generated",
+  "canonical_runtime_behavior_diff_lines": 0,
+  "trust_controls": {
+    "pre_provider_scan_findings": 0,
+    "publication_credential_scan_findings": 0,
+    "generated_output_execution": {
+      "openui": "validated-data-only",
+      "typed-json": "validated-data-only",
+      "json-render": "validated-data-rendered-by-official-react-runtime",
+      "direct-rsx": "allowlisted source, sandboxed SSR, and externally blocked Web requests"
+    },
+    "direct_rsx_sandbox": "SSR compile and execution use the macOS deny-network sandbox; interactive Web uses an explicit non-secret environment, rejects direct access to the web-sys feature shim, and blocks external browser requests",
+    "effect_policy": "deny-by-default"
+  },
+  "implementation_footprint": {
+    "policy": {
+      "version": "ope-11-footprint-v1",
+      "base_ref": "codex/ope-10-rust-ui-catalog",
+      "counting": "nonblank physical lines and regular files",
+      "dimensions": {
+        "authorship": [
+          "handwritten",
+          "generated"
+        ],
+        "role": [
+          "test",
+          "catalog",
+          "adapter",
+          "runtime",
+          "platform",
+          "baseline",
+          "support"
+        ]
+      },
+      "generated_files": [
+        "dependency lockfiles",
+        "frozen platform fixture JSON"
+      ],
+      "version_control_method": "git diff --numstat against the frozen base plus an untracked-source check"
+    },
+    "total": {
+      "file_count": 66,
+      "nonblank_lines": 13452,
+      "bytes": 496695
+    },
+    "authorship": {
+      "handwritten": {
+        "file_count": 61,
+        "nonblank_lines": 5543,
+        "bytes": 278236
+      },
+      "generated": {
+        "file_count": 5,
+        "nonblank_lines": 7909,
+        "bytes": 218459
+      }
+    },
+    "role": {
+      "test": {
+        "file_count": 17,
+        "nonblank_lines": 1226,
+        "bytes": 70720
+      },
+      "catalog": {
+        "file_count": 1,
+        "nonblank_lines": 57,
+        "bytes": 2573
+      },
+      "adapter": {
+        "file_count": 2,
+        "nonblank_lines": 205,
+        "bytes": 10053
+      },
+      "runtime": {
+        "file_count": 11,
+        "nonblank_lines": 2167,
+        "bytes": 97263
+      },
+      "platform": {
+        "file_count": 14,
+        "nonblank_lines": 7034,
+        "bytes": 209101
+      },
+      "baseline": {
+        "file_count": 12,
+        "nonblank_lines": 1648,
+        "bytes": 63741
+      },
+      "support": {
+        "file_count": 9,
+        "nonblank_lines": 1115,
+        "bytes": 43244
+      }
+    },
+    "required_categories": {
+      "handwritten": {
+        "file_count": 61,
+        "nonblank_lines": 5543,
+        "bytes": 278236
+      },
+      "generated": {
+        "file_count": 5,
+        "nonblank_lines": 7909,
+        "bytes": 218459
+      },
+      "test": {
+        "file_count": 17,
+        "nonblank_lines": 1226,
+        "bytes": 70720
+      },
+      "catalog": {
+        "file_count": 1,
+        "nonblank_lines": 57,
+        "bytes": 2573
+      },
+      "adapter": {
+        "file_count": 2,
+        "nonblank_lines": 205,
+        "bytes": 10053
+      },
+      "runtime": {
+        "file_count": 11,
+        "nonblank_lines": 2167,
+        "bytes": 97263
+      },
+      "platform": {
+        "file_count": 14,
+        "nonblank_lines": 7034,
+        "bytes": 209101
+      },
+      "baseline": {
+        "file_count": 12,
+        "nonblank_lines": 1648,
+        "bytes": 63741
+      }
+    },
+    "version_control": {
+      "base_ref": "codex/ope-10-rust-ui-catalog",
+      "head_commit": "9572c9bd41f9893804181657d750b2ca56c48319",
+      "tracked_changed_files": 396,
+      "added_lines": 59622,
+      "removed_lines": 0,
+      "binary_files": 22,
+      "authorship": {
+        "handwritten": {
+          "files": 389,
+          "added_lines": 44477,
+          "removed_lines": 0
+        },
+        "generated": {
+          "files": 7,
+          "added_lines": 15145,
+          "removed_lines": 0
+        }
+      },
+      "role": {
+        "test": {
+          "files": 17,
+          "added_lines": 1368,
+          "removed_lines": 0
+        },
+        "catalog": {
+          "files": 1,
+          "added_lines": 60,
+          "removed_lines": 0
+        },
+        "adapter": {
+          "files": 2,
+          "added_lines": 218,
+          "removed_lines": 0
+        },
+        "runtime": {
+          "files": 11,
+          "added_lines": 2295,
+          "removed_lines": 0
+        },
+        "platform": {
+          "files": 14,
+          "added_lines": 7738,
+          "removed_lines": 0
+        },
+        "baseline": {
+          "files": 12,
+          "added_lines": 1809,
+          "removed_lines": 0
+        },
+        "support": {
+          "files": 339,
+          "added_lines": 46134,
+          "removed_lines": 0
+        }
+      },
+      "untracked_source_files": [],
+      "source_entries_measured": 66
+    }
+  },
+  "cost": {
+    "billing_basis": "ChatGPT plan, no per-run API invoice or incremental dollar charge is available",
+    "incremental_api_cost_usd": null,
+    "provider_usage": {
+      "measured_records": 10,
+      "input_tokens": 116131,
+      "cached_input_tokens": 20736,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 4060,
+      "reasoning_tokens": 1562,
+      "total_tokens": 120191
+    }
+  },
+  "provider_error": null,
+  "final_product_scorer_accessed": false,
+  "final_product_scorer_access_count": 0
+}

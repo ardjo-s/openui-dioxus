@@ -1,6 +1,6 @@
 # OPE-16 final semantic-pattern canary execution register
 
-Status before execution: `AUTHORIZED_NOT_RUN`
+Final status: `CANARY_INVALID`
 
 User approval was explicit on 2026-08-26. This register is committed before
 the only permitted provider-backed run.
@@ -48,3 +48,28 @@ eligible to resume with this byte-identical manifest. OPE-7 alone owns any final
 GO or NO-GO product verdict.
 
 No push, PR, merge, public publication, or compatibility claim is authorized.
+
+## Recorded result
+
+- Source commit before generation: `9572c9b`.
+- Evidence: `prototype/ecosystem-relative-eval/evidence/ope16-canary-9572c9b-final`.
+- Manifest: `49b71bd46638f1301c59fa345204d12896d0c2175197ec8df4563c2092ad9cf0`, byte-identical to OPE-15.
+- Provider: `gpt-5.6-luna`, reasoning effort `low`, through the ChatGPT plan.
+- Execution: one canary invocation, 10 provider attempts, 111.738 seconds, no provider error.
+- Final accepted cells: 7 of 8.
+- OpenUI, typed JSON, and json-render each accepted both cells.
+- Direct RSX accepted the filter cell after one repair and rejected the status-dialog cell after its one repair.
+- Platform execution did not start because all eight generated cells were not accepted.
+- Independent recomputation emitted `platform-evidence-invalid` and confirmed `CANARY_INVALID`.
+- `SHA256SUMS` SHA-256: `144d0a4a197fc6e70798ec79e8321a0048c381657d08af5b381ab9f9e6c22c5c`.
+- Independent review SHA-256: `6a02786b744974b94b1ecc52d481b3f8f31bb940ce85bd8ec25a8f6676845079`.
+- Credential findings: 0.
+
+The blocking Direct RSX source bound the receipt in `data-receipt` and included
+the receipt in visible status text. The static source precheck still rejected
+it because the visible binding was part of a longer string instead of a second
+standalone receipt interpolation. This is a harness-source-shape diagnosis, not
+a passing result and not permission to reinterpret or rerun OPE-16.
+
+OPE-12 remains canceled. OPE-7 emits no GO or NO-GO product verdict from this
+invalid canary.
