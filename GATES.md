@@ -13,7 +13,7 @@ one separately preregistered canary.
 - [x] OPE-13 through OPE-16 evidence remains byte-identical.
 - [x] Provider settings, scenarios, schedule, thresholds, runtime semantics, and product verdict remain unchanged.
 - [x] Narrow tests, full tests, typecheck, diff check, standards review, and intent review pass.
-- [ ] Owned changes and evidence are committed locally and Linear is synchronized.
+- [x] Owned changes and evidence are committed locally and Linear is synchronized.
 
 Verification evidence:
 
