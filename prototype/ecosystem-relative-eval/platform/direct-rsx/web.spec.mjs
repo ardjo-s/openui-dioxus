@@ -50,6 +50,7 @@ test("accepted direct RSX executes state, typed action receipt, and visible feed
     await expect(receipt).toHaveAttribute("data-receipt", /^receipt:[A-Za-z]+:[a-z]+$/);
     await expect(receipt).toContainText("receipt:");
     await expect(receipt).toHaveAttribute("aria-live", "polite");
+    await expect(receipt).not.toHaveAttribute("data-component", /.+/);
     const accessibility = await new AxeBuilder({ page }).analyze();
     const blocking = accessibility.violations.filter((violation) => ["critical", "serious"].includes(violation.impact));
     expect(blocking, JSON.stringify(blocking, null, 2)).toEqual([]);
@@ -68,10 +69,11 @@ test("accepted direct RSX executes state, typed action receipt, and visible feed
     state_changed: true,
     action_receipts_exactly_once: true,
     visible_feedback: true,
-    accessibility_contract_version: "ope-13-observable-accessibility-v1",
+    accessibility_contract_version: "ope-14-feedback-ownership-v1",
     keyboard_operable: true,
     focus_visible: true,
     feedback_announced: true,
+    host_receipt_outside_component_coverage: true,
     accessibility_blocking_findings: 0,
     screenshots: ["direct-rsx-web-1.png", "direct-rsx-web-2.png"],
   }, null, 2)}\n`);

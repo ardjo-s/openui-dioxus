@@ -43,7 +43,7 @@ export async function verifyPlatformEvidence({ evidenceRoot = path.join(root, "e
   check(dioxusDesktop?.passed === true && dioxusDesktop?.evidence_complete === true, diagnostics, "dioxus_desktop", "executed evidence is incomplete");
   check(sameStrings(dioxusDesktop?.routes, ["openui", "typed-json"]), diagnostics, "dioxus_desktop", "route set differs");
   check(dioxusDesktop?.marker === "OPE11_DIOXUS_SELF_TEST_PASS surfaces=2", diagnostics, "dioxus_desktop", "runtime marker differs");
-  check(dioxusDesktop?.accessibility_contract_version === "ope-13-observable-accessibility-v1", diagnostics, "dioxus_desktop", "accessibility contract version differs");
+  check(dioxusDesktop?.accessibility_contract_version === "ope-14-feedback-ownership-v1", diagnostics, "dioxus_desktop", "accessibility contract version differs");
   checkBinding(dioxusDesktop, diagnostics, "dioxus_desktop");
   check(dioxusDesktop?.manifest_hash === dioxusWeb?.manifest_hash, diagnostics, "dioxus", "Web and Desktop manifest bindings differ");
   check(dioxusDesktop?.binding_sha256 === dioxusWeb?.binding_sha256, diagnostics, "dioxus", "Web and Desktop artifact bindings differ");
@@ -143,10 +143,11 @@ function checkObservableAccessibility(proof, diagnostics, label) {
 
 export function validateObservableAccessibilityProof(proof, label = "platform") {
   const diagnostics = [];
-  check(proof?.accessibility_contract_version === "ope-13-observable-accessibility-v1", diagnostics, label, "accessibility contract version differs");
+  check(proof?.accessibility_contract_version === "ope-14-feedback-ownership-v1", diagnostics, label, "accessibility contract version differs");
   check(proof?.keyboard_operable === true, diagnostics, label, "keyboard operation proof missing");
   check(proof?.focus_visible === true, diagnostics, label, "visible focus proof missing");
   check(proof?.feedback_announced === true, diagnostics, label, "feedback announcement proof missing");
+  check(proof?.host_receipt_outside_component_coverage === true, diagnostics, label, "host receipt ownership proof missing");
   return { passed: diagnostics.length === 0, diagnostics };
 }
 

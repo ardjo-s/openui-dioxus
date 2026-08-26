@@ -35,6 +35,7 @@ test("official json-render React seam executes state and action behavior", async
   await expect(receipt).toHaveCount(1);
   await expect(receipt).toHaveAttribute("data-receipt", "receipt:ApplyFilter:preferences");
   await expect(receipt).toHaveAttribute("aria-live", "polite");
+  await expect(receipt).not.toHaveAttribute("data-component", /.+/);
   const accessibility = await new AxeBuilder({ page }).analyze();
   const blocking = accessibility.violations.filter((violation) => ["critical", "serious"].includes(violation.impact));
   expect(blocking, JSON.stringify(blocking, null, 2)).toEqual([]);
@@ -50,10 +51,11 @@ test("official json-render React seam executes state and action behavior", async
     passed: true,
     state_changed: true,
     action_receipt: "receipt:ApplyFilter:preferences",
-    accessibility_contract_version: "ope-13-observable-accessibility-v1",
+    accessibility_contract_version: "ope-14-feedback-ownership-v1",
     keyboard_operable: true,
     focus_visible: true,
     feedback_announced: true,
+    host_receipt_outside_component_coverage: true,
     accessibility_blocking_findings: 0,
     screenshot: path.basename(screenshot),
   }, null, 2)}\n`);

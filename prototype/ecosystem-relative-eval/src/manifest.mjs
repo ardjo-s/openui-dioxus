@@ -76,6 +76,7 @@ export async function buildCandidateManifest() {
     return { scenario_id: scenario.id, sha256: sha(stableJson(contract)), contract };
   });
   const inputHashes = await hashInputs({
+    ope14_preregistration: "docs/evaluation/ope-14-feedback-ownership-preregistration.md",
     ope13_preregistration: "docs/evaluation/ope-13-accessibility-preregistration.md",
     ope9_spec: "docs/evaluation/ecosystem-relative-product-value-spec.md",
     ope9_decisions: "docs/evaluation/ecosystem-relative-product-value-decisions.md",
@@ -129,19 +130,20 @@ export async function buildCandidateManifest() {
   };
 
   return {
-    version: "ope-13-ecosystem-canary-v2",
+    version: "ope-14-ecosystem-canary-v3",
     purpose: "non-decision operational canary",
     product_outcome_forbidden: true,
     preregistration: {
-      ticket: "OPE-13",
-      permitted_change: "symmetric observable accessibility contract and derived hashes only",
+      ticket: "OPE-14",
+      permitted_change: "host receipt and Surface feedback ownership applicability, plus derived hashes only",
       prior_candidate: {
         outcome: "CANARY_INVALID",
-        source_commit: "edafbb1",
-        evidence_path: "prototype/ecosystem-relative-eval/evidence/candidate-canary-edafbb1-final",
-        manifest_sha256: "eac280627d3042ef777d01142408661659aede6c16ca50cb8bd28120a9c3dd2c",
-        checksum_manifest_sha256: "cab4a27ee5c199f4462c47a29a2ed726f3b9c16247defc7d6e6452bb63d9e553",
-        independent_review_sha256: "33d1da72f69bf8e9cc8c41fc89e78170a8265a1a1f36ee09c7204f2ba28911be",
+        source_commit: "f7550a7",
+        evidence_commit: "8565be6",
+        evidence_path: "prototype/ecosystem-relative-eval/evidence/ope13-canary-f7550a7-final",
+        manifest_sha256: "1aff97c12c5c99810ca358ed1ba7770c55bdfc4585c15c62db21125a0175616d",
+        checksum_manifest_sha256: "de2bf28ff4ceb36c2cc39479d811e37c300e4f43543c1384ffe7aaaeea062356",
+        independent_review_sha256: "e34a75b5221e347814ed64775ea1d118ab082d54b3219da7511d5b5e9ef63dc6",
         pooled_with_new_canary: false,
       },
       unchanged_dimensions: [
@@ -159,7 +161,7 @@ export async function buildCandidateManifest() {
       ],
     },
     accessibility_contract: {
-      version: "ope-13-observable-accessibility-v1",
+      version: "ope-14-feedback-ownership-v1",
       routes: [...routes],
       strength: "symmetric",
       source_style_oracle: false,
@@ -378,7 +380,9 @@ function applicabilityRows(scenarios) {
     row("accessible-name", "accessibility-shared", allRoutes()),
     row("keyboard-operation", "accessibility-shared", allRoutes()),
     row("focus-visible", "accessibility-shared", allRoutes()),
-    row("feedback-announcement", "accessibility-shared", allRoutes()),
+    row("surface-feedback-applicability", "accessibility-shared", allRoutes()),
+    row("host-receipt-announcement", "accessibility-shared", allRoutes()),
+    row("host-receipt-ownership", "accessibility-shared", allRoutes()),
     { ...row("canonical-surface-fingerprint", "route-specific", only("openui", "typed-json")), cohorts: ["compile-known"] },
     row("inert-replay", "route-specific", only("openui", "typed-json")),
     row("dioxus-desktop", "dioxus-specific", only("openui", "typed-json", "direct-rsx")),

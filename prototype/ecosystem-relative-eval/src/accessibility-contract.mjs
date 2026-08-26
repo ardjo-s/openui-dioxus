@@ -22,8 +22,9 @@ const voidElements = new Set(["area", "base", "br", "col", "embed", "hr", "img",
 export function accessibilityContractForSurface(surface) {
   const counts = new Map();
   for (const node of surface.nodes) counts.set(node.kind, (counts.get(node.kind) ?? 0) + 1);
+  const surfaceFeedbackRequired = (counts.get("Toast") ?? 0) > 0;
   return {
-    version: "ope-13-observable-accessibility-v1",
+    version: "ope-14-feedback-ownership-v1",
     routes: [...routes],
     equivalence: "same observable requirement strength; route-native markup may differ",
     components: [...counts.entries()].sort(([left], [right]) => left.localeCompare(right)).map(([kind, count]) => ({
@@ -32,7 +33,19 @@ export function accessibilityContractForSurface(surface) {
       ...semantics[kind],
     })),
     focus: { keyboard_reachable: true, visible_indicator: true },
-    feedback: { role: "status", live: "polite", visible_receipt: true },
+    surface_feedback: {
+      owner: "surface",
+      required: surfaceFeedbackRequired,
+      component: surfaceFeedbackRequired ? "Toast" : null,
+    },
+    host_receipt: {
+      owner: "host-harness",
+      generated_component: false,
+      role: "status",
+      live: "polite",
+      visible: true,
+      exactly_once: true,
+    },
     aria: { unknown_attributes: "reject", attributes_must_be_allowed_for_computed_role: true },
   };
 }
@@ -90,8 +103,11 @@ export function validateRenderedAccessibility(html, contract) {
   }
 
   const receipts = elements.filter((element) => attribute(element, "data-receipt") !== null);
-  if (receipts.length !== 1 || computedRole(receipts[0]) !== contract.feedback.role || attribute(receipts[0], "aria-live") !== contract.feedback.live) {
-    diagnostic(diagnostics, "feedback-announcement", null, null, "one visible receipt must use role=status and aria-live=polite");
+  if (receipts.length !== 1 || computedRole(receipts[0]) !== contract.host_receipt.role || attribute(receipts[0], "aria-live") !== contract.host_receipt.live) {
+    diagnostic(diagnostics, "host-receipt", null, null, "one visible host receipt must use role=status and aria-live=polite");
+  }
+  if (receipts.some((receipt) => attribute(receipt, "data-component") !== null)) {
+    diagnostic(diagnostics, "host-receipt-ownership", null, null, "host receipt must remain outside generated component coverage");
   }
   return { passed: diagnostics.length === 0, diagnostics };
 }

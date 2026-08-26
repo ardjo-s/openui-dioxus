@@ -1,5 +1,25 @@
 # Acceptance gates
 
+## OPE-14 host receipt and Surface feedback ownership
+
+Current state: implementation authorized. OPE-13 remains immutable and
+`CANARY_INVALID`. OPE-14 is a new preregistered evaluation with zero provider
+calls used. OPE-12 remains canceled unless OPE-14 produces `PASS`.
+
+- [x] OPE-13 evidence, manifest, records, hashes, and invalid result remain byte-identical and are never pooled with OPE-14.
+- [x] The public contract separates scenario-owned Surface feedback from harness-owned action receipts.
+- [x] A generated feedback component is required only when the frozen scenario requires it, and forbidden otherwise.
+- [x] The host receipt remains visible, exactly once, `role=status`, `aria-live=polite`, and outside `data-component` coverage.
+- [x] OpenUI, typed JSON, official json-render, and direct RSX receive the same ownership and applicability rules.
+- [x] Public-seam TDD fixtures reject invented Surface feedback, missing required Surface feedback, and missing or inaccessible host receipts.
+- [x] The OPE-14 manifest differentially proves that every non-ownership methodology field remains identical to OPE-13.
+- [x] Full tests, typecheck, Dioxus contract tests, generated-output Web/Desktop preflight, diff check, and two-pass review pass.
+- [ ] Source, prompts, validators, probes, preregistration, manifest, and hashes are committed before any provider call.
+- [ ] Exactly one Luna-low provider canary runs with no pooling or silent retry.
+- [ ] Independent recomputation, recursive hashes, credential scan, and finalization emit only `PASS` or `CANARY_INVALID`.
+- [ ] `PASS` reopens OPE-12 using only the byte-identical promoted manifest. `CANARY_INVALID` keeps OPE-12 canceled and stops.
+- [ ] Owned changes and evidence are committed locally; Linear is synchronized; no push, PR, merge, or public claim occurs.
+
 ## OPE-13 symmetric accessibility contract and canary rerun
 
 Current state: implementation authorized. OPE-11 remains immutable and

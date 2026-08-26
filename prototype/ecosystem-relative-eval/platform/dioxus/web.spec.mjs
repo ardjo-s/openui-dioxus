@@ -33,6 +33,7 @@ test("OpenUI and typed JSON execute through the same Dioxus Web runtime", async 
     await expect(status).toHaveAttribute("data-action-exactly-once", "true");
     await expect(status).toHaveAttribute("data-replay-effects", "0");
     await expect(status).toHaveAttribute("aria-live", "polite");
+    await expect(status).not.toHaveAttribute("data-component", /.+/);
     const accessibility = await new AxeBuilder({ page }).analyze();
     const blocking = accessibility.violations.filter((violation) => ["critical", "serious"].includes(violation.impact));
     expect(blocking, JSON.stringify(blocking, null, 2)).toEqual([]);
@@ -47,10 +48,11 @@ test("OpenUI and typed JSON execute through the same Dioxus Web runtime", async 
     binding_sha256: bindingSha256,
     passed: true,
     state_action_update_replay: true,
-    accessibility_contract_version: "ope-13-observable-accessibility-v1",
+    accessibility_contract_version: "ope-14-feedback-ownership-v1",
     keyboard_operable: true,
     focus_visible: true,
     feedback_announced: true,
+    host_receipt_outside_component_coverage: true,
     accessibility_blocking_findings: 0,
     screenshots: ["dioxus-web-1.png", "dioxus-web-2.png"],
   }, null, 2)}\n`);

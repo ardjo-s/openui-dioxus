@@ -21,7 +21,10 @@ export function routeUserPrompt(_route, scenario, cohort) {
   const accessibility = [
     "BYTE-IDENTICAL OBSERVABLE ACCESSIBILITY CONTRACT",
     JSON.stringify(accessibilityContractForSurface(scenario.expected)),
-    "Meet this contract through route-native semantics. Equivalent markup is allowed, but semantic roles, allowed ARIA, accessible names, keyboard operation, visible focus, and announced feedback are mandatory.",
+    "Meet this contract through route-native semantics. Equivalent markup is allowed, but semantic roles, allowed ARIA, accessible names, keyboard operation, and visible focus are mandatory.",
+    "HOST RECEIPT OWNERSHIP",
+    "The evaluation host owns the synthetic action receipt. It must not become a data-component or a catalog feedback component in the generated payload.",
+    "A Surface feedback component is required only when surface_feedback.required is true. When it is false, do not add Toast or any replacement feedback component.",
   ].join("\n\n");
   if (cohort === "compile-known") {
     return [

@@ -6,15 +6,15 @@ import test from "node:test";
 import { buildScenarios } from "../../openui-typed-json-product-eval/src/scenarios.mjs";
 import { buildCandidateManifest, hashManifest } from "../src/manifest.mjs";
 
-const priorEvidence = new URL("../evidence/candidate-canary-edafbb1-final/", import.meta.url);
+const priorEvidence = new URL("../evidence/ope13-canary-f7550a7-final/", import.meta.url);
 
-test("OPE-13 preserves the registered invalid OPE-11 evidence byte for byte", async () => {
-  assert.equal((await readFile(new URL("candidate-manifest.sha256", priorEvidence), "utf8")).trim(), "eac280627d3042ef777d01142408661659aede6c16ca50cb8bd28120a9c3dd2c");
-  assert.equal(await fileSha(new URL("SHA256SUMS", priorEvidence)), "cab4a27ee5c199f4462c47a29a2ed726f3b9c16247defc7d6e6452bb63d9e553");
-  assert.equal(await fileSha(new URL("INDEPENDENT_REVIEW.json", priorEvidence)), "33d1da72f69bf8e9cc8c41fc89e78170a8265a1a1f36ee09c7204f2ba28911be");
+test("OPE-14 preserves the registered invalid OPE-13 evidence byte for byte", async () => {
+  assert.equal((await readFile(new URL("candidate-manifest.sha256", priorEvidence), "utf8")).trim(), "1aff97c12c5c99810ca358ed1ba7770c55bdfc4585c15c62db21125a0175616d");
+  assert.equal(await fileSha(new URL("SHA256SUMS", priorEvidence)), "de2bf28ff4ceb36c2cc39479d811e37c300e4f43543c1384ffe7aaaeea062356");
+  assert.equal(await fileSha(new URL("INDEPENDENT_REVIEW.json", priorEvidence)), "e34a75b5221e347814ed64775ea1d118ab082d54b3219da7511d5b5e9ef63dc6");
 });
 
-test("OPE-13 changes only the preregistered accessibility methodology", async () => {
+test("OPE-14 changes only the preregistered feedback ownership methodology", async () => {
   const prior = JSON.parse(await readFile(new URL("candidate-manifest.json", priorEvidence), "utf8"));
   const current = await buildCandidateManifest();
   for (const key of [
@@ -42,14 +42,14 @@ test("OPE-13 changes only the preregistered accessibility methodology", async ()
   ]) assert.deepEqual(current.canary[key], prior.canary[key], `canary.${key}`);
 });
 
-test("candidate manifest freezes the decision-neutral OPE-11 canary", async () => {
+test("candidate manifest freezes the decision-neutral OPE-14 canary", async () => {
   const manifest = await buildCandidateManifest();
 
-  assert.equal(manifest.version, "ope-13-ecosystem-canary-v2");
-  assert.equal(manifest.preregistration.ticket, "OPE-13");
+  assert.equal(manifest.version, "ope-14-ecosystem-canary-v3");
+  assert.equal(manifest.preregistration.ticket, "OPE-14");
   assert.equal(manifest.preregistration.prior_candidate.outcome, "CANARY_INVALID");
-  assert.equal(manifest.preregistration.prior_candidate.source_commit, "edafbb1");
-  assert.equal(manifest.accessibility_contract.version, "ope-13-observable-accessibility-v1");
+  assert.equal(manifest.preregistration.prior_candidate.source_commit, "f7550a7");
+  assert.equal(manifest.accessibility_contract.version, "ope-14-feedback-ownership-v1");
   assert.deepEqual(manifest.accessibility_contract.routes, ["openui", "typed-json", "json-render", "direct-rsx"]);
   assert.equal(manifest.accessibility_contract.scenarios.length, 20);
   assert.ok(manifest.accessibility_contract.scenarios.every((entry) => /^[a-f0-9]{64}$/.test(entry.sha256)));
@@ -59,6 +59,7 @@ test("candidate manifest freezes the decision-neutral OPE-11 canary", async () =
   assert.equal(manifest.canary.prompt_pack.length, 8);
   assert.ok(manifest.canary.prompt_pack.every((entry) => entry.instructions && entry.user_prompt));
   assert.ok(manifest.canary.prompt_pack.every((entry) => entry.user_prompt.includes("BYTE-IDENTICAL OBSERVABLE ACCESSIBILITY CONTRACT")));
+  assert.ok(manifest.canary.prompt_pack.every((entry) => entry.user_prompt.includes("HOST RECEIPT OWNERSHIP")));
   assert.ok(manifest.canary.prompt_pack.every((entry) => /^[a-f0-9]{64}$/.test(entry.instructions_sha256)));
   const compileFilter = manifest.canary.prompt_pack.filter((entry) => entry.scenario_id === "compile-03-filter-action-v1");
   const compileStatus = manifest.canary.prompt_pack.filter((entry) => entry.scenario_id === "compile-04-status-dialog-v1");
@@ -129,10 +130,12 @@ test("pairwise applicability excludes route-specific requirements", async () => 
   assert.deepEqual(accessibilityRows.map((row) => row.id).sort(), [
     "accessible-name",
     "allowed-aria",
-    "feedback-announcement",
     "focus-visible",
+    "host-receipt-announcement",
+    "host-receipt-ownership",
     "keyboard-operation",
     "semantic-role",
+    "surface-feedback-applicability",
   ]);
   assert.ok(accessibilityRows.every((row) => Object.values(row.routes).every(Boolean)));
   for (const row of rows) {

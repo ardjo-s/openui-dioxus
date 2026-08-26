@@ -55,7 +55,7 @@ const components = {
   Tabs: withProps(({ props, children }: ComponentContext) => <div id={props.id} role="tablist" data-component="Tabs" data-state-key={props.state_key}>{children}</div>),
   Dialog: withProps(({ props, children }: ComponentContext) => <section id={props.id} role="dialog" aria-label={props.title} data-component="Dialog" data-state-key={props.open_state_key}><h2>{props.title}</h2>{children}</section>),
   Progress: withProps(({ props }: ComponentContext) => <progress id={props.id} aria-label={props.label} data-component="Progress" value={props.value} max={props.max} />),
-  Toast: withProps(({ props }: ComponentContext) => <div id={props.id} role="status" data-component="Toast" data-tone={props.tone}><strong>{props.title}</strong>{props.message}</div>),
+  Toast: withProps(({ props }: ComponentContext) => <div id={props.id} role="status" aria-live="polite" data-component="Toast" data-tone={props.tone}><strong>{props.title}</strong>{props.message}</div>),
 } as any;
 
 const OfficialRenderer = createRenderer(jsonRenderCatalog as any, components);

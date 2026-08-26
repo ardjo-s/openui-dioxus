@@ -22,7 +22,7 @@ export function directRsxPrompt() {
     "Use standard Dioxus HTML elements. Every component becomes a stable HTML subtree with id and data-component. The root contains data-route set to direct-rsx.",
     "Implement the supplied observable accessibility contract with route-native HTML semantics. Do not emit an ARIA attribute unless it is allowed for the element's computed role.",
     "Use one Dioxus use_signal for every supplied state key. Bind every interactive control to its matching signal and update that signal from the normal Dioxus event.",
-    "Represent each Button action with data-action and data-target-id. Its click callback must increment a local synthetic action_count exactly once and set a visible synthetic receipt to receipt:<action>:<target_id>. Expose one role=status node with data-action-count and data-receipt. This probe has no external host authority.",
+    "Represent each Button action with data-action and data-target-id. Its click callback must increment a local synthetic action_count exactly once and set a visible synthetic receipt to receipt:<action>:<target_id>. Expose one role=status node with data-action-count and data-receipt. This is harness instrumentation: it must not have data-component and must not be represented as catalog Surface feedback. This probe has no external host authority.",
     "Preserve every value and behavior declared below. Return Rust only, with no code fence or explanation.",
   ].join("\n\n");
 }

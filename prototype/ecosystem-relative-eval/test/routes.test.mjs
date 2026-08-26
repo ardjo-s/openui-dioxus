@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { buildScenarios } from "../../openui-typed-json-product-eval/src/scenarios.mjs";
-import { validateRoute } from "../src/routes.mjs";
+import { routeUserPrompt, validateRoute } from "../src/routes.mjs";
 
 test("runtime-uncertain routes accept equivalent choices outside the supplied contract", async () => {
   const scenarios = await buildScenarios();
@@ -56,4 +56,29 @@ test("all structured route validators enforce the shared accessibility contract"
   const typed = await validateRoute("typed-json", JSON.stringify(invalid.expected), invalid, { cohort: "compile-known" });
   assert.equal(typed.ok, false);
   assert.ok(typed.diagnostics.some((diagnostic) => diagnostic.code === "accessibility-contract"));
+});
+
+test("all route prompts keep host receipts out of Surface component coverage", async () => {
+  const scenarios = await buildScenarios();
+  const preferences = scenarios.find((scenario) => scenario.id === "02-preferences-v1");
+  const prompts = ["openui", "typed-json", "json-render", "direct-rsx"]
+    .map((route) => routeUserPrompt(route, preferences, "runtime-uncertain"));
+
+  assert.ok(prompts.every((prompt) => prompt.includes("HOST RECEIPT OWNERSHIP")));
+  assert.ok(prompts.every((prompt) => prompt.includes("must not become a data-component")));
+  assert.ok(prompts.every((prompt) => prompt.includes('"required":false')));
+});
+
+test("Preferences accepts its frozen component set and rejects invented Surface feedback", async () => {
+  const scenarios = await buildScenarios();
+  const preferences = scenarios.find((scenario) => scenario.id === "02-preferences-v1");
+  const accepted = await validateRoute("typed-json", JSON.stringify(preferences.expected), preferences, { cohort: "runtime-uncertain" });
+  assert.equal(accepted.ok, true, JSON.stringify(accepted.diagnostics));
+
+  const invented = structuredClone(preferences.expected);
+  invented.nodes.push({ kind: "Toast", id: "invented_feedback", tone: "info", title: "Preferences", message: "Ready" });
+  invented.nodes.find((node) => node.id === invented.root).children.push("invented_feedback");
+  const rejected = await validateRoute("typed-json", JSON.stringify(invented), preferences, { cohort: "runtime-uncertain" });
+  assert.equal(rejected.ok, false);
+  assert.ok(rejected.diagnostics.some((diagnostic) => diagnostic.message === "component-kinds"));
 });
