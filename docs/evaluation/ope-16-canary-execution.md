@@ -74,3 +74,15 @@ a passing result and not permission to reinterpret or rerun OPE-16.
 
 OPE-12 remains canceled. OPE-7 emits no GO or NO-GO product verdict from this
 invalid canary.
+
+## Post-run non-scoring diagnosis
+
+After the immutable invalid evidence was committed, one local no-provider
+diagnostic appended only an inert comment containing the scanner's expected
+standalone receipt token. The rejected Rust source then compiled unchanged in
+behavior, rendered both the `data-receipt` attribute and visible receipt text,
+and passed the rendered accessibility validator.
+
+This confirms a false negative in the static source-shape precheck. It does not
+change the official OPE-16 outcome, does not promote the manifest, and does not
+authorize another provider run.
