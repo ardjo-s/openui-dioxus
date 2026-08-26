@@ -1,0 +1,23 @@
+{
+  "ok": false,
+  "diagnostics": [
+    {
+      "code": "semantic-role",
+      "component": "Select",
+      "id": "role_select",
+      "message": "expected combobox, received none"
+    },
+    {
+      "code": "accessible-name",
+      "component": "Select",
+      "id": "role_select",
+      "message": "component has no observable accessible name"
+    },
+    {
+      "code": "keyboard-reachable",
+      "component": "Select",
+      "id": "role_select",
+      "message": "custom interactive role must be in keyboard focus order"
+    }
+  ]
+}

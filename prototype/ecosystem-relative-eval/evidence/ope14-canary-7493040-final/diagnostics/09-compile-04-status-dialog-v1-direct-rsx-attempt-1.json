@@ -1,0 +1,9 @@
+{
+  "ok": false,
+  "diagnostics": [
+    {
+      "code": "source-contract",
+      "message": "missing executable state or action receipt probe"
+    }
+  ]
+}

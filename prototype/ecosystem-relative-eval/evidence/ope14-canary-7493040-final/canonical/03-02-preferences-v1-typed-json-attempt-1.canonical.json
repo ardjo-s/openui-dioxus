@@ -1,0 +1,57 @@
+{
+  "fingerprint": "8a8b629fc6014cbd61c2f92d2ca8a9ee1faa0269f508508ab159b893db0389c7",
+  "surface": {
+    "catalog_id": "openui-dioxus-components-eval",
+    "catalog_release_hash": "2bf7df132bc99576fb431e2fb8cd40cf35731e3fd2ee29e2d6d7f6bed45a5ae7",
+    "root": "preferences-toolbar",
+    "nodes": {
+      "apply-preferences-button": {
+        "id": "apply-preferences-button",
+        "kind": "Button",
+        "props": {
+          "action": "ApplyFilter",
+          "id": "apply-preferences-button",
+          "label": "Apply preferences",
+          "target_id": "preferences"
+        }
+      },
+      "notifications-switch": {
+        "id": "notifications-switch",
+        "kind": "Switch",
+        "props": {
+          "checked": true,
+          "id": "notifications-switch",
+          "label": "Enable notifications · variant 1",
+          "state_key": "notifications_enabled"
+        }
+      },
+      "preferences-toolbar": {
+        "id": "preferences-toolbar",
+        "kind": "Toolbar",
+        "props": {
+          "children": [
+            "notifications-switch",
+            "terms-checkbox",
+            "apply-preferences-button"
+          ],
+          "id": "preferences-toolbar",
+          "orientation": "vertical"
+        }
+      },
+      "terms-checkbox": {
+        "id": "terms-checkbox",
+        "kind": "Checkbox",
+        "props": {
+          "checked": false,
+          "id": "terms-checkbox",
+          "label": "Accept terms · variant 1",
+          "state_key": "terms_accepted"
+        }
+      }
+    },
+    "state": {
+      "notifications_enabled": true,
+      "terms_accepted": false
+    }
+  }
+}

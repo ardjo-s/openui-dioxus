@@ -1,0 +1,7 @@
+{"op":"add","path":"/root","value":"preferences"}
+{"op":"add","path":"/elements/notifications-switch","value":{"type":"Switch","props":{"id":"notifications-switch","label":"Enable notifications · variant 1","state_key":"notifications_enabled","checked":{"$bindState":"/notifications_enabled"}},"children":[]}}
+{"op":"add","path":"/state/notifications_enabled","value":true}
+{"op":"add","path":"/elements/terms-checkbox","value":{"type":"Checkbox","props":{"id":"terms-checkbox","label":"Accept terms · variant 1","state_key":"terms_accepted","checked":{"$bindState":"/terms_accepted"}},"children":[]}}
+{"op":"add","path":"/state/terms_accepted","value":false}
+{"op":"add","path":"/elements/apply-button","value":{"type":"Button","props":{"id":"apply-button","label":"Apply preferences"},"on":{"press":{"action":"ApplyFilter","params":{"target_id":"preferences"}}},"children":[]}}
+{"op":"add","path":"/elements/preferences","value":{"type":"Toolbar","props":{"id":"preferences","orientation":"vertical"},"children":["notifications-switch","terms-checkbox","apply-button"]}}

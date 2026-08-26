@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a03f53-25fb-7682-9c79-dd5aa6183aa3"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"root = Toolbar(\"profile-toolbar\", \"horizontal\", [avatar, profile_label, profile_input, submit_button])\navatar = Avatar(\"profile-avatar\", \"Ada Lovelace · variant 1\", \"AL\")\nprofile_label = Label(\"profile-label\", \"profile-name\", \"Profile name · variant 1\")\nprofile_input = Input(\"profile-name\", \"Profile name · variant 1\", \"profile_name\", \"Ada-1\", \"Enter a name · variant 1\")\nsubmit_button = Button(\"profile-submit\", \"Save profile · variant 1\", \"SubmitProfile\", \"profile\")"}}
+{"type":"turn.completed","usage":{"input_tokens":11163,"cached_input_tokens":0,"cache_write_input_tokens":0,"output_tokens":208,"reasoning_output_tokens":83}}
