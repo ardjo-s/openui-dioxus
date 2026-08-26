@@ -12,7 +12,7 @@ byte-identical OPE-17 candidate. OPE-12 is eligible to reopen.
 - [x] Exactly one Luna-low canary runs with no pooling, silent rerun, or product verdict.
 - [x] Raw outputs, repairs, diagnostics, tokens, traces, screenshots, checksums, credential scan, and independent review are archived.
 - [x] `PASS` reopens OPE-12 with the byte-identical manifest; `CANARY_INVALID` keeps OPE-12 canceled.
-- [ ] Owned evidence is committed locally and Linear is synchronized.
+- [x] Owned evidence is committed locally and Linear is synchronized.
 
 Verification evidence:
 
