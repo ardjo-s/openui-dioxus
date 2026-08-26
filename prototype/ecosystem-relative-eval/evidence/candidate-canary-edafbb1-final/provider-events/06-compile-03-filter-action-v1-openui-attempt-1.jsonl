@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a03aed-7c4a-7821-90ce-31f5ff6b5868"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"root = Toolbar(\"filter_toolbar\", \"horizontal\", [role_select, filter_button])\nrole_select = Select(\"role_select\", \"Role · variant 1\", \"role_filter\", [\"All\", \"Admin\", \"Member\"], \"All\")\nfilter_button = Button(\"filter_button\", \"Apply · variant 1\", \"ApplyFilter\", \"people\")"}}
+{"type":"turn.completed","usage":{"input_tokens":10898,"cached_input_tokens":9984,"cache_write_input_tokens":0,"output_tokens":105,"reasoning_output_tokens":29}}

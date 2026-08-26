@@ -1,0 +1,37 @@
+{
+  "name": "openui-dioxus-ecosystem-relative-eval",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "bootstrap": "scripts/bootstrap-tools.sh",
+    "test": "node --test test/*.test.mjs",
+    "typecheck": "tsc --noEmit",
+    "preflight": "node src/run-canary.mjs --provider fake --platform-proof generated",
+    "canary": "scripts/run-canary.sh",
+    "platform:generate": "node platform/generate-fixtures.mjs",
+    "platform:react:build": "node platform/react/build.mjs",
+    "platform:react:test": "playwright test --config platform/react/playwright.config.mjs",
+    "platform:dioxus:web": "playwright test --config platform/dioxus/playwright.config.mjs",
+    "platform:dioxus:desktop": "platform/dioxus/run-desktop.sh",
+    "platform:direct-rsx:web": "playwright test --config platform/direct-rsx/playwright.config.mjs"
+  },
+  "dependencies": {
+    "@json-render/core": "0.19.0",
+    "@json-render/react": "0.19.0",
+    "@openuidev/lang-core": "0.2.15",
+    "ajv": "8.20.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "tiktoken": "1.0.22",
+    "zod": "4.3.6"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "@playwright/test": "1.62.1",
+    "@types/react": "19.2.3",
+    "@types/react-dom": "19.2.3",
+    "esbuild": "0.28.2",
+    "typescript": "5.9.3"
+  }
+}

@@ -2,3 +2,6 @@
 **/.DS_Store
 target/
 **/target/
+**/node_modules/
+**/.tmp/
+**/dist/

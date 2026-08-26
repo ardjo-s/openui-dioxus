@@ -1,5 +1,27 @@
 # Acceptance gates
 
+## OPE-11 ecosystem-relative harness and canary
+
+Current result: `CANARY_INVALID`. The final Luna low candidate accepted all
+eight generation cells on the first attempt, but Direct RSX Web produced one
+critical `aria-allowed-attr` accessibility finding. React Web, Dioxus Web, and
+Dioxus Desktop passed. The independent recomputation correctly refused a
+complete publication marker, so OPE-12 remains blocked. See
+[`docs/evaluation/ope-11-canary-result.md`](docs/evaluation/ope-11-canary-result.md).
+
+- [ ] OPE-3 protocol evidence is imported as immutable context without rerunning A2UI.
+- [ ] The frozen manifest defines 20 runtime-uncertain scenarios across five workflow families plus five compile-known representatives.
+- [ ] OpenUI and typed JSON use the shared canonical runtime seam, json-render uses its official React and TypeScript seam, and direct RSX remains ordinary compiled Dioxus code.
+- [ ] A requirement-applicability table excludes route-specific requirements from pairwise ranking.
+- [ ] Provider settings, fresh sessions, balanced order, one-repair ceiling, prompts, catalogs, scenarios, rates, reviewers, thresholds, trust controls, scorer, and evidence schema are frozen and hashed before live calls.
+- [ ] Synthetic fixtures, sensitive-data scanning, bounded resources, allowlisted catalogs and actions, and deny-by-default host effects protect every route.
+- [ ] Fake-provider fixtures prove ordering, route-specific validation or compilation, rejected-attempt accounting, scorer vetoes, and the absence of final product scoring in canary code.
+- [ ] The canary runs two runtime-uncertain and two compile-known workflows with at most 16 provider calls, representative Web and Desktop behavior, deterministic catalog and migration fixtures, and at most 30 minutes wall time.
+- [ ] The canary emits exactly `PASS` or `CANARY_INVALID`; only a byte-identical passing manifest can be promoted.
+- [ ] Complete records, LOC and file counts, cost, recursive hashes, credential scan, and an independent review are published.
+- [ ] Narrow tests, formatting, checksum verification, and `git diff --check` pass with runnable evidence.
+- [ ] Owned changes are committed and pushed on `codex/ope-11-ecosystem-canary`; one Draft PR targets `codex/ope-10-rust-ui-catalog`; nothing is merged.
+
 ## OPE-10 measured Rust/UI catalog onboarding
 
 - [x] Rust/UI is pinned to `7fd792520ba5e3ad5354c26ac4e6816c2d156b7c`, with exact source and dependency identities recorded.
