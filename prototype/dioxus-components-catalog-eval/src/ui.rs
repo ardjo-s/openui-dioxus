@@ -119,6 +119,7 @@ fn render_toolbar(surface: &SurfaceRevision, node: &CanonicalNode) -> Element {
             id,
             horizontal,
             aria_label: "Generated interface",
+            aria_orientation: if horizontal { "horizontal" } else { "vertical" },
             "data-component": "Toolbar",
             for child in children {
                 {render_node(surface, &child)}

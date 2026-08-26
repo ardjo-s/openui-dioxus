@@ -70,6 +70,7 @@ function App() {
     <main
       id="react-eval-root"
       data-route="json-render"
+      data-scenario-id={fixture.scenario_id}
       data-official-seam="official-react-web"
       data-manifest-hash={fixture.provenance.manifest_hash}
       data-binding-sha256={fixture.provenance.binding_sha256}

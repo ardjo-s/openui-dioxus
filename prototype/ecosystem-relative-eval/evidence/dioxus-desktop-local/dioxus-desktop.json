@@ -9,10 +9,10 @@
   "marker": "OPE11_DIOXUS_SELF_TEST_PASS surfaces=2",
   "manifest_hash": "frozen-reference-fixtures-v1",
   "binding_sha256": "910c7dde468358e904057febc521243467fc69f5fb128b52bf73f082edaf22c7",
-  "accessibility_contract_version": "ope-14-feedback-ownership-v1",
+  "accessibility_contract_version": "ope-15-route-neutral-patterns-v1",
   "screenshot": {
     "file": "dioxus-desktop.png",
-    "width": 868,
-    "height": 700
+    "width": 912,
+    "height": 744
   }
 }

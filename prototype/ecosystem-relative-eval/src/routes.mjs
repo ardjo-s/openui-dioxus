@@ -21,7 +21,8 @@ export function routeUserPrompt(_route, scenario, cohort) {
   const accessibility = [
     "BYTE-IDENTICAL OBSERVABLE ACCESSIBILITY CONTRACT",
     JSON.stringify(accessibilityContractForSurface(scenario.expected)),
-    "Meet this contract through route-native semantics. Equivalent markup is allowed, but semantic roles, allowed ARIA, accessible names, keyboard operation, and visible focus are mandatory.",
+    "ROUTE-NEUTRAL ACCESSIBLE COMPONENT PATTERNS",
+    "Meet this contract through route-native semantics. Each data-component must own exactly one approved pattern. The pattern witness may be the marked root or one of its unmarked descendants. Nested data-component roots and host receipts cannot satisfy their parent component. Equivalent markup is allowed, but allowed ARIA, accessible names, keyboard operation, and visible focus are mandatory.",
     "HOST RECEIPT OWNERSHIP",
     "The evaluation host owns the synthetic action receipt. It must not become a data-component or a catalog feedback component in the generated payload.",
     "A Surface feedback component is required only when surface_feedback.required is true. When it is false, do not add Toast or any replacement feedback component.",

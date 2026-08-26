@@ -10,6 +10,7 @@ test("accessibility evidence cannot claim success without keyboard, focus, and a
     focus_visible: false,
     feedback_announced: false,
     host_receipt_outside_component_coverage: false,
+    semantic_patterns_verified: false,
   });
 
   assert.equal(result.passed, false);
@@ -19,6 +20,7 @@ test("accessibility evidence cannot claim success without keyboard, focus, and a
     "visible focus proof missing",
     "feedback announcement proof missing",
     "host receipt ownership proof missing",
+    "route-neutral semantic-pattern proof missing",
   ]);
 });
 
@@ -31,13 +33,14 @@ test("accepted platform evidence proves the Dioxus and official React routes", a
   assert.equal(result.proofs.dioxus_web.state_action_update_replay, true);
   assert.equal(result.proofs.react_web.official_runtime, "@json-render/react@0.19.0");
   for (const route of [result.proofs.react_web, result.proofs.dioxus_web]) {
-    assert.equal(route.accessibility_contract_version, "ope-14-feedback-ownership-v1");
+    assert.equal(route.accessibility_contract_version, "ope-15-route-neutral-patterns-v1");
     assert.equal(route.keyboard_operable, true);
     assert.equal(route.focus_visible, true);
     assert.equal(route.feedback_announced, true);
     assert.equal(route.host_receipt_outside_component_coverage, true);
+    assert.equal(route.semantic_patterns_verified, true);
   }
-  assert.equal(result.proofs.dioxus_desktop.accessibility_contract_version, "ope-14-feedback-ownership-v1");
+  assert.equal(result.proofs.dioxus_desktop.accessibility_contract_version, "ope-15-route-neutral-patterns-v1");
   assert.ok(result.artifact_count >= 9);
   assert.match(result.recursive_sha256, /^[a-f0-9]{64}$/);
 });

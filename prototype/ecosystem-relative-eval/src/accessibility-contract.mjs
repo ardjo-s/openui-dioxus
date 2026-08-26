@@ -1,18 +1,54 @@
 const routes = ["openui", "typed-json", "json-render", "direct-rsx"];
 
 const semantics = {
-  Toolbar: { role: "toolbar", name: true, keyboard: "contained-controls", orientation: true },
-  Avatar: { role: "img", name: true, keyboard: "not-focusable" },
-  Label: { role: "label", name: true, keyboard: "not-focusable" },
-  Input: { role: "textbox", name: true, keyboard: "native-control" },
-  Select: { role: "combobox", name: true, keyboard: "native-control" },
-  Checkbox: { role: "checkbox", name: true, keyboard: "native-control" },
-  Switch: { role: "switch", name: true, keyboard: "space-or-enter" },
-  Button: { role: "button", name: true, keyboard: "space-or-enter" },
-  Tabs: { role: "tablist", name: true, keyboard: "tab-and-arrow-keys" },
-  Dialog: { role: "dialog", name: true, keyboard: "focus-contained-while-open" },
-  Progress: { role: "progressbar", name: true, keyboard: "not-focusable" },
-  Toast: { role: "status", name: true, keyboard: "not-focusable", live: "polite" },
+  Toolbar: { role: "toolbar", name: true, keyboard: "contained-controls", orientation: true, patterns: [{ id: "toolbar", role: "toolbar" }] },
+  Avatar: { role: "img", name: true, keyboard: "not-focusable", patterns: [{ id: "image", role: "img" }] },
+  Label: { role: "label", name: true, keyboard: "not-focusable", association: "declared-control", patterns: [{ id: "label", role: "label" }] },
+  Input: { role: "textbox", name: true, keyboard: "native-control", patterns: [{ id: "textbox", role: "textbox" }] },
+  Select: {
+    role: "combobox",
+    name: true,
+    keyboard: "native-control",
+    patterns: [
+      { id: "native-combobox", role: "combobox" },
+      {
+        id: "popup-listbox",
+        role: "button",
+        attributes: {
+          "aria-haspopup": "listbox",
+          "aria-expanded": "boolean",
+        },
+        expanded_controls_role: "listbox",
+      },
+    ],
+  },
+  Checkbox: { role: "checkbox", name: true, keyboard: "native-control", patterns: [{ id: "checkbox", role: "checkbox" }] },
+  Switch: { role: "switch", name: true, keyboard: "space-or-enter", patterns: [{ id: "switch", role: "switch", attributes: { "aria-checked": "boolean" } }] },
+  Button: { role: "button", name: true, keyboard: "space-or-enter", patterns: [{ id: "button", role: "button" }] },
+  Tabs: {
+    role: "tablist",
+    name: true,
+    keyboard: "tab-and-arrow-keys",
+    patterns: [{
+      id: "tabset",
+      role: "tablist",
+      owned_requirements: [
+        { role: "tab", minimum: 1, named: true, keyboard: true },
+        { role: "tabpanel", minimum: 1 },
+      ],
+    }],
+  },
+  Dialog: { role: "dialog", name: true, keyboard: "focus-contained-while-open", patterns: [{ id: "dialog", role: "dialog" }] },
+  Progress: { role: "progressbar", name: true, keyboard: "not-focusable", patterns: [{ id: "progressbar", role: "progressbar" }] },
+  Toast: {
+    role: "status",
+    name: true,
+    keyboard: "not-focusable",
+    patterns: [
+      { id: "polite-status", role: "status", announcement: "implicit-polite" },
+      { id: "interactive-alert", role: "alertdialog", keyboard: true, announcement: "owned-alert", owned_requirements: [{ role: "alert", minimum: 1 }] },
+    ],
+  },
 };
 
 const interactiveRoles = new Set(["button", "checkbox", "combobox", "switch", "tab", "textbox"]);
@@ -20,17 +56,22 @@ const orientationRoles = new Set(["scrollbar", "select", "separator", "slider", 
 const voidElements = new Set(["area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"]);
 
 export function accessibilityContractForSurface(surface) {
-  const counts = new Map();
-  for (const node of surface.nodes) counts.set(node.kind, (counts.get(node.kind) ?? 0) + 1);
-  const surfaceFeedbackRequired = (counts.get("Toast") ?? 0) > 0;
+  const nodesByKind = new Map();
+  for (const node of surface.nodes) nodesByKind.set(node.kind, [...(nodesByKind.get(node.kind) ?? []), node]);
+  const surfaceFeedbackRequired = (nodesByKind.get("Toast")?.length ?? 0) > 0;
   return {
-    version: "ope-14-feedback-ownership-v1",
+    version: "ope-15-route-neutral-patterns-v1",
     routes: [...routes],
     equivalence: "same observable requirement strength; route-native markup may differ",
-    components: [...counts.entries()].sort(([left], [right]) => left.localeCompare(right)).map(([kind, count]) => ({
+    components: [...nodesByKind.entries()].sort(([left], [right]) => left.localeCompare(right)).map(([kind, nodes]) => ({
       kind,
-      count,
+      count: nodes.length,
       ...semantics[kind],
+      ...(kind === "Toolbar"
+        ? { instances: nodes.map((node) => ({ id: node.id, orientation: node.orientation ?? node.props?.orientation })) }
+        : kind === "Label"
+          ? { instances: nodes.map((node) => ({ id: node.id, for_id: node.for_id ?? node.props?.for_id })) }
+          : {}),
     })),
     focus: { keyboard_reachable: true, visible_indicator: true },
     surface_feedback: {
@@ -99,7 +140,13 @@ export function validateRenderedAccessibility(html, contract) {
       diagnostic(diagnostics, "component-count", requirement.kind, null, `expected ${requirement.count}, received ${matches.length}`);
       continue;
     }
-    for (const element of matches) validateRenderedComponent(element, requirement, root, byId, diagnostics);
+    for (const element of matches) {
+      const instance = requirement.instances?.find(({ id }) => id === attribute(element, "id"));
+      if (requirement.instances && !instance) {
+        diagnostic(diagnostics, "component-instance", requirement.kind, attribute(element, "id"), "component id is outside the frozen accessibility contract");
+      }
+      validateRenderedComponent(element, requirement, instance, root, byId, diagnostics);
+    }
   }
 
   const receipts = elements.filter((element) => attribute(element, "data-receipt") !== null);
@@ -145,26 +192,84 @@ function validateStructuredNode(node, byId, diagnostics) {
   }
 }
 
-function validateRenderedComponent(element, requirement, root, byId, diagnostics) {
-  const role = computedRole(element);
-  if (role !== requirement.role) {
-    diagnostic(diagnostics, "semantic-role", requirement.kind, attribute(element, "id"), `expected ${requirement.role}, received ${role || "none"}`);
+function validateRenderedComponent(element, requirement, instance, root, byId, diagnostics) {
+  const owned = ownedSemanticElements(element);
+  const patterns = requirement.patterns ?? [{ id: requirement.role, role: requirement.role }];
+  const matches = patterns.flatMap((pattern) => owned
+    .filter((candidate) => matchesPattern(candidate, pattern, owned, root, byId))
+    .map((witness) => ({ pattern, witness })));
+  const witness = matches[0]?.witness ?? element;
+  if (matches.length === 0) {
+    diagnostic(diagnostics, "semantic-role", requirement.kind, attribute(element, "id"), `expected an owned ${patterns.map((pattern) => pattern.id).join(" or ")} pattern, received ${computedRole(element) || "none"}`);
   }
-  if (requirement.name && !accessibleName(element, root, byId)) {
+  if (matches.length > 1) {
+    diagnostic(diagnostics, "semantic-pattern-ambiguous", requirement.kind, attribute(element, "id"), `expected one owned semantic pattern, received ${matches.length}`);
+  }
+  if (requirement.name && !accessibleName(witness, root, byId)) {
     diagnostic(diagnostics, "accessible-name", requirement.kind, attribute(element, "id"), "component has no observable accessible name");
   }
+  if (requirement.association === "declared-control" && !labelAssociated(witness, instance, byId)) {
+    diagnostic(diagnostics, "label-association", requirement.kind, attribute(element, "id"), "label must reference or contain its declared control");
+  }
   if (requirement.orientation) {
-    const orientation = attribute(element, "aria-orientation");
-    if (!["horizontal", "vertical"].includes(orientation)) {
-      diagnostic(diagnostics, "aria-orientation", requirement.kind, attribute(element, "id"), "toolbar must expose horizontal or vertical aria-orientation");
+    const orientation = attribute(witness, "aria-orientation");
+    const expected = instance?.orientation;
+    const valid = expected === "horizontal"
+      ? orientation === null || orientation === "horizontal"
+      : expected === "vertical"
+        ? orientation === "vertical"
+        : ["horizontal", "vertical"].includes(orientation);
+    if (!valid) {
+      diagnostic(diagnostics, "aria-orientation", requirement.kind, attribute(element, "id"), `toolbar must expose its ${expected ?? "declared"} orientation; horizontal may use the ARIA default`);
     }
   }
-  if (interactiveRoles.has(requirement.role) && !nativeInteractive(element) && attribute(element, "tabindex") !== "0") {
+  if (interactiveRoles.has(requirement.role) && !nativeInteractive(witness) && attribute(witness, "tabindex") !== "0") {
     diagnostic(diagnostics, "keyboard-reachable", requirement.kind, attribute(element, "id"), "custom interactive role must be in keyboard focus order");
   }
-  if (requirement.live && attribute(element, "aria-live") !== requirement.live) {
-    diagnostic(diagnostics, "feedback-announcement", requirement.kind, attribute(element, "id"), `expected aria-live=${requirement.live}`);
+}
+
+function matchesPattern(element, pattern, owned, root, byId) {
+  if (computedRole(element) !== pattern.role) return false;
+  if (pattern.keyboard && !keyboardReachable(element)) return false;
+  for (const [name, expected] of Object.entries(pattern.attributes ?? {})) {
+    const value = attribute(element, name);
+    if (expected === "nonempty" && !nonempty(value)) return false;
+    if (expected === "boolean" && !["true", "false"].includes(value)) return false;
+    if (!["nonempty", "boolean"].includes(expected) && value !== expected) return false;
   }
+  if (pattern.expanded_controls_role && attribute(element, "aria-expanded") === "true") {
+    const controlled = byId.get(attribute(element, "aria-controls"));
+    if (!controlled || !owned.includes(controlled) || computedRole(controlled) !== pattern.expanded_controls_role) return false;
+  }
+  for (const required of pattern.owned_requirements ?? []) {
+    const candidates = owned.filter((candidate) => computedRole(candidate) === required.role);
+    if (candidates.length < required.minimum) return false;
+    if (required.named && candidates.slice(0, required.minimum).some((candidate) => !accessibleName(candidate, root, byId))) return false;
+    if (required.keyboard && !candidates.some(keyboardReachable)) return false;
+  }
+  return true;
+}
+
+function labelAssociated(label, instance, byId) {
+  const targetId = instance?.for_id;
+  const target = byId.get(targetId);
+  if (!target) return false;
+  if (attribute(label, "for") === targetId) return true;
+  if (descendants(label).includes(target)) return true;
+  return (attribute(target, "aria-labelledby") ?? "").split(/\s+/).includes(attribute(label, "id"));
+}
+
+function keyboardReachable(element) {
+  return nativeInteractive(element) || attribute(element, "tabindex") === "0";
+}
+
+function ownedSemanticElements(root) {
+  const owned = [root];
+  for (const child of root.children) {
+    if (attribute(child, "data-component") !== null || attribute(child, "data-receipt") !== null) continue;
+    owned.push(...ownedSemanticElements(child));
+  }
+  return owned;
 }
 
 function computedRole(element) {
@@ -207,7 +312,7 @@ function accessibleName(element, root, byId) {
     if (parent.tag === "label" && nonempty(textContent(parent))) return textContent(parent).trim();
     parent = parent.parent;
   }
-  if (["button", "label", "dialog", "status", "tablist", "toolbar"].includes(computedRole(element))) {
+  if (["button", "label", "dialog", "status", "switch", "tab", "tablist", "toolbar"].includes(computedRole(element))) {
     const text = textContent(element).trim();
     if (text) return text;
   }

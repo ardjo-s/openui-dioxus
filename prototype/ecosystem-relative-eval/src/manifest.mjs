@@ -76,6 +76,7 @@ export async function buildCandidateManifest() {
     return { scenario_id: scenario.id, sha256: sha(stableJson(contract)), contract };
   });
   const inputHashes = await hashInputs({
+    ope15_preregistration: "docs/evaluation/ope-15-accessible-patterns-preregistration.md",
     ope14_preregistration: "docs/evaluation/ope-14-feedback-ownership-preregistration.md",
     ope13_preregistration: "docs/evaluation/ope-13-accessibility-preregistration.md",
     ope9_spec: "docs/evaluation/ecosystem-relative-product-value-spec.md",
@@ -130,20 +131,21 @@ export async function buildCandidateManifest() {
   };
 
   return {
-    version: "ope-14-ecosystem-canary-v3",
+    version: "ope-16-semantic-pattern-canary-v4",
     purpose: "non-decision operational canary",
     product_outcome_forbidden: true,
     preregistration: {
-      ticket: "OPE-14",
-      permitted_change: "host receipt and Surface feedback ownership applicability, plus derived hashes only",
+      ticket: "OPE-16",
+      prepared_by: "OPE-15",
+      permitted_change: "route-neutral accessible-component patterns, one shared Toolbar aria-orientation adapter correction, probes, preregistration, and derived hashes only",
       prior_candidate: {
         outcome: "CANARY_INVALID",
-        source_commit: "f7550a7",
-        evidence_commit: "8565be6",
-        evidence_path: "prototype/ecosystem-relative-eval/evidence/ope13-canary-f7550a7-final",
-        manifest_sha256: "1aff97c12c5c99810ca358ed1ba7770c55bdfc4585c15c62db21125a0175616d",
-        checksum_manifest_sha256: "de2bf28ff4ceb36c2cc39479d811e37c300e4f43543c1384ffe7aaaeea062356",
-        independent_review_sha256: "e34a75b5221e347814ed64775ea1d118ab082d54b3219da7511d5b5e9ef63dc6",
+        source_commit: "7493040",
+        evidence_commit: "59858eb",
+        evidence_path: "prototype/ecosystem-relative-eval/evidence/ope14-canary-7493040-final",
+        manifest_sha256: "9c04bfaaa25748aef86b97e40c4885ca387a4718b6759324d6c072616a065254",
+        checksum_manifest_sha256: "bfd0d927a5c795bfab46b5e68974a7056ef7d670012cff68bb3b0b04764dbbe8",
+        independent_review_sha256: "8704af6386db48f17941f251552ea72e7dc98a3f24264c4ab021a5b23da1428d",
         pooled_with_new_canary: false,
       },
       unchanged_dimensions: [
@@ -161,10 +163,16 @@ export async function buildCandidateManifest() {
       ],
     },
     accessibility_contract: {
-      version: "ope-14-feedback-ownership-v1",
+      version: "ope-15-route-neutral-patterns-v1",
       routes: [...routes],
       strength: "symmetric",
       source_style_oracle: false,
+      ownership: {
+        marked_root_and_unmarked_descendants: true,
+        nested_component_roots_excluded: true,
+        host_receipts_excluded: true,
+        exactly_one_pattern_required: true,
+      },
       scenarios: accessibilityContracts,
     },
     source_pins: {
@@ -375,7 +383,7 @@ function applicabilityRows(scenarios) {
     row("state-transition", "shared", allRoutes()),
     row("registered-action", "shared", allRoutes()),
     row("visible-feedback", "shared", allRoutes()),
-    row("semantic-role", "accessibility-shared", allRoutes()),
+    row("accessible-component-pattern", "accessibility-shared", allRoutes()),
     row("allowed-aria", "accessibility-shared", allRoutes()),
     row("accessible-name", "accessibility-shared", allRoutes()),
     row("keyboard-operation", "accessibility-shared", allRoutes()),

@@ -1,5 +1,23 @@
 # Acceptance gates
 
+## OPE-15 route-neutral accessible component patterns
+
+Current state: deterministic implementation verified. OPE-13 and OPE-14 remain
+immutable and `CANARY_INVALID`. OPE-15 is a no-provider methodology slice.
+OPE-16 and OPE-12 remain blocked until source, evidence, and Linear are synced.
+
+- [x] OPE-13 and OPE-14 evidence, manifests, records, checksums, and outcomes remain byte-identical and unpooled.
+- [x] The preregistration records the exact OPE-14 wrapper-versus-semantic-descendant asymmetry using pinned Dioxus source and rendered evidence.
+- [x] Each marked component owns only its root and descendants outside nested component roots; host receipts are never semantic witnesses.
+- [x] All 12 catalog components have frozen route-neutral observable patterns, including native and composite Select, Tabs, Dialog, and Toast.
+- [x] Public-seam TDD accepts valid root and descendant patterns and rejects missing, ambiguous, wrongly named, non-keyboard-operable, cross-component, or receipt witnesses.
+- [x] One rendered validator accepts the real frozen Dioxus Components, official json-render React, and direct-RSX reference outputs and rejects known-invalid variants.
+- [x] Structured OpenUI and typed JSON retain their exact catalog semantics before both cross the same Dioxus renderer.
+- [x] The OPE-15 candidate manifest changes only preregistered semantic-pattern methodology, the single shared Toolbar correction, probes, preregistration, and derived hashes relative to OPE-14.
+- [x] Deterministic generated-output Web and Desktop preflight passes across all four routes with zero external provider calls.
+- [x] Typecheck, full tests, Dioxus contract tests, diff check, standards review, and intent review pass.
+- [ ] Source and deterministic evidence are committed locally; Linear is synchronized; no provider, push, PR, merge, publication, promotion, or product verdict occurs.
+
 ## OPE-14 host receipt and Surface feedback ownership
 
 Current state: completed as `CANARY_INVALID`. OPE-13 remains immutable and

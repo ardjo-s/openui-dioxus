@@ -4,6 +4,9 @@ import path from "node:path";
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
+import { buildScenarios } from "../../../openui-typed-json-product-eval/src/scenarios.mjs";
+import { accessibilityContractForSurface, validateRenderedAccessibility } from "../../src/accessibility-contract.mjs";
+
 const evidence = path.resolve(process.env.OPE11_DIRECT_RSX_EVIDENCE_DIR ?? "evidence/direct-rsx-web-local");
 
 test("accepted direct RSX executes state, typed action receipt, and visible feedback", async ({ page }) => {
@@ -25,11 +28,13 @@ test("accepted direct RSX executes state, typed action receipt, and visible feed
   expect(manifestHash).toMatch(/^[a-f0-9]{64}$/);
   expect(bindingSha256).toMatch(/^[a-f0-9]{64}$/);
   const scenarios = [];
+  const contracts = await buildScenarios();
   let stateChanges = 0;
   for (let index = 0; index < 2; index += 1) {
     await expect(root).toHaveAttribute("data-current-index", String(index));
     const section = root.locator("section[data-scenario-id]");
-    scenarios.push(await section.getAttribute("data-scenario-id"));
+    const scenarioId = await section.getAttribute("data-scenario-id");
+    scenarios.push(scenarioId);
     const app = section.locator('[data-route="direct-rsx"]');
     const select = app.locator("select");
     if (await select.count()) {
@@ -51,6 +56,9 @@ test("accepted direct RSX executes state, typed action receipt, and visible feed
     await expect(receipt).toContainText("receipt:");
     await expect(receipt).toHaveAttribute("aria-live", "polite");
     await expect(receipt).not.toHaveAttribute("data-component", /.+/);
+    const scenario = contracts.find((candidate) => candidate.id === scenarioId);
+    const semanticPatterns = validateRenderedAccessibility(await page.content(), accessibilityContractForSurface(scenario.expected));
+    expect(semanticPatterns.passed, JSON.stringify(semanticPatterns.diagnostics, null, 2)).toBe(true);
     const accessibility = await new AxeBuilder({ page }).analyze();
     const blocking = accessibility.violations.filter((violation) => ["critical", "serious"].includes(violation.impact));
     expect(blocking, JSON.stringify(blocking, null, 2)).toEqual([]);
@@ -69,11 +77,12 @@ test("accepted direct RSX executes state, typed action receipt, and visible feed
     state_changed: true,
     action_receipts_exactly_once: true,
     visible_feedback: true,
-    accessibility_contract_version: "ope-14-feedback-ownership-v1",
+    accessibility_contract_version: "ope-15-route-neutral-patterns-v1",
     keyboard_operable: true,
     focus_visible: true,
     feedback_announced: true,
     host_receipt_outside_component_coverage: true,
+    semantic_patterns_verified: true,
     accessibility_blocking_findings: 0,
     screenshots: ["direct-rsx-web-1.png", "direct-rsx-web-2.png"],
   }, null, 2)}\n`);

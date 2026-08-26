@@ -162,6 +162,7 @@ fn ProbePanel(entry: PlatformEntry) -> Element {
                 class: "status",
                 role: "status",
                 aria_live: "polite",
+                "data-receipt": "{status}",
                 "data-probe-complete": "{report.complete}",
                 "data-action-exactly-once": "{report.action_exactly_once}",
                 "data-replay-effects": "{report.replay_effect_count}",

@@ -4,6 +4,9 @@ import path from "node:path";
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
+import { buildScenarios } from "../../../openui-typed-json-product-eval/src/scenarios.mjs";
+import { accessibilityContractForSurface, validateRenderedAccessibility } from "../../src/accessibility-contract.mjs";
+
 const evidence = path.resolve(process.env.OPE11_REACT_EVIDENCE_DIR ?? "evidence/react-web-local");
 
 test("official json-render React seam executes state and action behavior", async ({ page }) => {
@@ -36,6 +39,11 @@ test("official json-render React seam executes state and action behavior", async
   await expect(receipt).toHaveAttribute("data-receipt", "receipt:ApplyFilter:preferences");
   await expect(receipt).toHaveAttribute("aria-live", "polite");
   await expect(receipt).not.toHaveAttribute("data-component", /.+/);
+  const scenarioId = await root.getAttribute("data-scenario-id");
+  const scenarios = await buildScenarios();
+  const scenario = scenarios.find((candidate) => candidate.id === scenarioId);
+  const semanticPatterns = validateRenderedAccessibility(await page.content(), accessibilityContractForSurface(scenario.expected));
+  expect(semanticPatterns.passed, JSON.stringify(semanticPatterns.diagnostics, null, 2)).toBe(true);
   const accessibility = await new AxeBuilder({ page }).analyze();
   const blocking = accessibility.violations.filter((violation) => ["critical", "serious"].includes(violation.impact));
   expect(blocking, JSON.stringify(blocking, null, 2)).toEqual([]);
@@ -51,11 +59,12 @@ test("official json-render React seam executes state and action behavior", async
     passed: true,
     state_changed: true,
     action_receipt: "receipt:ApplyFilter:preferences",
-    accessibility_contract_version: "ope-14-feedback-ownership-v1",
+    accessibility_contract_version: "ope-15-route-neutral-patterns-v1",
     keyboard_operable: true,
     focus_visible: true,
     feedback_announced: true,
     host_receipt_outside_component_coverage: true,
+    semantic_patterns_verified: true,
     accessibility_blocking_findings: 0,
     screenshot: path.basename(screenshot),
   }, null, 2)}\n`);

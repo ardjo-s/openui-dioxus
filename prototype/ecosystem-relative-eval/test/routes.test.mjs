@@ -69,6 +69,17 @@ test("all route prompts keep host receipts out of Surface component coverage", a
   assert.ok(prompts.every((prompt) => prompt.includes('"required":false')));
 });
 
+test("all route prompts explain route-neutral accessible component ownership", async () => {
+  const scenarios = await buildScenarios();
+  const preferences = scenarios.find((scenario) => scenario.id === "02-preferences-v1");
+  const prompts = ["openui", "typed-json", "json-render", "direct-rsx"]
+    .map((route) => routeUserPrompt(route, preferences, "runtime-uncertain"));
+
+  assert.ok(prompts.every((prompt) => prompt.includes("ROUTE-NEUTRAL ACCESSIBLE COMPONENT PATTERNS")));
+  assert.ok(prompts.every((prompt) => prompt.includes("exactly one approved pattern")));
+  assert.ok(prompts.every((prompt) => prompt.includes("Nested data-component roots and host receipts cannot satisfy their parent component")));
+});
+
 test("Preferences accepts its frozen component set and rejects invented Surface feedback", async () => {
   const scenarios = await buildScenarios();
   const preferences = scenarios.find((scenario) => scenario.id === "02-preferences-v1");

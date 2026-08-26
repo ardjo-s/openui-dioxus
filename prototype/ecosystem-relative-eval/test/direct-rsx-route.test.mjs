@@ -26,6 +26,15 @@ test("direct RSX compiles and renders as ordinary Dioxus code", async () => {
   assert.match(directRsxPrompt(scenario), /ordinary Dioxus RSX/);
 });
 
+test("direct RSX reference output satisfies all twelve route-neutral patterns", async () => {
+  const scenarios = (await buildScenarios()).filter((scenario) => scenario.variant === 1);
+  assert.equal(scenarios.length, 5);
+  for (const scenario of scenarios) {
+    const result = await validateDirectRsx(encodeExpectedRsx(scenario.expected), scenario.expected);
+    assert.equal(result.ok, true, `${scenario.id}: ${JSON.stringify(result.diagnostics)}`);
+  }
+});
+
 test("direct RSX rejects Dioxus escape hatches and remote resource elements", async () => {
   const [scenario] = await buildScenarios();
   const source = encodeExpectedRsx(scenario.expected);

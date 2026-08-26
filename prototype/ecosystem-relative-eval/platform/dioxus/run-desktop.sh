@@ -62,5 +62,5 @@ if [ "$marker_observed" = true ] && [ "$evidence_complete" = true ]; then passed
 manifest_hash=$(sed -n 's/^OPE11_DIOXUS_MANIFEST //p' "$log" | tail -1)
 binding_sha256=$(sed -n 's/^OPE11_DIOXUS_BINDING //p' "$log" | tail -1)
 jq -n --argjson passed "$passed" --argjson evidence "$evidence_complete" --arg marker "$marker" --arg manifest "$manifest_hash" --arg binding "$binding_sha256" --argjson width "$width" --argjson height "$height" \
-  '{platform:"desktop",routes:["openui","typed-json"],passed:$passed,evidence_complete:$evidence,marker:$marker,manifest_hash:$manifest,binding_sha256:$binding,accessibility_contract_version:"ope-14-feedback-ownership-v1",screenshot:{file:"dioxus-desktop.png",width:$width,height:$height}}' > "$evidence/dioxus-desktop.json"
+  '{platform:"desktop",routes:["openui","typed-json"],passed:$passed,evidence_complete:$evidence,marker:$marker,manifest_hash:$manifest,binding_sha256:$binding,accessibility_contract_version:"ope-15-route-neutral-patterns-v1",screenshot:{file:"dioxus-desktop.png",width:$width,height:$height}}' > "$evidence/dioxus-desktop.json"
 [ "$passed" = true ]
