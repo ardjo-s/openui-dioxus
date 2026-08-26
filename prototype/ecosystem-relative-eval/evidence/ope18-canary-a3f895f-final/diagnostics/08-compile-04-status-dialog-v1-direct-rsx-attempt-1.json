@@ -1,0 +1,9 @@
+{
+  "ok": false,
+  "diagnostics": [
+    {
+      "code": "rust-compiler",
+      "message": "error[E0596]: cannot borrow `action_count` as mutable, as it is not declared as mutable\n  --> src/main.rs:42:25\n   |\n42 |                         action_count.set(next_count);\n   |                         ^^^^^^^^^^^^ cannot borrow as mutable\n   |\nhelp: consider changing this to be mutable\n   |\n 5 |     let mut action_count = use_signal(|| 0u32);\n   |         +++\n\nerror[E0596]: cannot borrow `receipt` as mutable, as it is not declared as mutable\n  --> src/main.rs:43:25\n   |\n43 |                         receipt.set(\"receipt:ApplyFilter:sync\".to_string());\n   |                         ^^^^^^^ cannot borrow as mutable\n   |\nhelp: consider changing this to be mutable\n   |\n 6 |     let mut receipt = use_signal(|| String::new());\n   |         +++\n\nFor more information about this error, try `rustc --explain E0596`.\nerror: could not compile `ope11-direct-rsx-probe` (bin \"ope11-direct-rsx-probe\") due to 2 previous errors\n"
+    }
+  ]
+}

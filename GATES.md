@@ -2,17 +2,30 @@
 
 ## OPE-18 rendered receipt canary
 
-Current state: preregistered before the single authorized provider run. OPE-12
-remains canceled until this canary returns `PASS`.
+Current state: completed as `PASS`. The one authorized provider run used the
+byte-identical OPE-17 candidate. OPE-12 is eligible to reopen.
 
 - [x] User approval explicitly authorizes one new provider-backed canary after OPE-17 PASS.
 - [x] OPE-17 source, evidence, tests, platform proofs, reviews, and Linear state are complete.
 - [x] The recomputed candidate manifest equals `9623a1457dee64555a2595cd878ddf7a7d13187747206a0ad7c1554b1208190e`.
 - [x] The execution register and candidate manifest are committed before the provider run.
-- [ ] Exactly one Luna-low canary runs with no pooling, silent rerun, or product verdict.
-- [ ] Raw outputs, repairs, diagnostics, tokens, traces, screenshots, checksums, credential scan, and independent review are archived.
-- [ ] `PASS` reopens OPE-12 with the byte-identical manifest; `CANARY_INVALID` keeps OPE-12 canceled.
+- [x] Exactly one Luna-low canary runs with no pooling, silent rerun, or product verdict.
+- [x] Raw outputs, repairs, diagnostics, tokens, traces, screenshots, checksums, credential scan, and independent review are archived.
+- [x] `PASS` reopens OPE-12 with the byte-identical manifest; `CANARY_INVALID` keeps OPE-12 canceled.
 - [ ] Owned evidence is committed locally and Linear is synchronized.
+
+Verification evidence:
+
+- Source commit before generation: `a3f895f`.
+- One run: nine provider attempts in 144.680 seconds, with no provider error.
+- Model: `gpt-5.6-luna`; reasoning effort: `low`.
+- Final accepted cells: 8/8. OpenUI 2/2, typed JSON 2/2, json-render 2/2, Direct RSX 2/2 after one registered repair.
+- Provider usage: 105,655 input tokens, 71,424 cached input tokens, 3,691 output tokens, 1,593 reasoning tokens, 109,346 total tokens.
+- React Web, Dioxus Web, Direct RSX Web, and Dioxus Desktop all pass.
+- Candidate manifest: `9623a1457dee64555a2595cd878ddf7a7d13187747206a0ad7c1554b1208190e`.
+- `SHA256SUMS` SHA-256: `9c0a378af9203cea0f2769dae84255900397aeed280c5f18f2f4e22900ffa098`.
+- Independent review SHA-256: `ebcfe05d6e9b67b8f1f61f04cd7f20cb56cf794577d78bcd475b8bf3ce9e0dbd`.
+- Canonical runtime behavior diff: 0 lines; credential findings: 0.
 
 ## OPE-17 rendered receipt semantics
 

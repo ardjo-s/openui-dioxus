@@ -36,3 +36,21 @@ no pooling with OPE-16 or any deterministic preflight.
 
 No push, pull request, merge, public publication, or compatibility claim is
 authorized.
+
+## Recorded result
+
+- Final status: `PASS`.
+- Source commit before generation: `a3f895f`.
+- Evidence: `prototype/ecosystem-relative-eval/evidence/ope18-canary-a3f895f-final`.
+- Manifest: `9623a1457dee64555a2595cd878ddf7a7d13187747206a0ad7c1554b1208190e`, byte-identical to OPE-17.
+- Execution: one canary invocation, nine provider attempts, 144.680 seconds, no provider error.
+- Final accepted cells: 8/8. OpenUI, typed JSON, json-render, and Direct RSX each accepted both cells. Direct RSX used one registered repair.
+- Provider usage: 105,655 input tokens, 71,424 cached input tokens, 3,691 output tokens, 1,593 reasoning tokens, and 109,346 total tokens.
+- Real platform proof: React Web, Dioxus Web, Direct RSX Web, and Dioxus Desktop all passed.
+- Canonical runtime behavior diff: zero lines.
+- Credential findings: zero.
+- `SHA256SUMS` SHA-256: `9c0a378af9203cea0f2769dae84255900397aeed280c5f18f2f4e22900ffa098`.
+- Independent review SHA-256: `ebcfe05d6e9b67b8f1f61f04cd7f20cb56cf794577d78bcd475b8bf3ce9e0dbd`.
+
+This PASS makes OPE-12 eligible to reopen. It is not an OPE-7 GO or NO-GO
+product verdict.

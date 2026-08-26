@@ -1,0 +1,78 @@
+{
+  "provenance": {
+    "manifest_hash": "9623a1457dee64555a2595cd878ddf7a7d13187747206a0ad7c1554b1208190e",
+    "source_records": [
+      {
+        "route": "json-render",
+        "scenario_id": "02-preferences-v1",
+        "attempt": 1,
+        "raw_sha256": "55a341dd594a911d7a2c747b8ee7e5700e6b081aa931fbd50bef14b1c068b75d",
+        "platform_artifact_sha256": "061b1f06d60d3b2dcfa2ddbcbbadb9d849d1a34742b33ac2cd989d16d7fb5952"
+      }
+    ],
+    "binding_sha256": "abb5cfdb161c5dbfcced7ef18bf1448c22de918fb3c933296cfbef376c89ee79"
+  },
+  "scenario_id": "02-preferences-v1",
+  "family": "preferences",
+  "spec": {
+    "root": "preferences_toolbar",
+    "elements": {
+      "preferences_switch": {
+        "type": "Switch",
+        "props": {
+          "id": "preferences_switch",
+          "label": "Enable notifications · variant 1",
+          "state_key": "notifications_enabled",
+          "checked": {
+            "$bindState": "/notifications_enabled"
+          }
+        },
+        "children": []
+      },
+      "preferences_checkbox": {
+        "type": "Checkbox",
+        "props": {
+          "id": "preferences_checkbox",
+          "label": "Accept terms · variant 1",
+          "state_key": "terms_accepted",
+          "checked": {
+            "$bindState": "/terms_accepted"
+          }
+        },
+        "children": []
+      },
+      "preferences_apply": {
+        "type": "Button",
+        "props": {
+          "id": "preferences_apply",
+          "label": "Apply preferences"
+        },
+        "on": {
+          "press": {
+            "action": "ApplyFilter",
+            "params": {
+              "target_id": "preferences"
+            }
+          }
+        },
+        "children": []
+      },
+      "preferences_toolbar": {
+        "type": "Toolbar",
+        "props": {
+          "id": "preferences_toolbar",
+          "orientation": "vertical"
+        },
+        "children": [
+          "preferences_switch",
+          "preferences_checkbox",
+          "preferences_apply"
+        ]
+      }
+    },
+    "state": {
+      "notifications_enabled": true,
+      "terms_accepted": false
+    }
+  }
+}

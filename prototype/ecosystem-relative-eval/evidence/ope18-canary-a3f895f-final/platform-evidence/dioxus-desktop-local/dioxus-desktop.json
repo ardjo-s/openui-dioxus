@@ -1,0 +1,18 @@
+{
+  "platform": "desktop",
+  "routes": [
+    "openui",
+    "typed-json"
+  ],
+  "passed": true,
+  "evidence_complete": true,
+  "marker": "OPE11_DIOXUS_SELF_TEST_PASS surfaces=2",
+  "manifest_hash": "9623a1457dee64555a2595cd878ddf7a7d13187747206a0ad7c1554b1208190e",
+  "binding_sha256": "9a2fb2d5e9ba532ee44c47e9e441eb9062b3521b45108395dabff75697398c67",
+  "accessibility_contract_version": "ope-15-route-neutral-patterns-v1",
+  "screenshot": {
+    "file": "dioxus-desktop.png",
+    "width": 1736,
+    "height": 1400
+  }
+}

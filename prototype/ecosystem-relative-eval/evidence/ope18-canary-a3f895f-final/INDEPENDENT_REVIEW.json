@@ -1,0 +1,16 @@
+{
+  "version": "ope-11-independent-recomputation-v1",
+  "reviewer": "separate deterministic recomputation process",
+  "passed": true,
+  "candidate_checksum_manifest_sha256": "609b3fc7266a6d2268ea907f8ee72b54704adf6226678adf81c3b15c73bb55d8",
+  "manifest_hash": "9623a1457dee64555a2595cd878ddf7a7d13187747206a0ad7c1554b1208190e",
+  "outcome": "PASS",
+  "findings": [],
+  "recomputed": {
+    "records": 9,
+    "route_cells": 8,
+    "accepted_final_cells": 8,
+    "platform_verified": true,
+    "product_scorer_access_count": 0
+  }
+}
