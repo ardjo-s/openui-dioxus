@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 import { buildScenarios } from "../../openui-typed-json-product-eval/src/scenarios.mjs";
@@ -43,10 +44,31 @@ test("direct RSX rejects Dioxus escape hatches and remote resource elements", as
   assert.ok(scanSource(source.replace("main {", "main { img { src: \"https://example.com/x\" },")).some((item) => item.code === "forbidden-source"));
   assert.ok(scanSource(`${source}\nfn escape() { let _ = web_sys::window(); }`).some((item) => item.code === "forbidden-source"));
   assert.ok(scanSource(`${source}\nfn escape() { let _ = ope11_dioxus_web_features::window(); }`).some((item) => item.code === "forbidden-source"));
-  const metadataOnlyReceipt = source.replace(', "{receipt()}" } }', " } }");
-  assert.notEqual(metadataOnlyReceipt, source);
-  assert.match(metadataOnlyReceipt, /"data-receipt": "\{receipt\(\)\}"/);
-  assert.ok(scanSource(metadataOnlyReceipt).some((item) => item.code === "source-contract"));
+  const missingReceiptProbe = source.replace('"data-receipt": "{receipt()}", ', "");
+  assert.notEqual(missingReceiptProbe, source);
+  assert.ok(scanSource(missingReceiptProbe).some((item) => item.code === "source-contract"));
+});
+
+test("direct RSX accepts the exact OPE-16 visible receipt interpolation", async () => {
+  const scenarios = await buildScenarios();
+  const scenario = scenarios.find((candidate) => candidate.id === "04-status-dialog-v1");
+  const source = await readFile(new URL("../evidence/ope16-canary-9572c9b-final/raw/10-compile-04-status-dialog-v1-direct-rsx-attempt-2.rs", import.meta.url), "utf8");
+
+  assert.deepEqual(scanSource(source), []);
+  const result = await validateDirectRsx(source, scenario.expected);
+  assert.equal(result.ok, true, JSON.stringify(result.diagnostics));
+  assert.match(result.rendered_html, /data-receipt=""/);
+  assert.match(result.rendered_html, /Action count: 0 Receipt:/);
+});
+
+test("direct RSX rejects a rendered receipt without status semantics", async () => {
+  const scenarios = await buildScenarios();
+  const scenario = scenarios.find((candidate) => candidate.family === "filter-action" && candidate.variant === 1);
+  const invalid = encodeExpectedRsx(scenario.expected).replace('role: "status", aria_live: "polite", ', "");
+  const result = await validateDirectRsx(invalid, scenario.expected);
+
+  assert.equal(result.ok, false);
+  assert.ok(result.diagnostics.some((item) => item.code === "host-receipt"));
 });
 
 test("direct RSX rejects host-capable Rust before compilation", async () => {

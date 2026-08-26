@@ -52,8 +52,9 @@ test("accepted direct RSX executes state, typed action receipt, and visible feed
     const receipt = app.locator('[role="status"][data-receipt]');
     await expect(receipt).toHaveCount(1);
     await expect(receipt).toHaveAttribute("data-action-count", "1");
-    await expect(receipt).toHaveAttribute("data-receipt", /^receipt:[A-Za-z]+:[a-z]+$/);
-    await expect(receipt).toContainText("receipt:");
+    const expectedReceipt = `receipt:${await action.getAttribute("data-action")}:${await action.getAttribute("data-target-id")}`;
+    await expect(receipt).toHaveAttribute("data-receipt", expectedReceipt);
+    await expect(receipt).toContainText(expectedReceipt);
     await expect(receipt).toHaveAttribute("aria-live", "polite");
     await expect(receipt).not.toHaveAttribute("data-component", /.+/);
     const scenario = contracts.find((candidate) => candidate.id === scenarioId);

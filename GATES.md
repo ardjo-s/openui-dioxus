@@ -1,5 +1,32 @@
 # Acceptance gates
 
+## OPE-17 rendered receipt semantics
+
+Current state: completed. No provider call occurred. OPE-18 is eligible for its
+one separately preregistered canary.
+
+- [x] The exact OPE-16 longer visible receipt interpolation is accepted, compiled, and rendered.
+- [x] Missing receipt instrumentation remains rejected by `scanSource`.
+- [x] Missing rendered receipt role, live region, or host ownership remains rejected.
+- [x] Direct RSX Web proves one click, one action count, and exact equality between the receipt attribute and visible text.
+- [x] Deterministic generated-output preflight passes all four routes and required platforms.
+- [x] OPE-13 through OPE-16 evidence remains byte-identical.
+- [x] Provider settings, scenarios, schedule, thresholds, runtime semantics, and product verdict remain unchanged.
+- [x] Narrow tests, full tests, typecheck, diff check, standards review, and intent review pass.
+- [ ] Owned changes and evidence are committed locally and Linear is synchronized.
+
+Verification evidence:
+
+- Red regression: the exact OPE-16 source failed only the removed source-shape check.
+- Narrow route and manifest suite: 11/11.
+- Full JavaScript suite: 51/51; typecheck and `git diff --check` pass.
+- Final deterministic generated-output preflight: `PASS`, eight route cells, all four real platform executions, zero runtime behavior diff lines, zero provider tokens, and zero credential findings.
+- Candidate manifest: `9623a1457dee64555a2595cd878ddf7a7d13187747206a0ad7c1554b1208190e`.
+- Evidence: `prototype/ecosystem-relative-eval/evidence/ope17-rendered-receipt-preflight-final`.
+- `SHA256SUMS` SHA-256: `85ad25096c6031eb00a49763a1bb3678334d48c1392324b9a22fbfde939040e3`.
+- Independent review SHA-256: `319d2313f552a0cec17e5f220c28999c4d10c286e6459dfa61273fc72177b833`.
+- One earlier no-provider preflight stopped at Desktop compilation because the local disk filled. It is excluded from the final evidence and from every aggregate.
+
 ## OPE-16 final semantic-pattern canary
 
 Current state: completed as `CANARY_INVALID`. The one authorized provider run

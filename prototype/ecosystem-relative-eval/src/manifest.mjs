@@ -131,21 +131,21 @@ export async function buildCandidateManifest() {
   };
 
   return {
-    version: "ope-16-semantic-pattern-canary-v4",
+    version: "ope-18-rendered-receipt-canary-v5",
     purpose: "non-decision operational canary",
     product_outcome_forbidden: true,
     preregistration: {
-      ticket: "OPE-16",
-      prepared_by: "OPE-15",
-      permitted_change: "route-neutral accessible-component patterns, one shared Toolbar aria-orientation adapter correction, probes, preregistration, and derived hashes only",
+      ticket: "OPE-18",
+      prepared_by: "OPE-17",
+      permitted_change: "remove the Direct RSX receipt source-shape oracle, require exact rendered Web receipt behavior, update preregistration, and derived hashes only",
       prior_candidate: {
         outcome: "CANARY_INVALID",
-        source_commit: "7493040",
-        evidence_commit: "59858eb",
-        evidence_path: "prototype/ecosystem-relative-eval/evidence/ope14-canary-7493040-final",
-        manifest_sha256: "9c04bfaaa25748aef86b97e40c4885ca387a4718b6759324d6c072616a065254",
-        checksum_manifest_sha256: "bfd0d927a5c795bfab46b5e68974a7056ef7d670012cff68bb3b0b04764dbbe8",
-        independent_review_sha256: "8704af6386db48f17941f251552ea72e7dc98a3f24264c4ab021a5b23da1428d",
+        source_commit: "9572c9b",
+        evidence_commit: "5d92b34",
+        evidence_path: "prototype/ecosystem-relative-eval/evidence/ope16-canary-9572c9b-final",
+        manifest_sha256: "49b71bd46638f1301c59fa345204d12896d0c2175197ec8df4563c2092ad9cf0",
+        checksum_manifest_sha256: "144d0a4a197fc6e70798ec79e8321a0048c381657d08af5b381ab9f9e6c22c5c",
+        independent_review_sha256: "6a02786b744974b94b1ecc52d481b3f8f31bb940ce85bd8ec25a8f6676845079",
         pooled_with_new_canary: false,
       },
       unchanged_dimensions: [
