@@ -17,11 +17,12 @@ canceled and OPE-7 emits no product verdict.
 - [x] Independent recomputation emits `CANARY_INVALID` with `platform-evidence-invalid`; no complete publication marker is created.
 - [x] `CANARY_INVALID` stops with OPE-12 still canceled.
 - [x] No OPE-7 product verdict, push, PR, merge, publication, or public compatibility claim occurs.
-- [ ] Immutable evidence is committed locally and Linear is synchronized.
+- [x] Immutable evidence is committed locally and Linear is synchronized.
 
 Verification evidence:
 
 - Source commit: `9572c9b`.
+- Evidence commit: `5d92b34`.
 - Manifest: `49b71bd46638f1301c59fa345204d12896d0c2175197ec8df4563c2092ad9cf0`.
 - One run: 10 provider attempts in 111.738 seconds, with no provider error and no credential finding.
 - Final accepted cells: 7/8. OpenUI 2/2, typed JSON 2/2, json-render 2/2, Direct RSX 1/2.

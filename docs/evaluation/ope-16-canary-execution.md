@@ -52,6 +52,7 @@ No push, PR, merge, public publication, or compatibility claim is authorized.
 ## Recorded result
 
 - Source commit before generation: `9572c9b`.
+- Immutable evidence commit: `5d92b34`.
 - Evidence: `prototype/ecosystem-relative-eval/evidence/ope16-canary-9572c9b-final`.
 - Manifest: `49b71bd46638f1301c59fa345204d12896d0c2175197ec8df4563c2092ad9cf0`, byte-identical to OPE-15.
 - Provider: `gpt-5.6-luna`, reasoning effort `low`, through the ChatGPT plan.
