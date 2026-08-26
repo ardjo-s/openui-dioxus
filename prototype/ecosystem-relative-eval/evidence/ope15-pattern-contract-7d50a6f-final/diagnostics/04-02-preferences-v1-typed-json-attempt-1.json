@@ -1,0 +1,25 @@
+{
+  "ok": false,
+  "diagnostics": [
+    {
+      "code": "required",
+      "path": "",
+      "message": "must have required property 'root'"
+    },
+    {
+      "code": "required",
+      "path": "",
+      "message": "must have required property 'nodes'"
+    },
+    {
+      "code": "required",
+      "path": "",
+      "message": "must have required property 'state'"
+    },
+    {
+      "code": "additionalProperties",
+      "path": "",
+      "message": "must NOT have additional properties"
+    }
+  ]
+}

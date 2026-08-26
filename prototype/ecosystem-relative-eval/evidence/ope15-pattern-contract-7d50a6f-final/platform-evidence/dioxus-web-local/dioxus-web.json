@@ -1,0 +1,22 @@
+{
+  "platform": "web",
+  "routes": [
+    "openui",
+    "typed-json"
+  ],
+  "manifest_hash": "49b71bd46638f1301c59fa345204d12896d0c2175197ec8df4563c2092ad9cf0",
+  "binding_sha256": "ca53acef543036d51669ac0809ba1c18e15eaa14f15c784c18f600f050eeb29a",
+  "passed": true,
+  "state_action_update_replay": true,
+  "accessibility_contract_version": "ope-15-route-neutral-patterns-v1",
+  "keyboard_operable": true,
+  "focus_visible": true,
+  "feedback_announced": true,
+  "host_receipt_outside_component_coverage": true,
+  "semantic_patterns_verified": true,
+  "accessibility_blocking_findings": 0,
+  "screenshots": [
+    "dioxus-web-1.png",
+    "dioxus-web-2.png"
+  ]
+}

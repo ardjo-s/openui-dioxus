@@ -33,6 +33,8 @@ Dioxus catalog renderer. No product scorer is accessible during the canary.
 
 ## Verification
 
+- Source commits: `7b76fa3`, `7d50a6f`.
+- Frozen evidence: `prototype/ecosystem-relative-eval/evidence/ope15-pattern-contract-7d50a6f-final`.
 - JavaScript tests: 48 passed, 0 failed.
 - TypeScript typecheck: passed.
 - Catalog Rust tests: 17 passed, 0 failed.
@@ -41,8 +43,8 @@ Dioxus catalog renderer. No product scorer is accessible during the canary.
 - Real reference Desktop proof: Dioxus rendered, self-tested, and produced a non-blank 912 by 744 screenshot.
 - Generated-output preflight: `PASS`, 8 route cells, all four routes accepted after the allowed deterministic repair fixture.
 - Generated platform executions: React Web, Direct RSX Web, Dioxus Web, and Dioxus Desktop all passed.
-- Candidate manifest: `b1c2ba8d1ebe1a57af153d7aa77430913f1e34d049100180bd4bf217b6c013bf`.
-- Preflight checksum manifest: `af427238c1577f3f5054c3a88b4ffc1f3a56af7dddd0f86b966dbe72a003de29`.
+- Candidate manifest: `49b71bd46638f1301c59fa345204d12896d0c2175197ec8df4563c2092ad9cf0`.
+- Preflight checksum manifest: `a23a850a8e77b7a45cb30ed71fb1121bf084e93fdfe604fe13bb5aba1060083d`.
 - Independent recomputation: passed with zero finding.
 - Credential scan: zero finding.
 - External provider calls: zero. The 12 recorded attempts use the local deterministic fake provider only.

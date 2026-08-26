@@ -1,0 +1,18 @@
+{
+  "platform": "web",
+  "route": "json-render",
+  "official_runtime": "@json-render/react@0.19.0",
+  "manifest_hash": "49b71bd46638f1301c59fa345204d12896d0c2175197ec8df4563c2092ad9cf0",
+  "binding_sha256": "45e9cf4130a66d0c0eb12b84d2d639a78242ebd3a138f12c862d6fa7b3583e9e",
+  "passed": true,
+  "state_changed": true,
+  "action_receipt": "receipt:ApplyFilter:preferences",
+  "accessibility_contract_version": "ope-15-route-neutral-patterns-v1",
+  "keyboard_operable": true,
+  "focus_visible": true,
+  "feedback_announced": true,
+  "host_receipt_outside_component_coverage": true,
+  "semantic_patterns_verified": true,
+  "accessibility_blocking_findings": 0,
+  "screenshot": "json-render-react-web.png"
+}
