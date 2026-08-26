@@ -19,11 +19,21 @@ install_root=${DIOXUS_CLI_INSTALL_ROOT:-${RUNNER_TEMP:-/tmp}/dioxus-cli-${versio
 archive="$install_root/$asset"
 checksum="$install_root/${asset%.tar.gz}.sha256"
 mkdir -p "$install_root"
-curl --fail --location --silent --show-error "$base/$asset" --output "$archive"
-curl --fail --location --silent --show-error "$base/${asset%.tar.gz}.sha256" --output "$checksum"
-expected=$(awk -v asset="$asset" '$2 == asset {print $1}' "$checksum")
-actual=$(shasum -a 256 "$archive" | awk '{print $1}')
-test -n "$expected"
+if [ ! -s "$archive" ]; then
+  curl --fail --location --silent --show-error --retry 3 "$base/$asset" --output "$archive"
+fi
+if [ ! -s "$checksum" ]; then
+  curl --fail --location --silent --show-error --retry 3 "$base/${asset%.tar.gz}.sha256" --output "$checksum"
+fi
+expected=$(awk -v asset="$asset" '$2 == asset || $2 == "*" asset {print $1; exit}' "$checksum")
+case "$expected" in
+  ""|*[!0-9a-fA-F]*) echo "missing published SHA-256 for $asset" >&2; exit 1 ;;
+esac
+if command -v sha256sum >/dev/null 2>&1; then
+  actual=$(sha256sum "$archive" | awk '{print $1}')
+else
+  actual=$(shasum -a 256 "$archive" | awk '{print $1}')
+fi
 test "$actual" = "$expected"
 tar -xzf "$archive" -C "$install_root"
 dx_bin=$(find "$install_root" -type f -name dx -perm -u+x | head -1)
