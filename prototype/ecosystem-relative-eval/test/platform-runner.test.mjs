@@ -6,7 +6,7 @@ import test from "node:test";
 import { buildScenarios } from "../../openui-typed-json-product-eval/src/scenarios.mjs";
 import { surfaceToJsonRenderSpec } from "../src/json-render-route.mjs";
 import { encodeExpectedRsx } from "../src/direct-rsx-route.mjs";
-import { buildPlatformProcessEnv, writeGeneratedPlatformFixtures } from "../src/platform-runner.mjs";
+import { buildPlatformProcessEnv, normalizeExecutionLog, writeGeneratedPlatformFixtures } from "../src/platform-runner.mjs";
 
 const temporaryRoot = new URL("../.tmp/", import.meta.url);
 
@@ -74,6 +74,12 @@ test("direct RSX platform proof receives an explicit non-secret environment", ()
     CI: "1",
     REQUIRED: "value",
   });
+});
+
+test("platform logs have one stable trailing newline", () => {
+  assert.equal(normalizeExecutionLog("line one\n\n"), "line one\n");
+  assert.equal(normalizeExecutionLog("line one  \n\t"), "line one\n");
+  assert.equal(normalizeExecutionLog("\n\n"), "");
 });
 
 function accepted(route, scenario, extra) {

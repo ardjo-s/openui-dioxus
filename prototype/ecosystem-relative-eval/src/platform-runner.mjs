@@ -199,8 +199,8 @@ async function execute({ id, command, args, env, logRoot, deadlineMs }) {
     timeoutMs,
     maximumBytes: 16 * 1024 * 1024,
   });
-  const stdout = result.stdout;
-  const stderr = result.stderr;
+  const stdout = normalizeExecutionLog(result.stdout);
+  const stderr = normalizeExecutionLog(result.stderr);
   await writeFile(path.join(logRoot, `${id}.stdout.log`), stdout);
   await writeFile(path.join(logRoot, `${id}.stderr.log`), stderr);
   return {
@@ -213,6 +213,11 @@ async function execute({ id, command, args, env, logRoot, deadlineMs }) {
     stdout_sha256: digest(stdout),
     stderr_sha256: digest(stderr),
   };
+}
+
+export function normalizeExecutionLog(value) {
+  const content = String(value).replace(/[\t \r\n]+$/u, "");
+  return content ? `${content}\n` : "";
 }
 
 export function buildPlatformProcessEnv(id, required, ambient = process.env) {
