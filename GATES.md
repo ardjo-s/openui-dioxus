@@ -11,7 +11,7 @@ OPE-6 and OPE-12 is `INVALID_EVAL`.
 - [x] Missing accepted generation cells, generated platform evidence, review packets, human correction, accessibility, mobile, maintenance, cost, and applicability evidence force `INVALID_EVAL`.
 - [x] OPE-7 emits exactly `INVALID_EVAL`, never `GO_OPENUI_DIOXUS`, `PIVOT_TO_SURFACE_RUNTIME`, or `NO_GO` from the incomplete evidence set.
 - [x] Decisions 09 and 10 link the evidence and keep production, OSS packaging, converters, governance, grants, and marketing blocked.
-- [ ] The final verdict and review are committed locally and Linear is synchronized. No push, PR, merge, or publication occurs without separate authorization.
+- [x] The final verdict and review are committed locally and Linear is synchronized. No push, PR, merge, or publication occurs without separate authorization.
 
 Verification evidence:
 
@@ -21,6 +21,8 @@ Verification evidence:
 - OPE-12 compile-known validity: every route 5/5 after repair.
 - OPE-12 final invalid cells: 11.
 - OPE-7 verdict: `INVALID_EVAL`.
+- OPE-7 verdict commit: `51eb37b`.
+- Linear OPE-7 status: Done.
 - Final report: `docs/evaluation/ope-7-final-verdict.md`.
 
 ## OPE-12 decision-grade ecosystem evidence
