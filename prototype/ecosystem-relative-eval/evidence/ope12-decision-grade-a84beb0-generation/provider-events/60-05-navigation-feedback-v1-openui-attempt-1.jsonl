@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a0429c-21d6-7f71-9790-6b9ebc380e80"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"root = Toolbar(\"navigation_toolbar\", \"vertical\", [tabs, apply_filter])\ntabs = Tabs(\"activity_tabs\", \"active_tab\", \"activity\", [{value: \"activity\", label: \"Activity · variant 1\", child: feedback}])\napply_filter = Button(\"apply_filter\", \"Apply filter\", \"ApplyFilter\", \"activity\")\nfeedback = Toast(\"activity_feedback\", \"success\", \"Saved · variant 1\", \"Your activity view is current. · variant 1\")"}}
+{"type":"turn.completed","usage":{"input_tokens":11300,"cached_input_tokens":6912,"cache_write_input_tokens":0,"output_tokens":247,"reasoning_output_tokens":143}}

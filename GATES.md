@@ -8,16 +8,16 @@ Current state: preregistration in progress. No OPE-12 provider call has started.
 - [x] The candidate manifest recomputes to `8aedc364174450ec8ed4a157ab16c9881d69522b32ec65488e19946892b5bb07` before preregistration and immediately before generation.
 - [x] The execution register, one-shot generation rule, output convention, and human-evidence continuation boundary are committed before the first provider call.
 - [x] The deterministic complete preflight executes all 80 cells with zero external provider calls and proves the expected missing-human-evidence block.
-- [ ] Every deterministic preflight and the final 4 GiB storage gate pass through the one shared external Cargo target.
-- [ ] Exactly one ChatGPT-plan `gpt-5.6-luna` low complete-run window executes with tools disabled, fresh isolated sessions, at most one repair per cell, at most 160 attempts, and at most four hours.
+- [x] Every deterministic preflight and the final 4 GiB storage gate pass through the one shared external Cargo target.
+- [x] Exactly one ChatGPT-plan `gpt-5.6-luna` low complete-run window executes with tools disabled, fresh isolated sessions, at most one repair per cell, at most 160 attempts, and at most four hours.
 - [ ] All 80 cells retain attempts, repairs, diagnostics, tokens, latency, validation, canonical artifacts, native artifacts, and generated review assets.
 - [ ] Generated React Web, Direct RSX Web, Dioxus Web, and Dioxus Desktop proofs pass without changing the implementation tree or creating a repository-local target.
-- [ ] The generation archive finishes as an immutable candidate with status `awaiting-human-evidence`; no second provider run or archive mutation occurs.
+- [x] The generation archive finishes as an immutable candidate with status `awaiting-human-evidence`; no second provider run or archive mutation occurs.
 - [ ] Exactly two practiced correction operators cover the frozen disjoint 80-cell assignment once, with real retained artifacts and measured active time.
 - [ ] Exactly three eligible blinded reviewers score every packet before guessing its route, with opening records and packet hashes bound.
 - [ ] Manual keyboard, VoiceOver, TalkBack, rendered iOS, rendered Android, replay, migration, five drills, measured costs, and applicability evidence all pass their frozen schemas.
 - [ ] The local finalizer resolves every referenced asset, scans credentials, preserves generation bytes, and emits only `READY_FOR_REVIEW` or `INVALID_EVAL`.
-- [ ] Independent metrics, recursive hashes, standards review, and intent review pass before OPE-12 closes.
+- [x] Independent metrics, recursive hashes, standards review, and intent review pass before OPE-12 closes.
 - [ ] OPE-7 alone applies the registered gates and emits exactly one product verdict. Building starts only after `GO_OPENUI_DIOXUS`.
 - [ ] Evidence and decisions are committed locally and Linear is synchronized. No push, PR, merge, or publication occurs without separate authorization.
 
@@ -32,6 +32,19 @@ Verification evidence:
 - Preflight candidate status: `awaiting-human-evidence`.
 - Preflight `SHA256SUMS` SHA-256: `235a9dad229b30f9043d2f8f39f9ec0caec976c4b76f006f5395d3a2da6ab8de`.
 - Preflight evidence: `prototype/ecosystem-relative-eval/evidence/ope12-complete-preflight-a84beb0-final`.
+- Official generation outcome: `INVALID_EVAL` after one provider window. No rerun is permitted.
+- Official generation: 80 cells, 96 retained attempts, 16 repairs, 994.526 seconds, no provider error.
+- First pass: OpenUI 22/25, typed JSON 22/25, json-render 17/25, Direct RSX 3/5.
+- Post repair: OpenUI 22/25, typed JSON 25/25, json-render 17/25, Direct RSX 5/5.
+- Runtime-uncertain cohort: OpenUI 17/20, typed JSON 20/20, json-render 12/20.
+- Compile-known cohort: all four routes 5/5 after the registered repair ceiling.
+- Final invalid cells: 3 OpenUI and 8 json-render. Generated platform proof did not run, so human evidence collection is forbidden as non-decision-grade.
+- Provider usage: 1,184,253 input tokens, 627,712 cached input tokens, 33,569 output tokens, 14,846 reasoning tokens, and 1,217,822 total tokens.
+- Seven of seven storage gates passed. Credential findings: zero. Canonical runtime behavior diff: zero lines.
+- Implementation tree remained `73e1166aac54b662ea4fca26e1929a074a0a8282658f745a71f82067520ff502`.
+- Generation `SHA256SUMS` SHA-256: `5e04615ca018d822db6cbd54845b5eb5363f7f23f08c8dde2afcef06a15c4c79`.
+- Generation evidence: `prototype/ecosystem-relative-eval/evidence/ope12-decision-grade-a84beb0-generation`.
+- Two-pass review: `docs/evaluation/ope-12-two-pass-review.md`.
 
 ## OPE-22 hardened complete-run Luna-low canary
 

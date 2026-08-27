@@ -1,0 +1,5 @@
+root = Toolbar("profile_toolbar", "vertical", [profile_avatar, name_label, name_input, save_button])
+profile_avatar = Avatar("profile_avatar", "Ada Lovelace · variant 3", "AL")
+name_label = Label("name_label", "name_input", "Profile name · variant 3")
+name_input = Input("name_input", "Profile name · variant 3", "profile_name", "Ada-3", "Enter a name · variant 3")
+save_button = Button("save_button", "Save profile · variant 3", "SubmitProfile", "profile")

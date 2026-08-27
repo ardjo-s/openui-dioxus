@@ -1,0 +1,9 @@
+{
+  "ok": false,
+  "diagnostics": [
+    {
+      "code": "semantic-coverage",
+      "message": "state"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{"op":"add","path":"/root","value":"navigation_toolbar"}
+{"op":"add","path":"/elements/activity_panel","value":{"type":"Toolbar","props":{"id":"activity_panel","orientation":"vertical"},"children":["apply_filter_button"]}}
+{"op":"add","path":"/elements/apply_filter_button","value":{"type":"Button","props":{"id":"apply_filter_button","label":"Refresh activity"},"on":{"press":{"action":"ApplyFilter","params":{"target_id":"activity"}}},"children":[]}}
+{"op":"add","path":"/elements/activity_tabs","value":{"type":"Tabs","props":{"id":"activity_tabs","state_key":"active_tab","value":{"$bindState":"/active_tab"},"items":[{"value":"activity","label":"Activity · variant 1"}]},"children":["activity_panel"]}}
+{"op":"add","path":"/elements/feedback_toast","value":{"type":"Toast","props":{"id":"feedback_toast","tone":{"$state":"/feedback/tone"},"title":{"$state":"/feedback/title"},"message":{"$state":"/feedback/message"}},"children":[]}}
+{"op":"add","path":"/elements/navigation_toolbar","value":{"type":"Toolbar","props":{"id":"navigation_toolbar","orientation":"vertical"},"children":["activity_tabs","feedback_toast"]}}
+{"op":"add","path":"/state/active_tab","value":"activity"}
+{"op":"add","path":"/state/feedback","value":{"tone":"success","title":"Saved · variant 1","message":"Your activity view is current. · variant 1"}}

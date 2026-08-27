@@ -1,0 +1,9 @@
+{
+  "ok": false,
+  "diagnostics": [
+    {
+      "code": "observable-contract",
+      "message": "Tabs item and child counts differ"
+    }
+  ]
+}

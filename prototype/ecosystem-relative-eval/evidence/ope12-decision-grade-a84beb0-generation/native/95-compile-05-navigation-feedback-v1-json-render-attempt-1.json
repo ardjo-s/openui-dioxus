@@ -1,0 +1,64 @@
+{
+  "root": "navigation_toolbar",
+  "elements": {
+    "account_tabs": {
+      "type": "Tabs",
+      "props": {
+        "id": "account_tabs",
+        "state_key": "active_tab",
+        "value": {
+          "$bindState": "/active_tab"
+        },
+        "items": [
+          {
+            "value": "activity",
+            "label": "Activity · variant 1"
+          }
+        ]
+      },
+      "children": [
+        "saved_toast"
+      ]
+    },
+    "saved_toast": {
+      "type": "Toast",
+      "props": {
+        "id": "saved_toast",
+        "tone": "success",
+        "title": "Saved · variant 1",
+        "message": "Your activity view is current. · variant 1"
+      },
+      "children": []
+    },
+    "activity_button": {
+      "type": "Button",
+      "props": {
+        "id": "activity_button",
+        "label": "Refresh activity · variant 1"
+      },
+      "on": {
+        "press": {
+          "action": "ApplyFilter",
+          "params": {
+            "target_id": "activity"
+          }
+        }
+      },
+      "children": []
+    },
+    "navigation_toolbar": {
+      "type": "Toolbar",
+      "props": {
+        "id": "navigation_toolbar",
+        "orientation": "vertical"
+      },
+      "children": [
+        "account_tabs",
+        "activity_button"
+      ]
+    }
+  },
+  "state": {
+    "active_tab": "activity"
+  }
+}

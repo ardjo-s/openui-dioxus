@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a04296-f37c-7101-a85d-ca6ff346d75f"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"{\"root\":\"filter_toolbar\",\"nodes\":[{\"kind\":\"Toolbar\",\"id\":\"filter_toolbar\",\"orientation\":\"horizontal\",\"children\":[\"role_select\",\"apply_filter\"]},{\"kind\":\"Select\",\"id\":\"role_select\",\"label\":\"Role · variant 1\",\"state_key\":\"role_filter\",\"options\":[\"All\",\"Admin\",\"Member\"],\"value\":\"All\"},{\"kind\":\"Button\",\"id\":\"apply_filter\",\"label\":\"Apply · variant 1\",\"action\":\"ApplyFilter\",\"target_id\":\"people\"}],\"state\":{\"role_filter\":\"All\"}}"}}
+{"type":"turn.completed","usage":{"input_tokens":11495,"cached_input_tokens":6912,"cache_write_input_tokens":0,"output_tokens":189,"reasoning_output_tokens":81}}

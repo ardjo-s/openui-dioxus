@@ -1,0 +1,7 @@
+{"op":"add","path":"/root","value":"navigation_toolbar"}
+{"op":"add","path":"/elements/activity_button","value":{"type":"Button","props":{"id":"activity_button","label":"Refresh activity"},"on":{"press":{"action":"ApplyFilter","params":{"target_id":"activity"}}},"children":[]}}
+{"op":"add","path":"/elements/activity_panel","value":{"type":"Toolbar","props":{"id":"activity_panel","orientation":"vertical"},"visible":{"$state":"/active_tab","eq":"activity"},"children":["activity_button"]}}
+{"op":"add","path":"/elements/activity_tabs","value":{"type":"Tabs","props":{"id":"activity_tabs","state_key":"active_tab","value":{"$bindState":"/active_tab"},"items":[{"value":"activity","label":"Activity · variant 4"}]},"children":["activity_panel"]}}
+{"op":"add","path":"/elements/activity_toast","value":{"type":"Toast","props":{"id":"activity_toast","tone":"success","title":"Saved · variant 4","message":"Your activity view is current. · variant 4"},"children":[]}}
+{"op":"add","path":"/elements/navigation_toolbar","value":{"type":"Toolbar","props":{"id":"navigation_toolbar","orientation":"vertical"},"children":["activity_tabs","activity_toast"]}}
+{"op":"add","path":"/state/active_tab","value":"activity"}

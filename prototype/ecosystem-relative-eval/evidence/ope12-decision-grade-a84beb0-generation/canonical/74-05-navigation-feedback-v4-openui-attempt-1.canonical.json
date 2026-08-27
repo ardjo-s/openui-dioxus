@@ -1,0 +1,61 @@
+{
+  "fingerprint": "ed3b106d9a6b8fb07f6e4838b07b7c5d2ce34f3810cb4b09a8357048e0a8c678",
+  "surface": {
+    "catalog_id": "openui-dioxus-components-eval",
+    "catalog_release_hash": "2bf7df132bc99576fb431e2fb8cd40cf35731e3fd2ee29e2d6d7f6bed45a5ae7",
+    "root": "navigation_toolbar",
+    "nodes": {
+      "activity_saved_feedback": {
+        "id": "activity_saved_feedback",
+        "kind": "Toast",
+        "props": {
+          "id": "activity_saved_feedback",
+          "message": "Your activity view is current. · variant 4",
+          "title": "Saved · variant 4",
+          "tone": "success"
+        }
+      },
+      "activity_tabs": {
+        "id": "activity_tabs",
+        "kind": "Tabs",
+        "props": {
+          "id": "activity_tabs",
+          "items": [
+            {
+              "child": "apply_activity_filter",
+              "label": "Activity · variant 4",
+              "value": "activity"
+            }
+          ],
+          "state_key": "active_tab",
+          "value": "activity"
+        }
+      },
+      "apply_activity_filter": {
+        "id": "apply_activity_filter",
+        "kind": "Button",
+        "props": {
+          "action": "ApplyFilter",
+          "id": "apply_activity_filter",
+          "label": "Apply filter",
+          "target_id": "activity"
+        }
+      },
+      "navigation_toolbar": {
+        "id": "navigation_toolbar",
+        "kind": "Toolbar",
+        "props": {
+          "children": [
+            "activity_tabs",
+            "activity_saved_feedback"
+          ],
+          "id": "navigation_toolbar",
+          "orientation": "vertical"
+        }
+      }
+    },
+    "state": {
+      "active_tab": "activity"
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "fingerprint": "b6a4e2750defc2692151f9bc124fd424cb623a546d25657a6f86863048cb6155",
+  "surface": {
+    "catalog_id": "openui-dioxus-components-eval",
+    "catalog_release_hash": "2bf7df132bc99576fb431e2fb8cd40cf35731e3fd2ee29e2d6d7f6bed45a5ae7",
+    "root": "filter_toolbar",
+    "nodes": {
+      "apply_filter_button": {
+        "id": "apply_filter_button",
+        "kind": "Button",
+        "props": {
+          "action": "ApplyFilter",
+          "id": "apply_filter_button",
+          "label": "Apply · variant 1",
+          "target_id": "people"
+        }
+      },
+      "filter_toolbar": {
+        "id": "filter_toolbar",
+        "kind": "Toolbar",
+        "props": {
+          "children": [
+            "role_filter_select",
+            "apply_filter_button"
+          ],
+          "id": "filter_toolbar",
+          "orientation": "horizontal"
+        }
+      },
+      "role_filter_select": {
+        "id": "role_filter_select",
+        "kind": "Select",
+        "props": {
+          "id": "role_filter_select",
+          "label": "Role · variant 1",
+          "options": [
+            "All",
+            "Admin",
+            "Member"
+          ],
+          "state_key": "role_filter",
+          "value": "All"
+        }
+      }
+    },
+    "state": {
+      "role_filter": "All"
+    }
+  }
+}

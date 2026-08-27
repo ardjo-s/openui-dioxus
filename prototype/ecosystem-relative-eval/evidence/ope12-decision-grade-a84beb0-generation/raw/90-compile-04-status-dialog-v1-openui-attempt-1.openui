@@ -1,0 +1,4 @@
+root = Toolbar("progress_toolbar", "vertical", [sync_dialog])
+sync_dialog = Dialog("sync_dialog", "Syncing workspace · variant 1", "dialog_open", [sync_progress, sync_button])
+sync_progress = Progress("sync_progress", "Sync progress · variant 1", 20, 100)
+sync_button = Button("sync_button", "Acknowledge sync · variant 1", "ApplyFilter", "sync")

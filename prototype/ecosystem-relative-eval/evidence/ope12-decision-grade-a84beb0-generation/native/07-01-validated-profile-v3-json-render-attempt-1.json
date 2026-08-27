@@ -1,0 +1,68 @@
+{
+  "root": "profile_toolbar",
+  "elements": {
+    "profile_avatar": {
+      "type": "Avatar",
+      "props": {
+        "id": "profile_avatar",
+        "alt": "Ada Lovelace · variant 3",
+        "fallback": "AL"
+      },
+      "children": []
+    },
+    "name_label": {
+      "type": "Label",
+      "props": {
+        "id": "name_label",
+        "for_id": "name_input",
+        "text": "Profile name · variant 3"
+      },
+      "children": []
+    },
+    "name_input": {
+      "type": "Input",
+      "props": {
+        "id": "name_input",
+        "label": "Profile name · variant 3",
+        "state_key": "profile_name",
+        "value": {
+          "$bindState": "/profile_name"
+        },
+        "placeholder": "Enter a name · variant 3"
+      },
+      "children": []
+    },
+    "save_profile": {
+      "type": "Button",
+      "props": {
+        "id": "save_profile",
+        "label": "Save profile · variant 3"
+      },
+      "on": {
+        "press": {
+          "action": "SubmitProfile",
+          "params": {
+            "target_id": "profile"
+          }
+        }
+      },
+      "children": []
+    },
+    "profile_toolbar": {
+      "type": "Toolbar",
+      "props": {
+        "id": "profile_toolbar",
+        "orientation": "vertical"
+      },
+      "children": [
+        "profile_avatar",
+        "name_label",
+        "name_input",
+        "save_profile"
+      ]
+    }
+  },
+  "state": {
+    "profile_name": "Ada-3"
+  }
+}

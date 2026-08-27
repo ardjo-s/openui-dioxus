@@ -1,0 +1,9 @@
+{
+  "ok": false,
+  "diagnostics": [
+    {
+      "code": "catalog-adapter",
+      "message": "Error: root must be Toolbar\n"
+    }
+  ]
+}

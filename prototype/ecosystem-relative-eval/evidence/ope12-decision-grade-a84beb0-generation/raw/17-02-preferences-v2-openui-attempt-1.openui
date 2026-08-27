@@ -1,0 +1,4 @@
+root = Toolbar("preferences_toolbar", "vertical", [notifications_switch, terms_checkbox, apply_button])
+notifications_switch = Switch("notifications_switch", "Enable notifications · variant 2", "notifications_enabled", false)
+terms_checkbox = Checkbox("terms_checkbox", "Accept terms · variant 2", "terms_accepted", true)
+apply_button = Button("apply_preferences", "Apply preferences", "ApplyFilter", "preferences")

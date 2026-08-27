@@ -1,0 +1,66 @@
+{
+  "fingerprint": "efd5a1d0753978ccabe9c7546f60a8a01b7780d2a7a248a164dfd650b6b460ac",
+  "surface": {
+    "catalog_id": "openui-dioxus-components-eval",
+    "catalog_release_hash": "2bf7df132bc99576fb431e2fb8cd40cf35731e3fd2ee29e2d6d7f6bed45a5ae7",
+    "root": "profile_toolbar",
+    "nodes": {
+      "name_input": {
+        "id": "name_input",
+        "kind": "Input",
+        "props": {
+          "id": "name_input",
+          "label": "Profile name · variant 4",
+          "placeholder": "Enter a name · variant 4",
+          "state_key": "profile_name",
+          "value": "Ada-4"
+        }
+      },
+      "name_label": {
+        "id": "name_label",
+        "kind": "Label",
+        "props": {
+          "for_id": "name_input",
+          "id": "name_label",
+          "text": "Profile name · variant 4"
+        }
+      },
+      "profile_avatar": {
+        "id": "profile_avatar",
+        "kind": "Avatar",
+        "props": {
+          "alt": "Ada Lovelace · variant 4",
+          "fallback": "AL",
+          "id": "profile_avatar"
+        }
+      },
+      "profile_toolbar": {
+        "id": "profile_toolbar",
+        "kind": "Toolbar",
+        "props": {
+          "children": [
+            "profile_avatar",
+            "name_label",
+            "name_input",
+            "save_profile_button"
+          ],
+          "id": "profile_toolbar",
+          "orientation": "vertical"
+        }
+      },
+      "save_profile_button": {
+        "id": "save_profile_button",
+        "kind": "Button",
+        "props": {
+          "action": "SubmitProfile",
+          "id": "save_profile_button",
+          "label": "Save profile · variant 4",
+          "target_id": "profile"
+        }
+      }
+    },
+    "state": {
+      "profile_name": "Ada-4"
+    }
+  }
+}

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a042a1-d45f-7f11-8d3c-e0e29e6b0912"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"root = Toolbar(\"navigation_toolbar\", \"vertical\", [account_tabs, activity_button])\naccount_tabs = Tabs(\"account_tabs\", \"active_tab\", \"activity\", [{ \"value\": \"activity\", \"label\": \"Activity · variant 1\", \"child\": saved_toast }])\nsaved_toast = Toast(\"saved_toast\", \"success\", \"Saved · variant 1\", \"Your activity view is current. · variant 1\")\nactivity_button = Button(\"activity_button\", \"Refresh activity · variant 1\", \"ApplyFilter\", \"activity\")"}}
+{"type":"turn.completed","usage":{"input_tokens":11452,"cached_input_tokens":6912,"cache_write_input_tokens":0,"output_tokens":160,"reasoning_output_tokens":42}}

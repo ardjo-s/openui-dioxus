@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a0429a-3cac-75a1-9148-d7ed7ed13fe6"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"root = Toolbar(\"status_toolbar\", \"horizontal\", [status_dialog])\nstatus_dialog = Dialog(\"sync_dialog\", \"Syncing workspace · variant 3\", \"dialog_open\", [progress_toolbar])\nprogress_toolbar = Toolbar(\"progress_toolbar\", \"vertical\", [sync_progress, apply_filter])\nsync_progress = Progress(\"sync_progress\", \"Sync progress · variant 3\", 60, 100)\napply_filter = Button(\"apply_filter\", \"Apply filter\", \"ApplyFilter\", \"sync\")"}}
+{"type":"turn.completed","usage":{"input_tokens":11350,"cached_input_tokens":6912,"cache_write_input_tokens":0,"output_tokens":386,"reasoning_output_tokens":282}}

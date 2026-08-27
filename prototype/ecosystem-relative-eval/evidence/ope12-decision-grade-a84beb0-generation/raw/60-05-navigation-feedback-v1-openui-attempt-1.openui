@@ -1,0 +1,4 @@
+root = Toolbar("navigation_toolbar", "vertical", [tabs, apply_filter])
+tabs = Tabs("activity_tabs", "active_tab", "activity", [{value: "activity", label: "Activity · variant 1", child: feedback}])
+apply_filter = Button("apply_filter", "Apply filter", "ApplyFilter", "activity")
+feedback = Toast("activity_feedback", "success", "Saved · variant 1", "Your activity view is current. · variant 1")

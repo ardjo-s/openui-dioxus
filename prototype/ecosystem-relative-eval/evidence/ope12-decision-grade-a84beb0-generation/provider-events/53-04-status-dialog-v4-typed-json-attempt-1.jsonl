@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a0429a-c0ca-7503-850d-de6beb7c8aad"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"{\"root\":\"progress_toolbar\",\"nodes\":[{\"kind\":\"Toolbar\",\"id\":\"progress_toolbar\",\"orientation\":\"vertical\",\"children\":[\"sync_dialog\"]},{\"kind\":\"Dialog\",\"id\":\"sync_dialog\",\"title\":\"Syncing workspace · variant 4\",\"open_state_key\":\"dialog_open\",\"children\":[\"sync_progress\",\"apply_filter\"]},{\"kind\":\"Progress\",\"id\":\"sync_progress\",\"label\":\"Sync progress · variant 4\",\"value\":80,\"max\":100},{\"kind\":\"Button\",\"id\":\"apply_filter\",\"label\":\"Apply filter\",\"action\":\"ApplyFilter\",\"target_id\":\"sync\"}],\"state\":{\"dialog_open\":false}}"}}
+{"type":"turn.completed","usage":{"input_tokens":11490,"cached_input_tokens":6912,"cache_write_input_tokens":0,"output_tokens":278,"reasoning_output_tokens":151}}

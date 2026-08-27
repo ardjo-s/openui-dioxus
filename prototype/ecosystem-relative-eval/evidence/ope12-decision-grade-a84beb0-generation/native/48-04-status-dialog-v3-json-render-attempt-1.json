@@ -1,0 +1,56 @@
+{
+  "root": "status_dialog",
+  "elements": {
+    "progress": {
+      "type": "Progress",
+      "props": {
+        "id": "progress",
+        "label": "Sync progress · variant 3",
+        "value": 60,
+        "max": 100
+      },
+      "children": []
+    },
+    "apply_filter": {
+      "type": "Button",
+      "props": {
+        "id": "apply_filter",
+        "label": "Refresh sync status"
+      },
+      "on": {
+        "press": {
+          "action": "ApplyFilter",
+          "params": {
+            "target_id": "sync"
+          }
+        }
+      },
+      "children": []
+    },
+    "progress_toolbar": {
+      "type": "Toolbar",
+      "props": {
+        "id": "progress_toolbar",
+        "orientation": "vertical"
+      },
+      "children": [
+        "progress",
+        "apply_filter"
+      ]
+    },
+    "status_dialog": {
+      "type": "Dialog",
+      "props": {
+        "id": "status_dialog",
+        "title": "Syncing workspace · variant 3",
+        "open_state_key": "dialog_open"
+      },
+      "children": [
+        "progress_toolbar"
+      ]
+    }
+  },
+  "state": {
+    "dialog_open": true
+  }
+}

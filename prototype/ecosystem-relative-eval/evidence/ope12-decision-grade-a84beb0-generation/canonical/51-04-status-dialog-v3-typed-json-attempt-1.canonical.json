@@ -1,0 +1,57 @@
+{
+  "fingerprint": "eb80ca175d45d4ea354396d73ca958ee5df94df45936bbe94eb0a64307327320",
+  "surface": {
+    "catalog_id": "openui-dioxus-components-eval",
+    "catalog_release_hash": "2bf7df132bc99576fb431e2fb8cd40cf35731e3fd2ee29e2d6d7f6bed45a5ae7",
+    "root": "progress_toolbar",
+    "nodes": {
+      "progress_toolbar": {
+        "id": "progress_toolbar",
+        "kind": "Toolbar",
+        "props": {
+          "children": [
+            "sync_dialog"
+          ],
+          "id": "progress_toolbar",
+          "orientation": "vertical"
+        }
+      },
+      "sync_button": {
+        "id": "sync_button",
+        "kind": "Button",
+        "props": {
+          "action": "ApplyFilter",
+          "id": "sync_button",
+          "label": "Apply filter",
+          "target_id": "sync"
+        }
+      },
+      "sync_dialog": {
+        "id": "sync_dialog",
+        "kind": "Dialog",
+        "props": {
+          "children": [
+            "sync_progress",
+            "sync_button"
+          ],
+          "id": "sync_dialog",
+          "open_state_key": "dialog_open",
+          "title": "Syncing workspace · variant 3"
+        }
+      },
+      "sync_progress": {
+        "id": "sync_progress",
+        "kind": "Progress",
+        "props": {
+          "id": "sync_progress",
+          "label": "Sync progress · variant 3",
+          "max": 100,
+          "value": 60
+        }
+      }
+    },
+    "state": {
+      "dialog_open": true
+    }
+  }
+}

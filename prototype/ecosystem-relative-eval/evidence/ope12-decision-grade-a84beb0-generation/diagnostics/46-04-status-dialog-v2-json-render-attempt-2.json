@@ -1,0 +1,13 @@
+{
+  "ok": false,
+  "diagnostics": [
+    {
+      "code": "semantic-coverage",
+      "message": "component-kinds"
+    },
+    {
+      "code": "semantic-coverage",
+      "message": "state"
+    }
+  ]
+}

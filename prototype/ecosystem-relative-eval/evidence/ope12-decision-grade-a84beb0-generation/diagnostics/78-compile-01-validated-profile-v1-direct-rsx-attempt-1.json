@@ -1,0 +1,13 @@
+{
+  "ok": false,
+  "diagnostics": [
+    {
+      "code": "forbidden-source",
+      "message": "\\b(?:script|iframe|object|embed|link|meta|form|img|video|audio)\\s*\\{"
+    },
+    {
+      "code": "forbidden-source",
+      "message": "\\b(?:src|href)\\s*:"
+    }
+  ]
+}

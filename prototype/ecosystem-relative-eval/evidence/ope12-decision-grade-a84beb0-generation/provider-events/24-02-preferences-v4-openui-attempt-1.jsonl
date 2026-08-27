@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a04296-952b-7fa1-9f63-0b6d0f801c3e"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"root = Toolbar(\"preferences_toolbar\", \"vertical\", [notifications_switch, terms_checkbox, apply_button])\nnotifications_switch = Switch(\"notifications_switch\", \"Enable notifications · variant 4\", \"notifications_enabled\", false)\nterms_checkbox = Checkbox(\"terms_checkbox\", \"Accept terms · variant 4\", \"terms_accepted\", true)\napply_button = Button(\"apply_preferences\", \"Apply preferences\", \"ApplyFilter\", \"preferences\")"}}
+{"type":"turn.completed","usage":{"input_tokens":11230,"cached_input_tokens":6912,"cache_write_input_tokens":0,"output_tokens":191,"reasoning_output_tokens":101}}
