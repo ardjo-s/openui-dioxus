@@ -4,10 +4,10 @@
 
 Current state: preregistration in progress. No OPE-12 provider call has started.
 
-- [ ] The worktree starts from exact OPE-22 closing commit `1bcdbe6`.
-- [ ] The candidate manifest recomputes to `8aedc364174450ec8ed4a157ab16c9881d69522b32ec65488e19946892b5bb07` before preregistration and immediately before generation.
-- [ ] The execution register, one-shot generation rule, output convention, and human-evidence continuation boundary are committed before the first provider call.
-- [ ] The deterministic complete preflight executes all 80 cells with zero external provider calls and proves the expected missing-human-evidence block.
+- [x] The worktree starts from exact OPE-22 closing commit `1bcdbe6`.
+- [x] The candidate manifest recomputes to `8aedc364174450ec8ed4a157ab16c9881d69522b32ec65488e19946892b5bb07` before preregistration and immediately before generation.
+- [x] The execution register, one-shot generation rule, output convention, and human-evidence continuation boundary are committed before the first provider call.
+- [x] The deterministic complete preflight executes all 80 cells with zero external provider calls and proves the expected missing-human-evidence block.
 - [ ] Every deterministic preflight and the final 4 GiB storage gate pass through the one shared external Cargo target.
 - [ ] Exactly one ChatGPT-plan `gpt-5.6-luna` low complete-run window executes with tools disabled, fresh isolated sessions, at most one repair per cell, at most 160 attempts, and at most four hours.
 - [ ] All 80 cells retain attempts, repairs, diagnostics, tokens, latency, validation, canonical artifacts, native artifacts, and generated review assets.
@@ -23,7 +23,15 @@ Current state: preregistration in progress. No OPE-12 provider call has started.
 
 Verification evidence:
 
-- Pending.
+- Preregistration commit: `a84beb0`.
+- Candidate manifest: `8aedc364174450ec8ed4a157ab16c9881d69522b32ec65488e19946892b5bb07`.
+- Implementation tree: `73e1166aac54b662ea4fca26e1929a074a0a8282658f745a71f82067520ff502`.
+- Tests: 71 passed, 0 failed. Typecheck: passed. Dioxus contract: 1 passed, 0 failed. Shell syntax and diff check: passed.
+- Deterministic complete preflight: 80 cells, 84 retained attempts, zero external provider calls, operational preflight passed.
+- Review packets: 80, with zero leak findings. Human evidence correctly absent from the deterministic preflight.
+- Preflight candidate status: `awaiting-human-evidence`.
+- Preflight `SHA256SUMS` SHA-256: `235a9dad229b30f9043d2f8f39f9ec0caec976c4b76f006f5395d3a2da6ab8de`.
+- Preflight evidence: `prototype/ecosystem-relative-eval/evidence/ope12-complete-preflight-a84beb0-final`.
 
 ## OPE-22 hardened complete-run Luna-low canary
 

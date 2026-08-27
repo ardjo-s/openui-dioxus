@@ -1,0 +1,1682 @@
+[
+  {
+    "packet_id": "packet-001",
+    "scenario_id": "03-filter-action-v2",
+    "task_contract": {
+      "family": "filter-action",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "dee7a0a4347eb037de0c0c926f7f2c56bafe8ed69000929d8e5bbeeea1870490"
+    },
+    "screenshots": [
+      "asset-ae8c81bad0b99bc77b003152dbdae1c8871bb5677c5cd928aaa0fbcb9a1ce396"
+    ],
+    "behavior_recording": "recording-ae8c81bad0b99bc77b003152dbdae1c8871bb5677c5cd928aaa0fbcb9a1ce396",
+    "immutable_after_opening": true,
+    "packet_sha256": "0a235962e5e4798a06f3a52c01e08f746dc47ef6da7371993303c62a5a8bbcdb"
+  },
+  {
+    "packet_id": "packet-002",
+    "scenario_id": "03-filter-action-v1",
+    "task_contract": {
+      "family": "filter-action",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "9e100ff291eee9540cf695027250e0c15e5b154d5e43e6e255aee0dae8562ef3"
+    },
+    "screenshots": [
+      "asset-4040c4779c34f7acf76171629888eac54c6ef539a6bb0f2a67f7637dd2158301"
+    ],
+    "behavior_recording": "recording-4040c4779c34f7acf76171629888eac54c6ef539a6bb0f2a67f7637dd2158301",
+    "immutable_after_opening": true,
+    "packet_sha256": "879e953f6fcbe834fce9dce3e9b19e2170b19c30461db7669c7205275a0c8373"
+  },
+  {
+    "packet_id": "packet-003",
+    "scenario_id": "02-preferences-v1",
+    "task_contract": {
+      "family": "preferences",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "6340630c3fc5792333483e502b549f66a82b31967b5d081dec41f72d4a83f8ee"
+    },
+    "screenshots": [
+      "asset-06d39265ea5b7ab6c6a8fc48b99aa5c329379263f202f66123e48aec5d9a384c"
+    ],
+    "behavior_recording": "recording-06d39265ea5b7ab6c6a8fc48b99aa5c329379263f202f66123e48aec5d9a384c",
+    "immutable_after_opening": true,
+    "packet_sha256": "6c5b4713a75923df9346983aaef6db0fe950df6689b3fe4670c620dab4899734"
+  },
+  {
+    "packet_id": "packet-004",
+    "scenario_id": "05-navigation-feedback-v2",
+    "task_contract": {
+      "family": "navigation-feedback",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "6738f9b388bcae81c9c347009e3b2ee63da6cba06d5c95aae0472d7090cca534"
+    },
+    "screenshots": [
+      "asset-f64c9dd6fc15db79e98f9a6c88f02600952b6e931cb2f3895a10d4569836a309"
+    ],
+    "behavior_recording": "recording-f64c9dd6fc15db79e98f9a6c88f02600952b6e931cb2f3895a10d4569836a309",
+    "immutable_after_opening": true,
+    "packet_sha256": "46e147f1096df472b751dde46084f04b585e5d6186c41d6bc1aaac1e80c13252"
+  },
+  {
+    "packet_id": "packet-005",
+    "scenario_id": "02-preferences-v4",
+    "task_contract": {
+      "family": "preferences",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "397def0caf4df5168718a281d3ccde7ae39516ce59f80c69ebc75030d477e8c3"
+    },
+    "screenshots": [
+      "asset-c23c647ddd9e24b4eee3d328430676f2d122b81867ce056c0d2ed018edf570bc"
+    ],
+    "behavior_recording": "recording-c23c647ddd9e24b4eee3d328430676f2d122b81867ce056c0d2ed018edf570bc",
+    "immutable_after_opening": true,
+    "packet_sha256": "5e4cea7a6af4443d802248664b042de2f5976095822e901b88e188178b24c59c"
+  },
+  {
+    "packet_id": "packet-006",
+    "scenario_id": "01-validated-profile-v1",
+    "task_contract": {
+      "family": "validated-profile",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "3d6b1a71d8783546526f30a9b48bc3ec2f3b2ec61b803613c10f3ede85c94dd6"
+    },
+    "screenshots": [
+      "asset-2725e2c4e56e385143a32e58d002fe25073c3f3c4ba53c0934604e5e3ae2bc4a"
+    ],
+    "behavior_recording": "recording-2725e2c4e56e385143a32e58d002fe25073c3f3c4ba53c0934604e5e3ae2bc4a",
+    "immutable_after_opening": true,
+    "packet_sha256": "78879baeeb1026c5fd727e18467a7aea2dd73f7231f318b90accf0a02428958e"
+  },
+  {
+    "packet_id": "packet-007",
+    "scenario_id": "04-status-dialog-v1",
+    "task_contract": {
+      "family": "status-dialog",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "c7732b7d0756fc726752edc359c005512f6848571dbc80615492840829cd06f1"
+    },
+    "screenshots": [
+      "asset-1b7dc38cfcd6f47bd1f15b09867238176048edfe53d298cfb8de6696e677a58e"
+    ],
+    "behavior_recording": "recording-1b7dc38cfcd6f47bd1f15b09867238176048edfe53d298cfb8de6696e677a58e",
+    "immutable_after_opening": true,
+    "packet_sha256": "5f52dab379b64af132f2915497299b33eb0a5aa3cac9bcecec01faefe9ccde40"
+  },
+  {
+    "packet_id": "packet-008",
+    "scenario_id": "01-validated-profile-v1",
+    "task_contract": {
+      "family": "validated-profile",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "3d6b1a71d8783546526f30a9b48bc3ec2f3b2ec61b803613c10f3ede85c94dd6"
+    },
+    "screenshots": [
+      "asset-ddb07a4c7f451dd6d030f49f7f3584da23883fdf5061421ddc9badb9be941752"
+    ],
+    "behavior_recording": "recording-ddb07a4c7f451dd6d030f49f7f3584da23883fdf5061421ddc9badb9be941752",
+    "immutable_after_opening": true,
+    "packet_sha256": "5177fad624809c34395433ef541b17fdbcacadc8943a41d3b7c76704ce6e29e0"
+  },
+  {
+    "packet_id": "packet-009",
+    "scenario_id": "01-validated-profile-v4",
+    "task_contract": {
+      "family": "validated-profile",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "cd14da2a3993d8730466b6ebfcc0e6018cbedca5ac80fd05789690609151690d"
+    },
+    "screenshots": [
+      "asset-785b6dbdba0d333d11da8dbfba13f1563de21c48612f4bb383bd750446ffddd7"
+    ],
+    "behavior_recording": "recording-785b6dbdba0d333d11da8dbfba13f1563de21c48612f4bb383bd750446ffddd7",
+    "immutable_after_opening": true,
+    "packet_sha256": "4abf3b7f43289343dc52dc3a4d4c918db82c1757989d4fa751c04472be1c353d"
+  },
+  {
+    "packet_id": "packet-010",
+    "scenario_id": "01-validated-profile-v4",
+    "task_contract": {
+      "family": "validated-profile",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "cd14da2a3993d8730466b6ebfcc0e6018cbedca5ac80fd05789690609151690d"
+    },
+    "screenshots": [
+      "asset-607949f22c5522f546694a747d5065960f16226d99c23728016981cc5429d8c7"
+    ],
+    "behavior_recording": "recording-607949f22c5522f546694a747d5065960f16226d99c23728016981cc5429d8c7",
+    "immutable_after_opening": true,
+    "packet_sha256": "6191eb2ff6ad5696caadb70b81667afe37b37349c51ad835628f4112d9e40cfc"
+  },
+  {
+    "packet_id": "packet-011",
+    "scenario_id": "02-preferences-v2",
+    "task_contract": {
+      "family": "preferences",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "1ae1ee0cdb322f63af6b359207aefa684f0ac96f766568f711dedd63721b8d7e"
+    },
+    "screenshots": [
+      "asset-51b44535228d2331aa20927db36ca321323fd95a3b5a853bd83e5e71e5cb8fca"
+    ],
+    "behavior_recording": "recording-51b44535228d2331aa20927db36ca321323fd95a3b5a853bd83e5e71e5cb8fca",
+    "immutable_after_opening": true,
+    "packet_sha256": "6a90c242d752be72eb6bda8b5167aa17f9f8a67762be55d6ad720ba4cdab266e"
+  },
+  {
+    "packet_id": "packet-012",
+    "scenario_id": "04-status-dialog-v3",
+    "task_contract": {
+      "family": "status-dialog",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "f16d4c0e839c79d188437d7a05017d4896510bf11c1a41d101f3771d807c3c1b"
+    },
+    "screenshots": [
+      "asset-7cbad802586aa83bbbd5ad2099272dc83a61d4c58e504304ee4f17d49322a054"
+    ],
+    "behavior_recording": "recording-7cbad802586aa83bbbd5ad2099272dc83a61d4c58e504304ee4f17d49322a054",
+    "immutable_after_opening": true,
+    "packet_sha256": "4ccc36c366cf467d28532a8aa414fd49688f02b7b4a569b23537684175379980"
+  },
+  {
+    "packet_id": "packet-013",
+    "scenario_id": "02-preferences-v1",
+    "task_contract": {
+      "family": "preferences",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "6340630c3fc5792333483e502b549f66a82b31967b5d081dec41f72d4a83f8ee"
+    },
+    "screenshots": [
+      "asset-06d39265ea5b7ab6c6a8fc48b99aa5c329379263f202f66123e48aec5d9a384c"
+    ],
+    "behavior_recording": "recording-06d39265ea5b7ab6c6a8fc48b99aa5c329379263f202f66123e48aec5d9a384c",
+    "immutable_after_opening": true,
+    "packet_sha256": "b26889d1779c1b7b8efe55ac490c311b18a630618c44c8a12993a3a41911aa85"
+  },
+  {
+    "packet_id": "packet-014",
+    "scenario_id": "03-filter-action-v4",
+    "task_contract": {
+      "family": "filter-action",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "bdcb520dc8563d8ccd7f23b87c92bae0092fa3141fe6c16cc7d3c0bc007b7cce"
+    },
+    "screenshots": [
+      "asset-87071a2344b714dde380d81f5c91a33bceb90799eddf675077529ce181216415"
+    ],
+    "behavior_recording": "recording-87071a2344b714dde380d81f5c91a33bceb90799eddf675077529ce181216415",
+    "immutable_after_opening": true,
+    "packet_sha256": "cbcaf2a76a7c60eebf38f6e959ad5b5a11db08d13b7cfdfa0d877da265b6bd1b"
+  },
+  {
+    "packet_id": "packet-015",
+    "scenario_id": "02-preferences-v2",
+    "task_contract": {
+      "family": "preferences",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "1ae1ee0cdb322f63af6b359207aefa684f0ac96f766568f711dedd63721b8d7e"
+    },
+    "screenshots": [
+      "asset-51b44535228d2331aa20927db36ca321323fd95a3b5a853bd83e5e71e5cb8fca"
+    ],
+    "behavior_recording": "recording-51b44535228d2331aa20927db36ca321323fd95a3b5a853bd83e5e71e5cb8fca",
+    "immutable_after_opening": true,
+    "packet_sha256": "01e82d6866f403856cf234e9ea02b80797b79f6b81eb78a27b9a746fa1e8995d"
+  },
+  {
+    "packet_id": "packet-016",
+    "scenario_id": "02-preferences-v4",
+    "task_contract": {
+      "family": "preferences",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "397def0caf4df5168718a281d3ccde7ae39516ce59f80c69ebc75030d477e8c3"
+    },
+    "screenshots": [
+      "asset-43b1a8f1c6afd4b753923000c7763dfb1eda4174efece75ebd1756a13abe1a50"
+    ],
+    "behavior_recording": "recording-43b1a8f1c6afd4b753923000c7763dfb1eda4174efece75ebd1756a13abe1a50",
+    "immutable_after_opening": true,
+    "packet_sha256": "c527f3371ec24ae9d11d2ad9542bf374372ccdb1864e8f2f3d4a2d5656e523e2"
+  },
+  {
+    "packet_id": "packet-017",
+    "scenario_id": "05-navigation-feedback-v1",
+    "task_contract": {
+      "family": "navigation-feedback",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "45c5781a54da0aca4e27b8f04b29456d1f8387e627c0e2d0c563faae742a65f0"
+    },
+    "screenshots": [
+      "asset-d53b49d64ddfe09230de5e9bfce3bb127f628f6d950a0368912afe9d1101a8dd"
+    ],
+    "behavior_recording": "recording-d53b49d64ddfe09230de5e9bfce3bb127f628f6d950a0368912afe9d1101a8dd",
+    "immutable_after_opening": true,
+    "packet_sha256": "98426036bffd3d5247ee13be26bad702c85d6ad721abbc637d56b475b6bdb8d5"
+  },
+  {
+    "packet_id": "packet-018",
+    "scenario_id": "01-validated-profile-v1",
+    "task_contract": {
+      "family": "validated-profile",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "3d6b1a71d8783546526f30a9b48bc3ec2f3b2ec61b803613c10f3ede85c94dd6"
+    },
+    "screenshots": [
+      "asset-2725e2c4e56e385143a32e58d002fe25073c3f3c4ba53c0934604e5e3ae2bc4a"
+    ],
+    "behavior_recording": "recording-2725e2c4e56e385143a32e58d002fe25073c3f3c4ba53c0934604e5e3ae2bc4a",
+    "immutable_after_opening": true,
+    "packet_sha256": "a130cd283b9570b9b171752e42980530b1cbfc9c7d0b2d40b9ffc37e51b3e6d5"
+  },
+  {
+    "packet_id": "packet-019",
+    "scenario_id": "02-preferences-v1",
+    "task_contract": {
+      "family": "preferences",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "6340630c3fc5792333483e502b549f66a82b31967b5d081dec41f72d4a83f8ee"
+    },
+    "screenshots": [
+      "asset-06d39265ea5b7ab6c6a8fc48b99aa5c329379263f202f66123e48aec5d9a384c"
+    ],
+    "behavior_recording": "recording-06d39265ea5b7ab6c6a8fc48b99aa5c329379263f202f66123e48aec5d9a384c",
+    "immutable_after_opening": true,
+    "packet_sha256": "3d20d04efbbe2e6bce878fe9be85fe18e9764414930c67050eefc909b5662290"
+  },
+  {
+    "packet_id": "packet-020",
+    "scenario_id": "03-filter-action-v1",
+    "task_contract": {
+      "family": "filter-action",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "9e100ff291eee9540cf695027250e0c15e5b154d5e43e6e255aee0dae8562ef3"
+    },
+    "screenshots": [
+      "asset-bada0aa1ecdd0cd43c0acb8a0799c2b64bd824f8c8d7315baa396d9292f0f54c"
+    ],
+    "behavior_recording": "recording-bada0aa1ecdd0cd43c0acb8a0799c2b64bd824f8c8d7315baa396d9292f0f54c",
+    "immutable_after_opening": true,
+    "packet_sha256": "576d121fe101a3149e84e5cf25ba83a0af0ca990a9a27c95fd0dae62260f6e47"
+  },
+  {
+    "packet_id": "packet-021",
+    "scenario_id": "04-status-dialog-v3",
+    "task_contract": {
+      "family": "status-dialog",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "f16d4c0e839c79d188437d7a05017d4896510bf11c1a41d101f3771d807c3c1b"
+    },
+    "screenshots": [
+      "asset-2131d56e8f2cacd83533400817739a41581a398801e799da31babfa8e8aeae2d"
+    ],
+    "behavior_recording": "recording-2131d56e8f2cacd83533400817739a41581a398801e799da31babfa8e8aeae2d",
+    "immutable_after_opening": true,
+    "packet_sha256": "379d107e4618293090b1296f5eae918fcd92e567734a2752a6a08c4d01d6a767"
+  },
+  {
+    "packet_id": "packet-022",
+    "scenario_id": "01-validated-profile-v1",
+    "task_contract": {
+      "family": "validated-profile",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "3d6b1a71d8783546526f30a9b48bc3ec2f3b2ec61b803613c10f3ede85c94dd6"
+    },
+    "screenshots": [
+      "asset-ddb07a4c7f451dd6d030f49f7f3584da23883fdf5061421ddc9badb9be941752"
+    ],
+    "behavior_recording": "recording-ddb07a4c7f451dd6d030f49f7f3584da23883fdf5061421ddc9badb9be941752",
+    "immutable_after_opening": true,
+    "packet_sha256": "1cc48d795b6dc4898d5599767f940c02ad3e79c563fe1adf2b07f012aefcfa3e"
+  },
+  {
+    "packet_id": "packet-023",
+    "scenario_id": "02-preferences-v3",
+    "task_contract": {
+      "family": "preferences",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "3a2a5b098fb82da4277c48032702f07f970cf587b8da43a7ff89842155a2fc61"
+    },
+    "screenshots": [
+      "asset-01a9d7f100e0b4cf83e637eec184b4985d776cbff55bbde00962badbee4bbe32"
+    ],
+    "behavior_recording": "recording-01a9d7f100e0b4cf83e637eec184b4985d776cbff55bbde00962badbee4bbe32",
+    "immutable_after_opening": true,
+    "packet_sha256": "40da98febf19377b89c30af41fde25c67da7f7fd3231d133b3c157bc88da16d9"
+  },
+  {
+    "packet_id": "packet-024",
+    "scenario_id": "03-filter-action-v1",
+    "task_contract": {
+      "family": "filter-action",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "9e100ff291eee9540cf695027250e0c15e5b154d5e43e6e255aee0dae8562ef3"
+    },
+    "screenshots": [
+      "asset-bada0aa1ecdd0cd43c0acb8a0799c2b64bd824f8c8d7315baa396d9292f0f54c"
+    ],
+    "behavior_recording": "recording-bada0aa1ecdd0cd43c0acb8a0799c2b64bd824f8c8d7315baa396d9292f0f54c",
+    "immutable_after_opening": true,
+    "packet_sha256": "2ca75616b9b2340bb33e7ca71fd376f89e04384ae3878985c2abe3e9d6193809"
+  },
+  {
+    "packet_id": "packet-025",
+    "scenario_id": "01-validated-profile-v2",
+    "task_contract": {
+      "family": "validated-profile",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "304b4412088622f43adea537a1b0c79ca7f8452215e0b2832926c527241219b0"
+    },
+    "screenshots": [
+      "asset-f5156db1383fa5a31f7bd878b0339e7b9b3c28baca45fc04b0072565dd8334e8"
+    ],
+    "behavior_recording": "recording-f5156db1383fa5a31f7bd878b0339e7b9b3c28baca45fc04b0072565dd8334e8",
+    "immutable_after_opening": true,
+    "packet_sha256": "37ae4e57b54a52f35822d8db41dc887f7cfc1cf1fe6036d6da40f6bc46952c5c"
+  },
+  {
+    "packet_id": "packet-026",
+    "scenario_id": "01-validated-profile-v4",
+    "task_contract": {
+      "family": "validated-profile",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "cd14da2a3993d8730466b6ebfcc0e6018cbedca5ac80fd05789690609151690d"
+    },
+    "screenshots": [
+      "asset-785b6dbdba0d333d11da8dbfba13f1563de21c48612f4bb383bd750446ffddd7"
+    ],
+    "behavior_recording": "recording-785b6dbdba0d333d11da8dbfba13f1563de21c48612f4bb383bd750446ffddd7",
+    "immutable_after_opening": true,
+    "packet_sha256": "5a8de756e1fd6b1bcf1a5c4f295535428073cce52725a7de619dcc3eaca04ade"
+  },
+  {
+    "packet_id": "packet-027",
+    "scenario_id": "03-filter-action-v3",
+    "task_contract": {
+      "family": "filter-action",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "6d1a1dca9ad07e8ed1a89e31f1c0aa58e48b94033f403a876854c2e4f78bb092"
+    },
+    "screenshots": [
+      "asset-63234c81751fa498d21074fcff42b47d6cf854a4fed9fb08ac573b25a1f86c4e"
+    ],
+    "behavior_recording": "recording-63234c81751fa498d21074fcff42b47d6cf854a4fed9fb08ac573b25a1f86c4e",
+    "immutable_after_opening": true,
+    "packet_sha256": "5baa02ff4cb2c13c96c977a6ea32ab2f129aaed56fb138591356624b91bf8ac2"
+  },
+  {
+    "packet_id": "packet-028",
+    "scenario_id": "04-status-dialog-v1",
+    "task_contract": {
+      "family": "status-dialog",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "c7732b7d0756fc726752edc359c005512f6848571dbc80615492840829cd06f1"
+    },
+    "screenshots": [
+      "asset-f4dd1c3e862a5570f60a0313eae0745df655e44fe981c2daebbe73e27a49591e"
+    ],
+    "behavior_recording": "recording-f4dd1c3e862a5570f60a0313eae0745df655e44fe981c2daebbe73e27a49591e",
+    "immutable_after_opening": true,
+    "packet_sha256": "f61a91f0dd6ce128fe98537277433e8c7c16a3f84995d00108551121c353bc61"
+  },
+  {
+    "packet_id": "packet-029",
+    "scenario_id": "05-navigation-feedback-v1",
+    "task_contract": {
+      "family": "navigation-feedback",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "45c5781a54da0aca4e27b8f04b29456d1f8387e627c0e2d0c563faae742a65f0"
+    },
+    "screenshots": [
+      "asset-7a63b89eb9f0dccbf0d14f6115c32ef05fc0b7dd368fd0ea41a5ef918e5be2f4"
+    ],
+    "behavior_recording": "recording-7a63b89eb9f0dccbf0d14f6115c32ef05fc0b7dd368fd0ea41a5ef918e5be2f4",
+    "immutable_after_opening": true,
+    "packet_sha256": "bef5e8068c857cd6381609ecb2444fc95fe1bdb06f4b87a951c6bebe7d530183"
+  },
+  {
+    "packet_id": "packet-030",
+    "scenario_id": "05-navigation-feedback-v3",
+    "task_contract": {
+      "family": "navigation-feedback",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "d43d2c6a64a4c434dfb17e253a0c2fbcb9b3d544801b66743f9b2645ed22d5b4"
+    },
+    "screenshots": [
+      "asset-7efacbeee9737a07a518b36697b5eed72cb0cc0ee6f1b380b7064f6980ea1302"
+    ],
+    "behavior_recording": "recording-7efacbeee9737a07a518b36697b5eed72cb0cc0ee6f1b380b7064f6980ea1302",
+    "immutable_after_opening": true,
+    "packet_sha256": "bcc53dbf21372cca7e2e1362055f57455beb65da17f0adba3279aae7396fe388"
+  },
+  {
+    "packet_id": "packet-031",
+    "scenario_id": "04-status-dialog-v1",
+    "task_contract": {
+      "family": "status-dialog",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "c7732b7d0756fc726752edc359c005512f6848571dbc80615492840829cd06f1"
+    },
+    "screenshots": [
+      "asset-3a1f0f0c3550df511a6d5ab50a7953344c1fe1f66d33c0f24d4a7b36319ca564"
+    ],
+    "behavior_recording": "recording-3a1f0f0c3550df511a6d5ab50a7953344c1fe1f66d33c0f24d4a7b36319ca564",
+    "immutable_after_opening": true,
+    "packet_sha256": "ea46c166d7df04937001e025075dbf832c8ec57c213aca8634156c15eb9cc14e"
+  },
+  {
+    "packet_id": "packet-032",
+    "scenario_id": "01-validated-profile-v2",
+    "task_contract": {
+      "family": "validated-profile",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "304b4412088622f43adea537a1b0c79ca7f8452215e0b2832926c527241219b0"
+    },
+    "screenshots": [
+      "asset-3306c4b14477ad280ec8d3b4ecddd0d0722b8087849ee0e2687a862abda70a34"
+    ],
+    "behavior_recording": "recording-3306c4b14477ad280ec8d3b4ecddd0d0722b8087849ee0e2687a862abda70a34",
+    "immutable_after_opening": true,
+    "packet_sha256": "33bcebddafe9117b7dc1ba8ddb6b6091f22af9cd367efe8db26e3104726954b5"
+  },
+  {
+    "packet_id": "packet-033",
+    "scenario_id": "04-status-dialog-v4",
+    "task_contract": {
+      "family": "status-dialog",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "48aa840932fa9ef8e4d980d9fde0e15c11ba4f08d3bd8213a161d801555163df"
+    },
+    "screenshots": [
+      "asset-507ea0aaef11e3f6a769b701aa081b16286224d43f7dbd6a08da85e34b936ea4"
+    ],
+    "behavior_recording": "recording-507ea0aaef11e3f6a769b701aa081b16286224d43f7dbd6a08da85e34b936ea4",
+    "immutable_after_opening": true,
+    "packet_sha256": "dc46a6d4fc730d824b090cb0e5418f0e21b8a2c62dbbdf0d27f9ebeb6d9cc15a"
+  },
+  {
+    "packet_id": "packet-034",
+    "scenario_id": "03-filter-action-v1",
+    "task_contract": {
+      "family": "filter-action",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "9e100ff291eee9540cf695027250e0c15e5b154d5e43e6e255aee0dae8562ef3"
+    },
+    "screenshots": [
+      "asset-bada0aa1ecdd0cd43c0acb8a0799c2b64bd824f8c8d7315baa396d9292f0f54c"
+    ],
+    "behavior_recording": "recording-bada0aa1ecdd0cd43c0acb8a0799c2b64bd824f8c8d7315baa396d9292f0f54c",
+    "immutable_after_opening": true,
+    "packet_sha256": "83d58637f7cebfdf7ee265d232017541632521dece8b5b4c9ee90d4697dd34ea"
+  },
+  {
+    "packet_id": "packet-035",
+    "scenario_id": "02-preferences-v3",
+    "task_contract": {
+      "family": "preferences",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "3a2a5b098fb82da4277c48032702f07f970cf587b8da43a7ff89842155a2fc61"
+    },
+    "screenshots": [
+      "asset-01a9d7f100e0b4cf83e637eec184b4985d776cbff55bbde00962badbee4bbe32"
+    ],
+    "behavior_recording": "recording-01a9d7f100e0b4cf83e637eec184b4985d776cbff55bbde00962badbee4bbe32",
+    "immutable_after_opening": true,
+    "packet_sha256": "a8515197ea88493ea03aedcdf8c9bc90fa64cef7948c87a3e22cb98c5e17e712"
+  },
+  {
+    "packet_id": "packet-036",
+    "scenario_id": "01-validated-profile-v3",
+    "task_contract": {
+      "family": "validated-profile",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "62eef362ee02e08f82f03b6195f0c1d0feaeb8fe31995047567f493fe83a28d9"
+    },
+    "screenshots": [
+      "asset-417ee857503283073781d232cc5e361d0b01d3848598fb7794875a0f8c58ead8"
+    ],
+    "behavior_recording": "recording-417ee857503283073781d232cc5e361d0b01d3848598fb7794875a0f8c58ead8",
+    "immutable_after_opening": true,
+    "packet_sha256": "3367a97dd97aafc7ebf72c6e73f5871c57454c24511d51ea1cb704df60f5b514"
+  },
+  {
+    "packet_id": "packet-037",
+    "scenario_id": "05-navigation-feedback-v2",
+    "task_contract": {
+      "family": "navigation-feedback",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "6738f9b388bcae81c9c347009e3b2ee63da6cba06d5c95aae0472d7090cca534"
+    },
+    "screenshots": [
+      "asset-d56e0d14b28a15f4d1a08f3a23946623ada080ec523b815e3c25481886f40c2a"
+    ],
+    "behavior_recording": "recording-d56e0d14b28a15f4d1a08f3a23946623ada080ec523b815e3c25481886f40c2a",
+    "immutable_after_opening": true,
+    "packet_sha256": "1a71f65e311d541b0b619200e241ef5146b348b2f9d5d1839927b9d5e226205f"
+  },
+  {
+    "packet_id": "packet-038",
+    "scenario_id": "03-filter-action-v1",
+    "task_contract": {
+      "family": "filter-action",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "9e100ff291eee9540cf695027250e0c15e5b154d5e43e6e255aee0dae8562ef3"
+    },
+    "screenshots": [
+      "asset-1daf23eb5c69a175cde58608d310b2875c678e365bcd7df273341bef169f8847"
+    ],
+    "behavior_recording": "recording-1daf23eb5c69a175cde58608d310b2875c678e365bcd7df273341bef169f8847",
+    "immutable_after_opening": true,
+    "packet_sha256": "d4ad6b8a8d1d58db80da723ea267697e8675a0913659d3ea219dfe25d1933cfb"
+  },
+  {
+    "packet_id": "packet-039",
+    "scenario_id": "05-navigation-feedback-v1",
+    "task_contract": {
+      "family": "navigation-feedback",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "45c5781a54da0aca4e27b8f04b29456d1f8387e627c0e2d0c563faae742a65f0"
+    },
+    "screenshots": [
+      "asset-7a63b89eb9f0dccbf0d14f6115c32ef05fc0b7dd368fd0ea41a5ef918e5be2f4"
+    ],
+    "behavior_recording": "recording-7a63b89eb9f0dccbf0d14f6115c32ef05fc0b7dd368fd0ea41a5ef918e5be2f4",
+    "immutable_after_opening": true,
+    "packet_sha256": "e6df2018153e5ffacec63ad2e9e5cc2b6a52e75934eaf49d9ce439bef043b4de"
+  },
+  {
+    "packet_id": "packet-040",
+    "scenario_id": "03-filter-action-v1",
+    "task_contract": {
+      "family": "filter-action",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "9e100ff291eee9540cf695027250e0c15e5b154d5e43e6e255aee0dae8562ef3"
+    },
+    "screenshots": [
+      "asset-4040c4779c34f7acf76171629888eac54c6ef539a6bb0f2a67f7637dd2158301"
+    ],
+    "behavior_recording": "recording-4040c4779c34f7acf76171629888eac54c6ef539a6bb0f2a67f7637dd2158301",
+    "immutable_after_opening": true,
+    "packet_sha256": "d84eb0e11422370b819642cfef49c81462b3d86ff7fdbc578f72bd596e0671ee"
+  },
+  {
+    "packet_id": "packet-041",
+    "scenario_id": "05-navigation-feedback-v4",
+    "task_contract": {
+      "family": "navigation-feedback",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "013a28f3e191eb4e0a3bb1297ca37a63e246e96442596ee5e0744622459cfd46"
+    },
+    "screenshots": [
+      "asset-7aed6c2874cb92f49655bc710edf091a4b241e490cadf3e434772f136cc6e269"
+    ],
+    "behavior_recording": "recording-7aed6c2874cb92f49655bc710edf091a4b241e490cadf3e434772f136cc6e269",
+    "immutable_after_opening": true,
+    "packet_sha256": "aaf027b7c1e69e05af49599a6ed8faf72022c9e26940d4de0345e326f6df6530"
+  },
+  {
+    "packet_id": "packet-042",
+    "scenario_id": "02-preferences-v3",
+    "task_contract": {
+      "family": "preferences",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "3a2a5b098fb82da4277c48032702f07f970cf587b8da43a7ff89842155a2fc61"
+    },
+    "screenshots": [
+      "asset-cd401eb4215a1382bb2446f07b349473b63300893ce01b4a9892334571efb4b1"
+    ],
+    "behavior_recording": "recording-cd401eb4215a1382bb2446f07b349473b63300893ce01b4a9892334571efb4b1",
+    "immutable_after_opening": true,
+    "packet_sha256": "4a2ddb9716e5789f97d8264e22a42af35e3d4034e0ded0e698b44c45a3e35a6a"
+  },
+  {
+    "packet_id": "packet-043",
+    "scenario_id": "04-status-dialog-v1",
+    "task_contract": {
+      "family": "status-dialog",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "c7732b7d0756fc726752edc359c005512f6848571dbc80615492840829cd06f1"
+    },
+    "screenshots": [
+      "asset-3a1f0f0c3550df511a6d5ab50a7953344c1fe1f66d33c0f24d4a7b36319ca564"
+    ],
+    "behavior_recording": "recording-3a1f0f0c3550df511a6d5ab50a7953344c1fe1f66d33c0f24d4a7b36319ca564",
+    "immutable_after_opening": true,
+    "packet_sha256": "c1b52c05c942951b569959a1fda8f78d48bbea37a2193edefc8dde8f9fd29839"
+  },
+  {
+    "packet_id": "packet-044",
+    "scenario_id": "03-filter-action-v2",
+    "task_contract": {
+      "family": "filter-action",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "dee7a0a4347eb037de0c0c926f7f2c56bafe8ed69000929d8e5bbeeea1870490"
+    },
+    "screenshots": [
+      "asset-2071c186563abf4dc125f0d79e2f261ecc7aa3bdb569dc9cf7337069c1f4ebef"
+    ],
+    "behavior_recording": "recording-2071c186563abf4dc125f0d79e2f261ecc7aa3bdb569dc9cf7337069c1f4ebef",
+    "immutable_after_opening": true,
+    "packet_sha256": "db71b8ac820ad2b27002799d735bb89f942be5bd7fe470da77c384f38493f30d"
+  },
+  {
+    "packet_id": "packet-045",
+    "scenario_id": "03-filter-action-v4",
+    "task_contract": {
+      "family": "filter-action",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "bdcb520dc8563d8ccd7f23b87c92bae0092fa3141fe6c16cc7d3c0bc007b7cce"
+    },
+    "screenshots": [
+      "asset-87071a2344b714dde380d81f5c91a33bceb90799eddf675077529ce181216415"
+    ],
+    "behavior_recording": "recording-87071a2344b714dde380d81f5c91a33bceb90799eddf675077529ce181216415",
+    "immutable_after_opening": true,
+    "packet_sha256": "de8f240eb01a393ddf3da615e80a948a99231ad24731501cf86f2ee01f19bfc7"
+  },
+  {
+    "packet_id": "packet-046",
+    "scenario_id": "03-filter-action-v3",
+    "task_contract": {
+      "family": "filter-action",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "6d1a1dca9ad07e8ed1a89e31f1c0aa58e48b94033f403a876854c2e4f78bb092"
+    },
+    "screenshots": [
+      "asset-c8f64797b4a5234c5d7c57dabc418e508277b7a98ea9170c07802a0a50ad1bc6"
+    ],
+    "behavior_recording": "recording-c8f64797b4a5234c5d7c57dabc418e508277b7a98ea9170c07802a0a50ad1bc6",
+    "immutable_after_opening": true,
+    "packet_sha256": "a50ceb63dbbb57bb264583d151bda77e31be970b480303afc9fe6f5d0fbf2077"
+  },
+  {
+    "packet_id": "packet-047",
+    "scenario_id": "05-navigation-feedback-v2",
+    "task_contract": {
+      "family": "navigation-feedback",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "6738f9b388bcae81c9c347009e3b2ee63da6cba06d5c95aae0472d7090cca534"
+    },
+    "screenshots": [
+      "asset-f64c9dd6fc15db79e98f9a6c88f02600952b6e931cb2f3895a10d4569836a309"
+    ],
+    "behavior_recording": "recording-f64c9dd6fc15db79e98f9a6c88f02600952b6e931cb2f3895a10d4569836a309",
+    "immutable_after_opening": true,
+    "packet_sha256": "6229b50485605422a7216ec5ae9145e022305598e3aa7c42ec59f2030942aef1"
+  },
+  {
+    "packet_id": "packet-048",
+    "scenario_id": "01-validated-profile-v3",
+    "task_contract": {
+      "family": "validated-profile",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "62eef362ee02e08f82f03b6195f0c1d0feaeb8fe31995047567f493fe83a28d9"
+    },
+    "screenshots": [
+      "asset-667434cbe9452cc55ca4943196127664c51963cb1e5bbbf701cd0e1275d0fa95"
+    ],
+    "behavior_recording": "recording-667434cbe9452cc55ca4943196127664c51963cb1e5bbbf701cd0e1275d0fa95",
+    "immutable_after_opening": true,
+    "packet_sha256": "814032b17a9bdc150cf275a74b00707d85d95feed7cbdecc63aff0ab5d6a55b3"
+  },
+  {
+    "packet_id": "packet-049",
+    "scenario_id": "05-navigation-feedback-v1",
+    "task_contract": {
+      "family": "navigation-feedback",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "45c5781a54da0aca4e27b8f04b29456d1f8387e627c0e2d0c563faae742a65f0"
+    },
+    "screenshots": [
+      "asset-7a63b89eb9f0dccbf0d14f6115c32ef05fc0b7dd368fd0ea41a5ef918e5be2f4"
+    ],
+    "behavior_recording": "recording-7a63b89eb9f0dccbf0d14f6115c32ef05fc0b7dd368fd0ea41a5ef918e5be2f4",
+    "immutable_after_opening": true,
+    "packet_sha256": "ab4bc6eeea6a8682a90ff43ef29e536443cce06fe655795e2b41541f81d1f250"
+  },
+  {
+    "packet_id": "packet-050",
+    "scenario_id": "04-status-dialog-v1",
+    "task_contract": {
+      "family": "status-dialog",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "c7732b7d0756fc726752edc359c005512f6848571dbc80615492840829cd06f1"
+    },
+    "screenshots": [
+      "asset-3a1f0f0c3550df511a6d5ab50a7953344c1fe1f66d33c0f24d4a7b36319ca564"
+    ],
+    "behavior_recording": "recording-3a1f0f0c3550df511a6d5ab50a7953344c1fe1f66d33c0f24d4a7b36319ca564",
+    "immutable_after_opening": true,
+    "packet_sha256": "297f1d8479426bd864eace19308b03e39b53a3da4991250d5ba5bb729ab10f96"
+  },
+  {
+    "packet_id": "packet-051",
+    "scenario_id": "02-preferences-v1",
+    "task_contract": {
+      "family": "preferences",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "6340630c3fc5792333483e502b549f66a82b31967b5d081dec41f72d4a83f8ee"
+    },
+    "screenshots": [
+      "asset-440db1785bc40fb5bcf877a72046185ba51b2791b44d687f1e6af00570096323"
+    ],
+    "behavior_recording": "recording-440db1785bc40fb5bcf877a72046185ba51b2791b44d687f1e6af00570096323",
+    "immutable_after_opening": true,
+    "packet_sha256": "e748f60c3e543811847d4fba35a535999ae9f22ee41072b28c62a03e62ffbf7b"
+  },
+  {
+    "packet_id": "packet-052",
+    "scenario_id": "04-status-dialog-v2",
+    "task_contract": {
+      "family": "status-dialog",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "7b3ba39ae8c5e59189a7888d19b2f6669e212296c4afa953e081fc361ee53dfb"
+    },
+    "screenshots": [
+      "asset-6073369361c85b1d25aa78430ad196e66a952236df60c7281a379593800c9fe1"
+    ],
+    "behavior_recording": "recording-6073369361c85b1d25aa78430ad196e66a952236df60c7281a379593800c9fe1",
+    "immutable_after_opening": true,
+    "packet_sha256": "ca68eb5d218a5945e5f84a23e269b6888505ac43862583d676ed0d4ec15f38c8"
+  },
+  {
+    "packet_id": "packet-053",
+    "scenario_id": "04-status-dialog-v2",
+    "task_contract": {
+      "family": "status-dialog",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "7b3ba39ae8c5e59189a7888d19b2f6669e212296c4afa953e081fc361ee53dfb"
+    },
+    "screenshots": [
+      "asset-841e1b84828178a10d9ca969499b6ac90841c7ec32ab4162208f742bb6285afd"
+    ],
+    "behavior_recording": "recording-841e1b84828178a10d9ca969499b6ac90841c7ec32ab4162208f742bb6285afd",
+    "immutable_after_opening": true,
+    "packet_sha256": "7d4a1d6e0ef7fd205cf2ef71ed24143c6a73e7049f0b0a5651cd358e5e6388b1"
+  },
+  {
+    "packet_id": "packet-054",
+    "scenario_id": "05-navigation-feedback-v1",
+    "task_contract": {
+      "family": "navigation-feedback",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "45c5781a54da0aca4e27b8f04b29456d1f8387e627c0e2d0c563faae742a65f0"
+    },
+    "screenshots": [
+      "asset-d53b49d64ddfe09230de5e9bfce3bb127f628f6d950a0368912afe9d1101a8dd"
+    ],
+    "behavior_recording": "recording-d53b49d64ddfe09230de5e9bfce3bb127f628f6d950a0368912afe9d1101a8dd",
+    "immutable_after_opening": true,
+    "packet_sha256": "847d9036a6f7225f26d632ac59b7430216abdf14b24d17e6a3e35eda5f653741"
+  },
+  {
+    "packet_id": "packet-055",
+    "scenario_id": "01-validated-profile-v1",
+    "task_contract": {
+      "family": "validated-profile",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "3d6b1a71d8783546526f30a9b48bc3ec2f3b2ec61b803613c10f3ede85c94dd6"
+    },
+    "screenshots": [
+      "asset-2725e2c4e56e385143a32e58d002fe25073c3f3c4ba53c0934604e5e3ae2bc4a"
+    ],
+    "behavior_recording": "recording-2725e2c4e56e385143a32e58d002fe25073c3f3c4ba53c0934604e5e3ae2bc4a",
+    "immutable_after_opening": true,
+    "packet_sha256": "28fde87d25411e56f867d154705f9187f9c98ba663930e5fb689fb8cd0c64cd6"
+  },
+  {
+    "packet_id": "packet-056",
+    "scenario_id": "04-status-dialog-v3",
+    "task_contract": {
+      "family": "status-dialog",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "f16d4c0e839c79d188437d7a05017d4896510bf11c1a41d101f3771d807c3c1b"
+    },
+    "screenshots": [
+      "asset-2131d56e8f2cacd83533400817739a41581a398801e799da31babfa8e8aeae2d"
+    ],
+    "behavior_recording": "recording-2131d56e8f2cacd83533400817739a41581a398801e799da31babfa8e8aeae2d",
+    "immutable_after_opening": true,
+    "packet_sha256": "dd0c6e12e18f8272e1975c1d3ca036b9596a6be1cac293af72a0b965b5bd3156"
+  },
+  {
+    "packet_id": "packet-057",
+    "scenario_id": "05-navigation-feedback-v4",
+    "task_contract": {
+      "family": "navigation-feedback",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "013a28f3e191eb4e0a3bb1297ca37a63e246e96442596ee5e0744622459cfd46"
+    },
+    "screenshots": [
+      "asset-e23fe1115580a23f916fc4e0df38f67e279c67f5d9b88ee17191e69e67145f1f"
+    ],
+    "behavior_recording": "recording-e23fe1115580a23f916fc4e0df38f67e279c67f5d9b88ee17191e69e67145f1f",
+    "immutable_after_opening": true,
+    "packet_sha256": "c5138816f28492b87860170afd6a7a52a9c75a27c0a1204972516728490ea754"
+  },
+  {
+    "packet_id": "packet-058",
+    "scenario_id": "02-preferences-v2",
+    "task_contract": {
+      "family": "preferences",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "1ae1ee0cdb322f63af6b359207aefa684f0ac96f766568f711dedd63721b8d7e"
+    },
+    "screenshots": [
+      "asset-e494d2337c1fb6c892e0b5fa2e180be4ab42273930fff19332a9e85a24a03eaa"
+    ],
+    "behavior_recording": "recording-e494d2337c1fb6c892e0b5fa2e180be4ab42273930fff19332a9e85a24a03eaa",
+    "immutable_after_opening": true,
+    "packet_sha256": "4e86958eafdb022ba8982cc272a92b1db8c4d6497989db2eb54584e349cc541b"
+  },
+  {
+    "packet_id": "packet-059",
+    "scenario_id": "03-filter-action-v2",
+    "task_contract": {
+      "family": "filter-action",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "dee7a0a4347eb037de0c0c926f7f2c56bafe8ed69000929d8e5bbeeea1870490"
+    },
+    "screenshots": [
+      "asset-ae8c81bad0b99bc77b003152dbdae1c8871bb5677c5cd928aaa0fbcb9a1ce396"
+    ],
+    "behavior_recording": "recording-ae8c81bad0b99bc77b003152dbdae1c8871bb5677c5cd928aaa0fbcb9a1ce396",
+    "immutable_after_opening": true,
+    "packet_sha256": "ffc8f9db5aee9637ff50f73dd948bf812aba4ce54c2984d5bdebaa0509e95ee9"
+  },
+  {
+    "packet_id": "packet-060",
+    "scenario_id": "03-filter-action-v4",
+    "task_contract": {
+      "family": "filter-action",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "bdcb520dc8563d8ccd7f23b87c92bae0092fa3141fe6c16cc7d3c0bc007b7cce"
+    },
+    "screenshots": [
+      "asset-58a2ac159454f0c79b2e1bef74b62bd483171752a150d5a6c94f9314fe86a94e"
+    ],
+    "behavior_recording": "recording-58a2ac159454f0c79b2e1bef74b62bd483171752a150d5a6c94f9314fe86a94e",
+    "immutable_after_opening": true,
+    "packet_sha256": "dccb2c81e1206a7036e4ce0d15227f6941df4d46475fb06637763a2475acb345"
+  },
+  {
+    "packet_id": "packet-061",
+    "scenario_id": "02-preferences-v1",
+    "task_contract": {
+      "family": "preferences",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "6340630c3fc5792333483e502b549f66a82b31967b5d081dec41f72d4a83f8ee"
+    },
+    "screenshots": [
+      "asset-edf783c352e60aee741a36ccd0d2abfbe14ddfe2f871cb6c0614d908c3d7c62a"
+    ],
+    "behavior_recording": "recording-edf783c352e60aee741a36ccd0d2abfbe14ddfe2f871cb6c0614d908c3d7c62a",
+    "immutable_after_opening": true,
+    "packet_sha256": "91ad34696fc0a928650f1921901e483038fe748e9c7510dee674ed8d1a892170"
+  },
+  {
+    "packet_id": "packet-062",
+    "scenario_id": "05-navigation-feedback-v4",
+    "task_contract": {
+      "family": "navigation-feedback",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "013a28f3e191eb4e0a3bb1297ca37a63e246e96442596ee5e0744622459cfd46"
+    },
+    "screenshots": [
+      "asset-7aed6c2874cb92f49655bc710edf091a4b241e490cadf3e434772f136cc6e269"
+    ],
+    "behavior_recording": "recording-7aed6c2874cb92f49655bc710edf091a4b241e490cadf3e434772f136cc6e269",
+    "immutable_after_opening": true,
+    "packet_sha256": "075bb9ecb5c4b673754adb4e1cc0df3f3bd130e62ed50a363490b8d2619718da"
+  },
+  {
+    "packet_id": "packet-063",
+    "scenario_id": "01-validated-profile-v3",
+    "task_contract": {
+      "family": "validated-profile",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "62eef362ee02e08f82f03b6195f0c1d0feaeb8fe31995047567f493fe83a28d9"
+    },
+    "screenshots": [
+      "asset-667434cbe9452cc55ca4943196127664c51963cb1e5bbbf701cd0e1275d0fa95"
+    ],
+    "behavior_recording": "recording-667434cbe9452cc55ca4943196127664c51963cb1e5bbbf701cd0e1275d0fa95",
+    "immutable_after_opening": true,
+    "packet_sha256": "8a76f451b1f493719a39941daf395cccaa12cc495464f43e252d78e71178eec4"
+  },
+  {
+    "packet_id": "packet-064",
+    "scenario_id": "05-navigation-feedback-v3",
+    "task_contract": {
+      "family": "navigation-feedback",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "d43d2c6a64a4c434dfb17e253a0c2fbcb9b3d544801b66743f9b2645ed22d5b4"
+    },
+    "screenshots": [
+      "asset-8f0cbffb30edddd949419e9104c179d7cd659617897bbeddf6a1636acc094e6b"
+    ],
+    "behavior_recording": "recording-8f0cbffb30edddd949419e9104c179d7cd659617897bbeddf6a1636acc094e6b",
+    "immutable_after_opening": true,
+    "packet_sha256": "81a8616a11df3f33be72d3a58a25f11adbb7193419e3748aedbfc8f91feb165c"
+  },
+  {
+    "packet_id": "packet-065",
+    "scenario_id": "02-preferences-v4",
+    "task_contract": {
+      "family": "preferences",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "397def0caf4df5168718a281d3ccde7ae39516ce59f80c69ebc75030d477e8c3"
+    },
+    "screenshots": [
+      "asset-c23c647ddd9e24b4eee3d328430676f2d122b81867ce056c0d2ed018edf570bc"
+    ],
+    "behavior_recording": "recording-c23c647ddd9e24b4eee3d328430676f2d122b81867ce056c0d2ed018edf570bc",
+    "immutable_after_opening": true,
+    "packet_sha256": "59f89d3c625a17815e60bcc186b858cab0613d8e26ce57cb23ea01d40da06d57"
+  },
+  {
+    "packet_id": "packet-066",
+    "scenario_id": "04-status-dialog-v2",
+    "task_contract": {
+      "family": "status-dialog",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "7b3ba39ae8c5e59189a7888d19b2f6669e212296c4afa953e081fc361ee53dfb"
+    },
+    "screenshots": [
+      "asset-841e1b84828178a10d9ca969499b6ac90841c7ec32ab4162208f742bb6285afd"
+    ],
+    "behavior_recording": "recording-841e1b84828178a10d9ca969499b6ac90841c7ec32ab4162208f742bb6285afd",
+    "immutable_after_opening": true,
+    "packet_sha256": "3d68acdd56668c44b2361a3510fe3e0b82e3a414050228bb3b6a1eaab256a7d5"
+  },
+  {
+    "packet_id": "packet-067",
+    "scenario_id": "03-filter-action-v3",
+    "task_contract": {
+      "family": "filter-action",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "6d1a1dca9ad07e8ed1a89e31f1c0aa58e48b94033f403a876854c2e4f78bb092"
+    },
+    "screenshots": [
+      "asset-c8f64797b4a5234c5d7c57dabc418e508277b7a98ea9170c07802a0a50ad1bc6"
+    ],
+    "behavior_recording": "recording-c8f64797b4a5234c5d7c57dabc418e508277b7a98ea9170c07802a0a50ad1bc6",
+    "immutable_after_opening": true,
+    "packet_sha256": "64b17629341f1b8b7c20078073e29067d37074710f6326fd05fa543b8e16ee38"
+  },
+  {
+    "packet_id": "packet-068",
+    "scenario_id": "04-status-dialog-v1",
+    "task_contract": {
+      "family": "status-dialog",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "c7732b7d0756fc726752edc359c005512f6848571dbc80615492840829cd06f1"
+    },
+    "screenshots": [
+      "asset-3a1f0f0c3550df511a6d5ab50a7953344c1fe1f66d33c0f24d4a7b36319ca564"
+    ],
+    "behavior_recording": "recording-3a1f0f0c3550df511a6d5ab50a7953344c1fe1f66d33c0f24d4a7b36319ca564",
+    "immutable_after_opening": true,
+    "packet_sha256": "242794f117ff597b90d3c1547ecd8c69ae9298559910a62058dae4a4443ea324"
+  },
+  {
+    "packet_id": "packet-069",
+    "scenario_id": "01-validated-profile-v1",
+    "task_contract": {
+      "family": "validated-profile",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "3d6b1a71d8783546526f30a9b48bc3ec2f3b2ec61b803613c10f3ede85c94dd6"
+    },
+    "screenshots": [
+      "asset-2725e2c4e56e385143a32e58d002fe25073c3f3c4ba53c0934604e5e3ae2bc4a"
+    ],
+    "behavior_recording": "recording-2725e2c4e56e385143a32e58d002fe25073c3f3c4ba53c0934604e5e3ae2bc4a",
+    "immutable_after_opening": true,
+    "packet_sha256": "a90e33646bab41bff03ae7e81a1272521f8940ac64973f5825de4766fe7dbee1"
+  },
+  {
+    "packet_id": "packet-070",
+    "scenario_id": "04-status-dialog-v4",
+    "task_contract": {
+      "family": "status-dialog",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "48aa840932fa9ef8e4d980d9fde0e15c11ba4f08d3bd8213a161d801555163df"
+    },
+    "screenshots": [
+      "asset-79c4c91f54b282789b5b30d3299828dc58ba258dd08d31aaaa018925e448148b"
+    ],
+    "behavior_recording": "recording-79c4c91f54b282789b5b30d3299828dc58ba258dd08d31aaaa018925e448148b",
+    "immutable_after_opening": true,
+    "packet_sha256": "2c7ee083cf1e2aeacc0fe080602f2f90f9c508ca4b08ad5cef7aa548941176fd"
+  },
+  {
+    "packet_id": "packet-071",
+    "scenario_id": "04-status-dialog-v1",
+    "task_contract": {
+      "family": "status-dialog",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "c7732b7d0756fc726752edc359c005512f6848571dbc80615492840829cd06f1"
+    },
+    "screenshots": [
+      "asset-f4dd1c3e862a5570f60a0313eae0745df655e44fe981c2daebbe73e27a49591e"
+    ],
+    "behavior_recording": "recording-f4dd1c3e862a5570f60a0313eae0745df655e44fe981c2daebbe73e27a49591e",
+    "immutable_after_opening": true,
+    "packet_sha256": "7f597d2c7f268791c5b84e63332ec52da472671adc5e4b95923754848e74c2b6"
+  },
+  {
+    "packet_id": "packet-072",
+    "scenario_id": "02-preferences-v1",
+    "task_contract": {
+      "family": "preferences",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "6340630c3fc5792333483e502b549f66a82b31967b5d081dec41f72d4a83f8ee"
+    },
+    "screenshots": [
+      "asset-06d39265ea5b7ab6c6a8fc48b99aa5c329379263f202f66123e48aec5d9a384c"
+    ],
+    "behavior_recording": "recording-06d39265ea5b7ab6c6a8fc48b99aa5c329379263f202f66123e48aec5d9a384c",
+    "immutable_after_opening": true,
+    "packet_sha256": "decee2ba9f7912a3d928b1e385c092adacc99bf98a424f5d693de732b06f076c"
+  },
+  {
+    "packet_id": "packet-073",
+    "scenario_id": "01-validated-profile-v1",
+    "task_contract": {
+      "family": "validated-profile",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "3d6b1a71d8783546526f30a9b48bc3ec2f3b2ec61b803613c10f3ede85c94dd6"
+    },
+    "screenshots": [
+      "asset-43e6015da57c9d55ba73b68a4ad304642f5ce9dd072824c86dd11a6798b34aff"
+    ],
+    "behavior_recording": "recording-43e6015da57c9d55ba73b68a4ad304642f5ce9dd072824c86dd11a6798b34aff",
+    "immutable_after_opening": true,
+    "packet_sha256": "12b489cafee5beb49b9377b12fff48e62f65de6c35781da63dd4088c571a70a9"
+  },
+  {
+    "packet_id": "packet-074",
+    "scenario_id": "01-validated-profile-v2",
+    "task_contract": {
+      "family": "validated-profile",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "304b4412088622f43adea537a1b0c79ca7f8452215e0b2832926c527241219b0"
+    },
+    "screenshots": [
+      "asset-3306c4b14477ad280ec8d3b4ecddd0d0722b8087849ee0e2687a862abda70a34"
+    ],
+    "behavior_recording": "recording-3306c4b14477ad280ec8d3b4ecddd0d0722b8087849ee0e2687a862abda70a34",
+    "immutable_after_opening": true,
+    "packet_sha256": "4d78c22a89a349a512682b97f0221c988d623a7b3800a40343c713f326e95973"
+  },
+  {
+    "packet_id": "packet-075",
+    "scenario_id": "03-filter-action-v1",
+    "task_contract": {
+      "family": "filter-action",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "9e100ff291eee9540cf695027250e0c15e5b154d5e43e6e255aee0dae8562ef3"
+    },
+    "screenshots": [
+      "asset-bada0aa1ecdd0cd43c0acb8a0799c2b64bd824f8c8d7315baa396d9292f0f54c"
+    ],
+    "behavior_recording": "recording-bada0aa1ecdd0cd43c0acb8a0799c2b64bd824f8c8d7315baa396d9292f0f54c",
+    "immutable_after_opening": true,
+    "packet_sha256": "753063c5d0dbc6a4a00d43c68c3a2acbb3a5ba26e95058fccd66e3be5592f11b"
+  },
+  {
+    "packet_id": "packet-076",
+    "scenario_id": "05-navigation-feedback-v3",
+    "task_contract": {
+      "family": "navigation-feedback",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "d43d2c6a64a4c434dfb17e253a0c2fbcb9b3d544801b66743f9b2645ed22d5b4"
+    },
+    "screenshots": [
+      "asset-8f0cbffb30edddd949419e9104c179d7cd659617897bbeddf6a1636acc094e6b"
+    ],
+    "behavior_recording": "recording-8f0cbffb30edddd949419e9104c179d7cd659617897bbeddf6a1636acc094e6b",
+    "immutable_after_opening": true,
+    "packet_sha256": "648b0255f1cf46253cc84de80a49dff1ee4945fd4ccd4fd7697eb55359beb912"
+  },
+  {
+    "packet_id": "packet-077",
+    "scenario_id": "05-navigation-feedback-v1",
+    "task_contract": {
+      "family": "navigation-feedback",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "45c5781a54da0aca4e27b8f04b29456d1f8387e627c0e2d0c563faae742a65f0"
+    },
+    "screenshots": [
+      "asset-7a63b89eb9f0dccbf0d14f6115c32ef05fc0b7dd368fd0ea41a5ef918e5be2f4"
+    ],
+    "behavior_recording": "recording-7a63b89eb9f0dccbf0d14f6115c32ef05fc0b7dd368fd0ea41a5ef918e5be2f4",
+    "immutable_after_opening": true,
+    "packet_sha256": "e85865c75c35456251d484625e77914247e67073a3340faa0390dae3995473ca"
+  },
+  {
+    "packet_id": "packet-078",
+    "scenario_id": "02-preferences-v1",
+    "task_contract": {
+      "family": "preferences",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "6340630c3fc5792333483e502b549f66a82b31967b5d081dec41f72d4a83f8ee"
+    },
+    "screenshots": [
+      "asset-edf783c352e60aee741a36ccd0d2abfbe14ddfe2f871cb6c0614d908c3d7c62a"
+    ],
+    "behavior_recording": "recording-edf783c352e60aee741a36ccd0d2abfbe14ddfe2f871cb6c0614d908c3d7c62a",
+    "immutable_after_opening": true,
+    "packet_sha256": "adaa05a6bc8159c31bac46c41f656a32c68db23a12fb9c78c0ede456d466da9a"
+  },
+  {
+    "packet_id": "packet-079",
+    "scenario_id": "05-navigation-feedback-v1",
+    "task_contract": {
+      "family": "navigation-feedback",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "45c5781a54da0aca4e27b8f04b29456d1f8387e627c0e2d0c563faae742a65f0"
+    },
+    "screenshots": [
+      "asset-a74e8b33a143c8972324edc942e2cb2f9b997273e6db92f808192b076d92787f"
+    ],
+    "behavior_recording": "recording-a74e8b33a143c8972324edc942e2cb2f9b997273e6db92f808192b076d92787f",
+    "immutable_after_opening": true,
+    "packet_sha256": "b549b8590bbacd2d84c09f54b5fdf615f1fc0712c5bba4d2d66246a250c6d93a"
+  },
+  {
+    "packet_id": "packet-080",
+    "scenario_id": "04-status-dialog-v4",
+    "task_contract": {
+      "family": "status-dialog",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "48aa840932fa9ef8e4d980d9fde0e15c11ba4f08d3bd8213a161d801555163df"
+    },
+    "screenshots": [
+      "asset-79c4c91f54b282789b5b30d3299828dc58ba258dd08d31aaaa018925e448148b"
+    ],
+    "behavior_recording": "recording-79c4c91f54b282789b5b30d3299828dc58ba258dd08d31aaaa018925e448148b",
+    "immutable_after_opening": true,
+    "packet_sha256": "020b46f28c88c68864d8a35eaa63355daf69973e25ebc1d7abc65704c6c3993c"
+  }
+]

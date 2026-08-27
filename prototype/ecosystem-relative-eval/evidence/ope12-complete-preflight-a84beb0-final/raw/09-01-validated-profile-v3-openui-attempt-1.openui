@@ -1,0 +1,1 @@
+root = Toolbar("profile_toolbar", "vertical", [Avatar("profile_avatar", "Ada Lovelace · variant 3", "AL"), Label("name_label", "name_input", "Profile name · variant 3"), Input("name_input", "Profile name · variant 3", "profile_name", "Ada-3", "Enter a name · variant 3"), Button("submit_button", "Save profile · variant 3", "SubmitProfile", "profile")])
