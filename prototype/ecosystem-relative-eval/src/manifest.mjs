@@ -14,6 +14,7 @@ import { sha, stableJson } from "./hash.mjs";
 import { repairInstruction } from "./provider.mjs";
 import { routeInstructions, routeUserPrompt } from "./routes.mjs";
 import { accessibilityContractForSurface } from "./accessibility-contract.mjs";
+import { buildCompleteSchedule, COMPLETE_HUMAN_EVIDENCE_FIELDS } from "./complete-run-contract.mjs";
 
 export { sha, stableJson } from "./hash.mjs";
 
@@ -22,6 +23,7 @@ const root = path.resolve(here, "..");
 const repo = path.resolve(root, "../..");
 
 const routes = ["openui", "typed-json", "json-render", "direct-rsx"];
+const correctionOperatorSlots = ["operator-a", "operator-b"];
 const comparedPairs = [
   ["openui", "typed-json"],
   ["openui", "json-render"],
@@ -71,11 +73,44 @@ export async function buildCandidateManifest() {
       user_prompt_sha256: sha(userPrompt),
     };
   });
+  const completeSchedule = buildCompleteSchedule({ runtime_uncertain: runtimeUncertain, compile_known: compileKnown });
+  const correctionCellAssignment = Object.fromEntries(correctionOperatorSlots.map((operator) => [operator, []]));
+  completeSchedule.forEach((cell, index) => correctionCellAssignment[correctionOperatorSlots[index % correctionOperatorSlots.length]].push(cell.prompt_id));
+  const completePromptPack = completeSchedule.map((entry) => {
+    const scenario = byId.get(entry.scenario_id.replace(/^compile-/, ""));
+    const instructions = routeInstructions(entry.route, scenario);
+    const userPrompt = routeUserPrompt(entry.route, scenario, entry.cohort);
+    return {
+      prompt_id: entry.prompt_id,
+      route: entry.route,
+      cohort: entry.cohort,
+      scenario_id: entry.scenario_id,
+      instructions,
+      user_prompt: userPrompt,
+      instructions_sha256: sha(instructions),
+      user_prompt_sha256: sha(userPrompt),
+    };
+  });
+  const completeHarnessCanarySchedule = canarySchedule.map((canaryCell) => {
+    const completeCell = completeSchedule.find((entry) => entry.cohort === canaryCell.cohort
+      && entry.scenario_id === canaryCell.scenario_id
+      && entry.route === canaryCell.route);
+    if (!completeCell) throw new Error(`complete canary cell is absent from full schedule: ${canaryCell.scenario_id}:${canaryCell.route}`);
+    return { ...completeCell, order_position: canaryCell.order_position };
+  });
+  const repairPolicy = {
+    maximum_repairs_per_route: 1,
+    diagnostic_payload_included: true,
+    previous_output_included: true,
+    final_instruction: repairInstruction,
+    template_sha256: sha(`{original}\n\nREPAIR THE PREVIOUS OUTPUT\n\n{output}\n\nVALIDATOR OR COMPILER DIAGNOSTICS\n\n{diagnostics}\n\n${repairInstruction}`),
+  };
   const accessibilityContracts = scenarios.map((scenario) => {
     const contract = accessibilityContractForSurface(scenario.expected);
     return { scenario_id: scenario.id, sha256: sha(stableJson(contract)), contract };
   });
   const inputHashes = await hashInputs({
+    ope19_preregistration: "docs/evaluation/ope-19-complete-runner-preregistration.md",
     ope15_preregistration: "docs/evaluation/ope-15-accessible-patterns-preregistration.md",
     ope14_preregistration: "docs/evaluation/ope-14-feedback-ownership-preregistration.md",
     ope13_preregistration: "docs/evaluation/ope-13-accessibility-preregistration.md",
@@ -131,21 +166,21 @@ export async function buildCandidateManifest() {
   };
 
   return {
-    version: "ope-18-rendered-receipt-canary-v5",
+    version: "ope-19-complete-runner-v1",
     purpose: "non-decision operational canary",
     product_outcome_forbidden: true,
     preregistration: {
-      ticket: "OPE-18",
-      prepared_by: "OPE-17",
-      permitted_change: "remove the Direct RSX receipt source-shape oracle, require exact rendered Web receipt behavior, update preregistration, and derived hashes only",
+      ticket: "OPE-19",
+      prepared_by: "OPE-18",
+      permitted_change: "add the preregistered complete-run schedule, prompts, runner, human evidence contracts, blinded packet contract, invalidation rules, and derived hashes only",
       prior_candidate: {
-        outcome: "CANARY_INVALID",
-        source_commit: "9572c9b",
-        evidence_commit: "5d92b34",
-        evidence_path: "prototype/ecosystem-relative-eval/evidence/ope16-canary-9572c9b-final",
-        manifest_sha256: "49b71bd46638f1301c59fa345204d12896d0c2175197ec8df4563c2092ad9cf0",
-        checksum_manifest_sha256: "144d0a4a197fc6e70798ec79e8321a0048c381657d08af5b381ab9f9e6c22c5c",
-        independent_review_sha256: "6a02786b744974b94b1ecc52d481b3f8f31bb940ce85bd8ec25a8f6676845079",
+        outcome: "PASS",
+        source_commit: "a3f895f",
+        evidence_commit: "6681f02",
+        evidence_path: "prototype/ecosystem-relative-eval/evidence/ope18-canary-a3f895f-final",
+        manifest_sha256: "9623a1457dee64555a2595cd878ddf7a7d13187747206a0ad7c1554b1208190e",
+        checksum_manifest_sha256: "9c0a378af9203cea0f2769dae84255900397aeed280c5f18f2f4e22900ffa098",
+        independent_review_sha256: "ebcfe05d6e9b67b8f1f61f04cd7f20cb56cf794577d78bcd475b8bf3ce9e0dbd",
         pooled_with_new_canary: false,
       },
       unchanged_dimensions: [
@@ -153,7 +188,7 @@ export async function buildCandidateManifest() {
         "model",
         "reasoning-effort",
         "scenarios",
-        "schedule",
+        "canary-schedule",
         "ordering",
         "repair-ceiling",
         "scoring-thresholds",
@@ -237,15 +272,102 @@ export async function buildCandidateManifest() {
       prompt_pack: promptPack,
       maximum_provider_calls: 16,
       maximum_repairs_per_route: 1,
-      repair_policy: {
-        maximum_repairs_per_route: 1,
-        diagnostic_payload_included: true,
-        previous_output_included: true,
-        final_instruction: repairInstruction,
-        template_sha256: sha(`{original}\n\nREPAIR THE PREVIOUS OUTPUT\n\n{output}\n\nVALIDATOR OR COMPILER DIAGNOSTICS\n\n{diagnostics}\n\n${repairInstruction}`),
-      },
+      repair_policy: repairPolicy,
       maximum_wall_time_ms: 30 * 60 * 1000,
       allowed_outcomes: ["PASS", "CANARY_INVALID"],
+      promotion: "byte-identical-manifest-only",
+    },
+    complete_run: {
+      schedule: completeSchedule,
+      prompt_pack: completePromptPack,
+      execution_order: "strict-manifest-sequence",
+      maximum_provider_calls: 160,
+      maximum_repairs_per_route: 1,
+      repair_policy: repairPolicy,
+      maximum_wall_time_ms: 4 * 60 * 60 * 1000,
+      provider_isolation: {
+        deterministic_fake_preflight_required: true,
+        external_calls_during_preflight: 0,
+        fresh_ephemeral_process_per_real_attempt: true,
+        tools_disabled: true,
+        ambient_credentials_forbidden: true,
+      },
+      evidence_contract: {
+        version: "ope-19-human-evidence-v1",
+        required_classes: [...COMPLETE_HUMAN_EVIDENCE_FIELDS],
+        reject_missing: true,
+        reject_estimated: true,
+        reject_duplicated: true,
+        reject_conflicted: true,
+        reject_unblinded: true,
+        reject_malformed: true,
+        correction_measurement_level: "operator-route-cell",
+        correction_measurements_retain_every_attempt: true,
+        correction_cell_assignment: correctionCellAssignment,
+        blind_review_measurement_level: "reviewer-packet",
+        blind_review_score_dimensions: ["completeness", "usefulness", "hierarchy", "error-prevention", "feedback", "accessibility"],
+        blind_review_score_range: [1, 5],
+        route_guess_recorded_after_scoring: true,
+        human_artifacts_must_resolve_by_sha256: true,
+        human_asset_source_inventory_must_match_references: true,
+      },
+      review_packet_contract: {
+        version: "ope-19-blinded-packet-v1",
+        seed_sha256: sha("ope-12-anonymous-review-packets-v1"),
+        deterministic: true,
+        route_neutral: true,
+        immutable_after_opening: true,
+        generated_assets_must_resolve_by_sha256: true,
+        private_asset_index: "review-assets.json",
+        reference_placeholders_forbidden_for_decision_grade_finalization: true,
+        forbidden_leak_classes: ["route", "syntax", "path", "metric", "technology"],
+      },
+      finalization_contract: {
+        version: "ope-19-complete-finalization-v1",
+        provider_rerun_forbidden: true,
+        generation_archive_mutation_forbidden: true,
+        human_evidence_file: "human-evidence.json",
+        human_asset_index_file: "human-assets.json",
+        human_asset_directory: "human-assets",
+        finalization_file: "FINALIZATION.json",
+        final_checksum_file: "FINAL_SHA256SUMS",
+        complete_marker: "COMPLETE_EVIDENCE.json",
+      },
+      platform_scope: {
+        generated_outputs_required: ["react-web", "dioxus-web", "direct-rsx-web", "dioxus-desktop", "ios", "android"],
+        machine_orchestrated: ["react-web", "dioxus-web", "direct-rsx-web", "dioxus-desktop"],
+        human_collected: ["ios", "android", "voiceover-ios", "talkback-android"],
+        assistive_technology_required: ["voiceover-ios", "talkback-android"],
+        all_accepted_dioxus_surfaces_on_web_and_desktop: true,
+        all_json_render_surfaces_on_official_web_target: true,
+        all_direct_rsx_compile_known_surfaces_on_web: true,
+      },
+      invalidation_rules: [
+        "provider-error",
+        "schedule-incomplete",
+        "call-ceiling-exceeded",
+        "wall-time-ceiling-exceeded",
+        "validation-failure-after-repair",
+        "platform-evidence-incomplete",
+        "human-evidence-invalid",
+        "review-packet-leak",
+        "product-scorer-accessed",
+        "credential-scan-failed",
+      ],
+      harness_canary: {
+        schedule: completeHarnessCanarySchedule,
+        prompt_pack_source: "complete_run.prompt_pack",
+        maximum_provider_calls: 16,
+        maximum_repairs_per_route: 1,
+        repair_policy: repairPolicy,
+        maximum_wall_time_ms: 30 * 60 * 1000,
+        expected_human_finalization: "INVALID_EVAL",
+        required_missing_evidence_witnesses: ["corrections", "reviews", "voiceover", "talkback"],
+        allowed_outcomes: ["PASS", "CANARY_INVALID"],
+        promotion: "byte-identical-complete-run-manifest-only",
+      },
+      allowed_outcomes: ["READY_FOR_REVIEW", "INVALID_EVAL"],
+      product_outcome_forbidden: true,
       promotion: "byte-identical-manifest-only",
     },
     requirement_applicability: applicabilityRows(scenarios),
@@ -270,7 +392,7 @@ export async function buildCandidateManifest() {
         { id: "reviewer-b", specialty: "frontend-maintenance" },
         { id: "reviewer-c", specialty: "accessibility" },
       ],
-      correction_operator_slots: ["operator-a", "operator-b"],
+      correction_operator_slots: correctionOperatorSlots,
       reviewer_eligibility: {
         minimum_relevant_experience_years: 3,
         no_contribution_to_openui_dioxus_or_compared_harnesses: true,

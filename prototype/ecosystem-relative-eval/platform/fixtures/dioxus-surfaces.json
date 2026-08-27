@@ -22,6 +22,8 @@
   "entries": [
     {
       "route": "openui",
+      "cohort": "runtime-uncertain",
+      "schedule_scenario_id": "01-validated-profile-v1",
       "scenario_id": "01-validated-profile-v1",
       "family": "validated-profile",
       "surface": {
@@ -73,6 +75,8 @@
     },
     {
       "route": "typed-json",
+      "cohort": "runtime-uncertain",
+      "schedule_scenario_id": "02-preferences-v1",
       "scenario_id": "02-preferences-v1",
       "family": "preferences",
       "surface": {

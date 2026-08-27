@@ -22,7 +22,8 @@ test("accepted direct RSX executes state, typed action receipt, and visible feed
   });
   await page.goto("http://127.0.0.1:4185", { waitUntil: "networkidle" });
   const root = page.locator("#ope11-direct-rsx-root");
-  await expect(root).toHaveAttribute("data-surface-count", "2");
+  const surfaceCount = Number(await root.getAttribute("data-surface-count"));
+  expect(surfaceCount).toBeGreaterThanOrEqual(1);
   const manifestHash = await root.getAttribute("data-manifest-hash");
   const bindingSha256 = await root.getAttribute("data-binding-sha256");
   expect(manifestHash).toMatch(/^[a-f0-9]{64}$/);
@@ -30,10 +31,14 @@ test("accepted direct RSX executes state, typed action receipt, and visible feed
   const scenarios = [];
   const contracts = await buildScenarios();
   let stateChanges = 0;
-  for (let index = 0; index < 2; index += 1) {
+  const screenshots = [];
+  const artifacts = [];
+  for (let index = 0; index < surfaceCount; index += 1) {
     await expect(root).toHaveAttribute("data-current-index", String(index));
     const section = root.locator("section[data-scenario-id]");
     const scenarioId = await section.getAttribute("data-scenario-id");
+    const scheduleScenarioId = await section.getAttribute("data-schedule-scenario-id");
+    const cohort = await section.getAttribute("data-cohort");
     scenarios.push(scenarioId);
     const app = section.locator('[data-route="direct-rsx"]');
     const select = app.locator("select");
@@ -63,8 +68,11 @@ test("accepted direct RSX executes state, typed action receipt, and visible feed
     const accessibility = await new AxeBuilder({ page }).analyze();
     const blocking = accessibility.violations.filter((violation) => ["critical", "serious"].includes(violation.impact));
     expect(blocking, JSON.stringify(blocking, null, 2)).toEqual([]);
-    await page.screenshot({ path: path.join(evidence, "screenshots", `direct-rsx-web-${index + 1}.png`), fullPage: true });
-    if (index === 0) await page.getByRole("button", { name: "Next Source" }).click();
+    const screenshot = `direct-rsx-web-${index + 1}.png`;
+    await page.screenshot({ path: path.join(evidence, "screenshots", screenshot), fullPage: true });
+    screenshots.push(screenshot);
+    artifacts.push({ route: "direct-rsx", cohort, schedule_scenario_id: scheduleScenarioId, scenario_id: scenarioId, screenshot });
+    if (index + 1 < surfaceCount) await page.getByRole("button", { name: "Next Source" }).click();
   }
   expect(stateChanges).toBeGreaterThanOrEqual(1);
   expect(externalRequests).toEqual([]);
@@ -72,6 +80,7 @@ test("accepted direct RSX executes state, typed action receipt, and visible feed
     platform: "web",
     route: "direct-rsx",
     scenarios,
+    surface_count: surfaceCount,
     manifest_hash: manifestHash,
     binding_sha256: bindingSha256,
     passed: true,
@@ -85,7 +94,8 @@ test("accepted direct RSX executes state, typed action receipt, and visible feed
     host_receipt_outside_component_coverage: true,
     semantic_patterns_verified: true,
     accessibility_blocking_findings: 0,
-    screenshots: ["direct-rsx-web-1.png", "direct-rsx-web-2.png"],
+    screenshots,
+    artifacts,
   }, null, 2)}\n`);
 });
 

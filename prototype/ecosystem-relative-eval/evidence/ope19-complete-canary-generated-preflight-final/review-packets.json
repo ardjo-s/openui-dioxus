@@ -1,0 +1,174 @@
+[
+  {
+    "packet_id": "packet-001",
+    "scenario_id": "04-status-dialog-v1",
+    "task_contract": {
+      "family": "status-dialog",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "c7732b7d0756fc726752edc359c005512f6848571dbc80615492840829cd06f1"
+    },
+    "screenshots": [
+      "asset-cb072ff48c11f9db9bdbf6f4cd91d59e7b907ea8b386e9baa38c294154f857f6"
+    ],
+    "behavior_recording": "recording-561fd7013d55b07d59d6c9b8f27f74d2c5a58d5902ea089091f45a9c66af84aa",
+    "immutable_after_opening": true,
+    "packet_sha256": "19537c5209768b4316039c02ab2b01bcd864d30951a28ba237d8fc090fdaeb85"
+  },
+  {
+    "packet_id": "packet-002",
+    "scenario_id": "01-validated-profile-v1",
+    "task_contract": {
+      "family": "validated-profile",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "3d6b1a71d8783546526f30a9b48bc3ec2f3b2ec61b803613c10f3ede85c94dd6"
+    },
+    "screenshots": [
+      "asset-bb9cfa6b555cf2694316ffc5fee51ffafb4eb1ba571ec16e156a68bdb8095dcb",
+      "asset-ddb500061701f70191789a37587d9d09535837f831820e0ab2bafe6406e4caf6"
+    ],
+    "behavior_recording": "recording-9c131db014c1ab7b0670366c228b0e0309f1a3bbc2ace98ee3561343e6d17d39",
+    "immutable_after_opening": true,
+    "packet_sha256": "ae9e0d59df3960d19c0b7b8e52143ebc40cb626a7a7c1461b22e68a9e9a65c90"
+  },
+  {
+    "packet_id": "packet-003",
+    "scenario_id": "02-preferences-v1",
+    "task_contract": {
+      "family": "preferences",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "6340630c3fc5792333483e502b549f66a82b31967b5d081dec41f72d4a83f8ee"
+    },
+    "screenshots": [
+      "asset-e65439dd5d3d01fd4c3d7c4f5e685da12a1c3fc3709ac0ddcc57d62ad39d0b2a",
+      "asset-9d46aa08ec123ac72ed34ca14330e27ccf67ea4a14335830ff9dbb51c49f336a"
+    ],
+    "behavior_recording": "recording-9c131db014c1ab7b0670366c228b0e0309f1a3bbc2ace98ee3561343e6d17d39",
+    "immutable_after_opening": true,
+    "packet_sha256": "61a61a32670136ab607b9060afb28b8282e24285db70c703fcaf084100d84b82"
+  },
+  {
+    "packet_id": "packet-004",
+    "scenario_id": "03-filter-action-v1",
+    "task_contract": {
+      "family": "filter-action",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "9e100ff291eee9540cf695027250e0c15e5b154d5e43e6e255aee0dae8562ef3"
+    },
+    "screenshots": [
+      "asset-dd24a75db78a36914ced124f13ab5db6894103c1f4c064e93e5b47bd9f1d5f9f",
+      "asset-d120968967953e3b79643a1b9f13c819631b5aefeed1323f18183547c3145dda"
+    ],
+    "behavior_recording": "recording-9c131db014c1ab7b0670366c228b0e0309f1a3bbc2ace98ee3561343e6d17d39",
+    "immutable_after_opening": true,
+    "packet_sha256": "c7faa104d6159bdcc787c0b1beade2506e9c4e7a0ca9f47aa04025f006ffdd70"
+  },
+  {
+    "packet_id": "packet-005",
+    "scenario_id": "04-status-dialog-v1",
+    "task_contract": {
+      "family": "status-dialog",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "c7732b7d0756fc726752edc359c005512f6848571dbc80615492840829cd06f1"
+    },
+    "screenshots": [
+      "asset-b60ba52743ce06e2bec8a94be97b02ea647668fa6f973c68fa931b6d62e7487b"
+    ],
+    "behavior_recording": "recording-ccd441459e1bf450b9bd7b9b83fe14fc459d93466fcb42e2ce343c3444d87062",
+    "immutable_after_opening": true,
+    "packet_sha256": "9c60734aaa72e35412736dce5f4b8c22ffa9b4a8e1f21ca5f8df34cc59229222"
+  },
+  {
+    "packet_id": "packet-006",
+    "scenario_id": "03-filter-action-v1",
+    "task_contract": {
+      "family": "filter-action",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "9e100ff291eee9540cf695027250e0c15e5b154d5e43e6e255aee0dae8562ef3"
+    },
+    "screenshots": [
+      "asset-a67020e250a1146ff9f336c5026be0f3218f87660108a015324d4508fd60a5ec"
+    ],
+    "behavior_recording": "recording-561fd7013d55b07d59d6c9b8f27f74d2c5a58d5902ea089091f45a9c66af84aa",
+    "immutable_after_opening": true,
+    "packet_sha256": "b80af6b69c796db57bc74572f660765314c24ac73001724c8ebd38f54aed336e"
+  },
+  {
+    "packet_id": "packet-007",
+    "scenario_id": "01-validated-profile-v1",
+    "task_contract": {
+      "family": "validated-profile",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "3d6b1a71d8783546526f30a9b48bc3ec2f3b2ec61b803613c10f3ede85c94dd6"
+    },
+    "screenshots": [
+      "asset-2843b9ad73b8d3f0ce54de464976833cd96d1f4233eb2d2ffe613aa48e0b34ad",
+      "asset-16a404b2486d76c0247399ae5536cac20c57e74ebf8e0c28d1b66b7d973f1343"
+    ],
+    "behavior_recording": "recording-9c131db014c1ab7b0670366c228b0e0309f1a3bbc2ace98ee3561343e6d17d39",
+    "immutable_after_opening": true,
+    "packet_sha256": "c10e5bb1da87fad415247a574cbdb688ffece716a8b09e1d0404ff7f13b77e3d"
+  },
+  {
+    "packet_id": "packet-008",
+    "scenario_id": "02-preferences-v1",
+    "task_contract": {
+      "family": "preferences",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "6340630c3fc5792333483e502b549f66a82b31967b5d081dec41f72d4a83f8ee"
+    },
+    "screenshots": [
+      "asset-0add5fb8b414b948cd30b33ab827436c2c9e3307727a826c52a67cd2f553f586"
+    ],
+    "behavior_recording": "recording-ccd441459e1bf450b9bd7b9b83fe14fc459d93466fcb42e2ce343c3444d87062",
+    "immutable_after_opening": true,
+    "packet_sha256": "9068fd6be72c6b07f16e8c4c2df41c7cc87e1ddd34ec6c75d7888f449e6d4494"
+  }
+]

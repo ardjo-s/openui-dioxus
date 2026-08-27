@@ -27,6 +27,8 @@ const STYLE: &str = r#"
 #[derive(Clone, Debug, Deserialize)]
 struct RawEntry {
     route: String,
+    cohort: String,
+    schedule_scenario_id: String,
     scenario_id: String,
     family: String,
     surface: Value,
@@ -47,6 +49,8 @@ pub struct FixtureProvenance {
 #[derive(Clone, Debug, PartialEq)]
 pub struct PlatformEntry {
     pub route: String,
+    pub cohort: String,
+    pub schedule_scenario_id: String,
     pub scenario_id: String,
     pub family: String,
     pub surface: SurfaceRevision,
@@ -69,6 +73,8 @@ pub fn load_fixture() -> anyhow::Result<PlatformFixture> {
         .map(|entry| {
             Ok(PlatformEntry {
                 route: entry.route,
+                cohort: entry.cohort,
+                schedule_scenario_id: entry.schedule_scenario_id,
                 scenario_id: entry.scenario_id,
                 family: entry.family,
                 surface: adapter.normalize(&serde_json::to_vec(&entry.surface)?)?,
@@ -100,7 +106,8 @@ pub fn App() -> Element {
     let entries = fixture.entries;
     let provenance = fixture.provenance;
     let count = entries.len();
-    let mut current = use_signal(|| 0usize);
+    let initial = initial_index(count);
+    let mut current = use_signal(|| initial);
     let self_test_entries = entries.clone();
     let effect_provenance = provenance.clone();
     use_effect(move || {
@@ -108,7 +115,7 @@ pub fn App() -> Element {
             .iter()
             .filter(|entry| run_contract(entry).is_ok_and(|report| report.complete))
             .count();
-        println!("OPE11_DIOXUS_RENDERED surfaces={count}");
+        println!("OPE11_DIOXUS_RENDERED index={initial} surfaces={count}");
         println!("OPE11_DIOXUS_SELF_TEST_PASS surfaces={passed}");
         println!("OPE11_DIOXUS_MANIFEST {}", effect_provenance.manifest_hash);
         println!("OPE11_DIOXUS_BINDING {}", effect_provenance.binding_sha256);
@@ -139,6 +146,14 @@ pub fn App() -> Element {
     }
 }
 
+fn initial_index(count: usize) -> usize {
+    std::env::var("OPE11_DIOXUS_START_INDEX")
+        .ok()
+        .and_then(|value| value.parse::<usize>().ok())
+        .unwrap_or(0)
+        .min(count.saturating_sub(1))
+}
+
 #[component]
 fn ProbePanel(entry: PlatformEntry) -> Element {
     let mut probe =
@@ -149,6 +164,8 @@ fn ProbePanel(entry: PlatformEntry) -> Element {
         article {
             class: "surface",
             "data-route": "{entry.route}",
+            "data-cohort": "{entry.cohort}",
+            "data-schedule-scenario-id": "{entry.schedule_scenario_id}",
             "data-scenario-id": "{entry.scenario_id}",
             h2 { "{entry.family} via {entry.route}" }
             {render_surface(entry.surface.clone())}

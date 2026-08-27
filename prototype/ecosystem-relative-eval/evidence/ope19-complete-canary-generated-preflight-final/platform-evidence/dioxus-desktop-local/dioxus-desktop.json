@@ -1,0 +1,51 @@
+{
+  "platform": "desktop",
+  "routes": [
+    "openui",
+    "typed-json"
+  ],
+  "surface_count": 4,
+  "passed": true,
+  "evidence_complete": true,
+  "marker": "OPE11_DIOXUS_SELF_TEST_PASS surfaces=4",
+  "manifest_hash": "1973db76a604ed0e4378e0fc0e0775be8f29e9cc8ba957599a0c17870bd4a3e3",
+  "binding_sha256": "ccc8a56483fb6d07267878aeb0c39c6efb7ec33792b91cdb5d63b6e4a0ad1857",
+  "accessibility_contract_version": "ope-15-route-neutral-patterns-v1",
+  "screenshot": {
+    "index": 0,
+    "file": "dioxus-desktop-1.png",
+    "width": 868,
+    "height": 700,
+    "passed": true
+  },
+  "screenshots": [
+    {
+      "index": 0,
+      "file": "dioxus-desktop-1.png",
+      "width": 868,
+      "height": 700,
+      "passed": true
+    },
+    {
+      "index": 1,
+      "file": "dioxus-desktop-2.png",
+      "width": 868,
+      "height": 700,
+      "passed": true
+    },
+    {
+      "index": 2,
+      "file": "dioxus-desktop-3.png",
+      "width": 868,
+      "height": 700,
+      "passed": true
+    },
+    {
+      "index": 3,
+      "file": "dioxus-desktop-4.png",
+      "width": 868,
+      "height": 700,
+      "passed": true
+    }
+  ]
+}

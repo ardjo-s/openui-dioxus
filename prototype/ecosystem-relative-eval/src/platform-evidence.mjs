@@ -20,6 +20,16 @@ export async function verifyPlatformEvidence({ evidenceRoot = path.join(root, "e
   const directRsx = directRequired || directAvailable
     ? await readJson(directPath, diagnostics, "direct_rsx_web")
     : null;
+  const expectedReactSurfaces = expected?.react_surface_count ?? 1;
+  const expectedDioxusSurfaces = expected?.dioxus_surface_count ?? 2;
+  const expectedDirectSurfaces = expected?.direct_rsx_surface_count ?? 2;
+  const reactScreenshots = reactWeb?.screenshots ?? (reactWeb?.screenshot ? [reactWeb.screenshot] : []);
+  const reactReceipts = reactWeb?.action_receipts ?? (reactWeb?.action_receipt ? [reactWeb.action_receipt] : []);
+  const reactSurfaceCount = reactWeb?.surface_count ?? reactScreenshots.length;
+  const dioxusSurfaceCount = dioxusWeb?.surface_count ?? dioxusWeb?.screenshots?.length ?? 0;
+  const desktopSurfaceCount = dioxusDesktop?.surface_count ?? Number(dioxusDesktop?.marker?.match(/surfaces=(\d+)/u)?.[1] ?? 0);
+  const desktopScreenshots = dioxusDesktop?.screenshots ?? (dioxusDesktop?.screenshot ? [dioxusDesktop.screenshot] : []);
+  const directSurfaceCount = directRsx?.surface_count ?? directRsx?.scenarios?.length ?? 0;
 
   check(reactWeb?.passed === true, diagnostics, "react_web", "passed must be true");
   check(reactWeb?.official_runtime === "@json-render/react@0.19.0", diagnostics, "react_web", "official runtime pin differs");
@@ -27,7 +37,12 @@ export async function verifyPlatformEvidence({ evidenceRoot = path.join(root, "e
   check(reactWeb?.accessibility_blocking_findings === 0, diagnostics, "react_web", "blocking accessibility finding");
   checkObservableAccessibility(reactWeb, diagnostics, "react_web");
   checkBinding(reactWeb, diagnostics, "react_web");
-  await requireArtifact(path.join(evidenceRoot, "react-web-local", "screenshots", reactWeb?.screenshot ?? ""), diagnostics, "react_web:screenshot", 1024);
+  check(reactSurfaceCount === expectedReactSurfaces, diagnostics, "react_web", "surface count differs");
+  check(reactReceipts.length === expectedReactSurfaces, diagnostics, "react_web", "action receipt count differs");
+  for (const screenshot of reactScreenshots) {
+    await requireArtifact(path.join(evidenceRoot, "react-web-local", "screenshots", screenshot), diagnostics, `react_web:${screenshot}`, 1024);
+  }
+  check(reactScreenshots.length === expectedReactSurfaces, diagnostics, "react_web", "screenshot count differs");
 
   check(dioxusWeb?.passed === true, diagnostics, "dioxus_web", "passed must be true");
   check(sameStrings(dioxusWeb?.routes, ["openui", "typed-json"]), diagnostics, "dioxus_web", "route set differs");
@@ -38,11 +53,14 @@ export async function verifyPlatformEvidence({ evidenceRoot = path.join(root, "e
   for (const screenshot of dioxusWeb?.screenshots ?? []) {
     await requireArtifact(path.join(evidenceRoot, "dioxus-web-local", "screenshots", screenshot), diagnostics, `dioxus_web:${screenshot}`, 1024);
   }
-  check((dioxusWeb?.screenshots?.length ?? 0) === 2, diagnostics, "dioxus_web", "expected two route screenshots");
+  check(dioxusSurfaceCount === expectedDioxusSurfaces, diagnostics, "dioxus_web", "surface count differs");
+  check((dioxusWeb?.screenshots?.length ?? 0) === expectedDioxusSurfaces, diagnostics, "dioxus_web", "screenshot count differs");
 
   check(dioxusDesktop?.passed === true && dioxusDesktop?.evidence_complete === true, diagnostics, "dioxus_desktop", "executed evidence is incomplete");
   check(sameStrings(dioxusDesktop?.routes, ["openui", "typed-json"]), diagnostics, "dioxus_desktop", "route set differs");
-  check(dioxusDesktop?.marker === "OPE11_DIOXUS_SELF_TEST_PASS surfaces=2", diagnostics, "dioxus_desktop", "runtime marker differs");
+  const expectedDesktopMarker = `OPE11_DIOXUS_SELF_TEST_PASS surfaces=${expectedDioxusSurfaces}`;
+  check(desktopSurfaceCount === expectedDioxusSurfaces, diagnostics, "dioxus_desktop", "surface count differs");
+  check(dioxusDesktop?.marker === expectedDesktopMarker, diagnostics, "dioxus_desktop", "runtime marker differs");
   check(dioxusDesktop?.accessibility_contract_version === "ope-15-route-neutral-patterns-v1", diagnostics, "dioxus_desktop", "accessibility contract version differs");
   checkBinding(dioxusDesktop, diagnostics, "dioxus_desktop");
   check(dioxusDesktop?.manifest_hash === dioxusWeb?.manifest_hash, diagnostics, "dioxus", "Web and Desktop manifest bindings differ");
@@ -50,8 +68,18 @@ export async function verifyPlatformEvidence({ evidenceRoot = path.join(root, "e
   check((dioxusDesktop?.screenshot?.width ?? 0) >= 800 && (dioxusDesktop?.screenshot?.height ?? 0) >= 600, diagnostics, "dioxus_desktop", "screenshot dimensions are too small");
   await requireArtifact(path.join(evidenceRoot, "dioxus-desktop-local", "screenshots", dioxusDesktop?.screenshot?.file ?? ""), diagnostics, "dioxus_desktop:screenshot", 1024);
   const desktopLog = await readText(path.join(evidenceRoot, "dioxus-desktop-local", "traces", "desktop.log"), diagnostics, "dioxus_desktop:trace");
-  check(desktopLog.includes("OPE11_DIOXUS_RENDERED surfaces=2") && desktopLog.includes(dioxusDesktop?.marker ?? "missing"), diagnostics, "dioxus_desktop", "render or self-test marker missing from trace");
+  const renderedMarkersPresent = expected
+    ? Array.from({ length: expectedDioxusSurfaces }, (_, index) => `OPE11_DIOXUS_RENDERED index=${index} surfaces=${expectedDioxusSurfaces}`).every((marker) => desktopLog.includes(marker))
+    : desktopLog.includes(`OPE11_DIOXUS_RENDERED surfaces=${expectedDioxusSurfaces}`);
+  check(renderedMarkersPresent && desktopLog.includes(dioxusDesktop?.marker ?? "missing"), diagnostics, "dioxus_desktop", "render or self-test marker missing from trace");
   if (expected) {
+    checkArtifactBindings(reactWeb?.artifacts, expectedReactSurfaces, reactScreenshots, diagnostics, "react_web");
+    checkArtifactBindings(dioxusWeb?.artifacts, expectedDioxusSurfaces, dioxusWeb?.screenshots ?? [], diagnostics, "dioxus_web");
+    checkArtifactBindings(directRsx?.artifacts, expectedDirectSurfaces, directRsx?.screenshots ?? [], diagnostics, "direct_rsx_web");
+    check(desktopScreenshots.length === expectedDioxusSurfaces && desktopScreenshots.every((screenshot) => screenshot.passed === true), diagnostics, "dioxus_desktop", "per-surface screenshot proof differs");
+    for (const screenshot of desktopScreenshots) {
+      await requireArtifact(path.join(evidenceRoot, "dioxus-desktop-local", "screenshots", screenshot.file ?? ""), diagnostics, `dioxus_desktop:${screenshot.file}`, 1024);
+    }
     check(reactWeb?.manifest_hash === expected.manifest_hash, diagnostics, "react_web", "candidate manifest hash differs");
     check(reactWeb?.binding_sha256 === expected.react_binding_sha256, diagnostics, "react_web", "accepted artifact binding differs");
     check(dioxusWeb?.manifest_hash === expected.manifest_hash, diagnostics, "dioxus_web", "candidate manifest hash differs");
@@ -64,7 +92,8 @@ export async function verifyPlatformEvidence({ evidenceRoot = path.join(root, "e
   if (directRequired || directAvailable) {
     check(directRsx?.passed === true, diagnostics, "direct_rsx_web", "passed must be true");
     check(directRsx?.route === "direct-rsx", diagnostics, "direct_rsx_web", "route differs");
-    check((directRsx?.scenarios?.length ?? 0) === 2, diagnostics, "direct_rsx_web", "expected two compile-known scenarios");
+    check(directSurfaceCount === expectedDirectSurfaces, diagnostics, "direct_rsx_web", "surface count differs");
+    check((directRsx?.scenarios?.length ?? 0) === expectedDirectSurfaces, diagnostics, "direct_rsx_web", "compile-known scenario count differs");
     check(directRsx?.state_changed === true && directRsx?.action_receipts_exactly_once === true && directRsx?.visible_feedback === true, diagnostics, "direct_rsx_web", "state, action, or feedback proof missing");
     check(directRsx?.accessibility_blocking_findings === 0, diagnostics, "direct_rsx_web", "blocking accessibility finding");
     checkObservableAccessibility(directRsx, diagnostics, "direct_rsx_web");
@@ -72,7 +101,7 @@ export async function verifyPlatformEvidence({ evidenceRoot = path.join(root, "e
     for (const screenshot of directRsx?.screenshots ?? []) {
       await requireArtifact(path.join(evidenceRoot, "direct-rsx-web-local", "screenshots", screenshot), diagnostics, `direct_rsx_web:${screenshot}`, 1024);
     }
-    check((directRsx?.screenshots?.length ?? 0) === 2, diagnostics, "direct_rsx_web", "expected two screenshots");
+    check((directRsx?.screenshots?.length ?? 0) === expectedDirectSurfaces, diagnostics, "direct_rsx_web", "screenshot count differs");
   }
 
   const roots = ["react-web-local", "dioxus-web-local", "dioxus-desktop-local"];
@@ -139,6 +168,13 @@ function checkBinding(proof, diagnostics, label) {
 
 function checkObservableAccessibility(proof, diagnostics, label) {
   diagnostics.push(...validateObservableAccessibilityProof(proof, label).diagnostics);
+}
+
+function checkArtifactBindings(artifacts, expectedCount, screenshots, diagnostics, label) {
+  check(Array.isArray(artifacts) && artifacts.length === expectedCount, diagnostics, label, "artifact binding count differs");
+  if (!Array.isArray(artifacts)) return;
+  check(new Set(artifacts.map((artifact) => `${artifact.route}:${artifact.cohort}:${artifact.schedule_scenario_id}`)).size === artifacts.length, diagnostics, label, "artifact bindings are not unique");
+  check(artifacts.every((artifact) => screenshots.includes(artifact.screenshot)), diagnostics, label, "artifact screenshot binding differs");
 }
 
 export function validateObservableAccessibilityProof(proof, label = "platform") {

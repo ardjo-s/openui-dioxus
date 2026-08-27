@@ -47,7 +47,11 @@ npm run bootstrap
 npm test
 npm run typecheck
 npm run preflight
+npm run preflight:complete
 npm run canary
+npm run canary:complete
+npm run run:complete
+npm run finalize:complete -- --evidence-dir evidence/candidate-complete --human-evidence human-evidence.json --human-assets human-assets/
 node scripts/verify-evidence.mjs evidence/candidate-canary
 ```
 
@@ -56,6 +60,43 @@ node scripts/verify-evidence.mjs evidence/candidate-canary
 `npm run canary` requires an existing ChatGPT Codex login. The wrapper creates an isolated temporary Codex home, links only `auth.json`, removes OpenAI API environment variables, disables tools, and starts one ephemeral Codex process per attempt with `gpt-5.6-luna` and low reasoning.
 
 The default real output is `evidence/candidate-canary/`. The runner refuses to overwrite a non-empty output directory.
+
+## Complete-run contract
+
+`npm run preflight:complete` executes the full frozen 80-cell schedule with the
+deterministic fake provider. It generates route-neutral review packets and must
+report zero external provider calls. Its expected outcome is `INVALID_EVAL`
+until all registered correction, review, keyboard, VoiceOver, TalkBack, mobile,
+replay, migration, drill, cost, and applicability evidence is present. The
+separate `operational_preflight_passed` field proves whether generation and the
+runner itself passed before those human records exist.
+
+Generated-output packets contain only content-addressed asset ids. The runner
+verifies that every id is the SHA-256 of a real retained screenshot. Dioxus
+packets bind both Web and per-Surface Desktop captures. Reference-only
+preflights mark their packet assets as placeholders and cannot be promoted as
+human review evidence.
+
+`npm run canary:complete` is the OPE-20 representative subset. It uses eight
+cells copied from the exact 80-cell schedule, spans both cohorts and all four
+routes, and runs the generated-output platform orchestration. Its outer outcome
+is `PASS` only when generation passes and the nested complete-run finalizer
+correctly remains `INVALID_EVAL` because real human and assistive-technology
+evidence is absent. A passing canary promotes only the byte-identical OPE-19
+manifest.
+
+`npm run run:complete` executes the complete 80-cell provider run through the
+same isolated Codex wrapper as the canaries. Human
+and assistive-technology evidence is collected afterward, then
+`finalize:complete` validates and hash-chains it onto the frozen generation
+archive without a second provider run. Every blinded reviewer record must bind
+all opened packet ids and packet hashes. Every `artifact_sha256` in the human
+records must resolve to exactly one real file in the supplied `--human-assets`
+directory. The finalizer copies those files into a content-addressed private
+archive, scans them for credentials, and includes them in the final checksum
+chain. The frozen blocked-crossover assignment also requires the two operators
+to cover every one of the 80 registered cells exactly once. The finalizer may emit only
+`READY_FOR_REVIEW` or `INVALID_EVAL`; OPE-7 still owns every product verdict.
 
 ## Evidence boundary
 

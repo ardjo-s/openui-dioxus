@@ -12,19 +12,31 @@ await verifyChecksums(checksumBytes);
 const summary = await readJson("summary.json");
 const manifest = await readJson("candidate-manifest.json");
 const records = (await readFile(path.join(directory, "records.jsonl"), "utf8")).trim().split("\n").filter(Boolean).map(JSON.parse);
+const contract = summary.run_contract === "complete_run.harness_canary"
+  ? manifest.complete_run.harness_canary
+  : manifest.canary;
 const findings = [];
 check(summary.outcome === candidate.outcome, "candidate-outcome-mismatch");
 check(summary.manifest_hash === candidate.manifest_hash && manifest.hash === candidate.manifest_hash, "candidate-manifest-mismatch");
 check(records.length === summary.calls, "record-count-mismatch");
-check(manifest.canary.schedule.length === summary.route_cells, "route-cell-count-mismatch");
-check(records.length <= manifest.canary.maximum_provider_calls, "provider-call-ceiling-exceeded");
+check(contract.schedule.length === summary.route_cells, "route-cell-count-mismatch");
+check(records.length <= contract.maximum_provider_calls, "provider-call-ceiling-exceeded");
 check(summary.final_product_scorer_access_count === 0, "product-scorer-accessed");
 check(summary.route_aggregates_comparable === false, "route-aggregates-mislabelled");
 check(summary.platform_evidence?.verified === true, "platform-evidence-invalid");
-check(["PASS", "CANARY_INVALID"].includes(summary.outcome), "invalid-canary-outcome");
+check(contract.allowed_outcomes.includes(summary.outcome), "invalid-canary-outcome");
+if (summary.run_contract === "complete_run.harness_canary") {
+  check(summary.complete_canary_human_block_proved === true, "human-block-not-proved");
+  check(summary.finalization?.outcome === contract.expected_human_finalization, "unexpected-human-finalization");
+  check(contract.required_missing_evidence_witnesses.every((field) => summary.finalization?.diagnostics?.some((diagnostic) => diagnostic.field === field && diagnostic.code === "missing-evidence")), "missing-human-evidence-witness");
+  check(summary.review_packets?.count === summary.route_cells, "review-packet-count-mismatch");
+  check(summary.review_packets?.leak_findings?.length === 0, "review-packet-leak");
+}
 
 const review = {
-  version: "ope-11-independent-recomputation-v1",
+  version: summary.run_contract === "complete_run.harness_canary"
+    ? "ope-20-independent-recomputation-v1"
+    : "ope-11-independent-recomputation-v1",
   reviewer: "separate deterministic recomputation process",
   passed: findings.length === 0,
   candidate_checksum_manifest_sha256: candidate.checksum_manifest_sha256,
@@ -33,7 +45,7 @@ const review = {
   findings,
   recomputed: {
     records: records.length,
-    route_cells: manifest.canary.schedule.length,
+    route_cells: contract.schedule.length,
     accepted_final_cells: latest(records).filter((record) => record.accepted).length,
     platform_verified: summary.platform_evidence?.verified === true,
     product_scorer_access_count: summary.final_product_scorer_access_count,

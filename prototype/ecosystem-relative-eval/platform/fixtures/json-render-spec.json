@@ -12,6 +12,8 @@
     ],
     "binding_sha256": "17cb5567c7e4770dc7ba09db8f8fd12c26e0e5e19a55b520350655109668f1dc"
   },
+  "cohort": "runtime-uncertain",
+  "schedule_scenario_id": "02-preferences-v1",
   "scenario_id": "02-preferences-v1",
   "family": "preferences",
   "spec": {

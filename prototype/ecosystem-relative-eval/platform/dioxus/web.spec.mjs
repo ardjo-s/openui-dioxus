@@ -13,18 +13,23 @@ test("OpenUI and typed JSON execute through the same Dioxus Web runtime", async 
   await mkdir(path.join(evidence, "screenshots"), { recursive: true });
   await page.goto("http://127.0.0.1:4184", { waitUntil: "networkidle" });
   const root = page.locator("#ope11-dioxus-root");
-  await expect(root).toHaveAttribute("data-surface-count", "2");
+  const surfaceCount = Number(await root.getAttribute("data-surface-count"));
+  expect(surfaceCount).toBeGreaterThanOrEqual(2);
   const manifestHash = await page.locator("#ope11-manifest-hash").textContent();
   const bindingSha256 = await page.locator("#ope11-binding-sha256").textContent();
   expect(manifestHash).toMatch(/^[a-zA-Z0-9_-]{16,64}$/);
   expect(bindingSha256).toMatch(/^[a-f0-9]{64}$/);
   const routes = [];
+  const artifacts = [];
   const scenarios = await buildScenarios();
-  for (let index = 0; index < 2; index += 1) {
+  const screenshots = [];
+  for (let index = 0; index < surfaceCount; index += 1) {
     await expect(root).toHaveAttribute("data-current-index", String(index));
     const panel = root.locator("article.surface");
     const route = await panel.getAttribute("data-route");
     const scenarioId = await panel.getAttribute("data-scenario-id");
+    const scheduleScenarioId = await panel.getAttribute("data-schedule-scenario-id");
+    const cohort = await panel.getAttribute("data-cohort");
     routes.push(route);
     await expect(panel.locator("[data-component]").first()).toBeVisible();
     for (const step of ["state", "action", "update", "replay"]) {
@@ -45,13 +50,18 @@ test("OpenUI and typed JSON execute through the same Dioxus Web runtime", async 
     const accessibility = await new AxeBuilder({ page }).analyze();
     const blocking = accessibility.violations.filter((violation) => ["critical", "serious"].includes(violation.impact));
     expect(blocking, JSON.stringify(blocking, null, 2)).toEqual([]);
-    await page.screenshot({ path: path.join(evidence, "screenshots", `dioxus-web-${index + 1}.png`), fullPage: true });
-    if (index === 0) await page.getByRole("button", { name: "Next Surface" }).click();
+    const screenshot = `dioxus-web-${index + 1}.png`;
+    await page.screenshot({ path: path.join(evidence, "screenshots", screenshot), fullPage: true });
+    screenshots.push(screenshot);
+    artifacts.push({ route, cohort, schedule_scenario_id: scheduleScenarioId, scenario_id: scenarioId, screenshot });
+    if (index + 1 < surfaceCount) await page.getByRole("button", { name: "Next Surface" }).click();
   }
-  expect(routes).toEqual(["openui", "typed-json"]);
+  const routeSet = [...new Set(routes)].sort();
+  expect(routeSet).toEqual(["openui", "typed-json"]);
   await writeFile(path.join(evidence, "dioxus-web.json"), `${JSON.stringify({
     platform: "web",
-    routes,
+    routes: routeSet,
+    surface_count: surfaceCount,
     manifest_hash: manifestHash,
     binding_sha256: bindingSha256,
     passed: true,
@@ -63,7 +73,8 @@ test("OpenUI and typed JSON execute through the same Dioxus Web runtime", async 
     host_receipt_outside_component_coverage: true,
     semantic_patterns_verified: true,
     accessibility_blocking_findings: 0,
-    screenshots: ["dioxus-web-1.png", "dioxus-web-2.png"],
+    screenshots,
+    artifacts,
   }, null, 2)}\n`);
 });
 

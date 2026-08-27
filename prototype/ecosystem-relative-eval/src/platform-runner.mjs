@@ -11,43 +11,44 @@ import { runBoundedProcess } from "./subprocess.mjs";
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..");
 
-export async function writeGeneratedPlatformFixtures(records, outputDirectory, manifestHash = "deterministic-test-manifest") {
-  const accepted = latestAcceptedRuntimeRecords(records);
-  const openui = requiredRoute(accepted, "openui");
-  const typedCandidates = accepted.filter((record) => record.route === "typed-json");
-  const typedJson = typedCandidates.find((record) => record.source_scenario_id !== openui.source_scenario_id) ?? typedCandidates[0];
-  const jsonRender = requiredRoute(accepted, "json-render");
-  const directRsxRecords = latestAcceptedRecords(records)
-    .filter((record) => record.cohort === "compile-known" && record.route === "direct-rsx")
-    .sort((left, right) => left.scenario_id.localeCompare(right.scenario_id));
-  if (!typedJson) throw new Error("missing accepted runtime-uncertain typed-json output");
-  if (!openui.platform_artifact || !typedJson.platform_artifact) throw new Error("validated Dioxus platform Surface missing");
-  if (!jsonRender.platform_artifact) throw new Error("validated json-render platform artifact missing");
-  if (directRsxRecords.length !== 2 || directRsxRecords.some((record) => typeof record.platform_artifact !== "string")) {
-    throw new Error("expected two accepted compile-known direct RSX sources");
-  }
+export async function writeGeneratedPlatformFixtures(records, outputDirectory, manifestHash = "deterministic-test-manifest", { scope = "canary" } = {}) {
+  const { dioxusRecords, jsonRenderRecords, directRsxRecords } = selectPlatformRecords(records, { scope });
 
   const fixtures = path.join(outputDirectory, "platform-fixtures");
   await mkdir(fixtures, { recursive: true });
-  const dioxusRecords = [openui, typedJson];
   const dioxusProvenance = buildPlatformProvenance(manifestHash, dioxusRecords);
-  const reactProvenance = buildPlatformProvenance(manifestHash, [jsonRender]);
+  const reactProvenance = buildPlatformProvenance(manifestHash, jsonRenderRecords);
   const directRsxProvenance = buildPlatformProvenance(manifestHash, directRsxRecords);
   const dioxus = {
     provenance: dioxusProvenance,
     entries: dioxusRecords.map((record) => ({
-    route: record.route,
-    scenario_id: record.source_scenario_id,
-    family: record.family,
-    surface: record.platform_artifact,
+      route: record.route,
+      cohort: record.cohort,
+      schedule_scenario_id: record.scenario_id,
+      scenario_id: record.source_scenario_id,
+      family: record.family,
+      surface: record.platform_artifact,
     })),
   };
-  const react = {
-    provenance: reactProvenance,
-    scenario_id: jsonRender.source_scenario_id,
-    family: jsonRender.family,
-    spec: jsonRender.platform_artifact,
-  };
+  const react = scope === "complete"
+    ? {
+      provenance: reactProvenance,
+      entries: jsonRenderRecords.map((record) => ({
+        cohort: record.cohort,
+        schedule_scenario_id: record.scenario_id,
+        scenario_id: record.source_scenario_id,
+        family: record.family,
+        spec: record.platform_artifact,
+      })),
+    }
+    : {
+      provenance: reactProvenance,
+      cohort: jsonRenderRecords[0].cohort,
+      schedule_scenario_id: jsonRenderRecords[0].scenario_id,
+      scenario_id: jsonRenderRecords[0].source_scenario_id,
+      family: jsonRenderRecords[0].family,
+      spec: jsonRenderRecords[0].platform_artifact,
+    };
   const dioxusFixture = path.join(fixtures, "dioxus-surfaces.json");
   const reactFixture = path.join(fixtures, "json-render-spec.json");
   await writeFile(dioxusFixture, `${JSON.stringify(dioxus, null, 2)}\n`);
@@ -75,15 +76,46 @@ export async function writeGeneratedPlatformFixtures(records, outputDirectory, m
     direct_rsx_sources: directRsxRecords.map((record) => ({ scenario_id: record.source_scenario_id, sha256: record.artifact_hashes?.platform_artifact_sha256 ?? digest(record.platform_artifact) })),
     direct_rsx_crate: directRsxCrate,
     direct_rsx_crate_source: directRsxCrateSource,
+    surface_counts: { dioxus: dioxusRecords.length, react: jsonRenderRecords.length, direct_rsx: directRsxRecords.length },
   };
+}
+
+export function selectPlatformRecords(records, { scope = "canary" } = {}) {
+  if (!["canary", "complete"].includes(scope)) throw new Error(`unknown platform fixture scope: ${scope}`);
+  const accepted = latestAcceptedRecords(records);
+  let dioxusRecords;
+  let jsonRenderRecords;
+  let directRsxRecords;
+  if (scope === "canary") {
+    const runtime = accepted.filter((record) => record.cohort === "runtime-uncertain");
+    const openui = requiredRoute(runtime, "openui");
+    const typedCandidates = runtime.filter((record) => record.route === "typed-json");
+    const typedJson = typedCandidates.find((record) => record.source_scenario_id !== openui.source_scenario_id) ?? typedCandidates[0];
+    if (!typedJson) throw new Error("missing accepted runtime-uncertain typed-json output");
+    dioxusRecords = [openui, typedJson];
+    jsonRenderRecords = [requiredRoute(runtime, "json-render")];
+    directRsxRecords = accepted.filter((record) => record.cohort === "compile-known" && record.route === "direct-rsx")
+      .sort((left, right) => left.scenario_id.localeCompare(right.scenario_id));
+    if (directRsxRecords.length !== 2) throw new Error("expected two accepted compile-known direct RSX sources");
+  } else {
+    dioxusRecords = accepted.filter((record) => ["openui", "typed-json"].includes(record.route));
+    jsonRenderRecords = accepted.filter((record) => record.route === "json-render");
+    directRsxRecords = accepted.filter((record) => record.cohort === "compile-known" && record.route === "direct-rsx");
+    if (!dioxusRecords.some((record) => record.route === "openui") || !dioxusRecords.some((record) => record.route === "typed-json")) throw new Error("complete Dioxus fixture is missing a route");
+    if (jsonRenderRecords.length === 0 || directRsxRecords.length === 0) throw new Error("complete platform fixture is missing an external or direct route");
+  }
+  if (dioxusRecords.some((record) => !record.platform_artifact)) throw new Error("validated Dioxus platform Surface missing");
+  if (jsonRenderRecords.some((record) => !record.platform_artifact)) throw new Error("validated json-render platform artifact missing");
+  if (directRsxRecords.some((record) => typeof record.platform_artifact !== "string")) throw new Error("validated direct RSX source missing");
+  return { dioxusRecords, jsonRenderRecords, directRsxRecords };
 }
 
 async function digestFileLabel(file) {
   return `${path.basename(file)}\0${digest(await readFile(file))}`;
 }
 
-export async function executeGeneratedPlatformProofs({ records, outputDirectory, manifestHash, deadlineMs = Number.POSITIVE_INFINITY }) {
-  const fixtures = await writeGeneratedPlatformFixtures(records, outputDirectory, manifestHash);
+export async function executeGeneratedPlatformProofs({ records, outputDirectory, manifestHash, deadlineMs = Number.POSITIVE_INFINITY, scope = "canary" }) {
+  const fixtures = await writeGeneratedPlatformFixtures(records, outputDirectory, manifestHash, { scope });
   const evidenceRoot = path.join(outputDirectory, "platform-evidence");
   const logRoot = path.join(outputDirectory, "platform-run-logs");
   await mkdir(logRoot, { recursive: true });
@@ -106,7 +138,7 @@ export async function executeGeneratedPlatformProofs({ records, outputDirectory,
     env: {
       OPE11_DIRECT_RSX_CRATE: fixtures.direct_rsx_crate,
       OPE11_DIRECT_RSX_EVIDENCE_DIR: path.join(evidenceRoot, "direct-rsx-web-local"),
-      OPE11_DIRECT_RSX_TARGET_DIR: path.join(root, "platform/dioxus/target"),
+      OPE11_DIRECT_RSX_TARGET_DIR: process.env.EVAL_DIRECT_RSX_TARGET_DIR ?? path.join(root, "platform/dioxus/target"),
     },
     logRoot,
     deadlineMs,
@@ -140,6 +172,9 @@ export async function executeGeneratedPlatformProofs({ records, outputDirectory,
       dioxus_binding_sha256: fixtures.provenance.dioxus.binding_sha256,
       react_binding_sha256: fixtures.provenance.react.binding_sha256,
       direct_rsx_binding_sha256: fixtures.provenance.direct_rsx.binding_sha256,
+      dioxus_surface_count: fixtures.surface_counts.dioxus,
+      react_surface_count: fixtures.surface_counts.react,
+      direct_rsx_surface_count: fixtures.surface_counts.direct_rsx,
     },
   });
   const failedExecutions = executions.filter((execution) => !execution.passed);
@@ -151,10 +186,6 @@ export async function executeGeneratedPlatformProofs({ records, outputDirectory,
     fixture_provenance: fixtures.provenance,
     executions,
   };
-}
-
-function latestAcceptedRuntimeRecords(records) {
-  return latestAcceptedRecords(records).filter((entry) => entry.cohort === "runtime-uncertain");
 }
 
 function latestAcceptedRecords(records) {
@@ -171,7 +202,9 @@ function directRsxWrapper(records, provenance) {
   const modules = records.map((record, index) => `mod route_${index} {\n${record.platform_artifact}\n}`).join("\n\n");
   const arms = records.map((_record, index) => `        ${index} => rsx! { route_${index}::App {} },`).join("\n");
   const scenarioArms = records.map((record, index) => `        ${index} => ${JSON.stringify(record.source_scenario_id)},`).join("\n");
-  return `${modules}\n\nuse dioxus::prelude::*;\n\n#[allow(non_snake_case)]\nfn Root() -> Element {\n    let mut current = use_signal(|| 0usize);\n    let index = current().min(${records.length - 1});\n    let content = match index {\n${arms}\n        _ => unreachable!(),\n    };\n    let scenario_id = match index {\n${scenarioArms}\n        _ => unreachable!(),\n    };\n    rsx! {\n        document::Script { \"document.documentElement.lang = 'en';\" }\n        div {\n            id: \"ope11-direct-rsx-root\",\n            style: \"max-width: 860px; margin: 72px auto; padding: 24px; background: #d1d5db; border-radius: 12px; font-family: system-ui, sans-serif;\",\n            \"data-manifest-hash\": ${JSON.stringify(provenance.manifest_hash)},\n            \"data-binding-sha256\": ${JSON.stringify(provenance.binding_sha256)},\n            \"data-surface-count\": ${JSON.stringify(String(records.length))},\n            \"data-current-index\": \"{index}\",\n            section { style: \"min-height: 260px; padding: 24px; background: white; border-radius: 8px;\", \"data-scenario-id\": \"{scenario_id}\", {content} }\n            nav { style: \"margin-top: 16px;\", aria_label: \"Direct RSX navigation\",\n                button { r#type: \"button\", disabled: index == 0, onclick: move |_| current.set(index.saturating_sub(1)), \"Previous Source\" }\n                button { r#type: \"button\", disabled: index + 1 >= ${records.length}, onclick: move |_| current.set((index + 1).min(${records.length - 1})), \"Next Source\" }\n            }\n        }\n    }\n}\n\nfn main() { dioxus::launch(Root); }\n`;
+  const scheduleScenarioArms = records.map((record, index) => `        ${index} => ${JSON.stringify(record.scenario_id)},`).join("\n");
+  const cohortArms = records.map((record, index) => `        ${index} => ${JSON.stringify(record.cohort)},`).join("\n");
+  return `${modules}\n\nuse dioxus::prelude::*;\n\n#[allow(non_snake_case)]\nfn Root() -> Element {\n    let mut current = use_signal(|| 0usize);\n    let index = current().min(${records.length - 1});\n    let content = match index {\n${arms}\n        _ => unreachable!(),\n    };\n    let scenario_id = match index {\n${scenarioArms}\n        _ => unreachable!(),\n    };\n    let schedule_scenario_id = match index {\n${scheduleScenarioArms}\n        _ => unreachable!(),\n    };\n    let cohort = match index {\n${cohortArms}\n        _ => unreachable!(),\n    };\n    rsx! {\n        document::Script { \"document.documentElement.lang = 'en';\" }\n        div {\n            id: \"ope11-direct-rsx-root\",\n            style: \"max-width: 860px; margin: 72px auto; padding: 24px; background: #d1d5db; border-radius: 12px; font-family: system-ui, sans-serif;\",\n            \"data-manifest-hash\": ${JSON.stringify(provenance.manifest_hash)},\n            \"data-binding-sha256\": ${JSON.stringify(provenance.binding_sha256)},\n            \"data-surface-count\": ${JSON.stringify(String(records.length))},\n            \"data-current-index\": \"{index}\",\n            section { style: \"min-height: 260px; padding: 24px; background: white; border-radius: 8px;\", \"data-scenario-id\": \"{scenario_id}\", \"data-schedule-scenario-id\": \"{schedule_scenario_id}\", \"data-cohort\": \"{cohort}\", {content} }\n            nav { style: \"margin-top: 16px;\", aria_label: \"Direct RSX navigation\",\n                button { r#type: \"button\", disabled: index == 0, onclick: move |_| current.set(index.saturating_sub(1)), \"Previous Source\" }\n                button { r#type: \"button\", disabled: index + 1 >= ${records.length}, onclick: move |_| current.set((index + 1).min(${records.length - 1})), \"Next Source\" }\n            }\n        }\n    }\n}\n\nfn main() { dioxus::launch(Root); }\n`;
 }
 
 function directRsxCargoManifest() {

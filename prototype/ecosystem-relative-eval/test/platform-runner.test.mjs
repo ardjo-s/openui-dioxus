@@ -51,6 +51,42 @@ test("accepted generated outputs become isolated platform fixtures", async () =>
   }
 });
 
+test("complete platform fixtures retain every accepted route artifact", async () => {
+  const directory = await mkdtemp(path.join(temporaryRoot.pathname, "complete-platform-fixtures-"));
+  try {
+    const scenarios = await buildScenarios();
+    const [profile, preferences, filter, status, navigation] = [
+      "01-validated-profile-v1",
+      "02-preferences-v1",
+      "03-filter-action-v1",
+      "04-status-dialog-v1",
+      "05-navigation-feedback-v1",
+    ].map((id) => scenarios.find((scenario) => scenario.id === id));
+    const records = [
+      accepted("openui", profile, { platform_artifact: profile.expected }),
+      accepted("openui", preferences, { cohort: "compile-known", platform_artifact: preferences.expected }),
+      accepted("typed-json", preferences, { platform_artifact: preferences.expected }),
+      accepted("typed-json", filter, { cohort: "compile-known", platform_artifact: filter.expected }),
+      accepted("json-render", profile, { platform_artifact: surfaceToJsonRenderSpec(profile.expected) }),
+      accepted("json-render", status, { cohort: "compile-known", platform_artifact: surfaceToJsonRenderSpec(status.expected) }),
+      accepted("direct-rsx", filter, { cohort: "compile-known", platform_artifact: encodeExpectedRsx(filter.expected) }),
+      accepted("direct-rsx", status, { cohort: "compile-known", platform_artifact: encodeExpectedRsx(status.expected) }),
+      accepted("direct-rsx", navigation, { cohort: "compile-known", platform_artifact: encodeExpectedRsx(navigation.expected) }),
+    ];
+
+    const result = await writeGeneratedPlatformFixtures(records, directory, "complete-manifest", { scope: "complete" });
+    const dioxus = JSON.parse(await readFile(result.dioxus_fixture, "utf8"));
+    const react = JSON.parse(await readFile(result.react_fixture, "utf8"));
+
+    assert.equal(dioxus.entries.length, 4);
+    assert.equal(react.entries.length, 2);
+    assert.equal(result.direct_rsx_sources.length, 3);
+    assert.deepEqual(result.surface_counts, { dioxus: 4, react: 2, direct_rsx: 3 });
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});
+
 test("direct RSX platform proof receives an explicit non-secret environment", () => {
   const environment = buildPlatformProcessEnv("direct-rsx-web", { REQUIRED: "value" }, {
     PATH: "/usr/bin",

@@ -16,17 +16,23 @@ export async function generatePlatformFixtures() {
   const dioxusScenarios = ["01-validated-profile-v1", "02-preferences-v1"].map((id) => scenarios.find((scenario) => scenario.id === id));
   const reactRecord = {
     route: "json-render",
+    cohort: "runtime-uncertain",
+    scenario_id: reactScenario.id,
     source_scenario_id: reactScenario.id,
     platform_artifact: surfaceToJsonRenderSpec(reactScenario.expected),
   };
   const react = {
     provenance: buildPlatformProvenance("frozen-reference-fixtures-v1", [reactRecord]),
+    cohort: reactRecord.cohort,
+    schedule_scenario_id: reactRecord.scenario_id,
     scenario_id: reactScenario.id,
     family: reactScenario.family,
     spec: reactRecord.platform_artifact,
   };
   const dioxusRecords = dioxusScenarios.map((scenario, index) => ({
     route: index === 0 ? "openui" : "typed-json",
+    cohort: "runtime-uncertain",
+    scenario_id: scenario.id,
     source_scenario_id: scenario.id,
     platform_artifact: scenario.expected,
   }));
@@ -34,6 +40,8 @@ export async function generatePlatformFixtures() {
     provenance: buildPlatformProvenance("frozen-reference-fixtures-v1", dioxusRecords),
     entries: dioxusScenarios.map((scenario, index) => ({
       route: index === 0 ? "openui" : "typed-json",
+      cohort: "runtime-uncertain",
+      schedule_scenario_id: scenario.id,
       scenario_id: scenario.id,
       family: scenario.family,
       surface: scenario.expected,

@@ -4,7 +4,20 @@ set -euo pipefail
 eval_root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 source_auth_root=${EVAL_SOURCE_CODEX_HOME:-${CODEX_HOME:-$HOME/.codex}}
 codex_command=${EVAL_CODEX_BIN:-codex}
-output_directory=${OPE11_CANARY_OUTPUT_DIR:-$eval_root/evidence/candidate-canary}
+evaluation_run=${EVAL_RUN:-canary}
+case "$evaluation_run" in
+  canary) default_output_directory=$eval_root/evidence/candidate-canary ;;
+  complete-canary) default_output_directory=$eval_root/evidence/candidate-complete-canary ;;
+  complete) default_output_directory=$eval_root/evidence/candidate-complete ;;
+  *) echo "Unknown canary run contract: $evaluation_run" >&2; exit 2 ;;
+esac
+if [ -n "${EVAL_OUTPUT_DIR:-}" ]; then
+  output_directory=$EVAL_OUTPUT_DIR
+elif [ "$evaluation_run" = "canary" ] && [ -n "${OPE11_CANARY_OUTPUT_DIR:-}" ]; then
+  output_directory=$OPE11_CANARY_OUTPUT_DIR
+else
+  output_directory=$default_output_directory
+fi
 temporary_base=${TMPDIR:-/tmp}
 source_cargo_root=${CARGO_HOME:-$HOME/.cargo}
 source_rustup_root=${RUSTUP_HOME:-$HOME/.rustup}
@@ -67,6 +80,10 @@ env -i \
   EVAL_CODEX_HOME="$evaluation_auth_root" \
   EVAL_CODEX_WORKDIR="$evaluation_workdir" \
   EVAL_CODEX_BIN="$codex_command" \
-  node src/run-canary.mjs --provider codex --output "$output_directory"
+  node src/run-canary.mjs --run "$evaluation_run" --provider codex --output "$output_directory"
 
-test "$(jq -r '.outcome' "$output_directory/summary.json")" = "PASS"
+if [ "$evaluation_run" = "complete" ]; then
+  jq -e '.outcome == "INVALID_EVAL" and .operational_preflight_passed == true' "$output_directory/summary.json" >/dev/null
+else
+  test "$(jq -r '.outcome' "$output_directory/summary.json")" = "PASS"
+fi

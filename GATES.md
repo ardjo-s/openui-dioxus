@@ -1,5 +1,31 @@
 # Acceptance gates
 
+## OPE-19 complete decision-grade runner
+
+Current state: completed locally. No external provider call occurred.
+
+- [x] Complete schedule contains exactly 80 deterministic balanced cells.
+- [x] Complete prompt pack and runner limits are frozen in the candidate manifest.
+- [x] Human correction, blind review, keyboard, VoiceOver, TalkBack, mobile, replay, migration, drill, cost, and applicability evidence have strict schemas.
+- [x] Missing, estimated, duplicated, conflicted, unblinded, or malformed evidence is rejected independently.
+- [x] Blinded packets are deterministic and contain no route, syntax, path, metric, or technology leakage.
+- [x] Decision-grade finalization emits only `READY_FOR_REVIEW` or `INVALID_EVAL`.
+- [x] Fake-provider preflight executes all 80 cells with no external provider call.
+- [x] OPE-13 through OPE-18 evidence remains byte-identical.
+- [x] Full tests, typecheck, diff check, standards review, and intent review pass.
+- [ ] Owned changes and evidence are committed locally and Linear is synchronized.
+
+Verification evidence:
+
+- Candidate manifest: `1973db76a604ed0e4378e0fc0e0775be8f29e9cc8ba957599a0c17870bd4a3e3`.
+- Full deterministic preflight: 80 route cells, 84 retained attempts, zero external provider calls, operational preflight passed, and expected outer `INVALID_EVAL` because real human evidence is absent.
+- Generated harness preflight: `PASS`, 8 route cells, 12 retained attempts, zero external provider calls, and all content-addressed review assets verified.
+- Real generated platform proof: 2 official React Web surfaces, 4 Dioxus Web surfaces, 4 distinct Dioxus Desktop screenshots, and 2 Direct RSX Web surfaces.
+- Full `SHA256SUMS`: `04cd7797e5c240d35f9f8dc1504db13d009d4dca297699f3c39151ba7665b367`.
+- Generated harness `SHA256SUMS`: `e2b3b27165bccaf6bd15526db43802b0345d5492300c1f78a46d4fe0c014bfd1`.
+- Independent review: `3101db1a7b64ce46e0d3c7f381b9b9e84d8aeb1e9f1c32075236a9309917b317`.
+- Full JavaScript suite: 63/63; typecheck, shell syntax, diff check, frozen-evidence check, runtime-diff check, standards review, and intent review pass.
+
 ## OPE-18 rendered receipt canary
 
 Current state: completed as `PASS`. The one authorized provider run used the

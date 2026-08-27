@@ -3,6 +3,7 @@ import path from "node:path";
 import { defineConfig } from "@playwright/test";
 
 const evidence = path.resolve(process.env.OPE11_DIOXUS_WEB_EVIDENCE_DIR ?? "evidence/dioxus-web-local");
+const target = path.resolve(process.env.OPE11_DIOXUS_TARGET_DIR ?? "target");
 
 export default defineConfig({
   testDir: ".",
@@ -12,7 +13,8 @@ export default defineConfig({
   timeout: 180_000,
   outputDir: path.join(evidence, "traces"),
   webServer: {
-    command: "../../.tmp/dioxus-cli/bin/dx build --web --release --features web --bin ope11-dioxus-canary --debug-symbols false && python3 -m http.server 4184 --bind 127.0.0.1 --directory target/dx/ope11-dioxus-canary/release/web/public",
+    command: `../../.tmp/dioxus-cli/bin/dx build --web --release --features web --bin ope11-dioxus-canary --debug-symbols false && python3 -m http.server 4184 --bind 127.0.0.1 --directory "${target}/dx/ope11-dioxus-canary/release/web/public"`,
+    env: { CARGO_TARGET_DIR: target },
     url: "http://127.0.0.1:4184",
     reuseExistingServer: false,
     timeout: 240_000,

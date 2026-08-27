@@ -3,9 +3,9 @@ use std::collections::BTreeSet;
 use ope11_dioxus_canary::{load_entries, render_entry_html, run_contract};
 
 #[test]
-fn two_runtime_routes_cross_the_real_dioxus_probe() {
+fn every_registered_surface_crosses_the_real_dioxus_probe() {
     let entries = load_entries().unwrap();
-    assert_eq!(entries.len(), 2);
+    assert!(entries.len() >= 2);
     assert_eq!(
         entries
             .iter()

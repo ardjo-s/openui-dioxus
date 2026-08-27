@@ -8,6 +8,7 @@ import { fileURLToPath } from "node:url";
 import { get_encoding } from "tiktoken";
 
 import { verifySecondCatalogFixtures } from "./catalog-fixtures.mjs";
+import { buildBlindedPackets, finalizeDecisionGrade, scanPacketLeaks } from "./complete-run-contract.mjs";
 import { boundedTimeout } from "./deadline.mjs";
 import { CANDIDATE_MARKER, PUBLICATION_MARKER } from "./evidence-publication.mjs";
 import { measureImplementationFootprint } from "./footprint.mjs";
@@ -28,10 +29,24 @@ const root = path.resolve(here, "..");
 const repo = path.resolve(root, "../..");
 const maximumResponseBytes = 256 * 1024;
 
-export async function runCanary({ provider, outputDirectory, platformProof = provider === "codex" ? "generated" : "reference", productScorer = createForbiddenProductScorer() }) {
+export async function runCanary(options) {
+  return runEvaluation({ ...options, contractKey: "canary" });
+}
+
+export async function runCompleteEvaluation(options) {
+  return runEvaluation({ ...options, contractKey: "complete_run" });
+}
+
+export async function runCompleteCanary(options) {
+  return runEvaluation({ ...options, contractKey: "complete_canary" });
+}
+
+async function runEvaluation({ provider, outputDirectory, platformProof = provider === "codex" ? "generated" : "reference", productScorer = createForbiddenProductScorer(), contractKey, humanEvidence = null }) {
   if (!["fake", "codex"].includes(provider)) throw new Error(`unknown provider: ${provider}`);
+  if (!["canary", "complete_run", "complete_canary"].includes(contractKey)) throw new Error(`unknown run contract: ${contractKey}`);
+  if (contractKey !== "canary" && humanEvidence !== null) throw new Error("human evidence must finalize the frozen generation archive without another provider run");
   if (!["generated", "reference"].includes(platformProof)) throw new Error(`unknown platform proof mode: ${platformProof}`);
-  if (provider === "codex" && platformProof !== "generated") throw new Error("real provider canary requires generated-output platform proof");
+  if (provider === "codex" && platformProof !== "generated") throw new Error("real provider run requires generated-output platform proof");
   await prepareOutputDirectory(outputDirectory);
   for (const directory of ["raw", "diagnostics", "native", "canonical", "provider-events", "provider-stderr", "traces"]) {
     await mkdir(path.join(outputDirectory, directory), { recursive: true });
@@ -39,8 +54,13 @@ export async function runCanary({ provider, outputDirectory, platformProof = pro
   const started = performance.now();
   const encoding = get_encoding("o200k_base");
   const manifest = await buildCandidateManifest();
+  const completeStage = contractKey !== "canary";
+  const runContract = contractKey === "complete_canary"
+    ? { ...manifest.complete_run.harness_canary, prompt_pack: manifest.complete_run.prompt_pack }
+    : manifest[contractKey];
+  const contractLabel = contractKey === "complete_canary" ? "complete_run.harness_canary" : contractKey;
   const manifestHash = hashManifest(manifest);
-  const deadlineMs = started + manifest.canary.maximum_wall_time_ms;
+  const deadlineMs = started + runContract.maximum_wall_time_ms;
   await writeJson(path.join(outputDirectory, "candidate-manifest.json"), { ...manifest, hash: manifestHash });
   await writeFile(path.join(outputDirectory, "candidate-manifest.sha256"), `${manifestHash}\n`, { flag: "wx", mode: 0o600 });
   const ope3Import = await verifyOpe3Archive();
@@ -52,14 +72,14 @@ export async function runCanary({ provider, outputDirectory, platformProof = pro
   let providerError = null;
 
   try {
-    for (const cell of manifest.canary.schedule) {
-      if (performance.now() - started > manifest.canary.maximum_wall_time_ms) {
-        providerError = "canary wall-time ceiling reached before next call";
+    for (const cell of runContract.schedule) {
+      if (performance.now() - started > runContract.maximum_wall_time_ms) {
+        providerError = "run wall-time ceiling reached before next call";
         break;
       }
       const scenario = byId.get(cell.scenario_id.replace(/^compile-/, ""));
       if (!scenario) throw new Error(`missing scenario: ${cell.scenario_id}`);
-      const prompt = manifest.canary.prompt_pack.find((entry) => entry.prompt_id === cell.prompt_id);
+      const prompt = runContract.prompt_pack.find((entry) => entry.prompt_id === cell.prompt_id);
       if (!prompt) throw new Error(`missing frozen prompt: ${cell.prompt_id}`);
       const instructions = prompt.instructions;
       const initialUserPrompt = prompt.user_prompt;
@@ -70,13 +90,13 @@ export async function runCanary({ provider, outputDirectory, platformProof = pro
         break;
       }
       let prior = null;
-      for (let attempt = 1; attempt <= 2; attempt += 1) {
+      for (let attempt = 1; attempt <= runContract.maximum_repairs_per_route + 1; attempt += 1) {
         const remainingProviderMs = remainingTime(deadlineMs);
         if (remainingProviderMs <= 0) {
-          providerError = "canary wall-time ceiling reached before provider call";
+          providerError = "run wall-time ceiling reached before provider call";
           break;
         }
-        if (records.length >= manifest.canary.maximum_provider_calls) {
+        if (records.length >= runContract.maximum_provider_calls) {
           providerError = "maximum provider calls reached";
           break;
         }
@@ -228,13 +248,13 @@ export async function runCanary({ provider, outputDirectory, platformProof = pro
   await writeFile(path.join(outputDirectory, "records.jsonl"), `${records.map((record) => JSON.stringify(record)).join("\n")}\n`, { flag: "wx", mode: 0o600 });
   const finalRecords = finalRecordsByCell(records);
   const routeCells = finalRecords.length;
-  const allAccepted = routeCells === manifest.canary.schedule.length && finalRecords.every((record) => record.accepted);
+  const allAccepted = routeCells === runContract.schedule.length && finalRecords.every((record) => record.accepted);
   let platformEvidence;
   if (platformProof === "reference") {
     platformEvidence = { ...await verifyPlatformEvidence(), source: "frozen-reference-preflight" };
   } else if (!providerError && allAccepted) {
     try {
-      platformEvidence = await executeGeneratedPlatformProofs({ records, outputDirectory, manifestHash, deadlineMs });
+      platformEvidence = await executeGeneratedPlatformProofs({ records, outputDirectory, manifestHash, deadlineMs, scope: completeStage ? "complete" : "canary" });
     } catch (error) {
       platformEvidence = {
         verified: false,
@@ -257,48 +277,102 @@ export async function runCanary({ provider, outputDirectory, platformProof = pro
       executions: [],
     };
   }
+  let reviewPacketError = null;
+  let reviewPacketPlan = { records: [], assets: [], mode: "not-generated" };
+  if (completeStage && allAccepted) {
+    try {
+      reviewPacketPlan = await buildReviewPacketRecords({ records: finalRecords, byId, platformEvidence, outputDirectory });
+    } catch (error) {
+      reviewPacketError = String(error.message);
+      reviewPacketPlan = { records: [], assets: [], mode: "asset-binding-failed" };
+    }
+  }
+  const reviewPackets = completeStage && reviewPacketPlan.records.length > 0
+    ? buildBlindedPackets(reviewPacketPlan.records, "ope-12-anonymous-review-packets-v1")
+    : [];
+  if (completeStage) {
+    await writeJson(path.join(outputDirectory, "review-packets.json"), reviewPackets);
+    await writeJson(path.join(outputDirectory, "review-assets.json"), reviewPacketPlan.assets);
+  }
+  const packetLeakFindings = reviewPackets.flatMap((packet) => scanPacketLeaks(packet).map((finding) => ({ ...finding, packet_id: packet.packet_id })));
   const wallTimeMs = performance.now() - started;
   const treeScanFindings = await scanEvidenceDirectory(outputDirectory);
   const runtimeDiffLines = canonicalRuntimeDiffLines();
   const implementationFootprint = await measureImplementationFootprint();
   const productScorerAccessCount = productScorer.accessCount();
-  let outcome = !providerError
+  const generationComplete = !providerError
     && allAccepted
-    && records.length <= manifest.canary.maximum_provider_calls
-    && wallTimeMs <= manifest.canary.maximum_wall_time_ms
+    && records.length <= runContract.maximum_provider_calls
+    && wallTimeMs <= runContract.maximum_wall_time_ms
     && ope3Import.verified
     && secondCatalog.verified
-    && platformEvidence.verified
     && runtimeDiffLines === 0
     && scanFindings.length === 0
     && treeScanFindings.length === 0
-    && productScorerAccessCount === 0
-    ? "PASS"
-    : "CANARY_INVALID";
+    && reviewPacketError === null
+    && (!completeStage || (reviewPackets.length === finalRecords.length && packetLeakFindings.length === 0))
+    && productScorerAccessCount === 0;
+  const operationalPreflightPassed = generationComplete && platformEvidence.verified;
+  const finalization = completeStage
+    ? finalizeDecisionGrade({
+      generationComplete,
+      platformComplete: platformEvidence.verified,
+      humanEvidence,
+      manifest,
+      packets: reviewPackets,
+    })
+    : null;
+  const completeCanaryHumanBlockProved = contractKey === "complete_canary"
+    && finalization.outcome === manifest.complete_run.harness_canary.expected_human_finalization
+    && manifest.complete_run.harness_canary.required_missing_evidence_witnesses.every((field) => finalization.diagnostics.some((diagnostic) => diagnostic.field === field && diagnostic.code === "missing-evidence"));
+  let outcome = contractKey === "complete_run"
+    ? finalization.outcome
+    : operationalPreflightPassed && (contractKey !== "complete_canary" || completeCanaryHumanBlockProved) ? "PASS" : "CANARY_INVALID";
   const summary = {
     outcome,
-    execution_kind: provider === "fake" ? "deterministic-preflight" : "real-provider-canary",
+    execution_kind: completeStage
+      ? contractKey === "complete_canary"
+        ? provider === "fake" ? "deterministic-complete-canary" : "real-complete-canary"
+        : provider === "fake" ? "deterministic-complete-preflight" : "real-complete-run"
+      : provider === "fake" ? "deterministic-preflight" : "real-provider-canary",
+    run_contract: contractLabel,
     provider,
     model: manifest.provider.model,
     reasoning_effort: manifest.provider.reasoning_effort,
     manifest_hash: manifestHash,
-    manifest_promoted: outcome === "PASS" && provider === "codex" && platformProof === "generated",
+    manifest_promoted: contractKey !== "complete_run" && outcome === "PASS" && provider === "codex" && platformProof === "generated",
+    operational_preflight_passed: operationalPreflightPassed,
+    finalization,
+    complete_canary_human_block_proved: contractKey === "complete_canary" ? completeCanaryHumanBlockProved : null,
     route_cells: routeCells,
+    expected_route_cells: runContract.schedule.length,
     route_aggregates_comparable: false,
     route_aggregate_scope: "operational diagnostics only; route totals cover different scenario and cohort mixes and must not be ranked across routes",
     calls: records.length,
-    maximum_calls: manifest.canary.maximum_provider_calls,
+    external_provider_calls: provider === "fake" ? 0 : records.length,
+    maximum_calls: runContract.maximum_provider_calls,
     wall_time_ms: wallTimeMs,
-    maximum_wall_time_ms: manifest.canary.maximum_wall_time_ms,
+    maximum_wall_time_ms: runContract.maximum_wall_time_ms,
     first_pass_validity: validity(records, 1),
     post_repair_validity: validity(finalRecords),
     cumulative_raw_tokens: cumulativeTokens(records),
-    balanced_order: balancedOrder(manifest.canary.schedule),
+    balanced_order: balancedOrder(runContract.schedule),
     rejected_attempts_retained_and_charged: records.filter((record) => !record.accepted).every((record) => record.tokens.raw_prompt_tokens > 0 && record.tokens.raw_output_tokens > 0),
     ope3_import: ope3Import,
     second_catalog: secondCatalog,
     platform_evidence: platformEvidence,
     platform_proof_mode: platformProof,
+    review_packets: completeStage ? {
+      count: reviewPackets.length,
+      sha256: sha(stableJson(reviewPackets)),
+      leak_findings: packetLeakFindings,
+      immutable_after_opening: reviewPackets.every((packet) => packet.immutable_after_opening === true),
+      asset_mode: reviewPacketPlan.mode,
+      asset_index_count: reviewPacketPlan.assets.length,
+      asset_index_sha256: sha(stableJson(reviewPacketPlan.assets)),
+      error: reviewPacketError,
+    } : null,
+    human_evidence: completeStage ? { provided: false, sha256: null, finalization_stage: "src/finalize-complete.mjs" } : null,
     canonical_runtime_behavior_diff_lines: runtimeDiffLines,
     trust_controls: {
       pre_provider_scan_findings: scanFindings.length,
@@ -316,7 +390,9 @@ export async function runCanary({ provider, outputDirectory, platformProof = pro
     cost: {
       billing_basis: provider === "codex"
         ? "ChatGPT plan, no per-run API invoice or incremental dollar charge is available"
-        : "ChatGPT plan is reserved for the real canary; deterministic fake provider uses no model calls",
+        : contractKey === "canary"
+          ? "ChatGPT plan is reserved for the real canary; deterministic fake provider uses no model calls"
+          : "Deterministic fake provider uses no model calls",
       incremental_api_cost_usd: null,
       provider_usage: aggregateProviderUsage(records),
     },
@@ -328,13 +404,16 @@ export async function runCanary({ provider, outputDirectory, platformProof = pro
   const finalPayloadFindings = scanPublicationPayloads({ "summary.json": summary, "REPORT.md": reportText });
   const publicationScanFindings = [...treeScanFindings, ...finalPayloadFindings];
   if (finalPayloadFindings.length > 0) {
-    outcome = "CANARY_INVALID";
+    outcome = contractKey === "complete_run" ? "INVALID_EVAL" : "CANARY_INVALID";
     summary.outcome = outcome;
     summary.manifest_promoted = false;
     summary.trust_controls.publication_credential_scan_findings = publicationScanFindings.length;
+    if (summary.finalization) summary.finalization.diagnostics.push({ field: "publication", code: "credential-scan-failed" });
     reportText = report(summary);
   }
-  assertDecisionNeutral(summary);
+  if (contractKey === "canary") assertDecisionNeutral(summary);
+  else if (contractKey === "complete_canary") assertCompleteCanary(summary);
+  else assertCompleteStage(summary);
   await writeJson(path.join(outputDirectory, "summary.json"), summary);
   await writeJson(path.join(outputDirectory, "credential-scan.json"), {
     passed: scanFindings.length === 0 && publicationScanFindings.length === 0,
@@ -344,13 +423,17 @@ export async function runCanary({ provider, outputDirectory, platformProof = pro
   await writeFile(path.join(outputDirectory, "REPORT.md"), reportText, { flag: "wx", mode: 0o600 });
   const checksumManifestSha256 = await writeChecksums(outputDirectory);
   await writeJson(path.join(outputDirectory, CANDIDATE_MARKER), {
-    status: "awaiting-independent-review",
+    status: contractKey === "complete_run"
+      ? outcome === "READY_FOR_REVIEW" ? "ready-for-independent-review" : "awaiting-human-evidence"
+      : "awaiting-independent-review",
     outcome,
     manifest_hash: manifestHash,
     checksum_manifest_sha256: checksumManifestSha256,
   });
-  await runPublicationStep("review-evidence.mjs", outputDirectory, deadlineMs);
-  await runPublicationStep("finalize-evidence.mjs", outputDirectory, deadlineMs);
+  if (contractKey !== "complete_run") {
+    await runPublicationStep("review-evidence.mjs", outputDirectory, deadlineMs);
+    await runPublicationStep("finalize-evidence.mjs", outputDirectory, deadlineMs);
+  }
   return summary;
 }
 
@@ -454,10 +537,26 @@ function aggregateProviderUsage(records) {
 }
 
 function balancedOrder(schedule) {
-  return ["openui", "typed-json", "json-render", "direct-rsx"].every((route) => {
-    const positions = schedule.filter((cell) => cell.route === route).map((cell) => cell.order_position).sort();
-    return JSON.stringify(positions) === JSON.stringify([0, 1]);
-  });
+  const scenarioGroups = new Map();
+  for (const cell of schedule) {
+    const key = `${cell.cohort}:${cell.scenario_id}`;
+    if (!scenarioGroups.has(key)) scenarioGroups.set(key, []);
+    scenarioGroups.get(key).push(cell);
+  }
+  if (![...scenarioGroups.values()].every((cells) => {
+    const positions = cells.map((cell) => cell.order_position).sort((left, right) => left - right);
+    return JSON.stringify(positions) === JSON.stringify(cells.map((_, index) => index));
+  })) return false;
+
+  for (const cohort of new Set(schedule.map((cell) => cell.cohort))) {
+    const cells = schedule.filter((cell) => cell.cohort === cohort);
+    const positionCount = Math.max(...cells.map((cell) => cell.order_position)) + 1;
+    for (const route of new Set(cells.map((cell) => cell.route))) {
+      const counts = Array.from({ length: positionCount }, (_, position) => cells.filter((cell) => cell.route === route && cell.order_position === position).length);
+      if (Math.max(...counts) - Math.min(...counts) > 1) return false;
+    }
+  }
+  return true;
 }
 
 function canonicalRuntimeDiffLines() {
@@ -486,13 +585,80 @@ function slug(value) {
   return value.replace(/[^a-zA-Z0-9-]+/g, "-");
 }
 
+async function buildReviewPacketRecords({ records, byId, platformEvidence, outputDirectory }) {
+  const generated = platformEvidence.source === "generated-canary-outputs";
+  const assets = new Map();
+  const traceByEvidenceDirectory = new Map();
+  const proofByRoute = {
+    openui: [platformEvidence.proofs?.dioxus_web, "dioxus-web-local"],
+    "typed-json": [platformEvidence.proofs?.dioxus_web, "dioxus-web-local"],
+    "json-render": [platformEvidence.proofs?.react_web, "react-web-local"],
+    "direct-rsx": [platformEvidence.proofs?.direct_rsx_web, "direct-rsx-web-local"],
+  };
+  const addAsset = async (kind, relativePath) => {
+    const bytes = await readFile(path.join(outputDirectory, relativePath));
+    const digest = sha(bytes);
+    const assetId = `${kind}-${digest}`;
+    assets.set(assetId, { asset_id: assetId, kind, relative_path: relativePath, sha256: digest });
+    return assetId;
+  };
+  const traceAsset = async (evidenceDirectory) => {
+    if (traceByEvidenceDirectory.has(evidenceDirectory)) return traceByEvidenceDirectory.get(evidenceDirectory);
+    const traceRoot = path.join(outputDirectory, "platform-evidence", evidenceDirectory, "traces");
+    const trace = (await filesBelow(traceRoot)).find((relative) => relative.endsWith("trace.zip"));
+    if (!trace) throw new Error(`missing generated behavior recording: ${evidenceDirectory}`);
+    const assetId = await addAsset("recording", path.join("platform-evidence", evidenceDirectory, "traces", trace));
+    traceByEvidenceDirectory.set(evidenceDirectory, assetId);
+    return assetId;
+  };
+  const packetRecords = await Promise.all(records.map(async (record) => {
+    const scenario = byId.get(record.source_scenario_id);
+    const artifactSha = record.artifact_hashes.platform_artifact_sha256;
+    let screenshots = [`asset-${artifactSha}`];
+    let behaviorRecording = `recording-${artifactSha}`;
+    if (generated) {
+      const [proof, evidenceDirectory] = proofByRoute[record.route] ?? [];
+      const artifactIndex = proof?.artifacts?.findIndex((entry) => entry.route === record.route
+        && entry.cohort === record.cohort
+        && entry.schedule_scenario_id === record.scenario_id);
+      const artifact = artifactIndex >= 0 ? proof.artifacts[artifactIndex] : null;
+      if (!artifact?.screenshot) throw new Error(`missing generated screenshot binding: ${record.cohort}:${record.scenario_id}:${record.route}`);
+      screenshots = [await addAsset("asset", path.join("platform-evidence", evidenceDirectory, "screenshots", artifact.screenshot))];
+      if (["openui", "typed-json"].includes(record.route)) {
+        const desktopScreenshot = platformEvidence.proofs?.dioxus_desktop?.screenshots?.[artifactIndex]?.file;
+        if (!desktopScreenshot) throw new Error(`missing generated Desktop screenshot binding: ${record.cohort}:${record.scenario_id}:${record.route}`);
+        screenshots.push(await addAsset("asset", path.join("platform-evidence", "dioxus-desktop-local", "screenshots", desktopScreenshot)));
+      }
+      behaviorRecording = await traceAsset(evidenceDirectory);
+    }
+    return {
+      scenario_id: record.source_scenario_id,
+      artifact_sha256: artifactSha,
+      source_identity_sha256: sha(`${record.cohort}:${record.scenario_id}:${record.route}:${record.attempt}:${artifactSha}`),
+      task_contract: {
+        family: scenario.family,
+        required_behavior: Object.keys(scenario.shared_contract.acceptance).sort(),
+        workflow_fixture_sha256: sha(stableJson(scenario.shared_contract.mcp_tool_result)),
+      },
+      screenshots,
+      behavior_recording: behaviorRecording,
+    };
+  }));
+  return {
+    records: packetRecords,
+    assets: [...assets.values()].sort((left, right) => left.asset_id.localeCompare(right.asset_id)),
+    mode: generated ? "generated-content-addressed-evidence" : "reference-preflight-placeholders",
+  };
+}
+
 function report(summary) {
+  const complete = summary.run_contract.startsWith("complete_run");
   return [
-    "# OPE-11 ecosystem canary",
+    complete ? "# OPE-19 complete-runner evidence" : "# OPE-11 ecosystem canary",
     "",
     `Outcome: ${summary.outcome}`,
     `Execution: ${summary.execution_kind}`,
-    `Route cells: ${summary.route_cells}/8`,
+    `Route cells: ${summary.route_cells}/${summary.expected_route_cells}`,
     `Provider calls: ${summary.calls}/${summary.maximum_calls}`,
     `Manifest: ${summary.manifest_hash}`,
     `Frozen OPE-3 import: ${summary.ope3_import.verified ? "verified" : "failed"}`,
@@ -509,9 +675,31 @@ function report(summary) {
     "",
     `Cost basis: ${summary.cost.billing_basis}`,
     "",
-    "This operational canary is decision-neutral. It can only permit or block the complete evidence run.",
+    complete
+      ? "This runner can emit only READY_FOR_REVIEW or INVALID_EVAL. OPE-7 owns every product verdict."
+      : "This operational canary is decision-neutral. It can only permit or block the complete evidence run.",
     "",
   ].join("\n");
+}
+
+function assertCompleteStage(summary) {
+  if (!["READY_FOR_REVIEW", "INVALID_EVAL"].includes(summary.outcome)) throw new Error(`invalid complete-run outcome: ${summary.outcome}`);
+  if (summary.finalization?.outcome !== summary.outcome) throw new Error("complete-run outcome differs from finalization");
+  if (summary.final_product_scorer_access_count !== 0) throw new Error("product scorer accessed during complete run");
+  const serialized = JSON.stringify(summary);
+  for (const verdict of ["GO_OPENUI_DIOXUS", "PIVOT_TO_SURFACE_RUNTIME", "NO_GO"]) {
+    if (serialized.includes(verdict)) throw new Error(`product verdict leaked into complete-run evidence: ${verdict}`);
+  }
+}
+
+function assertCompleteCanary(summary) {
+  if (!["PASS", "CANARY_INVALID"].includes(summary.outcome)) throw new Error(`invalid complete-canary outcome: ${summary.outcome}`);
+  if (!["READY_FOR_REVIEW", "INVALID_EVAL"].includes(summary.finalization?.outcome)) throw new Error("invalid nested complete-run finalization");
+  if (summary.final_product_scorer_access_count !== 0) throw new Error("product scorer accessed during complete canary");
+  const serialized = JSON.stringify(summary);
+  for (const verdict of ["GO_OPENUI_DIOXUS", "PIVOT_TO_SURFACE_RUNTIME", "NO_GO"]) {
+    if (serialized.includes(verdict)) throw new Error(`product verdict leaked into complete-canary evidence: ${verdict}`);
+  }
 }
 
 async function writeJson(destination, value) {
@@ -554,19 +742,21 @@ async function filesBelow(directory, prefix = "") {
 }
 
 function parseCli(argv) {
-  const options = { provider: null, outputDirectory: null, platformProof: null };
+  const options = { provider: null, outputDirectory: null, platformProof: null, runContract: "canary" };
   for (let index = 0; index < argv.length; index += 1) {
     const name = argv[index];
     const value = argv[index + 1];
     if (name === "--provider") options.provider = value;
     else if (name === "--output") options.outputDirectory = path.resolve(value);
     else if (name === "--platform-proof") options.platformProof = value;
+    else if (name === "--run") options.runContract = value;
     else throw new Error(`unknown argument: ${name}`);
     index += 1;
   }
   options.provider ??= "fake";
+  if (!["canary", "complete", "complete-canary"].includes(options.runContract)) throw new Error(`unknown run: ${options.runContract}`);
   options.platformProof ??= options.provider === "codex" ? "generated" : "reference";
-  options.outputDirectory ??= path.join(root, "evidence", options.provider === "fake" ? "fake-canary" : "candidate-canary");
+  options.outputDirectory ??= path.join(root, "evidence", `${options.provider === "fake" ? "fake" : "candidate"}-${options.runContract}`);
   return options;
 }
 
@@ -574,12 +764,25 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   const options = parseCli(process.argv.slice(2));
   await mkdir(options.outputDirectory, { recursive: true });
   try {
-    const summary = await runCanary(options);
+    const runnerOptions = {
+      provider: options.provider,
+      outputDirectory: options.outputDirectory,
+      platformProof: options.platformProof,
+    };
+    const summary = options.runContract === "complete"
+      ? await runCompleteEvaluation(runnerOptions)
+      : options.runContract === "complete-canary"
+        ? await runCompleteCanary(runnerOptions)
+        : await runCanary(runnerOptions);
     process.stdout.write(`${summary.outcome}\n`);
   } catch (error) {
     const emergency = {
-      outcome: "CANARY_INVALID",
-      execution_kind: options.provider === "codex" ? "real-provider-canary" : "deterministic-preflight",
+      outcome: options.runContract === "complete" ? "INVALID_EVAL" : "CANARY_INVALID",
+      execution_kind: options.runContract === "complete"
+        ? options.provider === "codex" ? "real-complete-run" : "deterministic-complete-preflight"
+        : options.runContract === "complete-canary"
+          ? options.provider === "codex" ? "real-complete-canary" : "deterministic-complete-canary"
+        : options.provider === "codex" ? "real-provider-canary" : "deterministic-preflight",
       provider: options.provider,
       infrastructure_error: String(error.message).slice(0, 2000),
       product_outcome_forbidden: true,
@@ -589,7 +792,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     } catch (writeError) {
       if (writeError.code !== "EEXIST") throw writeError;
     }
-    process.stdout.write("CANARY_INVALID\n");
+    process.stdout.write(`${emergency.outcome}\n`);
     process.exitCode = 1;
   }
 }

@@ -1,0 +1,6 @@
+[application]
+name = "ope11-direct-rsx-generated"
+default_platform = "web"
+
+[web.app]
+title = "OPE-11 direct RSX canary"

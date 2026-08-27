@@ -1,0 +1,1 @@
+root = Toolbar("navigation_toolbar", "vertical", [Tabs("account_tabs", "active_tab", "activity", [{value: "activity", label: "Activity · variant 2", child: Toast("saved_toast", "success", "Saved · variant 2", "Your activity view is current. · variant 2")}]), Button("activity_button", "Refresh activity · variant 2", "ApplyFilter", "activity")])

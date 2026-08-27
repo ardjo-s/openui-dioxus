@@ -1,0 +1,61 @@
+{
+  "fingerprint": "7137e0b22eb18a403b8ad0f8002fc48585fcca8ee33c07d81825d7a00e32ce88",
+  "surface": {
+    "catalog_id": "openui-dioxus-components-eval",
+    "catalog_release_hash": "2bf7df132bc99576fb431e2fb8cd40cf35731e3fd2ee29e2d6d7f6bed45a5ae7",
+    "root": "navigation_toolbar",
+    "nodes": {
+      "account_tabs": {
+        "id": "account_tabs",
+        "kind": "Tabs",
+        "props": {
+          "id": "account_tabs",
+          "items": [
+            {
+              "child": "saved_toast",
+              "label": "Activity · variant 4",
+              "value": "activity"
+            }
+          ],
+          "state_key": "active_tab",
+          "value": "activity"
+        }
+      },
+      "activity_button": {
+        "id": "activity_button",
+        "kind": "Button",
+        "props": {
+          "action": "ApplyFilter",
+          "id": "activity_button",
+          "label": "Refresh activity · variant 4",
+          "target_id": "activity"
+        }
+      },
+      "navigation_toolbar": {
+        "id": "navigation_toolbar",
+        "kind": "Toolbar",
+        "props": {
+          "children": [
+            "account_tabs",
+            "activity_button"
+          ],
+          "id": "navigation_toolbar",
+          "orientation": "vertical"
+        }
+      },
+      "saved_toast": {
+        "id": "saved_toast",
+        "kind": "Toast",
+        "props": {
+          "id": "saved_toast",
+          "message": "Your activity view is current. · variant 4",
+          "title": "Saved · variant 4",
+          "tone": "success"
+        }
+      }
+    },
+    "state": {
+      "active_tab": "activity"
+    }
+  }
+}

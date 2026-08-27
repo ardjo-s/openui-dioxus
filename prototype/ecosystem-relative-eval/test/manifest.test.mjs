@@ -7,6 +7,13 @@ import { buildScenarios } from "../../openui-typed-json-product-eval/src/scenari
 import { buildCandidateManifest, hashManifest } from "../src/manifest.mjs";
 
 const priorEvidence = new URL("../evidence/ope16-canary-9572c9b-final/", import.meta.url);
+const promotedOpe18Evidence = new URL("../evidence/ope18-canary-a3f895f-final/", import.meta.url);
+
+test("OPE-19 preserves the promoted OPE-18 evidence byte for byte", async () => {
+  assert.equal((await readFile(new URL("candidate-manifest.sha256", promotedOpe18Evidence), "utf8")).trim(), "9623a1457dee64555a2595cd878ddf7a7d13187747206a0ad7c1554b1208190e");
+  assert.equal(await fileSha(new URL("SHA256SUMS", promotedOpe18Evidence)), "9c0a378af9203cea0f2769dae84255900397aeed280c5f18f2f4e22900ffa098");
+  assert.equal(await fileSha(new URL("INDEPENDENT_REVIEW.json", promotedOpe18Evidence)), "ebcfe05d6e9b67b8f1f61f04cd7f20cb56cf794577d78bcd475b8bf3ce9e0dbd");
+});
 
 test("OPE-17 preserves the registered invalid OPE-16 evidence byte for byte", async () => {
   assert.equal((await readFile(new URL("candidate-manifest.sha256", priorEvidence), "utf8")).trim(), "49b71bd46638f1301c59fa345204d12896d0c2175197ec8df4563c2092ad9cf0");
@@ -42,14 +49,16 @@ test("OPE-17 changes only the preregistered rendered-receipt methodology", async
   ]) assert.deepEqual(current.canary[key], prior.canary[key], `canary.${key}`);
 });
 
-test("candidate manifest freezes the decision-neutral OPE-18 canary", async () => {
+test("candidate manifest preserves the OPE-18 canary and freezes the OPE-19 complete runner", async () => {
   const manifest = await buildCandidateManifest();
 
-  assert.equal(manifest.version, "ope-18-rendered-receipt-canary-v5");
-  assert.equal(manifest.preregistration.ticket, "OPE-18");
-  assert.equal(manifest.preregistration.prepared_by, "OPE-17");
-  assert.equal(manifest.preregistration.prior_candidate.outcome, "CANARY_INVALID");
-  assert.equal(manifest.preregistration.prior_candidate.source_commit, "9572c9b");
+  assert.equal(manifest.version, "ope-19-complete-runner-v1");
+  assert.equal(manifest.preregistration.ticket, "OPE-19");
+  assert.equal(manifest.preregistration.prepared_by, "OPE-18");
+  assert.equal(manifest.preregistration.prior_candidate.outcome, "PASS");
+  assert.equal(manifest.preregistration.prior_candidate.source_commit, "a3f895f");
+  assert.equal(manifest.preregistration.prior_candidate.evidence_commit, "6681f02");
+  assert.equal(manifest.preregistration.prior_candidate.manifest_sha256, "9623a1457dee64555a2595cd878ddf7a7d13187747206a0ad7c1554b1208190e");
   assert.equal(manifest.accessibility_contract.version, "ope-15-route-neutral-patterns-v1");
   assert.equal(manifest.accessibility_contract.ownership.nested_component_roots_excluded, true);
   assert.equal(manifest.accessibility_contract.ownership.host_receipts_excluded, true);
@@ -71,6 +80,32 @@ test("candidate manifest freezes the decision-neutral OPE-18 canary", async () =
   assert.equal(manifest.canary.repair_policy.maximum_repairs_per_route, 1);
   assert.equal(manifest.canary.maximum_provider_calls, 16);
   assert.equal(manifest.canary.maximum_repairs_per_route, 1);
+  assert.equal(manifest.complete_run.schedule.length, 80);
+  assert.equal(manifest.complete_run.prompt_pack.length, 80);
+  assert.equal(manifest.complete_run.maximum_provider_calls, 160);
+  assert.equal(manifest.complete_run.maximum_repairs_per_route, 1);
+  assert.equal(manifest.complete_run.maximum_wall_time_ms, 4 * 60 * 60 * 1000);
+  assert.deepEqual(manifest.complete_run.allowed_outcomes, ["READY_FOR_REVIEW", "INVALID_EVAL"]);
+  assert.equal(manifest.complete_run.product_outcome_forbidden, true);
+  assert.equal(manifest.complete_run.provider_isolation.external_calls_during_preflight, 0);
+  assert.equal(manifest.complete_run.evidence_contract.version, "ope-19-human-evidence-v1");
+  assert.equal(manifest.complete_run.evidence_contract.required_classes.length, 11);
+  const correctionAssignments = Object.values(manifest.complete_run.evidence_contract.correction_cell_assignment).flat();
+  assert.equal(correctionAssignments.length, 80);
+  assert.deepEqual(new Set(correctionAssignments), new Set(manifest.complete_run.schedule.map((cell) => cell.prompt_id)));
+  assert.match(manifest.complete_run.review_packet_contract.seed_sha256, /^[a-f0-9]{64}$/);
+  assert.equal(manifest.complete_run.finalization_contract.provider_rerun_forbidden, true);
+  assert.equal(manifest.complete_run.finalization_contract.generation_archive_mutation_forbidden, true);
+  assert.equal(manifest.complete_run.finalization_contract.human_asset_index_file, "human-assets.json");
+  assert.equal(manifest.complete_run.platform_scope.all_accepted_dioxus_surfaces_on_web_and_desktop, true);
+  assert.deepEqual(manifest.complete_run.platform_scope.human_collected, ["ios", "android", "voiceover-ios", "talkback-android"]);
+  assert.equal(manifest.complete_run.harness_canary.schedule.length, 8);
+  assert.equal(manifest.complete_run.harness_canary.maximum_provider_calls, 16);
+  assert.equal(manifest.complete_run.harness_canary.maximum_wall_time_ms, 30 * 60 * 1000);
+  assert.deepEqual(manifest.complete_run.harness_canary.allowed_outcomes, ["PASS", "CANARY_INVALID"]);
+  const completePairs = new Set(manifest.complete_run.schedule.map((entry) => `${entry.cohort}:${entry.scenario_id}:${entry.route}:${entry.prompt_id}`));
+  assert.ok(manifest.complete_run.harness_canary.schedule.every((entry) => completePairs.has(`${entry.cohort}:${entry.scenario_id}:${entry.route}:${entry.prompt_id}`)));
+  assert.match(manifest.input_hashes.ope19_preregistration.sha256, /^[a-f0-9]{64}$/);
   assert.deepEqual(
     [...new Set(manifest.canary.schedule.map((entry) => entry.route))].sort(),
     ["direct-rsx", "json-render", "openui", "typed-json"],
