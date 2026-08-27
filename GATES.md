@@ -14,7 +14,7 @@ archived and must not be rerun. OPE-12 remains blocked.
 - [x] Missing correction, review, VoiceOver, and TalkBack evidence keeps the nested complete finalizer at `INVALID_EVAL`.
 - [x] Raw attempts, repairs, diagnostics, usage, available traces and screenshots, checksums, credential scan, and independent recomputation are archived; Dioxus screenshots are correctly absent after its failed build.
 - [x] The outer result is only `PASS` or `CANARY_INVALID`; no OPE-7 product verdict is emitted.
-- [ ] Evidence is committed locally and Linear is synchronized. No push, pull request, merge, publication, or public claim occurs.
+- [x] Evidence is committed locally and Linear is synchronized. No push, pull request, merge, publication, or public claim occurs.
 
 Verification evidence:
 
