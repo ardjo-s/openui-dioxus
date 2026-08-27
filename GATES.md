@@ -1,5 +1,25 @@
 # Acceptance gates
 
+## OPE-22 hardened complete-run Luna-low canary
+
+Current state: preregistration in progress. Exactly one provider window is authorized.
+
+- [ ] Worktree starts from exact OPE-21 commit `64d329f`.
+- [ ] Candidate manifest recomputes to `8aedc364174450ec8ed4a157ab16c9881d69522b32ec65488e19946892b5bb07` before preregistration and before generation.
+- [ ] Execution register and one-shot rule are committed before the first provider call.
+- [ ] Every deterministic preflight and the final 4 GiB storage gate pass.
+- [ ] Exactly one ChatGPT-plan `gpt-5.6-luna` low complete-canary window runs with tools disabled.
+- [ ] All eight cells retain attempts, repairs, diagnostics, tokens, latency, and validated artifacts.
+- [ ] Generated React Web, Direct RSX Web, Dioxus Web, and Dioxus Desktop proofs pass.
+- [ ] Implementation tree remains byte-identical and no root target exists after platform proof.
+- [ ] Blinded packets, nested human-evidence block, hashes, credential scan, and two-pass review pass.
+- [ ] Official result is only `PASS` or `CANARY_INVALID`; no OPE-7 product verdict is emitted.
+- [ ] Evidence and closing decision are committed locally and Linear is synchronized. No push, PR, merge, publication, full OPE-12 run, or production implementation occurs.
+
+Verification evidence:
+
+- Pending.
+
 ## OPE-21 deterministic disk and manifest hardening
 
 Current state: completed locally. External provider calls: zero.
