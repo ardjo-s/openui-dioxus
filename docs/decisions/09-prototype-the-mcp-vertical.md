@@ -1,7 +1,7 @@
 # Prototype the enriched MCP vertical
 
 Type: `prototype`
-Status: `open`
+Status: `resolved`
 Blocked by: 07, 08
 
 ## Question
@@ -26,3 +26,27 @@ wins that gate.
 This branch and its closed Draft PR are the primary source. They are not a
 merge proposal and cannot by themselves resolve this ticket; only verified
 cloud artifacts and the explicit outcome rules can do that.
+
+## Evaluation closure
+
+The MCP and constrained-Surface vertical was technically demonstrated, including real
+Dioxus Web and Desktop rendering, typed actions, state, update, replay, catalog
+adapters, and a zero-line canonical runtime behavior diff. The final product-potential
+evaluation did not reach decision-grade completeness.
+
+The unique OPE-12 complete generation retained 80 route cells and 96 Luna-low
+attempts. Eleven cells remained invalid after one repair, so generated platform proof,
+blinded packets, human correction, accessibility, mobile, maintenance, cost, and
+applicability stages could not run. The authoritative result is `INVALID_EVAL`, not a
+product win or loss.
+
+Evidence:
+
+- [OPE-12 two-pass review](../evaluation/ope-12-two-pass-review.md)
+- [OPE-7 final verdict](../evaluation/ope-7-final-verdict.md)
+- OPE-12 evidence commit `5454b37`
+- OPE-12 generation checksum
+  `5e04615ca018d822db6cbd54845b5eb5363f7f23f08c8dde2afcef06a15c4c79`
+
+Decision 09 is resolved because the prototype question was exercised and the frozen
+evaluation reached its registered stop condition. It authorizes no production build.

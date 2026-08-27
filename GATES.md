@@ -1,5 +1,28 @@
 # Acceptance gates
 
+## OPE-7 final product verdict
+
+Current state: final review in progress. The only registered outcome supported by
+OPE-6 and OPE-12 is `INVALID_EVAL`.
+
+- [x] OPE-6 is Done and OPE-12 is Done with immutable `INVALID_EVAL` evidence.
+- [x] OPE-12 manifest, checksums, credential scan, route-cell counts, validity totals, token totals, and implementation-tree hash are independently recomputed.
+- [x] The registered integrity gate is applied before quality, maintenance, ecosystem, or material-advantage scoring.
+- [x] Missing accepted generation cells, generated platform evidence, review packets, human correction, accessibility, mobile, maintenance, cost, and applicability evidence force `INVALID_EVAL`.
+- [x] OPE-7 emits exactly `INVALID_EVAL`, never `GO_OPENUI_DIOXUS`, `PIVOT_TO_SURFACE_RUNTIME`, or `NO_GO` from the incomplete evidence set.
+- [x] Decisions 09 and 10 link the evidence and keep production, OSS packaging, converters, governance, grants, and marketing blocked.
+- [ ] The final verdict and review are committed locally and Linear is synchronized. No push, PR, merge, or publication occurs without separate authorization.
+
+Verification evidence:
+
+- OPE-12 evidence commit: `5454b37`.
+- OPE-12 generation `SHA256SUMS`: `5e04615ca018d822db6cbd54845b5eb5363f7f23f08c8dde2afcef06a15c4c79`.
+- OPE-12 runtime-uncertain validity: OpenUI 17/20, typed JSON 20/20, json-render 12/20.
+- OPE-12 compile-known validity: every route 5/5 after repair.
+- OPE-12 final invalid cells: 11.
+- OPE-7 verdict: `INVALID_EVAL`.
+- Final report: `docs/evaluation/ope-7-final-verdict.md`.
+
 ## OPE-12 decision-grade ecosystem evidence
 
 Current state: preregistration in progress. No OPE-12 provider call has started.
