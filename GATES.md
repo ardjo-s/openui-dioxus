@@ -1,5 +1,30 @@
 # Acceptance gates
 
+## OPE-12 decision-grade ecosystem evidence
+
+Current state: preregistration in progress. No OPE-12 provider call has started.
+
+- [ ] The worktree starts from exact OPE-22 closing commit `1bcdbe6`.
+- [ ] The candidate manifest recomputes to `8aedc364174450ec8ed4a157ab16c9881d69522b32ec65488e19946892b5bb07` before preregistration and immediately before generation.
+- [ ] The execution register, one-shot generation rule, output convention, and human-evidence continuation boundary are committed before the first provider call.
+- [ ] The deterministic complete preflight executes all 80 cells with zero external provider calls and proves the expected missing-human-evidence block.
+- [ ] Every deterministic preflight and the final 4 GiB storage gate pass through the one shared external Cargo target.
+- [ ] Exactly one ChatGPT-plan `gpt-5.6-luna` low complete-run window executes with tools disabled, fresh isolated sessions, at most one repair per cell, at most 160 attempts, and at most four hours.
+- [ ] All 80 cells retain attempts, repairs, diagnostics, tokens, latency, validation, canonical artifacts, native artifacts, and generated review assets.
+- [ ] Generated React Web, Direct RSX Web, Dioxus Web, and Dioxus Desktop proofs pass without changing the implementation tree or creating a repository-local target.
+- [ ] The generation archive finishes as an immutable candidate with status `awaiting-human-evidence`; no second provider run or archive mutation occurs.
+- [ ] Exactly two practiced correction operators cover the frozen disjoint 80-cell assignment once, with real retained artifacts and measured active time.
+- [ ] Exactly three eligible blinded reviewers score every packet before guessing its route, with opening records and packet hashes bound.
+- [ ] Manual keyboard, VoiceOver, TalkBack, rendered iOS, rendered Android, replay, migration, five drills, measured costs, and applicability evidence all pass their frozen schemas.
+- [ ] The local finalizer resolves every referenced asset, scans credentials, preserves generation bytes, and emits only `READY_FOR_REVIEW` or `INVALID_EVAL`.
+- [ ] Independent metrics, recursive hashes, standards review, and intent review pass before OPE-12 closes.
+- [ ] OPE-7 alone applies the registered gates and emits exactly one product verdict. Building starts only after `GO_OPENUI_DIOXUS`.
+- [ ] Evidence and decisions are committed locally and Linear is synchronized. No push, PR, merge, or publication occurs without separate authorization.
+
+Verification evidence:
+
+- Pending.
+
 ## OPE-22 hardened complete-run Luna-low canary
 
 Current state: completed as `PASS`. The unique provider window is archived and must
