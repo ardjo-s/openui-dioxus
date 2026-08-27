@@ -1,0 +1,153 @@
+{
+  "provenance": {
+    "manifest_hash": "1973db76a604ed0e4378e0fc0e0775be8f29e9cc8ba957599a0c17870bd4a3e3",
+    "source_records": [
+      {
+        "route": "json-render",
+        "scenario_id": "02-preferences-v1",
+        "attempt": 1,
+        "raw_sha256": "d17e5aee5f2f12a1d0e1be629d4aa3fdb32fd0ff8aea80fe863bee48a432af88",
+        "platform_artifact_sha256": "d70cf63470c2da1207946c8a9986e29edfb37ab7af4cf14a9833b212a4595aaa"
+      },
+      {
+        "route": "json-render",
+        "scenario_id": "04-status-dialog-v1",
+        "attempt": 1,
+        "raw_sha256": "7e3673ed155beb2779ecab958cc8923b104d75eefb7e3fddcb968816ab4e16f7",
+        "platform_artifact_sha256": "f4dd1c3e862a5570f60a0313eae0745df655e44fe981c2daebbe73e27a49591e"
+      }
+    ],
+    "binding_sha256": "38cf28e02506dac05462d4efadf3cfca379b1c4046f74d38aa9c1cd0ee02a629"
+  },
+  "entries": [
+    {
+      "cohort": "runtime-uncertain",
+      "schedule_scenario_id": "02-preferences-v1",
+      "scenario_id": "02-preferences-v1",
+      "family": "preferences",
+      "spec": {
+        "root": "preferences_toolbar",
+        "elements": {
+          "notifications_switch": {
+            "type": "Switch",
+            "props": {
+              "id": "notifications_switch",
+              "label": "Enable notifications · variant 1",
+              "state_key": "notifications_enabled",
+              "checked": {
+                "$bindState": "/notifications_enabled"
+              }
+            },
+            "children": []
+          },
+          "terms_checkbox": {
+            "type": "Checkbox",
+            "props": {
+              "id": "terms_checkbox",
+              "label": "Accept terms · variant 1",
+              "state_key": "terms_accepted",
+              "checked": {
+                "$bindState": "/terms_accepted"
+              }
+            },
+            "children": []
+          },
+          "apply_button": {
+            "type": "Button",
+            "props": {
+              "id": "apply_button",
+              "label": "Apply preferences"
+            },
+            "on": {
+              "press": {
+                "action": "ApplyFilter",
+                "params": {
+                  "target_id": "preferences"
+                }
+              }
+            },
+            "children": []
+          },
+          "preferences_toolbar": {
+            "type": "Toolbar",
+            "props": {
+              "id": "preferences_toolbar",
+              "orientation": "vertical"
+            },
+            "children": [
+              "notifications_switch",
+              "terms_checkbox",
+              "apply_button"
+            ]
+          }
+        },
+        "state": {
+          "notifications_enabled": true,
+          "terms_accepted": false
+        }
+      }
+    },
+    {
+      "cohort": "compile-known",
+      "schedule_scenario_id": "compile-04-status-dialog-v1",
+      "scenario_id": "04-status-dialog-v1",
+      "family": "status-dialog",
+      "spec": {
+        "root": "progress_toolbar",
+        "elements": {
+          "sync_progress": {
+            "type": "Progress",
+            "props": {
+              "id": "sync_progress",
+              "label": "Sync progress · variant 1",
+              "value": 20,
+              "max": 100
+            },
+            "children": []
+          },
+          "sync_button": {
+            "type": "Button",
+            "props": {
+              "id": "sync_button",
+              "label": "Acknowledge sync · variant 1"
+            },
+            "on": {
+              "press": {
+                "action": "ApplyFilter",
+                "params": {
+                  "target_id": "sync"
+                }
+              }
+            },
+            "children": []
+          },
+          "sync_dialog": {
+            "type": "Dialog",
+            "props": {
+              "id": "sync_dialog",
+              "title": "Syncing workspace · variant 1",
+              "open_state_key": "dialog_open"
+            },
+            "children": [
+              "sync_progress",
+              "sync_button"
+            ]
+          },
+          "progress_toolbar": {
+            "type": "Toolbar",
+            "props": {
+              "id": "progress_toolbar",
+              "orientation": "vertical"
+            },
+            "children": [
+              "sync_dialog"
+            ]
+          }
+        },
+        "state": {
+          "dialog_open": true
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+[WebServer] 
+[WebServer] ERROR dx build: cargo build finished with errors for target: ope11-dioxus-canary [wasm32-unknown-unknown]

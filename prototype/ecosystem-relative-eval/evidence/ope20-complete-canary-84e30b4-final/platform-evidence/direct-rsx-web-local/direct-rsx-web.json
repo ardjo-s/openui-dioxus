@@ -1,0 +1,42 @@
+{
+  "platform": "web",
+  "route": "direct-rsx",
+  "scenarios": [
+    "03-filter-action-v1",
+    "04-status-dialog-v1"
+  ],
+  "surface_count": 2,
+  "manifest_hash": "1973db76a604ed0e4378e0fc0e0775be8f29e9cc8ba957599a0c17870bd4a3e3",
+  "binding_sha256": "5178b9d94bac5edfe2b6d17bd71d76329909a115af7415a2d186c0a89f134388",
+  "passed": true,
+  "state_changed": true,
+  "action_receipts_exactly_once": true,
+  "visible_feedback": true,
+  "accessibility_contract_version": "ope-15-route-neutral-patterns-v1",
+  "keyboard_operable": true,
+  "focus_visible": true,
+  "feedback_announced": true,
+  "host_receipt_outside_component_coverage": true,
+  "semantic_patterns_verified": true,
+  "accessibility_blocking_findings": 0,
+  "screenshots": [
+    "direct-rsx-web-1.png",
+    "direct-rsx-web-2.png"
+  ],
+  "artifacts": [
+    {
+      "route": "direct-rsx",
+      "cohort": "compile-known",
+      "schedule_scenario_id": "compile-03-filter-action-v1",
+      "scenario_id": "03-filter-action-v1",
+      "screenshot": "direct-rsx-web-1.png"
+    },
+    {
+      "route": "direct-rsx",
+      "cohort": "compile-known",
+      "schedule_scenario_id": "compile-04-status-dialog-v1",
+      "scenario_id": "04-status-dialog-v1",
+      "screenshot": "direct-rsx-web-2.png"
+    }
+  ]
+}

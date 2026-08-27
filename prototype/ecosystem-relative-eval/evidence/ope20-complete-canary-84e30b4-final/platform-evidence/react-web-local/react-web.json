@@ -1,0 +1,47 @@
+{
+  "platform": "web",
+  "route": "json-render",
+  "official_runtime": "@json-render/react@0.19.0",
+  "manifest_hash": "1973db76a604ed0e4378e0fc0e0775be8f29e9cc8ba957599a0c17870bd4a3e3",
+  "binding_sha256": "38cf28e02506dac05462d4efadf3cfca379b1c4046f74d38aa9c1cd0ee02a629",
+  "surface_count": 2,
+  "scenarios": [
+    "02-preferences-v1",
+    "04-status-dialog-v1"
+  ],
+  "passed": true,
+  "state_changed": true,
+  "action_receipt": "receipt:ApplyFilter:preferences",
+  "action_receipts": [
+    "receipt:ApplyFilter:preferences",
+    "receipt:ApplyFilter:sync"
+  ],
+  "accessibility_contract_version": "ope-15-route-neutral-patterns-v1",
+  "keyboard_operable": true,
+  "focus_visible": true,
+  "feedback_announced": true,
+  "host_receipt_outside_component_coverage": true,
+  "semantic_patterns_verified": true,
+  "accessibility_blocking_findings": 0,
+  "screenshot": "json-render-react-web-1.png",
+  "screenshots": [
+    "json-render-react-web-1.png",
+    "json-render-react-web-2.png"
+  ],
+  "artifacts": [
+    {
+      "route": "json-render",
+      "cohort": "runtime-uncertain",
+      "schedule_scenario_id": "02-preferences-v1",
+      "scenario_id": "02-preferences-v1",
+      "screenshot": "json-render-react-web-1.png"
+    },
+    {
+      "route": "json-render",
+      "cohort": "compile-known",
+      "schedule_scenario_id": "compile-04-status-dialog-v1",
+      "scenario_id": "04-status-dialog-v1",
+      "screenshot": "json-render-react-web-2.png"
+    }
+  ]
+}

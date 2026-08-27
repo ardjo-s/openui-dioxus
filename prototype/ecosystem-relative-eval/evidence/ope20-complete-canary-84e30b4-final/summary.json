@@ -1,0 +1,747 @@
+{
+  "outcome": "CANARY_INVALID",
+  "execution_kind": "real-complete-canary",
+  "run_contract": "complete_run.harness_canary",
+  "provider": "codex",
+  "model": "gpt-5.6-luna",
+  "reasoning_effort": "low",
+  "manifest_hash": "1973db76a604ed0e4378e0fc0e0775be8f29e9cc8ba957599a0c17870bd4a3e3",
+  "manifest_promoted": false,
+  "operational_preflight_passed": false,
+  "finalization": {
+    "outcome": "INVALID_EVAL",
+    "diagnostics": [
+      {
+        "field": "generation",
+        "code": "incomplete"
+      },
+      {
+        "field": "platform",
+        "code": "incomplete"
+      },
+      {
+        "field": "corrections",
+        "code": "missing-evidence"
+      },
+      {
+        "field": "reviews",
+        "code": "missing-evidence"
+      },
+      {
+        "field": "keyboard",
+        "code": "missing-evidence"
+      },
+      {
+        "field": "voiceover",
+        "code": "missing-evidence"
+      },
+      {
+        "field": "talkback",
+        "code": "missing-evidence"
+      },
+      {
+        "field": "mobile",
+        "code": "missing-evidence"
+      },
+      {
+        "field": "replay",
+        "code": "missing-evidence"
+      },
+      {
+        "field": "migration",
+        "code": "missing-evidence"
+      },
+      {
+        "field": "drills",
+        "code": "missing-evidence"
+      },
+      {
+        "field": "costs",
+        "code": "missing-evidence"
+      },
+      {
+        "field": "applicability",
+        "code": "missing-evidence"
+      }
+    ]
+  },
+  "complete_canary_human_block_proved": true,
+  "route_cells": 8,
+  "expected_route_cells": 8,
+  "route_aggregates_comparable": false,
+  "route_aggregate_scope": "operational diagnostics only; route totals cover different scenario and cohort mixes and must not be ranked across routes",
+  "calls": 10,
+  "external_provider_calls": 10,
+  "maximum_calls": 16,
+  "wall_time_ms": 182631.480041,
+  "maximum_wall_time_ms": 1800000,
+  "first_pass_validity": {
+    "openui": 2,
+    "typed-json": 2,
+    "json-render": 2,
+    "direct-rsx": 0
+  },
+  "post_repair_validity": {
+    "openui": 2,
+    "typed-json": 2,
+    "json-render": 2,
+    "direct-rsx": 2
+  },
+  "cumulative_raw_tokens": {
+    "openui": 4730,
+    "typed-json": 5289,
+    "json-render": 10764,
+    "direct-rsx": 7570
+  },
+  "balanced_order": true,
+  "rejected_attempts_retained_and_charged": true,
+  "ope3_import": {
+    "verified": true,
+    "files_verified": 414,
+    "checksum_manifest_sha256": "848fbf33924fda4456da518975e06e133e3c5195e801d4961eec48acacf92001",
+    "summary": {
+      "outcome": "VALID_EVAL",
+      "pairs_complete": 20,
+      "calls": 83,
+      "first_pass_validity": {
+        "openui": 17,
+        "a2ui": 0,
+        "typed-json": 20
+      },
+      "post_repair_validity": {
+        "openui": 19,
+        "a2ui": 12,
+        "typed-json": 20
+      }
+    },
+    "provider_calls": 0
+  },
+  "second_catalog": {
+    "verified": true,
+    "files_verified": 33,
+    "executable_fixtures": true,
+    "inert_replay": true,
+    "copy_on_write_migration": true,
+    "catalog_release_hash": "e87196bd4cc3e813a18d928d2a2cfe07e7053bc009e926e523683c9b96facca4",
+    "adapter_build_id": "ope10-1fac5dd5c04febb1-841ab78c",
+    "source_commit": "7fd792520ba5e3ad5354c26ac4e6816c2d156b7c",
+    "implementation_commit": "2f87a8d0531d483d5b32df6f89b7979ceb4beb74"
+  },
+  "platform_evidence": {
+    "verified": false,
+    "diagnostics": [
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_web",
+        "message": "ENOENT: no such file or directory, open '/Users/ardjo/CODE/worktrees/openui-dioxus-ope-20-complete-run-canary/prototype/ecosystem-relative-eval/evidence/ope20-complete-canary-84e30b4-final/platform-evidence/dioxus-web-local/dioxus-web.json'"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_desktop",
+        "message": "ENOENT: no such file or directory, open '/Users/ardjo/CODE/worktrees/openui-dioxus-ope-20-complete-run-canary/prototype/ecosystem-relative-eval/evidence/ope20-complete-canary-84e30b4-final/platform-evidence/dioxus-desktop-local/dioxus-desktop.json'"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_web",
+        "message": "passed must be true"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_web",
+        "message": "route set differs"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_web",
+        "message": "state, action, update, or replay proof missing"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_web",
+        "message": "blocking accessibility finding"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_web",
+        "message": "accessibility contract version differs"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_web",
+        "message": "keyboard operation proof missing"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_web",
+        "message": "visible focus proof missing"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_web",
+        "message": "feedback announcement proof missing"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_web",
+        "message": "host receipt ownership proof missing"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_web",
+        "message": "route-neutral semantic-pattern proof missing"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_web",
+        "message": "manifest binding missing"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_web",
+        "message": "artifact binding missing"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_web",
+        "message": "surface count differs"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_web",
+        "message": "screenshot count differs"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_desktop",
+        "message": "executed evidence is incomplete"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_desktop",
+        "message": "route set differs"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_desktop",
+        "message": "surface count differs"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_desktop",
+        "message": "runtime marker differs"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_desktop",
+        "message": "accessibility contract version differs"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_desktop",
+        "message": "manifest binding missing"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_desktop",
+        "message": "artifact binding missing"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_desktop",
+        "message": "screenshot dimensions are too small"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_desktop:screenshot",
+        "message": "artifact smaller than 1024 bytes"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_desktop:screenshot",
+        "message": "invalid or blank PNG: [Errno 21] Is a directory: '/Users/ardjo/CODE/worktrees/openui-dioxus-ope-20-complete-run-canary/prototype/ecosystem-relative-eval/evidence/ope20-complete-canary-84e30b4-final/platform-evidence/dioxus-desktop-local/screenshots'"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_desktop:trace",
+        "message": "ENOENT: no such file or directory, open '/Users/ardjo/CODE/worktrees/openui-dioxus-ope-20-complete-run-canary/prototype/ecosystem-relative-eval/evidence/ope20-complete-canary-84e30b4-final/platform-evidence/dioxus-desktop-local/traces/desktop.log'"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_desktop",
+        "message": "render or self-test marker missing from trace"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_web",
+        "message": "artifact binding count differs"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_desktop",
+        "message": "per-surface screenshot proof differs"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_web",
+        "message": "candidate manifest hash differs"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_web",
+        "message": "accepted artifact binding differs"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_desktop",
+        "message": "candidate manifest hash differs"
+      },
+      {
+        "code": "platform-evidence",
+        "label": "dioxus_desktop",
+        "message": "accepted artifact binding differs"
+      }
+    ],
+    "proofs": {
+      "react_web": {
+        "platform": "web",
+        "route": "json-render",
+        "official_runtime": "@json-render/react@0.19.0",
+        "manifest_hash": "1973db76a604ed0e4378e0fc0e0775be8f29e9cc8ba957599a0c17870bd4a3e3",
+        "binding_sha256": "38cf28e02506dac05462d4efadf3cfca379b1c4046f74d38aa9c1cd0ee02a629",
+        "surface_count": 2,
+        "scenarios": [
+          "02-preferences-v1",
+          "04-status-dialog-v1"
+        ],
+        "passed": true,
+        "state_changed": true,
+        "action_receipt": "receipt:ApplyFilter:preferences",
+        "action_receipts": [
+          "receipt:ApplyFilter:preferences",
+          "receipt:ApplyFilter:sync"
+        ],
+        "accessibility_contract_version": "ope-15-route-neutral-patterns-v1",
+        "keyboard_operable": true,
+        "focus_visible": true,
+        "feedback_announced": true,
+        "host_receipt_outside_component_coverage": true,
+        "semantic_patterns_verified": true,
+        "accessibility_blocking_findings": 0,
+        "screenshot": "json-render-react-web-1.png",
+        "screenshots": [
+          "json-render-react-web-1.png",
+          "json-render-react-web-2.png"
+        ],
+        "artifacts": [
+          {
+            "route": "json-render",
+            "cohort": "runtime-uncertain",
+            "schedule_scenario_id": "02-preferences-v1",
+            "scenario_id": "02-preferences-v1",
+            "screenshot": "json-render-react-web-1.png"
+          },
+          {
+            "route": "json-render",
+            "cohort": "compile-known",
+            "schedule_scenario_id": "compile-04-status-dialog-v1",
+            "scenario_id": "04-status-dialog-v1",
+            "screenshot": "json-render-react-web-2.png"
+          }
+        ]
+      },
+      "dioxus_web": null,
+      "dioxus_desktop": null,
+      "direct_rsx_web": {
+        "platform": "web",
+        "route": "direct-rsx",
+        "scenarios": [
+          "03-filter-action-v1",
+          "04-status-dialog-v1"
+        ],
+        "surface_count": 2,
+        "manifest_hash": "1973db76a604ed0e4378e0fc0e0775be8f29e9cc8ba957599a0c17870bd4a3e3",
+        "binding_sha256": "5178b9d94bac5edfe2b6d17bd71d76329909a115af7415a2d186c0a89f134388",
+        "passed": true,
+        "state_changed": true,
+        "action_receipts_exactly_once": true,
+        "visible_feedback": true,
+        "accessibility_contract_version": "ope-15-route-neutral-patterns-v1",
+        "keyboard_operable": true,
+        "focus_visible": true,
+        "feedback_announced": true,
+        "host_receipt_outside_component_coverage": true,
+        "semantic_patterns_verified": true,
+        "accessibility_blocking_findings": 0,
+        "screenshots": [
+          "direct-rsx-web-1.png",
+          "direct-rsx-web-2.png"
+        ],
+        "artifacts": [
+          {
+            "route": "direct-rsx",
+            "cohort": "compile-known",
+            "schedule_scenario_id": "compile-03-filter-action-v1",
+            "scenario_id": "03-filter-action-v1",
+            "screenshot": "direct-rsx-web-1.png"
+          },
+          {
+            "route": "direct-rsx",
+            "cohort": "compile-known",
+            "schedule_scenario_id": "compile-04-status-dialog-v1",
+            "scenario_id": "04-status-dialog-v1",
+            "screenshot": "direct-rsx-web-2.png"
+          }
+        ]
+      }
+    },
+    "artifact_count": 12,
+    "recursive_sha256": "f1cc33ca9c6e503533f67feabf5d5a4b3ce996540f7a59461c550f9a81b2c2ab",
+    "source": "generated-canary-outputs",
+    "fixture_sha256": "ddc315caab1ee3f31e7cfa25f7e6ea8501a74084b7663069d606f5cb8b593857",
+    "fixture_provenance": {
+      "dioxus": {
+        "manifest_hash": "1973db76a604ed0e4378e0fc0e0775be8f29e9cc8ba957599a0c17870bd4a3e3",
+        "source_records": [
+          {
+            "route": "openui",
+            "scenario_id": "01-validated-profile-v1",
+            "attempt": 1,
+            "raw_sha256": "6203bd60e44a0ac3f63f4f3889ae6749a435f76ae3c4d5486619d3a50f242a35",
+            "platform_artifact_sha256": "4b10e99e1228488a3ca838745c958ba91a7ddcd47140a859a4783d56000bf895"
+          },
+          {
+            "route": "typed-json",
+            "scenario_id": "01-validated-profile-v1",
+            "attempt": 1,
+            "raw_sha256": "cf55cb3ea21e82db13d05354a962929384730ecfa07b5114f518c750718c4a3d",
+            "platform_artifact_sha256": "53fd0f401385fc0d4b7ae55f4019b27f409d10a77ca2e9b2574f129267836a75"
+          },
+          {
+            "route": "typed-json",
+            "scenario_id": "02-preferences-v1",
+            "attempt": 1,
+            "raw_sha256": "f4ea62372bed5b2c27600b241b71b5ca90c0c9a5e84e1a3d501940598a0121b4",
+            "platform_artifact_sha256": "e0ed9dafefbf607666cad2746366a50ce1b3a9acd51368d6c8251a49507b1cd5"
+          },
+          {
+            "route": "openui",
+            "scenario_id": "03-filter-action-v1",
+            "attempt": 1,
+            "raw_sha256": "62b0061fc6ea03cb80e839b7825efe7216c706b8b4671df72a4ff664b041dff0",
+            "platform_artifact_sha256": "bada0aa1ecdd0cd43c0acb8a0799c2b64bd824f8c8d7315baa396d9292f0f54c"
+          }
+        ],
+        "binding_sha256": "09257a3a4a9fab5655dcdfcc51cba9b8b52aac8630f9bfe0fbef4774b691580b"
+      },
+      "react": {
+        "manifest_hash": "1973db76a604ed0e4378e0fc0e0775be8f29e9cc8ba957599a0c17870bd4a3e3",
+        "source_records": [
+          {
+            "route": "json-render",
+            "scenario_id": "02-preferences-v1",
+            "attempt": 1,
+            "raw_sha256": "d17e5aee5f2f12a1d0e1be629d4aa3fdb32fd0ff8aea80fe863bee48a432af88",
+            "platform_artifact_sha256": "d70cf63470c2da1207946c8a9986e29edfb37ab7af4cf14a9833b212a4595aaa"
+          },
+          {
+            "route": "json-render",
+            "scenario_id": "04-status-dialog-v1",
+            "attempt": 1,
+            "raw_sha256": "7e3673ed155beb2779ecab958cc8923b104d75eefb7e3fddcb968816ab4e16f7",
+            "platform_artifact_sha256": "f4dd1c3e862a5570f60a0313eae0745df655e44fe981c2daebbe73e27a49591e"
+          }
+        ],
+        "binding_sha256": "38cf28e02506dac05462d4efadf3cfca379b1c4046f74d38aa9c1cd0ee02a629"
+      },
+      "direct_rsx": {
+        "manifest_hash": "1973db76a604ed0e4378e0fc0e0775be8f29e9cc8ba957599a0c17870bd4a3e3",
+        "source_records": [
+          {
+            "route": "direct-rsx",
+            "scenario_id": "03-filter-action-v1",
+            "attempt": 2,
+            "raw_sha256": "50489cf4e82046ea5b7539ad6880c9b0884585db82a1dc8319cb19e712c5c205",
+            "platform_artifact_sha256": "a84dced8dec3ec041ee2ee938adcdf2b392b04dedc48bf71922b9b0be774fc8c"
+          },
+          {
+            "route": "direct-rsx",
+            "scenario_id": "04-status-dialog-v1",
+            "attempt": 2,
+            "raw_sha256": "85828e81e5642ce590ec74351fd93affb3863969a3690274f16bcc6e4b52d20b",
+            "platform_artifact_sha256": "31a698f51b08b9a66810046b1ba6810172ad46cc2054de40ff88ac4760dd9cc5"
+          }
+        ],
+        "binding_sha256": "5178b9d94bac5edfe2b6d17bd71d76329909a115af7415a2d186c0a89f134388"
+      }
+    },
+    "executions": [
+      {
+        "id": "react-web",
+        "passed": true,
+        "exit_code": 0,
+        "signal": null,
+        "error": null,
+        "elapsed_ms": 3251.7328329999873,
+        "stdout_sha256": "a302638f0987faef3478a1332818f33bc5cba1e485919aef33b0220cd1728453",
+        "stderr_sha256": "b3de962ed8eff3b26fe4644499acf148832342fc3a911384be82b63b602476da"
+      },
+      {
+        "id": "direct-rsx-web",
+        "passed": true,
+        "exit_code": 0,
+        "signal": null,
+        "error": null,
+        "elapsed_ms": 9340.605542000005,
+        "stdout_sha256": "9bb343969ded7671155b3c3bc9b9eb6a256a7363fae45aa1be56e713017e0d46",
+        "stderr_sha256": "a35585e1157e614ee40cd7c3443f7fc8acc9a03605f5e80dda16beb322931b4f"
+      },
+      {
+        "id": "dioxus-web",
+        "passed": false,
+        "exit_code": 1,
+        "signal": null,
+        "error": null,
+        "elapsed_ms": 44553.26541699999,
+        "stdout_sha256": "e2a5bcdbc40a97bc76e9f2829a4bf041674865d6c0284b8e80b781d91d9ca54b",
+        "stderr_sha256": "216b1a1174b15644dc8b7dcafd2c6d1731c384c97ac10bff66326ac835edc580"
+      },
+      {
+        "id": "dioxus-desktop",
+        "passed": false,
+        "exit_code": 101,
+        "signal": null,
+        "error": null,
+        "elapsed_ms": 6812.736374999979,
+        "stdout_sha256": "3ddb5a8bdd7191c5f8b8c959807118facad2004b3658ebff162c0c70d5a9efe1",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ]
+  },
+  "platform_proof_mode": "generated",
+  "review_packets": {
+    "count": 0,
+    "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "leak_findings": [],
+    "immutable_after_opening": true,
+    "asset_mode": "asset-binding-failed",
+    "asset_index_count": 0,
+    "asset_index_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "error": "missing generated screenshot binding: runtime-uncertain:01-validated-profile-v1:openui"
+  },
+  "human_evidence": {
+    "provided": false,
+    "sha256": null,
+    "finalization_stage": "src/finalize-complete.mjs"
+  },
+  "canonical_runtime_behavior_diff_lines": 0,
+  "trust_controls": {
+    "pre_provider_scan_findings": 0,
+    "publication_credential_scan_findings": 0,
+    "generated_output_execution": {
+      "openui": "validated-data-only",
+      "typed-json": "validated-data-only",
+      "json-render": "validated-data-rendered-by-official-react-runtime",
+      "direct-rsx": "allowlisted source, sandboxed SSR, and externally blocked Web requests"
+    },
+    "direct_rsx_sandbox": "SSR compile and execution use the macOS deny-network sandbox; interactive Web uses an explicit non-secret environment, rejects direct access to the web-sys feature shim, and blocks external browser requests",
+    "effect_policy": "deny-by-default"
+  },
+  "implementation_footprint": {
+    "policy": {
+      "version": "ope-11-footprint-v1",
+      "base_ref": "codex/ope-10-rust-ui-catalog",
+      "counting": "nonblank physical lines and regular files",
+      "dimensions": {
+        "authorship": [
+          "handwritten",
+          "generated"
+        ],
+        "role": [
+          "test",
+          "catalog",
+          "adapter",
+          "runtime",
+          "platform",
+          "baseline",
+          "support"
+        ]
+      },
+      "generated_files": [
+        "dependency lockfiles",
+        "frozen platform fixture JSON"
+      ],
+      "version_control_method": "git diff --numstat against the frozen base plus an untracked-source check"
+    },
+    "total": {
+      "file_count": 1898,
+      "nonblank_lines": 19451,
+      "bytes": 507466157
+    },
+    "authorship": {
+      "handwritten": {
+        "file_count": 1893,
+        "nonblank_lines": 11536,
+        "bytes": 507247436
+      },
+      "generated": {
+        "file_count": 5,
+        "nonblank_lines": 7915,
+        "bytes": 218721
+      }
+    },
+    "role": {
+      "test": {
+        "file_count": 18,
+        "nonblank_lines": 1585,
+        "bytes": 92554
+      },
+      "catalog": {
+        "file_count": 1,
+        "nonblank_lines": 57,
+        "bytes": 2573
+      },
+      "adapter": {
+        "file_count": 2,
+        "nonblank_lines": 205,
+        "bytes": 10053
+      },
+      "runtime": {
+        "file_count": 13,
+        "nonblank_lines": 3140,
+        "bytes": 154425
+      },
+      "platform": {
+        "file_count": 14,
+        "nonblank_lines": 7158,
+        "bytes": 217972
+      },
+      "baseline": {
+        "file_count": 12,
+        "nonblank_lines": 1703,
+        "bytes": 66366
+      },
+      "support": {
+        "file_count": 1838,
+        "nonblank_lines": 5603,
+        "bytes": 506922214
+      }
+    },
+    "required_categories": {
+      "handwritten": {
+        "file_count": 1893,
+        "nonblank_lines": 11536,
+        "bytes": 507247436
+      },
+      "generated": {
+        "file_count": 5,
+        "nonblank_lines": 7915,
+        "bytes": 218721
+      },
+      "test": {
+        "file_count": 18,
+        "nonblank_lines": 1585,
+        "bytes": 92554
+      },
+      "catalog": {
+        "file_count": 1,
+        "nonblank_lines": 57,
+        "bytes": 2573
+      },
+      "adapter": {
+        "file_count": 2,
+        "nonblank_lines": 205,
+        "bytes": 10053
+      },
+      "runtime": {
+        "file_count": 13,
+        "nonblank_lines": 3140,
+        "bytes": 154425
+      },
+      "platform": {
+        "file_count": 14,
+        "nonblank_lines": 7158,
+        "bytes": 217972
+      },
+      "baseline": {
+        "file_count": 12,
+        "nonblank_lines": 1703,
+        "bytes": 66366
+      }
+    },
+    "version_control": {
+      "base_ref": "codex/ope-10-rust-ui-catalog",
+      "head_commit": "84e30b44327c43521c96b115eb327e37ce20153e",
+      "tracked_changed_files": 1162,
+      "added_lines": 137974,
+      "removed_lines": 0,
+      "binary_files": 55,
+      "authorship": {
+        "handwritten": {
+          "files": 1152,
+          "added_lines": 113073,
+          "removed_lines": 0
+        },
+        "generated": {
+          "files": 10,
+          "added_lines": 24901,
+          "removed_lines": 0
+        }
+      },
+      "role": {
+        "test": {
+          "files": 18,
+          "added_lines": 1750,
+          "removed_lines": 0
+        },
+        "catalog": {
+          "files": 1,
+          "added_lines": 60,
+          "removed_lines": 0
+        },
+        "adapter": {
+          "files": 2,
+          "added_lines": 218,
+          "removed_lines": 0
+        },
+        "runtime": {
+          "files": 13,
+          "added_lines": 3327,
+          "removed_lines": 0
+        },
+        "platform": {
+          "files": 14,
+          "added_lines": 7864,
+          "removed_lines": 0
+        },
+        "baseline": {
+          "files": 12,
+          "added_lines": 1867,
+          "removed_lines": 0
+        },
+        "support": {
+          "files": 1102,
+          "added_lines": 122888,
+          "removed_lines": 0
+        }
+      },
+      "untracked_source_files": [],
+      "source_entries_measured": 1898
+    }
+  },
+  "cost": {
+    "billing_basis": "ChatGPT plan, no per-run API invoice or incremental dollar charge is available",
+    "incremental_api_cost_usd": null,
+    "provider_usage": {
+      "measured_records": 10,
+      "input_tokens": 116311,
+      "cached_input_tokens": 56320,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 4103,
+      "reasoning_tokens": 1521,
+      "total_tokens": 120414
+    }
+  },
+  "provider_error": null,
+  "final_product_scorer_accessed": false,
+  "final_product_scorer_access_count": 0
+}

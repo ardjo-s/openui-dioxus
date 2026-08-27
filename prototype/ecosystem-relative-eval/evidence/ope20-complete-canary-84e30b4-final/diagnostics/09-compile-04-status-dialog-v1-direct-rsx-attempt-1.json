@@ -1,0 +1,9 @@
+{
+  "ok": false,
+  "diagnostics": [
+    {
+      "code": "rust-compiler",
+      "message": "error[E0425]: cannot find value `open` in module `dioxus_elements::section`\n  --> src/main.rs:21:17\n   |\n21 |                 open: (dialog_open)(),\n   |                 ^^^^ not found in `dioxus_elements::section`\n   |\nhelp: consider importing one of these constants\n   |\n 1 + use crate::dioxus_elements::details::open;\n   |\n 1 + use crate::dioxus_elements::dialog::open;\n   |\n\nFor more information about this error, try `rustc --explain E0425`.\nerror: could not compile `ope11-direct-rsx-probe` (bin \"ope11-direct-rsx-probe\") due to 1 previous error\n"
+    }
+  ]
+}

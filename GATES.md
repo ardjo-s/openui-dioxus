@@ -2,18 +2,33 @@
 
 ## OPE-20 complete-run harness canary
 
-Current state: preregistered locally. The single provider-backed run has not started.
+Current state: completed as `CANARY_INVALID`. The single provider-backed run is
+archived and must not be rerun. OPE-12 remains blocked.
 
 - [x] OPE-19 is Done and the OPE-20 worktree starts at exact commit `95b261a`.
 - [x] The candidate manifest recomputes to `1973db76a604ed0e4378e0fc0e0775be8f29e9cc8ba957599a0c17870bd4a3e3` before generation.
 - [x] The execution register, candidate identity, one-shot rule, and output convention are committed before the provider call.
-- [ ] Exactly one ChatGPT-plan canary runs with `gpt-5.6-luna`, low reasoning, fresh isolated processes, and tools disabled.
-- [ ] The exact eight-cell harness subset spans both cohorts and all four routes, with one repair maximum and at most 16 attempts.
+- [x] Exactly one ChatGPT-plan canary runs with `gpt-5.6-luna`, low reasoning, fresh isolated processes, and tools disabled.
+- [x] The exact eight-cell harness subset spans both cohorts and all four routes, with one repair maximum and at most 16 attempts.
 - [ ] Every accepted output crosses generated React Web, Dioxus Web, Direct RSX Web, and Dioxus Desktop proof.
-- [ ] Missing correction, review, VoiceOver, and TalkBack evidence keeps the nested complete finalizer at `INVALID_EVAL`.
-- [ ] Raw attempts, repairs, diagnostics, usage, traces, screenshots, checksums, credential scan, and independent recomputation are archived.
-- [ ] The outer result is only `PASS` or `CANARY_INVALID`; no OPE-7 product verdict is emitted.
+- [x] Missing correction, review, VoiceOver, and TalkBack evidence keeps the nested complete finalizer at `INVALID_EVAL`.
+- [x] Raw attempts, repairs, diagnostics, usage, available traces and screenshots, checksums, credential scan, and independent recomputation are archived; Dioxus screenshots are correctly absent after its failed build.
+- [x] The outer result is only `PASS` or `CANARY_INVALID`; no OPE-7 product verdict is emitted.
 - [ ] Evidence is committed locally and Linear is synchronized. No push, pull request, merge, publication, or public claim occurs.
+
+Verification evidence:
+
+- Source commit before generation: `84e30b4`.
+- One provider window: 10 attempts in 182.631 seconds, with no provider error.
+- Final accepted cells: 8/8. Direct RSX used the registered repair for both compile-known cells.
+- Provider usage: 116,311 input tokens, 56,320 cached input tokens, 4,103 output tokens, 1,521 reasoning tokens, and 120,414 total tokens.
+- React Web and Direct RSX Web passed. Dioxus Web and Dioxus Desktop failed to link with `ENOSPC`, so platform evidence is incomplete.
+- Nested human-evidence block: proved. Operational preflight: failed. Official outer result: `CANARY_INVALID`.
+- Candidate manifest: `1973db76a604ed0e4378e0fc0e0775be8f29e9cc8ba957599a0c17870bd4a3e3`.
+- `SHA256SUMS` SHA-256: `335008e3f9bac2c15ffd0ad2d1a3967313ed98a6ab00cb4a31f463744c703363`.
+- Independent review SHA-256: `c3f4bf5f16008f257c60caf6d21102cd3a9c24192afb2696471124446fc8f5c9`.
+- Credential findings: zero. No publication marker was created for the invalid archive.
+- Post-run review found that Dioxus Web also wrote an untracked root `target/` inside the hashed implementation tree. Removing only that generated directory restored the exact frozen manifest hash. The target isolation and free-space gate require a new deterministic ticket before any authorized recovery canary.
 
 ## OPE-19 complete decision-grade runner
 

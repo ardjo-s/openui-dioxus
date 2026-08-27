@@ -1,0 +1,23 @@
+{
+  "version": "ope-20-independent-recomputation-v1",
+  "reviewer": "separate deterministic recomputation process",
+  "passed": false,
+  "candidate_checksum_manifest_sha256": "335008e3f9bac2c15ffd0ad2d1a3967313ed98a6ab00cb4a31f463744c703363",
+  "manifest_hash": "1973db76a604ed0e4378e0fc0e0775be8f29e9cc8ba957599a0c17870bd4a3e3",
+  "outcome": "CANARY_INVALID",
+  "findings": [
+    {
+      "code": "platform-evidence-invalid"
+    },
+    {
+      "code": "review-packet-count-mismatch"
+    }
+  ],
+  "recomputed": {
+    "records": 10,
+    "route_cells": 8,
+    "accepted_final_cells": 8,
+    "platform_verified": false,
+    "product_scorer_access_count": 0
+  }
+}

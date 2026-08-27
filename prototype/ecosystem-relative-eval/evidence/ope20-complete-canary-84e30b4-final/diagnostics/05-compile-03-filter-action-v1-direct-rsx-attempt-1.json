@@ -1,0 +1,11 @@
+{
+  "ok": false,
+  "diagnostics": [
+    {
+      "code": "component-count",
+      "component": "Select",
+      "id": null,
+      "message": "expected 1, received 2"
+    }
+  ]
+}

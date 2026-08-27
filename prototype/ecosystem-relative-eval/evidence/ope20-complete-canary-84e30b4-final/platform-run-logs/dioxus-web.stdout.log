@@ -1,0 +1,6 @@
+
+> openui-dioxus-ecosystem-relative-eval@0.0.0 platform:dioxus:web
+> playwright test --config platform/dioxus/playwright.config.mjs
+
+
+Error: Process from config.webServer was not able to start. Exit code: 1
