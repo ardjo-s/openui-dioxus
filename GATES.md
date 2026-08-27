@@ -1,5 +1,20 @@
 # Acceptance gates
 
+## OPE-20 complete-run harness canary
+
+Current state: preregistered locally. The single provider-backed run has not started.
+
+- [x] OPE-19 is Done and the OPE-20 worktree starts at exact commit `95b261a`.
+- [x] The candidate manifest recomputes to `1973db76a604ed0e4378e0fc0e0775be8f29e9cc8ba957599a0c17870bd4a3e3` before generation.
+- [x] The execution register, candidate identity, one-shot rule, and output convention are committed before the provider call.
+- [ ] Exactly one ChatGPT-plan canary runs with `gpt-5.6-luna`, low reasoning, fresh isolated processes, and tools disabled.
+- [ ] The exact eight-cell harness subset spans both cohorts and all four routes, with one repair maximum and at most 16 attempts.
+- [ ] Every accepted output crosses generated React Web, Dioxus Web, Direct RSX Web, and Dioxus Desktop proof.
+- [ ] Missing correction, review, VoiceOver, and TalkBack evidence keeps the nested complete finalizer at `INVALID_EVAL`.
+- [ ] Raw attempts, repairs, diagnostics, usage, traces, screenshots, checksums, credential scan, and independent recomputation are archived.
+- [ ] The outer result is only `PASS` or `CANARY_INVALID`; no OPE-7 product verdict is emitted.
+- [ ] Evidence is committed locally and Linear is synchronized. No push, pull request, merge, publication, or public claim occurs.
+
 ## OPE-19 complete decision-grade runner
 
 Current state: completed locally. No external provider call occurred.
