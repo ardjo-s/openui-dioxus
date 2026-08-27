@@ -1,0 +1,234 @@
+{
+  "provenance": {
+    "manifest_hash": "8aedc364174450ec8ed4a157ab16c9881d69522b32ec65488e19946892b5bb07",
+    "source_records": [
+      {
+        "route": "openui",
+        "scenario_id": "01-validated-profile-v1",
+        "attempt": 1,
+        "raw_sha256": "9af0aabf1826f17fbc71f2c5f61229096babedd64bae5546b3fbb9803c3d1f9d",
+        "platform_artifact_sha256": "2725e2c4e56e385143a32e58d002fe25073c3f3c4ba53c0934604e5e3ae2bc4a"
+      },
+      {
+        "route": "typed-json",
+        "scenario_id": "01-validated-profile-v1",
+        "attempt": 1,
+        "raw_sha256": "cf55cb3ea21e82db13d05354a962929384730ecfa07b5114f518c750718c4a3d",
+        "platform_artifact_sha256": "53fd0f401385fc0d4b7ae55f4019b27f409d10a77ca2e9b2574f129267836a75"
+      },
+      {
+        "route": "typed-json",
+        "scenario_id": "02-preferences-v1",
+        "attempt": 1,
+        "raw_sha256": "f4ea62372bed5b2c27600b241b71b5ca90c0c9a5e84e1a3d501940598a0121b4",
+        "platform_artifact_sha256": "e0ed9dafefbf607666cad2746366a50ce1b3a9acd51368d6c8251a49507b1cd5"
+      },
+      {
+        "route": "openui",
+        "scenario_id": "03-filter-action-v1",
+        "attempt": 1,
+        "raw_sha256": "62b0061fc6ea03cb80e839b7825efe7216c706b8b4671df72a4ff664b041dff0",
+        "platform_artifact_sha256": "bada0aa1ecdd0cd43c0acb8a0799c2b64bd824f8c8d7315baa396d9292f0f54c"
+      }
+    ],
+    "binding_sha256": "14d3e4bb72feacb11c33c7f9b4c33deb50a20fb64529d7131fe0eee0d3daf5a1"
+  },
+  "entries": [
+    {
+      "route": "openui",
+      "cohort": "runtime-uncertain",
+      "schedule_scenario_id": "01-validated-profile-v1",
+      "scenario_id": "01-validated-profile-v1",
+      "family": "validated-profile",
+      "surface": {
+        "root": "profile_toolbar",
+        "nodes": [
+          {
+            "kind": "Toolbar",
+            "id": "profile_toolbar",
+            "orientation": "vertical",
+            "children": [
+              "profile_avatar",
+              "name_label",
+              "name_input",
+              "submit_button"
+            ]
+          },
+          {
+            "kind": "Avatar",
+            "id": "profile_avatar",
+            "alt": "Ada Lovelace · variant 1",
+            "fallback": "AL"
+          },
+          {
+            "kind": "Label",
+            "id": "name_label",
+            "for_id": "name_input",
+            "text": "Profile name · variant 1"
+          },
+          {
+            "kind": "Input",
+            "id": "name_input",
+            "label": "Profile name · variant 1",
+            "state_key": "profile_name",
+            "value": "Ada-1",
+            "placeholder": "Enter a name · variant 1"
+          },
+          {
+            "kind": "Button",
+            "id": "submit_button",
+            "label": "Save profile · variant 1",
+            "action": "SubmitProfile",
+            "target_id": "profile"
+          }
+        ],
+        "state": {
+          "profile_name": "Ada-1"
+        }
+      }
+    },
+    {
+      "route": "typed-json",
+      "cohort": "runtime-uncertain",
+      "schedule_scenario_id": "01-validated-profile-v1",
+      "scenario_id": "01-validated-profile-v1",
+      "family": "validated-profile",
+      "surface": {
+        "root": "profile_toolbar",
+        "nodes": [
+          {
+            "kind": "Toolbar",
+            "id": "profile_toolbar",
+            "orientation": "vertical",
+            "children": [
+              "profile_avatar",
+              "name_label",
+              "name_input",
+              "save_profile_button"
+            ]
+          },
+          {
+            "kind": "Avatar",
+            "id": "profile_avatar",
+            "alt": "Ada Lovelace · variant 1",
+            "fallback": "AL"
+          },
+          {
+            "kind": "Label",
+            "id": "name_label",
+            "for_id": "name_input",
+            "text": "Profile name · variant 1"
+          },
+          {
+            "kind": "Input",
+            "id": "name_input",
+            "label": "Profile name · variant 1",
+            "state_key": "profile_name",
+            "value": "Ada-1",
+            "placeholder": "Enter a name · variant 1"
+          },
+          {
+            "kind": "Button",
+            "id": "save_profile_button",
+            "label": "Save profile · variant 1",
+            "action": "SubmitProfile",
+            "target_id": "profile"
+          }
+        ],
+        "state": {
+          "profile_name": "Ada-1"
+        }
+      }
+    },
+    {
+      "route": "typed-json",
+      "cohort": "runtime-uncertain",
+      "schedule_scenario_id": "02-preferences-v1",
+      "scenario_id": "02-preferences-v1",
+      "family": "preferences",
+      "surface": {
+        "root": "preferences_toolbar",
+        "nodes": [
+          {
+            "kind": "Toolbar",
+            "id": "preferences_toolbar",
+            "orientation": "vertical",
+            "children": [
+              "notifications_switch",
+              "terms_checkbox",
+              "apply_button"
+            ]
+          },
+          {
+            "kind": "Switch",
+            "id": "notifications_switch",
+            "label": "Enable notifications · variant 1",
+            "state_key": "notifications_enabled",
+            "checked": true
+          },
+          {
+            "kind": "Checkbox",
+            "id": "terms_checkbox",
+            "label": "Accept terms · variant 1",
+            "state_key": "terms_accepted",
+            "checked": false
+          },
+          {
+            "kind": "Button",
+            "id": "apply_button",
+            "label": "Apply preferences",
+            "action": "ApplyFilter",
+            "target_id": "preferences"
+          }
+        ],
+        "state": {
+          "notifications_enabled": true,
+          "terms_accepted": false
+        }
+      }
+    },
+    {
+      "route": "openui",
+      "cohort": "compile-known",
+      "schedule_scenario_id": "compile-03-filter-action-v1",
+      "scenario_id": "03-filter-action-v1",
+      "family": "filter-action",
+      "surface": {
+        "root": "filter_toolbar",
+        "nodes": [
+          {
+            "kind": "Toolbar",
+            "id": "filter_toolbar",
+            "orientation": "horizontal",
+            "children": [
+              "role_select",
+              "filter_button"
+            ]
+          },
+          {
+            "kind": "Select",
+            "id": "role_select",
+            "label": "Role · variant 1",
+            "state_key": "role_filter",
+            "options": [
+              "All",
+              "Admin",
+              "Member"
+            ],
+            "value": "All"
+          },
+          {
+            "kind": "Button",
+            "id": "filter_button",
+            "label": "Apply · variant 1",
+            "action": "ApplyFilter",
+            "target_id": "people"
+          }
+        ],
+        "state": {
+          "role_filter": "All"
+        }
+      }
+    }
+  ]
+}

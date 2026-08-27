@@ -1,0 +1,92 @@
+[
+  {
+    "asset_id": "asset-16a404b2486d76c0247399ae5536cac20c57e74ebf8e0c28d1b66b7d973f1343",
+    "kind": "asset",
+    "relative_path": "platform-evidence/dioxus-desktop-local/screenshots/dioxus-desktop-1.png",
+    "sha256": "16a404b2486d76c0247399ae5536cac20c57e74ebf8e0c28d1b66b7d973f1343"
+  },
+  {
+    "asset_id": "asset-226db91f50108617bd1b3f6417d80a3591e9cc723f9815d49f8ccaf46b22b63c",
+    "kind": "asset",
+    "relative_path": "platform-evidence/dioxus-desktop-local/screenshots/dioxus-desktop-3.png",
+    "sha256": "226db91f50108617bd1b3f6417d80a3591e9cc723f9815d49f8ccaf46b22b63c"
+  },
+  {
+    "asset_id": "asset-2953818820eaeebd759d31b1be7e4659b9e710a5603b8b11afc203fc8a4a61ed",
+    "kind": "asset",
+    "relative_path": "platform-evidence/direct-rsx-web-local/screenshots/direct-rsx-web-1.png",
+    "sha256": "2953818820eaeebd759d31b1be7e4659b9e710a5603b8b11afc203fc8a4a61ed"
+  },
+  {
+    "asset_id": "asset-30c52eb22f178b91ed94390cf3bb1ad04876c151fd6f9f1d3eb613f28a01334d",
+    "kind": "asset",
+    "relative_path": "platform-evidence/dioxus-web-local/screenshots/dioxus-web-2.png",
+    "sha256": "30c52eb22f178b91ed94390cf3bb1ad04876c151fd6f9f1d3eb613f28a01334d"
+  },
+  {
+    "asset_id": "asset-46b1f68c73aa708a1424b3719023ad488bda77e03179a0ed20ffa3c6195dfaa2",
+    "kind": "asset",
+    "relative_path": "platform-evidence/dioxus-web-local/screenshots/dioxus-web-3.png",
+    "sha256": "46b1f68c73aa708a1424b3719023ad488bda77e03179a0ed20ffa3c6195dfaa2"
+  },
+  {
+    "asset_id": "asset-5709c11fe461155becf5664912ea2cf2c9829b97e5f6d017ea32b5d23d7888d3",
+    "kind": "asset",
+    "relative_path": "platform-evidence/direct-rsx-web-local/screenshots/direct-rsx-web-2.png",
+    "sha256": "5709c11fe461155becf5664912ea2cf2c9829b97e5f6d017ea32b5d23d7888d3"
+  },
+  {
+    "asset_id": "asset-720bb5eb82d6ba93896926520c54521e632ecd80aea35b5516cbfa0444584426",
+    "kind": "asset",
+    "relative_path": "platform-evidence/dioxus-web-local/screenshots/dioxus-web-1.png",
+    "sha256": "720bb5eb82d6ba93896926520c54521e632ecd80aea35b5516cbfa0444584426"
+  },
+  {
+    "asset_id": "asset-b60ba52743ce06e2bec8a94be97b02ea647668fa6f973c68fa931b6d62e7487b",
+    "kind": "asset",
+    "relative_path": "platform-evidence/react-web-local/screenshots/json-render-react-web-2.png",
+    "sha256": "b60ba52743ce06e2bec8a94be97b02ea647668fa6f973c68fa931b6d62e7487b"
+  },
+  {
+    "asset_id": "asset-c51680c18dbfd5e5f6c1e4fa69839c71eb590eb56a6c3fa073604f381b5b0a62",
+    "kind": "asset",
+    "relative_path": "platform-evidence/react-web-local/screenshots/json-render-react-web-1.png",
+    "sha256": "c51680c18dbfd5e5f6c1e4fa69839c71eb590eb56a6c3fa073604f381b5b0a62"
+  },
+  {
+    "asset_id": "asset-d120968967953e3b79643a1b9f13c819631b5aefeed1323f18183547c3145dda",
+    "kind": "asset",
+    "relative_path": "platform-evidence/dioxus-desktop-local/screenshots/dioxus-desktop-4.png",
+    "sha256": "d120968967953e3b79643a1b9f13c819631b5aefeed1323f18183547c3145dda"
+  },
+  {
+    "asset_id": "asset-dd24a75db78a36914ced124f13ab5db6894103c1f4c064e93e5b47bd9f1d5f9f",
+    "kind": "asset",
+    "relative_path": "platform-evidence/dioxus-web-local/screenshots/dioxus-web-4.png",
+    "sha256": "dd24a75db78a36914ced124f13ab5db6894103c1f4c064e93e5b47bd9f1d5f9f"
+  },
+  {
+    "asset_id": "asset-ddb500061701f70191789a37587d9d09535837f831820e0ab2bafe6406e4caf6",
+    "kind": "asset",
+    "relative_path": "platform-evidence/dioxus-desktop-local/screenshots/dioxus-desktop-2.png",
+    "sha256": "ddb500061701f70191789a37587d9d09535837f831820e0ab2bafe6406e4caf6"
+  },
+  {
+    "asset_id": "recording-84ee8144f86f2058cd1b2e1131e2f4cd83d26c3d00873dcf52fdd65c67bcbaa0",
+    "kind": "recording",
+    "relative_path": "platform-evidence/dioxus-web-local/traces/web-OpenUI-and-typed-JSON--25e6e-the-same-Dioxus-Web-runtime/trace.zip",
+    "sha256": "84ee8144f86f2058cd1b2e1131e2f4cd83d26c3d00873dcf52fdd65c67bcbaa0"
+  },
+  {
+    "asset_id": "recording-9d078f2623e3bc5138bdaa9ad26b5ee1c7beb9076af548aae484714825b01314",
+    "kind": "recording",
+    "relative_path": "platform-evidence/direct-rsx-web-local/traces/web-accepted-direct-RSX-ex-424ef-eceipt-and-visible-feedback/trace.zip",
+    "sha256": "9d078f2623e3bc5138bdaa9ad26b5ee1c7beb9076af548aae484714825b01314"
+  },
+  {
+    "asset_id": "recording-c433ca73455fb5f3b17f6ef8d28390380b257e4adcf6def0393225864f75500e",
+    "kind": "recording",
+    "relative_path": "platform-evidence/react-web-local/traces/react-official-json-render-1b8ba-s-state-and-action-behavior/trace.zip",
+    "sha256": "c433ca73455fb5f3b17f6ef8d28390380b257e4adcf6def0393225864f75500e"
+  }
+]

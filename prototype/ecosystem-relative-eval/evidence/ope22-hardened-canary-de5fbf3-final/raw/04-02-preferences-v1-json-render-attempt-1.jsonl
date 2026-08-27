@@ -1,0 +1,7 @@
+{"op":"add","path":"/root","value":"preferences_toolbar"}
+{"op":"add","path":"/elements/preferences_switch","value":{"type":"Switch","props":{"id":"preferences_switch","label":"Enable notifications · variant 1","state_key":"notifications_enabled","checked":{"$bindState":"/notifications_enabled"}},"children":[]}}
+{"op":"add","path":"/state/notifications_enabled","value":true}
+{"op":"add","path":"/elements/preferences_checkbox","value":{"type":"Checkbox","props":{"id":"preferences_checkbox","label":"Accept terms · variant 1","state_key":"terms_accepted","checked":{"$bindState":"/terms_accepted"}},"children":[]}}
+{"op":"add","path":"/state/terms_accepted","value":false}
+{"op":"add","path":"/elements/preferences_apply","value":{"type":"Button","props":{"id":"preferences_apply","label":"Apply preferences"},"on":{"press":{"action":"ApplyFilter","params":{"target_id":"preferences"}}},"children":[]}}
+{"op":"add","path":"/elements/preferences_toolbar","value":{"type":"Toolbar","props":{"id":"preferences_toolbar","orientation":"vertical"},"children":["preferences_switch","preferences_checkbox","preferences_apply"]}}

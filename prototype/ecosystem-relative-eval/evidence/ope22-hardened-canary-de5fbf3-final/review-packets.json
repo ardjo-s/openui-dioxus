@@ -1,0 +1,174 @@
+[
+  {
+    "packet_id": "packet-001",
+    "scenario_id": "04-status-dialog-v1",
+    "task_contract": {
+      "family": "status-dialog",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "c7732b7d0756fc726752edc359c005512f6848571dbc80615492840829cd06f1"
+    },
+    "screenshots": [
+      "asset-b60ba52743ce06e2bec8a94be97b02ea647668fa6f973c68fa931b6d62e7487b"
+    ],
+    "behavior_recording": "recording-c433ca73455fb5f3b17f6ef8d28390380b257e4adcf6def0393225864f75500e",
+    "immutable_after_opening": true,
+    "packet_sha256": "c8bb684cc3f5f02f81c50e5e5e036c02e9acd90fa30a87e0be32a5045cdfb944"
+  },
+  {
+    "packet_id": "packet-002",
+    "scenario_id": "02-preferences-v1",
+    "task_contract": {
+      "family": "preferences",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "6340630c3fc5792333483e502b549f66a82b31967b5d081dec41f72d4a83f8ee"
+    },
+    "screenshots": [
+      "asset-c51680c18dbfd5e5f6c1e4fa69839c71eb590eb56a6c3fa073604f381b5b0a62"
+    ],
+    "behavior_recording": "recording-c433ca73455fb5f3b17f6ef8d28390380b257e4adcf6def0393225864f75500e",
+    "immutable_after_opening": true,
+    "packet_sha256": "f05dcce80a92f3504c48002269cc77da53dd0ceffb12ace41d599064366769de"
+  },
+  {
+    "packet_id": "packet-003",
+    "scenario_id": "03-filter-action-v1",
+    "task_contract": {
+      "family": "filter-action",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "9e100ff291eee9540cf695027250e0c15e5b154d5e43e6e255aee0dae8562ef3"
+    },
+    "screenshots": [
+      "asset-dd24a75db78a36914ced124f13ab5db6894103c1f4c064e93e5b47bd9f1d5f9f",
+      "asset-d120968967953e3b79643a1b9f13c819631b5aefeed1323f18183547c3145dda"
+    ],
+    "behavior_recording": "recording-84ee8144f86f2058cd1b2e1131e2f4cd83d26c3d00873dcf52fdd65c67bcbaa0",
+    "immutable_after_opening": true,
+    "packet_sha256": "26cb92f4dc9d5dd4c0e92189fc56eb19746c04fb8bb6cc3af524f68ec5ce585e"
+  },
+  {
+    "packet_id": "packet-004",
+    "scenario_id": "01-validated-profile-v1",
+    "task_contract": {
+      "family": "validated-profile",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "3d6b1a71d8783546526f30a9b48bc3ec2f3b2ec61b803613c10f3ede85c94dd6"
+    },
+    "screenshots": [
+      "asset-720bb5eb82d6ba93896926520c54521e632ecd80aea35b5516cbfa0444584426",
+      "asset-16a404b2486d76c0247399ae5536cac20c57e74ebf8e0c28d1b66b7d973f1343"
+    ],
+    "behavior_recording": "recording-84ee8144f86f2058cd1b2e1131e2f4cd83d26c3d00873dcf52fdd65c67bcbaa0",
+    "immutable_after_opening": true,
+    "packet_sha256": "8842475eb59a3e27eb669b23e2f732b0d94f08951a7aff799b438fb8532490fd"
+  },
+  {
+    "packet_id": "packet-005",
+    "scenario_id": "03-filter-action-v1",
+    "task_contract": {
+      "family": "filter-action",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "9e100ff291eee9540cf695027250e0c15e5b154d5e43e6e255aee0dae8562ef3"
+    },
+    "screenshots": [
+      "asset-2953818820eaeebd759d31b1be7e4659b9e710a5603b8b11afc203fc8a4a61ed"
+    ],
+    "behavior_recording": "recording-9d078f2623e3bc5138bdaa9ad26b5ee1c7beb9076af548aae484714825b01314",
+    "immutable_after_opening": true,
+    "packet_sha256": "834751f5a8f42d4acb4842306ca3a89e00f51e025eaea0483865612c4ff99489"
+  },
+  {
+    "packet_id": "packet-006",
+    "scenario_id": "02-preferences-v1",
+    "task_contract": {
+      "family": "preferences",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "6340630c3fc5792333483e502b549f66a82b31967b5d081dec41f72d4a83f8ee"
+    },
+    "screenshots": [
+      "asset-46b1f68c73aa708a1424b3719023ad488bda77e03179a0ed20ffa3c6195dfaa2",
+      "asset-226db91f50108617bd1b3f6417d80a3591e9cc723f9815d49f8ccaf46b22b63c"
+    ],
+    "behavior_recording": "recording-84ee8144f86f2058cd1b2e1131e2f4cd83d26c3d00873dcf52fdd65c67bcbaa0",
+    "immutable_after_opening": true,
+    "packet_sha256": "062cb6a3c517391d8367d78388dcb44153d0d92b1783e56af29388439d46ef17"
+  },
+  {
+    "packet_id": "packet-007",
+    "scenario_id": "04-status-dialog-v1",
+    "task_contract": {
+      "family": "status-dialog",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "c7732b7d0756fc726752edc359c005512f6848571dbc80615492840829cd06f1"
+    },
+    "screenshots": [
+      "asset-5709c11fe461155becf5664912ea2cf2c9829b97e5f6d017ea32b5d23d7888d3"
+    ],
+    "behavior_recording": "recording-9d078f2623e3bc5138bdaa9ad26b5ee1c7beb9076af548aae484714825b01314",
+    "immutable_after_opening": true,
+    "packet_sha256": "894ba7b44f6442cc95c9f538108d7167dd4ccf68ced572568503471c3d7d618a"
+  },
+  {
+    "packet_id": "packet-008",
+    "scenario_id": "01-validated-profile-v1",
+    "task_contract": {
+      "family": "validated-profile",
+      "required_behavior": [
+        "required_actions",
+        "required_component_kinds",
+        "required_state",
+        "stable_nonempty_ids",
+        "unknown_components_properties_state_actions"
+      ],
+      "workflow_fixture_sha256": "3d6b1a71d8783546526f30a9b48bc3ec2f3b2ec61b803613c10f3ede85c94dd6"
+    },
+    "screenshots": [
+      "asset-30c52eb22f178b91ed94390cf3bb1ad04876c151fd6f9f1d3eb613f28a01334d",
+      "asset-ddb500061701f70191789a37587d9d09535837f831820e0ab2bafe6406e4caf6"
+    ],
+    "behavior_recording": "recording-84ee8144f86f2058cd1b2e1131e2f4cd83d26c3d00873dcf52fdd65c67bcbaa0",
+    "immutable_after_opening": true,
+    "packet_sha256": "fa77d7b6d19a5711b4d375eef1db93749266e79fabd4699d21e57e4c072cd586"
+  }
+]

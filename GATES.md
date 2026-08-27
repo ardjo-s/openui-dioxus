@@ -2,23 +2,37 @@
 
 ## OPE-22 hardened complete-run Luna-low canary
 
-Current state: preregistration in progress. Exactly one provider window is authorized.
+Current state: completed as `PASS`. The unique provider window is archived and must
+not be rerun. OPE-12 is eligible to reopen only for the exact frozen manifest.
 
-- [ ] Worktree starts from exact OPE-21 commit `64d329f`.
-- [ ] Candidate manifest recomputes to `8aedc364174450ec8ed4a157ab16c9881d69522b32ec65488e19946892b5bb07` before preregistration and before generation.
-- [ ] Execution register and one-shot rule are committed before the first provider call.
-- [ ] Every deterministic preflight and the final 4 GiB storage gate pass.
-- [ ] Exactly one ChatGPT-plan `gpt-5.6-luna` low complete-canary window runs with tools disabled.
-- [ ] All eight cells retain attempts, repairs, diagnostics, tokens, latency, and validated artifacts.
-- [ ] Generated React Web, Direct RSX Web, Dioxus Web, and Dioxus Desktop proofs pass.
-- [ ] Implementation tree remains byte-identical and no root target exists after platform proof.
-- [ ] Blinded packets, nested human-evidence block, hashes, credential scan, and two-pass review pass.
-- [ ] Official result is only `PASS` or `CANARY_INVALID`; no OPE-7 product verdict is emitted.
-- [ ] Evidence and closing decision are committed locally and Linear is synchronized. No push, PR, merge, publication, full OPE-12 run, or production implementation occurs.
+- [x] Worktree starts from exact OPE-21 commit `64d329f`.
+- [x] Candidate manifest recomputes to `8aedc364174450ec8ed4a157ab16c9881d69522b32ec65488e19946892b5bb07` before preregistration and before generation.
+- [x] Execution register and one-shot rule are committed before the first provider call.
+- [x] Every deterministic preflight and the final 4 GiB storage gate pass.
+- [x] Exactly one ChatGPT-plan `gpt-5.6-luna` low complete-canary window runs with tools disabled.
+- [x] All eight cells retain attempts, repairs, diagnostics, tokens, latency, and validated artifacts.
+- [x] Generated React Web, Direct RSX Web, Dioxus Web, and Dioxus Desktop proofs pass.
+- [x] Implementation tree remains byte-identical and no root target exists after platform proof.
+- [x] Blinded packets, nested human-evidence block, hashes, credential scan, and two-pass review pass.
+- [x] Official result is only `PASS` or `CANARY_INVALID`; no OPE-7 product verdict is emitted.
+- [x] Evidence and closing decision are committed locally and Linear is synchronized. No push, PR, merge, publication, full OPE-12 run, or production implementation occurs.
 
 Verification evidence:
 
-- Pending.
+- Source before generation: preregistration commit `de5fbf3` on exact OPE-21 base `64d329f`.
+- Official result: `PASS`. Eight final cells accepted from nine provider attempts in 162.238 seconds.
+- Model: `gpt-5.6-luna`. Reasoning effort: `low`. Tools: disabled.
+- First pass: OpenUI 2/2, typed JSON 2/2, json-render 2/2, Direct RSX 1/2. Direct RSX reached 2/2 after its single registered repair.
+- Provider usage: 105,344 input tokens, 43,520 cached input tokens, 3,745 output tokens, 1,620 reasoning tokens, and 109,089 total tokens.
+- Seven storage gates passed at or above 4 GiB. The sidecar was absorbed into the archive and no repository-local target remained.
+- React Web, Direct RSX Web, Dioxus Web, and Dioxus Desktop passed using generated outputs.
+- Implementation tree before and after platform proof: `73e1166aac54b662ea4fca26e1929a074a0a8282658f745a71f82067520ff502`.
+- Candidate manifest: `8aedc364174450ec8ed4a157ab16c9881d69522b32ec65488e19946892b5bb07`.
+- Review packets: 8. Content-addressed assets: 15. Credential findings: zero. Canonical runtime behavior diff: zero lines.
+- Nested complete finalizer: expected `INVALID_EVAL` because no human evidence was supplied. The canary proves the operational harness only and emits no product verdict.
+- Evidence verifier: 110 files, passed. `SHA256SUMS` SHA-256: `1a94bc820842ef4b65435d21e3c3e1b1ddf3a9b566d93a340332f9a62b54c2dd`.
+- Independent review SHA-256: `3e3b539976bb5c9000ada734364281cb7bfef2b57897bbfd06296c7c0a6d5a31`.
+- Two-pass review: `docs/evaluation/ope-22-two-pass-review.md`.
 
 ## OPE-21 deterministic disk and manifest hardening
 

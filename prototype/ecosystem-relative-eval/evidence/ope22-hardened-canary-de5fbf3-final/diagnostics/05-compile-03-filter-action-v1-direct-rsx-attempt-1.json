@@ -1,0 +1,11 @@
+{
+  "ok": false,
+  "diagnostics": [
+    {
+      "code": "duplicate-id",
+      "component": null,
+      "id": "filter_toolbar",
+      "message": "id must be unique in the rendered document"
+    }
+  ]
+}

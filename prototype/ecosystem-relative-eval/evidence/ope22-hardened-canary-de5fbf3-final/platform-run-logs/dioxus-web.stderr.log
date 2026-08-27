@@ -1,0 +1,4 @@
+[WebServer] 127.0.0.1 - - [27/Aug/2026 11:19:56] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [27/Aug/2026 11:19:56] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [27/Aug/2026 11:19:56] "GET /assets/ope11-dioxus-canary-dxhda93f450247da8b0.js HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [27/Aug/2026 11:19:56] "GET /assets/ope11-dioxus-canary_bg-dxhd98089ff46d5999.wasm HTTP/1.1" 200 -
