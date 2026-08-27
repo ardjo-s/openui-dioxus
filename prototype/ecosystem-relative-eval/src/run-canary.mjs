@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 import { spawnSync } from "node:child_process";
+import { randomUUID } from "node:crypto";
+import { closeSync, mkdirSync, openSync, readFileSync, readSync, statSync, unlinkSync } from "node:fs";
 import { lstat, mkdir, open, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
@@ -7,29 +9,48 @@ import { fileURLToPath } from "node:url";
 
 import { get_encoding } from "tiktoken";
 
+import {
+  buildCodexArgs,
+  buildProviderEnvironment,
+  CodexProviderError,
+  inspectCodexEvents,
+  parseCodexEvents,
+  verifyProviderEventEvidence,
+} from "./codex-provider.mjs";
 import { verifySecondCatalogFixtures } from "./catalog-fixtures.mjs";
-import { resolveSharedCargoTarget } from "./build-isolation.mjs";
+import { assertDedicatedEvaluationCargoTarget, resolveSharedCargoTarget } from "./build-isolation.mjs";
 import { buildBlindedPackets, finalizeDecisionGrade, scanPacketLeaks } from "./complete-run-contract.mjs";
 import { boundedTimeout } from "./deadline.mjs";
 import { CANDIDATE_MARKER, PUBLICATION_MARKER } from "./evidence-publication.mjs";
 import { measureImplementationFootprint } from "./footprint.mjs";
 import { sha, stableJson } from "./hash.mjs";
-import { buildCandidateManifest, hashManifest } from "./manifest.mjs";
+import { buildCandidateManifest, hashManifest, serializeCandidateManifest } from "./manifest.mjs";
 import { normalizeWire } from "./normalizer.mjs";
 import { verifyOpe3Archive } from "./ope3.mjs";
 import { verifyPlatformEvidence } from "./platform-evidence.mjs";
 import { executeGeneratedPlatformProofs } from "./platform-runner.mjs";
-import { generateRouteOutput, repairPrompt } from "./provider.mjs";
+import { fakeGenerate, repairPrompt } from "./provider.mjs";
 import { routeExtension, validateRoute } from "./routes.mjs";
 import { assertDecisionNeutral, createForbiddenProductScorer, scanEvidenceDirectory, scanProviderPayload, scanPublicationPayloads } from "./security.mjs";
 import { minimumFreeBytesFromEnvironment, recordStorageGate } from "./storage-gate.mjs";
 import { runBoundedProcess } from "./subprocess.mjs";
-import { buildScenarios } from "../../openui-typed-json-product-eval/src/scenarios.mjs";
+import { buildEvaluationScenarios, OBSERVABLE_CONTRACT_V2 } from "./observable-contract-v2-scenarios.mjs";
+import {
+  assertExternalEvidenceDirectory,
+  assertV2ProviderBoundary,
+  canonicalOneShotLedgerRoot,
+  consumeOneShotClaim,
+  loadFrozenManifest,
+  loadReviewAttestation,
+} from "./v2-execution-guard.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..");
 const repo = path.resolve(root, "../..");
 const maximumResponseBytes = 256 * 1024;
+const reviewedCliProviderCapability = Symbol("reviewed-cli-provider-capability");
+const sha256Pattern = /^[a-f0-9]{64}$/u;
+const commitPattern = /^(?:[a-f0-9]{40}|[a-f0-9]{64})$/u;
 
 export async function runCanary(options) {
   return runEvaluation({ ...options, contractKey: "canary" });
@@ -43,19 +64,46 @@ export async function runCompleteCanary(options) {
   return runEvaluation({ ...options, contractKey: "complete_canary" });
 }
 
-async function runEvaluation({ provider, outputDirectory, platformProof = provider === "codex" ? "generated" : "reference", productScorer = createForbiddenProductScorer(), contractKey, humanEvidence = null }) {
+async function runEvaluation({
+  provider,
+  outputDirectory,
+  platformProof = provider === "codex" ? "generated" : "reference",
+  productScorer = createForbiddenProductScorer(),
+  contractKey,
+  humanEvidence = null,
+  contractVersion = null,
+  frozenManifest = null,
+  frozenManifestAttestation = null,
+  oneShotClaimPath = null,
+  reviewAttestation = null,
+  providerExecutionCapability = null,
+}) {
   if (!["fake", "codex"].includes(provider)) throw new Error(`unknown provider: ${provider}`);
   if (!["canary", "complete_run", "complete_canary"].includes(contractKey)) throw new Error(`unknown run contract: ${contractKey}`);
   if (contractKey !== "canary" && humanEvidence !== null) throw new Error("human evidence must finalize the frozen generation archive without another provider run");
   if (!["generated", "reference"].includes(platformProof)) throw new Error(`unknown platform proof mode: ${platformProof}`);
   if (provider === "codex" && platformProof !== "generated") throw new Error("real provider run requires generated-output platform proof");
+  if (provider === "codex" && providerExecutionCapability !== reviewedCliProviderCapability) {
+    throw new Error("real provider execution is available only through the reviewed CLI entrypoint");
+  }
+  if (provider === "codex" && contractVersion === OBSERVABLE_CONTRACT_V2) {
+    await assertExternalEvidenceDirectory({ repoRoot: repo, outputDirectory });
+  }
   await prepareOutputDirectory(outputDirectory);
   for (const directory of ["raw", "diagnostics", "native", "canonical", "provider-events", "provider-stderr", "traces"]) {
     await mkdir(path.join(outputDirectory, directory), { recursive: true });
   }
   const started = performance.now();
-  const encoding = get_encoding("o200k_base");
-  const manifest = await buildCandidateManifest();
+  const rebuiltManifest = await buildCandidateManifest({ contractVersion });
+  const rebuiltManifestBytes = serializeCandidateManifest(rebuiltManifest);
+  const frozenManifestMatches = frozenManifestAttestation?.verified
+    ? Buffer.compare(rebuiltManifestBytes, frozenManifestAttestation.raw_bytes) === 0
+    : frozenManifest !== null && stableJson(frozenManifest) === stableJson(rebuiltManifest);
+  if ((frozenManifest !== null || frozenManifestAttestation?.verified) && !frozenManifestMatches) {
+    throw new Error("frozen candidate manifest differs from the current reviewed implementation");
+  }
+  let oneShotClaim = null;
+  const manifest = frozenManifestAttestation?.manifest ?? frozenManifest ?? rebuiltManifest;
   const completeStage = contractKey !== "canary";
   const runContract = contractKey === "complete_canary"
     ? { ...manifest.complete_run.harness_canary, prompt_pack: manifest.complete_run.prompt_pack }
@@ -66,12 +114,29 @@ async function runEvaluation({ provider, outputDirectory, platformProof = provid
   const sharedCargoTarget = resolveSharedCargoTarget({ ambient: process.env, repoRoot: repo, implementationRoot: root });
   await writeJson(path.join(outputDirectory, "candidate-manifest.json"), { ...manifest, hash: manifestHash });
   await writeFile(path.join(outputDirectory, "candidate-manifest.sha256"), `${manifestHash}\n`, { flag: "wx", mode: 0o600 });
+  if (frozenManifestAttestation?.verified) {
+    await writeFile(path.join(outputDirectory, "frozen-reviewed-manifest.json"), await readFile(frozenManifestAttestation.manifest_path), { flag: "wx", mode: 0o600 });
+    await writeFile(path.join(outputDirectory, "frozen-reviewed-manifest.json.sha256"), await readFile(frozenManifestAttestation.sidecar_path), { flag: "wx", mode: 0o600 });
+  }
+  if (reviewAttestation?.verified) {
+    await writeJson(path.join(outputDirectory, "ope23-review-attestation.json"), reviewAttestation);
+  }
   const ope3Import = await verifyOpe3Archive();
   const secondCatalog = await verifySecondCatalogFixtures({ execute: true, deadlineMs });
-  const scenarios = await buildScenarios();
+  const providerBuildCacheCleanup = provider === "codex"
+    ? await cleanProviderBuildCache({ sharedCargoTarget, deadlineMs })
+    : {
+      required: false,
+      passed: true,
+      target_directory: sharedCargoTarget,
+      reason: "fake provider performs no external call or generated platform proof",
+    };
+  await writeJson(path.join(outputDirectory, "pre-provider-build-cache-cleanup.json"), providerBuildCacheCleanup);
+  const scenarios = await buildEvaluationScenarios({ contractVersion });
   const byId = new Map(scenarios.map((scenario) => [scenario.id, scenario]));
   const records = [];
   const scanFindings = [];
+  let reviewedStateVerifications = 0;
   let providerError = null;
   const preProviderStorage = provider === "codex"
     ? await capturePreProviderStorage({ outputDirectory, sharedCargoTarget })
@@ -83,7 +148,19 @@ async function runEvaluation({ provider, outputDirectory, platformProof = provid
       checks: [],
     };
   if (!preProviderStorage.passed) providerError = "pre-provider storage gate failed before the first provider call";
-
+  if (provider === "codex" && contractVersion === OBSERVABLE_CONTRACT_V2 && preProviderStorage.passed) {
+    oneShotClaim = await consumeOneShotClaim({
+      claimPath: oneShotClaimPath ?? "",
+      ledgerRoot: canonicalOneShotLedgerRoot(repo),
+      manifestRawSha256: frozenManifestAttestation?.raw_sha256 ?? "",
+      outputDirectory,
+      reviewAttestation,
+    });
+    assertV2ProviderBoundary({ provider, contractVersion, contractKey, frozenManifestAttestation, oneShotClaim, reviewAttestation });
+    await writeFile(path.join(outputDirectory, "one-shot-claim.json"), await readFile(oneShotClaim.ledger_path), { flag: "wx", mode: 0o600 });
+    await writeFile(path.join(outputDirectory, "one-shot-consumption.json"), await readFile(oneShotClaim.consumption_path), { flag: "wx", mode: 0o600 });
+  }
+  const encoding = get_encoding("o200k_base");
   try {
     for (const cell of providerError ? [] : runContract.schedule) {
       if (performance.now() - started > runContract.maximum_wall_time_ms) {
@@ -115,7 +192,7 @@ async function runEvaluation({ provider, outputDirectory, platformProof = provid
         }
         const userPrompt = attempt === 1
           ? initialUserPrompt
-          : repairPrompt(initialUserPrompt, prior.output, prior.diagnostics);
+          : repairPrompt(initialUserPrompt, prior.output, prior.diagnostics, { contractVersion });
         const payloadScan = scanProviderPayload({ instructions, user_prompt: userPrompt });
         scanFindings.push(...payloadScan.map((finding) => ({ ...finding, scenario_id: cell.scenario_id, route: cell.route, attempt })));
         if (payloadScan.length) {
@@ -124,7 +201,17 @@ async function runEvaluation({ provider, outputDirectory, platformProof = provid
         }
         const stem = `${String(records.length + 1).padStart(2, "0")}-${slug(cell.scenario_id)}-${cell.route}-attempt-${attempt}`;
         const rawPath = path.join(outputDirectory, "raw", `${stem}.${routeExtension(cell.route)}`);
+        try {
+          if (provider === "codex" && contractVersion === OBSERVABLE_CONTRACT_V2) {
+            await verifyReviewedV2State({ frozenManifestAttestation, reviewAttestation });
+            reviewedStateVerifications += 1;
+          }
+        } catch (error) {
+          providerError = `reviewed v2 state check failed before provider call: ${error.message}`;
+          break;
+        }
         let generated;
+        const providerInvocationAttempted = provider === "codex";
         try {
           generated = await generateRouteOutput({
             provider,
@@ -137,6 +224,7 @@ async function runEvaluation({ provider, outputDirectory, platformProof = provid
             rawPath,
             maximumResponseBytes,
             timeoutMs: remainingProviderMs,
+            providerExecutionCapability,
           });
         } catch (error) {
           providerError = String(error.message);
@@ -165,6 +253,11 @@ async function runEvaluation({ provider, outputDirectory, platformProof = provid
             providerUsage: error.usage ?? null,
             rawSha256: sha(await readFile(rawPath)),
             diagnosticsSha256: sha(await readFile(diagnosticsPath)),
+            evidenceStem: stem,
+            providerInvocationAttempted,
+            providerProcessStarted: error.processStarted === true,
+            providerThreadStarted: error.threadStarted === true,
+            providerCompleted: error.turnCompleted === true,
           }));
           break;
         }
@@ -174,7 +267,7 @@ async function runEvaluation({ provider, outputDirectory, platformProof = provid
         const responseBytes = generated.response_bytes ?? Buffer.byteLength(generated.output);
         const validationStarted = performance.now();
         let validation = responseBytes <= maximumResponseBytes
-          ? await validateRoute(cell.route, generated.output, scenario, { deadlineMs, cohort: cell.cohort })
+          ? await validateRoute(cell.route, generated.output, scenario, { deadlineMs, cohort: cell.cohort, contractVersion })
           : { ok: false, diagnostics: [{ code: "output-too-large", message: `more than ${maximumResponseBytes} bytes` }] };
         let canonical = null;
         let oracleFingerprint = null;
@@ -204,6 +297,8 @@ async function runEvaluation({ provider, outputDirectory, platformProof = provid
         }
         const record = {
           route: cell.route,
+          evidence_stem: stem,
+          prompt_id: cell.prompt_id,
           cohort: cell.cohort,
           scenario_id: cell.scenario_id,
           source_scenario_id: scenario.id,
@@ -234,6 +329,10 @@ async function runEvaluation({ provider, outputDirectory, platformProof = provid
           platform_artifact: validation.ok
             ? (cell.route === "direct-rsx" ? generated.output : (validation.wire ?? validation.route_artifact))
             : null,
+          provider_invocation_attempted: providerInvocationAttempted,
+          provider_process_started: generated.provider_process_started === true,
+          provider_thread_started: generated.provider_thread_started === true,
+          provider_completed: generated.provider_completed === true,
           prompt_hashes: {
             instructions_sha256: sha(instructions),
             user_prompt_sha256: sha(userPrompt),
@@ -259,6 +358,15 @@ async function runEvaluation({ provider, outputDirectory, platformProof = provid
   }
 
   await writeFile(path.join(outputDirectory, "records.jsonl"), `${records.map((record) => JSON.stringify(record)).join("\n")}\n`, { flag: "wx", mode: 0o600 });
+  let providerEventEvidence = null;
+  if (provider === "codex") {
+    try {
+      providerEventEvidence = { verified: true, ...await verifyProviderEventDirectory({ records, outputDirectory }) };
+    } catch (error) {
+      providerEventEvidence = { verified: false, error: String(error.message).slice(0, 1000) };
+      providerError ??= `provider event evidence invalid: ${error.message}`;
+    }
+  }
   const finalRecords = finalRecordsByCell(records);
   const routeCells = finalRecords.length;
   const allAccepted = routeCells === runContract.schedule.length && finalRecords.every((record) => record.accepted);
@@ -339,12 +447,26 @@ async function runEvaluation({ provider, outputDirectory, platformProof = provid
   const completeCanaryHumanBlockProved = contractKey === "complete_canary"
     && finalization.outcome === manifest.complete_run.harness_canary.expected_human_finalization
     && manifest.complete_run.harness_canary.required_missing_evidence_witnesses.every((field) => finalization.diagnostics.some((diagnostic) => diagnostic.field === field && diagnostic.code === "missing-evidence"));
-  let outcome = contractKey === "complete_run"
-    ? finalization.outcome
-    : operationalPreflightPassed && (contractKey !== "complete_canary" || completeCanaryHumanBlockProved) ? "PASS" : "CANARY_INVALID";
+  let outcome = initialOutcome({
+    allAccepted,
+    completeCanaryHumanBlockProved,
+    contractKey,
+    contractVersion,
+    finalization,
+    operationalPreflightPassed,
+    provider,
+    providerError,
+  });
   const preProviderInfrastructureAbort = provider === "codex" && !preProviderStorage.passed && records.length === 0;
+  const nonCertifyingV2Preflight = contractVersion === OBSERVABLE_CONTRACT_V2
+    && contractKey === "canary"
+    && provider !== "codex";
   const summary = {
     outcome,
+    certification_status: nonCertifyingV2Preflight
+      ? "non-certifying-deterministic-preflight"
+      : "candidate-awaiting-independent-review",
+    certified_outcome: null,
     execution_kind: preProviderInfrastructureAbort
       ? "pre-provider-infrastructure-abort"
       : completeStage
@@ -356,10 +478,33 @@ async function runEvaluation({ provider, outputDirectory, platformProof = provid
     provider,
     model: manifest.provider.model,
     reasoning_effort: manifest.provider.reasoning_effort,
+    observable_contract_version: manifest.observable_contract?.version ?? null,
+    provider_build_cache_cleanup: providerBuildCacheCleanup,
     pre_provider_storage: preProviderStorage,
     pre_provider_infrastructure_abort: preProviderInfrastructureAbort,
     manifest_hash: manifestHash,
-    manifest_promoted: contractKey !== "complete_run" && outcome === "PASS" && provider === "codex" && platformProof === "generated",
+    manifest_promoted: contractVersion === OBSERVABLE_CONTRACT_V2
+      ? canPromoteV2Manifest({
+        outcome,
+        provider,
+        platformProof,
+        frozenManifestVerified: frozenManifestMatches && frozenManifestAttestation?.verified === true && reviewAttestation?.verified === true,
+      })
+      : contractKey !== "complete_run" && outcome === "PASS" && provider === "codex" && platformProof === "generated",
+    frozen_manifest: contractVersion === OBSERVABLE_CONTRACT_V2 ? {
+      verified: frozenManifestMatches && frozenManifestAttestation?.verified === true && reviewAttestation?.verified === true,
+      raw_sha256: frozenManifestAttestation?.raw_sha256 ?? null,
+      semantic_sha256: frozenManifestAttestation?.semantic_sha256 ?? null,
+      one_shot_claimed: oneShotClaim !== null
+        && oneShotClaim !== undefined
+        && frozenManifestAttestation !== null
+        && frozenManifestAttestation !== undefined
+        && oneShotClaim.manifest_raw_sha256 === frozenManifestAttestation.raw_sha256,
+      one_shot_consumed: oneShotClaim?.consumed === true,
+      reviewed_commit: oneShotClaim?.reviewed_commit ?? null,
+      review_attestation_tag: reviewAttestation?.tag_name ?? null,
+      review_attestation_object: reviewAttestation?.tag_object ?? null,
+    } : null,
     operational_preflight_passed: operationalPreflightPassed,
     finalization,
     complete_canary_human_block_proved: contractKey === "complete_canary" ? completeCanaryHumanBlockProved : null,
@@ -368,7 +513,12 @@ async function runEvaluation({ provider, outputDirectory, platformProof = provid
     route_aggregates_comparable: false,
     route_aggregate_scope: "operational diagnostics only; route totals cover different scenario and cohort mixes and must not be ranked across routes",
     calls: records.length,
-    external_provider_calls: provider === "fake" ? 0 : records.length,
+    provider_invocation_attempts: records.filter((record) => record.provider_invocation_attempted === true).length,
+    provider_process_starts: records.filter((record) => record.provider_process_started === true).length,
+    external_provider_calls: records.filter((record) => record.provider_thread_started === true).length,
+    provider_completed_calls: records.filter((record) => record.provider_completed === true).length,
+    provider_event_evidence: providerEventEvidence,
+    reviewed_state_verifications_before_provider_calls: reviewedStateVerifications,
     maximum_calls: runContract.maximum_provider_calls,
     wall_time_ms: wallTimeMs,
     maximum_wall_time_ms: runContract.maximum_wall_time_ms,
@@ -445,6 +595,8 @@ async function runEvaluation({ provider, outputDirectory, platformProof = provid
   await writeJson(path.join(outputDirectory, CANDIDATE_MARKER), {
     status: preProviderInfrastructureAbort
       ? "pre-provider-infrastructure-failure"
+      : nonCertifyingV2Preflight
+      ? "deterministic-preflight-only"
       : contractKey === "complete_run"
       ? outcome === "READY_FOR_REVIEW" ? "ready-for-independent-review" : "awaiting-human-evidence"
       : "awaiting-independent-review",
@@ -454,9 +606,52 @@ async function runEvaluation({ provider, outputDirectory, platformProof = provid
   });
   if (contractKey !== "complete_run" && !preProviderInfrastructureAbort) {
     await runPublicationStep("review-evidence.mjs", outputDirectory, deadlineMs);
-    await runPublicationStep("finalize-evidence.mjs", outputDirectory, deadlineMs);
+    if (!nonCertifyingV2Preflight) {
+      await runPublicationStep("finalize-evidence.mjs", outputDirectory, deadlineMs);
+    }
   }
   return summary;
+}
+
+async function cleanProviderBuildCache({ sharedCargoTarget, deadlineMs }) {
+  const evaluationCacheRoot = path.resolve(repo, "../..", ".cache", "openui-dioxus-eval");
+  const cleanupBoundary = await assertDedicatedEvaluationCargoTarget({
+    cacheRoot: evaluationCacheRoot,
+    targetDirectory: sharedCargoTarget,
+  });
+  const targetDirectory = cleanupBoundary.target_directory;
+  const result = await runBoundedProcess({
+    command: "cargo",
+    args: [
+      "clean",
+      "--manifest-path",
+      path.join(root, "platform", "dioxus", "Cargo.toml"),
+      "--target-dir",
+      targetDirectory,
+    ],
+    cwd: root,
+    env: Object.fromEntries(
+      ["PATH", "HOME", "TMPDIR", "CARGO_HOME", "RUSTUP_HOME", "CARGO_NET_OFFLINE"]
+        .filter((name) => process.env[name] !== undefined)
+        .map((name) => [name, process.env[name]]),
+    ),
+    timeoutMs: boundedTimeout(deadlineMs, 60_000, "pre-provider Cargo cache cleanup"),
+    maximumBytes: 64 * 1024,
+  });
+  if (result.error || result.exitCode !== 0 || !result.process_group_reaped) {
+    throw new Error(`pre-provider Cargo cache cleanup failed: ${result.error ?? result.stderr ?? result.stdout ?? result.exitCode}`);
+  }
+  return {
+    required: true,
+    passed: true,
+    target_directory: targetDirectory,
+    evaluation_cache_root: cleanupBoundary.cache_root,
+    process_started: result.process_started,
+    exit_code: result.exitCode,
+    process_group_reaped: result.process_group_reaped,
+    stdout_sha256: sha(result.stdout),
+    stderr_sha256: sha(result.stderr),
+  };
 }
 
 async function capturePreProviderStorage({ outputDirectory, sharedCargoTarget }) {
@@ -505,6 +700,176 @@ async function runPublicationStep(script, outputDirectory, deadlineMs) {
   }
 }
 
+async function generateRouteOutput({
+  provider,
+  route,
+  scheduleScenarioId,
+  attempt,
+  scenario,
+  instructions,
+  userPrompt,
+  rawPath,
+  maximumResponseBytes: responseLimit,
+  timeoutMs,
+  providerExecutionCapability,
+}) {
+  if (provider === "fake") return fakeGenerate({ route, scheduleScenarioId, attempt, scenario });
+  if (provider !== "codex") throw new Error(`unknown provider: ${provider}`);
+  if (providerExecutionCapability !== reviewedCliProviderCapability) {
+    throw new Error("real provider execution is available only through the reviewed CLI entrypoint");
+  }
+  const codexHome = process.env.EVAL_CODEX_HOME;
+  const cwd = process.env.EVAL_CODEX_WORKDIR;
+  if (!codexHome || !cwd) throw new Error("EVAL_CODEX_HOME and EVAL_CODEX_WORKDIR are required for provider=codex");
+  const result = await generateWithCodex({
+    prompt: ["SYSTEM INSTRUCTIONS", instructions, "USER REQUEST", userPrompt].join("\n\n"),
+    outputPath: rawPath,
+    codexHome,
+    cwd,
+    command: process.env.EVAL_CODEX_BIN ?? "codex",
+    model: "gpt-5.6-luna",
+    reasoningEffort: "low",
+    maxResponseBytes: responseLimit,
+    timeoutMs: Math.min(Number(process.env.EVAL_CODEX_TIMEOUT_MS ?? 180_000), timeoutMs),
+  });
+  return {
+    output: result.output,
+    provider_ms: result.elapsedMs,
+    usage_source: result.usage.usage_source,
+    provider_usage: result.usage,
+    response_bytes: result.outputBytes,
+    events_raw: result.eventsRaw,
+    stderr: result.stderr,
+    provider_process_started: result.processStarted,
+    provider_thread_started: result.threadStarted,
+    provider_completed: result.turnCompleted,
+  };
+}
+
+async function generateWithCodex({
+  prompt,
+  outputPath,
+  codexHome,
+  cwd,
+  command,
+  model,
+  reasoningEffort,
+  maxResponseBytes: responseLimit,
+  timeoutMs,
+}) {
+  const temporaryOutput = `${outputPath}.provider-${randomUUID()}`;
+  closeSync(openSync(temporaryOutput, "wx", 0o600));
+  const environment = buildProviderEnvironment({ codexHome, cwd });
+  mkdirSync(environment.TMPDIR, { recursive: true, mode: 0o700 });
+  const started = performance.now();
+  try {
+    const result = await runBoundedProcess({
+      command,
+      args: buildCodexArgs({ outputPath: temporaryOutput, model, reasoningEffort }),
+      cwd,
+      env: environment,
+      input: prompt,
+      maximumBytes: 2 * 1024 * 1024,
+      timeoutMs,
+    });
+    const elapsedMs = performance.now() - started;
+    const eventsRaw = result.stdout ?? "";
+    const stderr = result.stderr ?? "";
+    const outputBytes = statSync(temporaryOutput).size;
+    const output = outputBytes > responseLimit
+      ? readPrefix(temporaryOutput, responseLimit)
+      : readFileSync(temporaryOutput, "utf8");
+    const parsed = safeParseProviderEvents(eventsRaw);
+    const eventState = safeInspectProviderEvents(eventsRaw);
+    const processStarted = result.process_started === true;
+    if (result.error || result.exitCode !== 0 || !result.process_group_reaped) {
+      const detail = String(result.error ?? stderr ?? `exit ${result.exitCode}`).slice(0, 2000);
+      throw new CodexProviderError(`Codex provider failed: ${detail}`, {
+        eventsRaw,
+        stderr,
+        elapsedMs,
+        output,
+        outputBytes,
+        usage: parsed?.usage ?? null,
+        toolActivity: parsed?.toolActivity ?? [],
+        processStarted,
+        threadStarted: eventState.thread_started,
+        turnCompleted: eventState.turn_completed,
+      });
+    }
+    if (!parsed) {
+      throw new CodexProviderError("Codex event parsing failed: no completed usage event", {
+        eventsRaw,
+        stderr,
+        elapsedMs,
+        output,
+        outputBytes,
+        processStarted,
+        threadStarted: eventState.thread_started,
+        turnCompleted: eventState.turn_completed,
+      });
+    }
+    if (parsed.toolActivity.length) {
+      throw new CodexProviderError(`Codex tool activity is forbidden: ${parsed.toolActivity.join(", ")}`, {
+        eventsRaw,
+        stderr,
+        toolActivity: parsed.toolActivity,
+        elapsedMs,
+        output,
+        outputBytes,
+        usage: parsed.usage,
+        processStarted,
+        threadStarted: eventState.thread_started,
+        turnCompleted: eventState.turn_completed,
+      });
+    }
+    return {
+      output,
+      outputBytes,
+      elapsedMs,
+      stderr,
+      eventsRaw,
+      processStarted,
+      threadStarted: eventState.thread_started,
+      turnCompleted: eventState.turn_completed,
+      ...parsed,
+    };
+  } finally {
+    try {
+      unlinkSync(temporaryOutput);
+    } catch (error) {
+      if (error.code !== "ENOENT") throw error;
+    }
+  }
+}
+
+function safeParseProviderEvents(source) {
+  try {
+    return parseCodexEvents(source);
+  } catch {
+    return null;
+  }
+}
+
+function safeInspectProviderEvents(source) {
+  try {
+    return inspectCodexEvents(source);
+  } catch {
+    return { thread_started: false, turn_completed: false };
+  }
+}
+
+function readPrefix(filePath, maxBytes) {
+  const descriptor = openSync(filePath, "r");
+  try {
+    const buffer = Buffer.alloc(maxBytes);
+    const bytesRead = readSync(descriptor, buffer, 0, maxBytes, 0);
+    return buffer.subarray(0, bytesRead).toString("utf8");
+  } finally {
+    closeSync(descriptor);
+  }
+}
+
 function providerFailureRecord({
   cell,
   scenario,
@@ -519,9 +884,16 @@ function providerFailureRecord({
   providerUsage,
   rawSha256,
   diagnosticsSha256,
+  evidenceStem,
+  providerInvocationAttempted,
+  providerProcessStarted,
+  providerThreadStarted,
+  providerCompleted,
 }) {
   return {
     route: cell.route,
+    evidence_stem: evidenceStem,
+    prompt_id: cell.prompt_id,
     cohort: cell.cohort,
     scenario_id: cell.scenario_id,
     source_scenario_id: scenario.id,
@@ -543,9 +915,36 @@ function providerFailureRecord({
     oracle_fingerprint: null,
     canonical_surface: null,
     platform_artifact: null,
+    provider_invocation_attempted: providerInvocationAttempted,
+    provider_process_started: providerProcessStarted,
+    provider_thread_started: providerThreadStarted,
+    provider_completed: providerCompleted,
     prompt_hashes: { instructions_sha256: sha(instructions), user_prompt_sha256: sha(userPrompt) },
     artifact_hashes: { raw_sha256: rawSha256, diagnostics_sha256: diagnosticsSha256, native_sha256: null, canonical_sha256: null, platform_artifact_sha256: null },
   };
+}
+
+async function verifyReviewedV2State({ frozenManifestAttestation, reviewAttestation }) {
+  const refreshedReview = loadReviewAttestation({ repoRoot: repo, manifestAttestation: frozenManifestAttestation });
+  if (refreshedReview.tag_object !== reviewAttestation?.tag_object
+    || refreshedReview.reviewed_commit !== reviewAttestation?.reviewed_commit) {
+    throw new Error("Git review attestation changed");
+  }
+  const refreshedManifest = await buildCandidateManifest({ contractVersion: OBSERVABLE_CONTRACT_V2 });
+  if (Buffer.compare(serializeCandidateManifest(refreshedManifest), frozenManifestAttestation.raw_bytes) !== 0) {
+    throw new Error("reviewed manifest bytes changed");
+  }
+}
+
+async function verifyProviderEventDirectory({ records, outputDirectory }) {
+  const directory = path.join(outputDirectory, "provider-events");
+  const entries = await readdir(directory, { withFileTypes: true });
+  const eventSources = new Map();
+  for (const entry of entries) {
+    if (!entry.isFile()) throw new Error(`non-regular provider event path: ${entry.name}`);
+    eventSources.set(entry.name, await readFile(path.join(directory, entry.name), "utf8"));
+  }
+  return verifyProviderEventEvidence({ records, eventSources });
 }
 
 function remainingTime(deadlineMs) {
@@ -631,6 +1030,39 @@ function canonicalRuntimeDiffLines() {
   }, 0);
 }
 
+function initialOutcome({
+  allAccepted,
+  completeCanaryHumanBlockProved,
+  contractKey,
+  contractVersion,
+  finalization,
+  operationalPreflightPassed,
+  provider,
+  providerError,
+}) {
+  if (contractKey === "complete_run") return finalization.outcome;
+  if (contractVersion === OBSERVABLE_CONTRACT_V2 && contractKey === "canary") {
+    return classifyCanaryOutcomeV2({ provider, providerError, allAccepted, operationalPreflightPassed });
+  }
+  return operationalPreflightPassed && (contractKey !== "complete_canary" || completeCanaryHumanBlockProved)
+    ? "PASS"
+    : "CANARY_INVALID";
+}
+
+export function classifyCanaryOutcomeV2({ provider, providerError, allAccepted, operationalPreflightPassed }) {
+  if (provider !== "codex") return "CANARY_INVALID";
+  if (providerError) return "CANARY_INVALID";
+  if (!allAccepted) return "CANARY_FAIL";
+  return operationalPreflightPassed ? "CANARY_PASS" : "CANARY_INVALID";
+}
+
+export function canPromoteV2Manifest({ outcome, provider, platformProof, frozenManifestVerified }) {
+  return outcome === "CANARY_PASS"
+    && provider === "codex"
+    && platformProof === "generated"
+    && frozenManifestVerified === true;
+}
+
 function tokenCount(encoding, source) {
   return encoding.encode(source).length;
 }
@@ -714,6 +1146,7 @@ function report(summary) {
     `Execution: ${summary.execution_kind}`,
     `Route cells: ${summary.route_cells}/${summary.expected_route_cells}`,
     `Provider calls: ${summary.calls}/${summary.maximum_calls}`,
+    `Pre-provider build cache cleanup: ${summary.provider_build_cache_cleanup.passed ? "passed" : "failed"}`,
     `Pre-provider storage: ${summary.pre_provider_storage.passed ? "passed" : "failed"}`,
     `Manifest: ${summary.manifest_hash}`,
     `Frozen OPE-3 import: ${summary.ope3_import.verified ? "verified" : "failed"}`,
@@ -797,7 +1230,14 @@ async function filesBelow(directory, prefix = "") {
 }
 
 function parseCli(argv) {
-  const options = { provider: null, outputDirectory: null, platformProof: null, runContract: "canary" };
+  const options = {
+    provider: null,
+    outputDirectory: null,
+    platformProof: null,
+    runContract: "canary",
+    contractVersion: process.env.EVAL_CONTRACT_VERSION || null,
+    frozenManifestPath: process.env.EVAL_FROZEN_MANIFEST ? path.resolve(process.env.EVAL_FROZEN_MANIFEST) : null,
+  };
   for (let index = 0; index < argv.length; index += 1) {
     const name = argv[index];
     const value = argv[index + 1];
@@ -805,24 +1245,148 @@ function parseCli(argv) {
     else if (name === "--output") options.outputDirectory = path.resolve(value);
     else if (name === "--platform-proof") options.platformProof = value;
     else if (name === "--run") options.runContract = value;
+    else if (name === "--contract-version") options.contractVersion = value;
+    else if (name === "--manifest") options.frozenManifestPath = path.resolve(value);
     else throw new Error(`unknown argument: ${name}`);
     index += 1;
   }
   options.provider ??= "fake";
   if (!["canary", "complete", "complete-canary"].includes(options.runContract)) throw new Error(`unknown run: ${options.runContract}`);
   options.platformProof ??= options.provider === "codex" ? "generated" : "reference";
-  options.outputDirectory ??= path.join(root, "evidence", `${options.provider === "fake" ? "fake" : "candidate"}-${options.runContract}`);
+  options.outputDirectory ??= options.provider === "codex"
+    ? path.resolve(repo, "../..", ".cache", "openui-dioxus-eval", "evidence", `candidate-${options.runContract}`)
+    : path.join(root, "evidence", `fake-${options.runContract}`);
+  if (options.provider === "codex" && isWithinPath(repo, options.outputDirectory)) {
+    throw new Error("observable-contract-v2 evidence must remain outside the reviewed repository");
+  }
   return options;
+}
+
+function isWithinPath(parent, candidate) {
+  const relative = path.relative(path.resolve(parent), path.resolve(candidate));
+  return relative === "" || (!relative.startsWith(`..${path.sep}`) && relative !== "..");
+}
+
+async function runMandatoryProviderPreflight(options) {
+  const inheritedNames = [
+    "PATH",
+    "HOME",
+    "TMPDIR",
+    "LANG",
+    "LC_ALL",
+    "CODEX_HOME",
+    "CARGO_HOME",
+    "RUSTUP_HOME",
+    "CARGO_TARGET_DIR",
+    "EVAL_CODEX_BIN",
+    "EVAL_CODEX_HOME",
+    "EVAL_MINIMUM_FREE_BYTES",
+    "EVAL_PRE_PROVIDER_GATE_LOG",
+    "EVAL_SHARED_CARGO_TARGET_DIR",
+    "EVAL_SOURCE_CODEX_HOME",
+  ];
+  const env = Object.fromEntries(
+    inheritedNames
+      .filter((name) => process.env[name] !== undefined)
+      .map((name) => [name, process.env[name]]),
+  );
+  env.EVAL_PREFLIGHT_ONLY = "1";
+  env.EVAL_CONTRACT_VERSION = options.contractVersion;
+  env.EVAL_FROZEN_MANIFEST = options.frozenManifestPath;
+  env.EVAL_OUTPUT_DIR = options.outputDirectory;
+  env.EVAL_RUN = "canary";
+  env.EVAL_SOURCE_CODEX_HOME ??= process.env.EVAL_CODEX_HOME;
+  const result = await runBoundedProcess({
+    command: "bash",
+    args: [path.join(root, "scripts", "run-canary.sh")],
+    cwd: root,
+    env,
+    timeoutMs: 20 * 60 * 1000,
+    maximumBytes: 4 * 1024 * 1024,
+  });
+  if (result.error || result.exitCode !== 0 || !result.process_group_reaped) {
+    throw new Error(`mandatory reviewed provider preflight failed: ${result.error ?? result.stderr ?? result.stdout ?? result.exitCode}`);
+  }
+}
+
+async function claimCanaryOnce({
+  ledgerRoot,
+  manifestRawSha256,
+  reviewedCommit,
+  outputDirectory,
+  reviewAttestation,
+}) {
+  if (!sha256Pattern.test(manifestRawSha256)) throw new Error("invalid manifest raw SHA-256 for one-shot claim");
+  if (!commitPattern.test(reviewedCommit)) throw new Error("invalid reviewed commit for one-shot claim");
+  const absoluteRoot = path.resolve(ledgerRoot);
+  await mkdir(absoluteRoot, { recursive: true, mode: 0o700 });
+  const rootMetadata = await lstat(absoluteRoot);
+  if (rootMetadata.isSymbolicLink() || !rootMetadata.isDirectory()) throw new Error("unsafe one-shot ledger root");
+  const ledgerPath = path.join(absoluteRoot, `${OBSERVABLE_CONTRACT_V2}-${manifestRawSha256}.json`);
+  const claim = {
+    version: "ope-24-one-shot-claim-v1",
+    ticket: "OPE-24",
+    status: "started",
+    manifest_raw_sha256: manifestRawSha256,
+    reviewed_commit: reviewedCommit,
+    review_attestation_tag: reviewAttestation.tag_name,
+    review_attestation_object: reviewAttestation.tag_object,
+    output_directory_sha256: sha(path.resolve(outputDirectory)),
+    claimed_at: new Date().toISOString(),
+  };
+  try {
+    await writeFile(ledgerPath, `${JSON.stringify(claim, null, 2)}\n`, { flag: "wx", mode: 0o600 });
+  } catch (error) {
+    if (error.code === "EEXIST") throw new Error(`observable-contract-v2 canary already consumed for manifest ${manifestRawSha256}`);
+    throw error;
+  }
+  return { ...claim, ledger_path: ledgerPath };
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const options = parseCli(process.argv.slice(2));
+  if (options.provider === "codex") {
+    await assertExternalEvidenceDirectory({ repoRoot: repo, outputDirectory: options.outputDirectory });
+  }
   await mkdir(options.outputDirectory, { recursive: true });
   try {
+    const frozenManifestAttestation = options.frozenManifestPath
+      ? await loadFrozenManifest(options.frozenManifestPath)
+      : null;
+    const frozenManifest = frozenManifestAttestation?.manifest ?? null;
+    const manifestContractVersion = frozenManifest?.observable_contract?.version ?? null;
+    if (frozenManifest && manifestContractVersion !== options.contractVersion) {
+      throw new Error("frozen manifest contract version differs from the requested contract version");
+    }
+    if (options.provider === "codex" && options.contractVersion !== OBSERVABLE_CONTRACT_V2) {
+      throw new Error("real provider execution requires observable-contract-v2");
+    }
+    if (options.provider === "codex" && frozenManifestAttestation?.verified !== true) {
+      throw new Error("real provider execution requires a verified frozen manifest");
+    }
+    if (options.provider === "codex") await runMandatoryProviderPreflight(options);
+    const reviewAttestation = frozenManifestAttestation && options.provider === "codex"
+      ? loadReviewAttestation({ repoRoot: repo, manifestAttestation: frozenManifestAttestation })
+      : null;
+    const oneShotClaim = options.provider === "codex"
+      ? await claimCanaryOnce({
+        ledgerRoot: canonicalOneShotLedgerRoot(repo),
+        manifestRawSha256: frozenManifestAttestation.raw_sha256,
+        reviewedCommit: reviewAttestation.reviewed_commit,
+        outputDirectory: options.outputDirectory,
+        reviewAttestation,
+      })
+      : null;
     const runnerOptions = {
       provider: options.provider,
       outputDirectory: options.outputDirectory,
       platformProof: options.platformProof,
+      contractVersion: options.contractVersion,
+      frozenManifest,
+      frozenManifestAttestation,
+      oneShotClaimPath: oneShotClaim?.ledger_path ?? null,
+      reviewAttestation,
+      providerExecutionCapability: options.provider === "codex" ? reviewedCliProviderCapability : null,
     };
     const summary = options.runContract === "complete"
       ? await runCompleteEvaluation(runnerOptions)
@@ -833,6 +1397,8 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   } catch (error) {
     const emergency = {
       outcome: options.runContract === "complete" ? "INVALID_EVAL" : "CANARY_INVALID",
+      certification_status: "terminal-invalid",
+      certified_outcome: options.runContract === "complete" ? "INVALID_EVAL" : "CANARY_INVALID",
       execution_kind: options.runContract === "complete"
         ? options.provider === "codex" ? "real-complete-run" : "deterministic-complete-preflight"
         : options.runContract === "complete-canary"
@@ -842,10 +1408,23 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
       infrastructure_error: String(error.message).slice(0, 2000),
       product_outcome_forbidden: true,
     };
+    let candidateOutcome = null;
     try {
       await writeFile(path.join(options.outputDirectory, "summary.json"), `${JSON.stringify(emergency, null, 2)}\n`, { flag: "wx", mode: 0o600 });
     } catch (writeError) {
       if (writeError.code !== "EEXIST") throw writeError;
+      const candidateSummary = JSON.parse(await readFile(path.join(options.outputDirectory, "summary.json"), "utf8"));
+      candidateOutcome = candidateSummary.outcome ?? null;
+    }
+    const terminal = {
+      ...emergency,
+      certification_status: candidateOutcome === null ? "terminal-invalid" : "invalidated-after-candidate-summary",
+      candidate_outcome: candidateOutcome,
+    };
+    try {
+      await writeFile(path.join(options.outputDirectory, "TERMINAL_STATUS.json"), `${JSON.stringify(terminal, null, 2)}\n`, { flag: "wx", mode: 0o600 });
+    } catch (terminalError) {
+      if (terminalError.code !== "EEXIST") throw terminalError;
     }
     process.stdout.write(`${emergency.outcome}\n`);
     process.exitCode = 1;

@@ -10,6 +10,18 @@ const candidate = await readJson("CANDIDATE.json");
 const review = await readJson("INDEPENDENT_REVIEW.json");
 const summary = await readJson("summary.json");
 const manifest = await readJson("candidate-manifest.json");
+if (manifest.observable_contract?.version === "observable-contract-v2") {
+  if (summary.provider !== "codex") {
+    throw new Error("observable-contract-v2 publication requires provider=codex");
+  }
+  if (summary.certification_status !== "candidate-awaiting-independent-review"
+    || summary.frozen_manifest?.verified !== true
+    || summary.frozen_manifest?.one_shot_claimed !== true
+    || summary.frozen_manifest?.one_shot_consumed !== true
+    || summary.provider_event_evidence?.verified !== true) {
+    throw new Error("observable-contract-v2 publication requires complete reviewed execution attestations");
+  }
+}
 if (!review.passed) throw new Error("independent review did not pass");
 if (review.candidate_checksum_manifest_sha256 !== candidate.checksum_manifest_sha256) throw new Error("independent review differs from candidate");
 if (review.manifest_hash !== candidate.manifest_hash || summary.manifest_hash !== candidate.manifest_hash || manifest.hash !== candidate.manifest_hash) throw new Error("manifest hash differs before finalization");

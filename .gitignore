@@ -3,5 +3,8 @@
 target/
 **/target/
 **/node_modules/
+/prototype/dioxus-components-catalog-eval/generator/node_modules
+/prototype/ecosystem-relative-eval/node_modules
+/prototype/openui-typed-json-product-eval/node_modules
 **/.tmp/
 **/dist/

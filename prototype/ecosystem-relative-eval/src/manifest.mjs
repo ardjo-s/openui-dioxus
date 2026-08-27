@@ -8,14 +8,14 @@ import { fileURLToPath } from "node:url";
 
 import { chromium } from "playwright";
 
-import { buildScenarios } from "../../openui-typed-json-product-eval/src/scenarios.mjs";
 import { IMPLEMENTATION_FOOTPRINT_POLICY } from "./footprint.mjs";
 import { sha, stableJson } from "./hash.mjs";
-import { repairInstruction } from "./provider.mjs";
+import { repairInstruction, repairPromptTemplate } from "./provider.mjs";
 import { routeInstructions, routeUserPrompt } from "./routes.mjs";
 import { DEFAULT_MINIMUM_FREE_BYTES } from "./storage-gate.mjs";
 import { accessibilityContractForSurface } from "./accessibility-contract.mjs";
 import { buildCompleteSchedule, COMPLETE_HUMAN_EVIDENCE_FIELDS } from "./complete-run-contract.mjs";
+import { buildEvaluationScenarios, OBSERVABLE_CONTRACT_V2 } from "./observable-contract-v2-scenarios.mjs";
 
 export { sha, stableJson } from "./hash.mjs";
 
@@ -45,18 +45,21 @@ export async function hashImplementationTree(absoluteRoot = path.join(repo, "pro
   return hashDirectory(absoluteRoot, "prototype/ecosystem-relative-eval", implementationTreeExcluded);
 }
 
-export async function buildCandidateManifest() {
-  const scenarios = await buildScenarios();
+export async function buildCandidateManifest({ contractVersion = null } = {}) {
+  const observableV2 = contractVersion === OBSERVABLE_CONTRACT_V2;
+  if (contractVersion !== null && !observableV2) throw new Error(`unknown manifest contract version: ${contractVersion}`);
+  const scenarios = await buildEvaluationScenarios({ contractVersion });
   const npmPackages = await npmPackageIdentities();
   const cargoPackages = await cargoPackageIdentities();
-  const runtimeUncertain = scenarios.map(({ id, family, variant, shared_prompt }) => ({
+  const runtimeUncertain = scenarios.map(({ id, family, variant, structural_fingerprint, shared_prompt }) => ({
     id,
     family,
     variant,
+    ...(observableV2 ? { structural_fingerprint } : {}),
     prompt_sha256: sha(shared_prompt),
   }));
   const compileKnown = scenarios
-    .filter((scenario) => scenario.variant === 1)
+    .filter((scenario) => observableV2 ? scenario.holdout_variant === 1 : scenario.variant === 1)
     .map(({ id, family, expected, shared_prompt }) => ({
       id: `compile-${id}`,
       source_scenario_id: id,
@@ -74,7 +77,7 @@ export async function buildCandidateManifest() {
     const scenario = byId.get(entry.scenario_id.replace(/^compile-/, ""));
     if (!scenario) throw new Error(`missing prompt scenario: ${entry.scenario_id}`);
     const instructions = routeInstructions(entry.route, scenario);
-    const userPrompt = routeUserPrompt(entry.route, scenario, entry.cohort);
+    const userPrompt = routeUserPrompt(entry.route, scenario, entry.cohort, { contractVersion });
     return {
       prompt_id: entry.prompt_id,
       route: entry.route,
@@ -92,7 +95,7 @@ export async function buildCandidateManifest() {
   const completePromptPack = completeSchedule.map((entry) => {
     const scenario = byId.get(entry.scenario_id.replace(/^compile-/, ""));
     const instructions = routeInstructions(entry.route, scenario);
-    const userPrompt = routeUserPrompt(entry.route, scenario, entry.cohort);
+    const userPrompt = routeUserPrompt(entry.route, scenario, entry.cohort, { contractVersion });
     return {
       prompt_id: entry.prompt_id,
       route: entry.route,
@@ -116,7 +119,7 @@ export async function buildCandidateManifest() {
     diagnostic_payload_included: true,
     previous_output_included: true,
     final_instruction: repairInstruction,
-    template_sha256: sha(`{original}\n\nREPAIR THE PREVIOUS OUTPUT\n\n{output}\n\nVALIDATOR OR COMPILER DIAGNOSTICS\n\n{diagnostics}\n\n${repairInstruction}`),
+    template_sha256: sha(repairPromptTemplate({ contractVersion })),
   };
   const accessibilityContracts = scenarios.map((scenario) => {
     const contract = accessibilityContractForSurface(scenario.expected);
@@ -170,11 +173,30 @@ export async function buildCandidateManifest() {
     rustc: await hashTool(resolveCommand("rustc")),
   };
 
-  return {
-    version: "ope-21-hardened-complete-runner-v1",
-    purpose: "non-decision operational canary",
+  const manifest = {
+    version: observableV2 ? "ope-23-observable-contract-v2-candidate-v1" : "ope-21-hardened-complete-runner-v1",
+    purpose: observableV2 ? "preregistered observable-contract-v2 evaluator candidate" : "non-decision operational canary",
     product_outcome_forbidden: true,
-    preregistration: {
+    preregistration: observableV2 ? {
+      ticket: "OPE-23",
+      prepared_from: "OPE-12 immutable INVALID_EVAL archive at commit 5454b37",
+      provider_calls_authorized: 0,
+      archived_failures_are_regression_only: true,
+      archived_outputs_rescored: false,
+      holdout_selection_uses_prior_route_results: false,
+      unchanged_dimensions: [
+        "provider",
+        "model",
+        "reasoning-effort",
+        "balanced-order",
+        "repair-ceiling",
+        "scoring-thresholds",
+        "source-pins",
+        "trust-controls",
+        "platform-scope",
+        "human-evidence-schema",
+      ],
+    } : {
       ticket: "OPE-21",
       prepared_by: "OPE-20",
       permitted_change: "add the preregistered minimum-free-space gate, shared Cargo target isolation, implementation-tree stability proof, tests, documentation, and derived hashes only",
@@ -509,10 +531,53 @@ export async function buildCandidateManifest() {
     },
     input_hashes: inputHashes,
   };
+  if (observableV2) {
+    manifest.evidence_schema = {
+      version: "ope-23-record-v2",
+      required_record_fields: [
+        ...manifest.evidence_schema.required_record_fields,
+        "evidence_stem",
+        "prompt_id",
+        "prompt_hashes",
+        "provider_invocation_attempted",
+        "provider_process_started",
+        "provider_thread_started",
+        "provider_completed",
+      ],
+    };
+    manifest.observable_contract = {
+      version: OBSERVABLE_CONTRACT_V2,
+      component_coverage: "exact-component-multiset",
+      host_state: "exact-host-semantic-state",
+      route_native_display_data: "read-only-observable-mcp-derived-only",
+      archived_v1_replay_required: true,
+      route_neutral_final_checklist_required: true,
+      symmetric_machine_readable_repair_diagnostics: true,
+      holdout: {
+        structurally_unseen_relative_to_v1: true,
+        structurally_unique_scenarios: 20,
+        structural_fingerprints: runtimeUncertain.map((scenario) => scenario.structural_fingerprint),
+      },
+    };
+    manifest.complete_run.deterministic_preflight = {
+      provider: "fake",
+      expected_route_cells: 80,
+      external_provider_calls: 0,
+      required_before_canary: true,
+    };
+    manifest.canary.allowed_outcomes = ["CANARY_PASS", "CANARY_FAIL", "CANARY_INVALID"];
+    manifest.canary.purpose = "single non-decision observable-contract-v2 canary";
+    manifest.canary.retry_policy = "never retry, extend, replace, or selectively repair after inspection";
+  }
+  return manifest;
 }
 
 export function hashManifest(manifest) {
   return sha(stableJson(manifest));
+}
+
+export function serializeCandidateManifest(manifest) {
+  return Buffer.from(`${JSON.stringify(manifest, null, 2)}\n`);
 }
 
 function schedule(cohort, scenarioId, orderedRoutes) {
@@ -551,7 +616,7 @@ function scenarioRequirementRows(scenario) {
   const requirementPaths = Object.keys(scenario.shared_contract.acceptance).map((key) => `acceptance.${key}`);
   const cohorts = [
     ["runtime-uncertain", only("openui", "typed-json", "json-render")],
-    ...(scenario.variant === 1 ? [["compile-known", allRoutes()]] : []),
+    ...((scenario.holdout_variant ?? scenario.variant) === 1 ? [["compile-known", allRoutes()]] : []),
   ];
   return cohorts.flatMap(([cohort, supported]) => requirementPaths.map((requirementPath) => ({
     ...row(`${cohort}:${scenario.id}:${requirementPath}`, "scenario-shared", supported),

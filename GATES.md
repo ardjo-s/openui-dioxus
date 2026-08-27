@@ -1,5 +1,80 @@
 # Acceptance gates
 
+## OPE-23 observable-contract-v2 hardening
+
+Current state: all preparatory review findings are fixed. Two fresh final
+independent reviews remain before freeze. No evaluation-provider call is
+authorized in this ticket.
+
+- [x] Linear OPE-23 and OPE-24 exist, OPE-24 is blocked by OPE-23, and the
+  isolated branch and worktree are recorded live.
+- [x] The immutable OPE-12 evidence and `INVALID_EVAL` result remain the v1
+  baseline. The 11 rejected outputs may be replayed, never rescored.
+- [x] Focused tests are observed red at the six approved seams: immutable v1
+  replay, v2 exact coverage diagnostics, json-render native-state projection,
+  symmetric repair payload, fresh holdout manifest, and 80-cell fake preflight.
+- [x] `observable-contract-v2` defines an exact component multiset, exact host
+  semantic state, constrained route-native immutable display data, and detailed
+  machine-readable diagnostics without weakening actions, ids, accessibility,
+  replay, or supplied-value coverage.
+- [x] Route-neutral final instructions and repair diagnostics are symmetric for
+  OpenUI, typed JSON, and json-render, with one repair maximum.
+- [ ] A fresh deterministic holdout transform, prompts, scenarios, schedule,
+  thresholds, evidence schemas, implementation-tree hash, and candidate manifest
+  are frozen and hashed before any provider call.
+- [ ] Focused tests, full tests, typecheck, 80-cell fake-provider preflight,
+  archive-integrity checks, credential scan, and diff checks pass.
+- [ ] Two independent read-only reviews cover security/correctness and
+  maintainability/methodology. Every actionable finding is resolved.
+- [ ] Reviewed OPE-23 evidence is committed locally and Linear is synchronized.
+  No push, PR, merge, publication, or provider call occurs in OPE-23.
+
+Current deterministic evidence: 91/91 JavaScript tests, typecheck, explicit
+Dioxus platform-contract test, shell syntax, diff check, full 605-file OPE-12
+archive integrity, and zero provider calls pass. The 4 GiB gate is unchanged;
+only the dedicated evaluation Cargo cache may be cleaned before the immediate
+pre-provider storage check. Canary evidence must remain outside the reviewed
+repository, dependency exceptions are limited to three verified symlinks, and
+independent review recomputes exact schedule, prompt, and repair evidence.
+
+## OPE-24 single Luna-low canary
+
+Current state: blocked by OPE-23.
+
+- [ ] OPE-23 is reviewed and complete, and OPE-24 consumes its exact commit and
+  candidate manifest without methodology or implementation changes.
+- [ ] The exact one-shot schedule, prompt hashes, model `gpt-5.6-luna`, low
+  reasoning, tools-disabled provider settings, call ceiling, wall-time ceiling,
+  storage gate, and evidence paths are frozen before the first provider call.
+- [ ] Exactly one canary executes. It is never retried, extended, replaced, or
+  selectively repaired after inspection.
+- [ ] All attempts and generated evidence are retained and independently
+  verified while OPE-12 remains byte-identical and separate.
+- [ ] The result is only `CANARY_PASS`, `CANARY_FAIL`, or `CANARY_INVALID`.
+  No product verdict or complete evaluation runs in OPE-24.
+- [ ] OPE-24 evidence is committed locally and Linear is synchronized. No push,
+  PR, merge, or publication occurs without separate authorization.
+
+## OPE-12 invalid-cell diagnosis and unbiased continuation
+
+Current state: diagnostic replay in progress. The committed OPE-12 archive and
+its `INVALID_EVAL` verdict remain immutable.
+
+- [x] One fast deterministic command replays the exact final attempt for all 11
+  rejected cells through the frozen validators and reproduces all 11 failures.
+- [x] Every rejection is minimized and classified as model output, prompt,
+  validator, scenario-contract, repair-orchestration, or evidence-runner cause.
+- [x] Ranked falsifiable hypotheses are tested one variable at a time without
+  provider calls and without changing the archived OPE-12 result.
+- [ ] Any correction to evaluation infrastructure has a regression test that
+  fails on the diagnosed pattern before the correction and passes afterward.
+- [ ] Finishing the product evaluation uses a new preregistered continuation or
+  complete rerun with symmetric arms, frozen rules, and all old failures charged.
+- [x] No result is relabelled, no rejected output is manually accepted, no prompt
+  is tuned only against these 11 cells, and no hidden extra repair is introduced.
+- [ ] Verification records exact commands, redacted outputs, changed files, and
+  the remaining unbiased path to a decision-grade verdict.
+
 ## OPE-7 final product verdict
 
 Current state: final review in progress. The only registered outcome supported by

@@ -1,3 +1,4 @@
+import { lstat, realpath } from "node:fs/promises";
 import path from "node:path";
 
 export function resolveSharedCargoTarget({ ambient = process.env, repoRoot, implementationRoot }) {
@@ -20,6 +21,32 @@ export function buildCargoEnvironment(ambient, targetDirectory) {
     EVAL_DIRECT_RSX_TARGET_DIR: targetDirectory,
     OPE11_DIRECT_RSX_TARGET_DIR: targetDirectory,
     OPE11_DIOXUS_TARGET_DIR: targetDirectory,
+  };
+}
+
+export async function assertDedicatedEvaluationCargoTarget({ cacheRoot, targetDirectory }) {
+  const absoluteCacheRoot = path.resolve(cacheRoot);
+  const absoluteTarget = path.resolve(targetDirectory);
+  const [cacheMetadata, targetMetadata] = await Promise.all([
+    lstat(absoluteCacheRoot),
+    lstat(absoluteTarget),
+  ]);
+  if (cacheMetadata.isSymbolicLink() || !cacheMetadata.isDirectory()) {
+    throw new Error("evaluation Cargo cache root must be a real directory");
+  }
+  if (targetMetadata.isSymbolicLink()) throw new Error("evaluation Cargo target must not be a symbolic link");
+  if (!targetMetadata.isDirectory()) throw new Error("evaluation Cargo target must be a directory");
+  const [canonicalCacheRoot, canonicalTarget] = await Promise.all([
+    realpath(absoluteCacheRoot),
+    realpath(absoluteTarget),
+  ]);
+  if (!isWithin(canonicalCacheRoot, canonicalTarget) || canonicalCacheRoot === canonicalTarget) {
+    throw new Error("evaluation Cargo target must remain below the dedicated cache root");
+  }
+  return {
+    verified: true,
+    cache_root: canonicalCacheRoot,
+    target_directory: canonicalTarget,
   };
 }
 

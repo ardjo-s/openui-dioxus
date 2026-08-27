@@ -21,6 +21,7 @@ export function runBoundedProcess({
     let stderr = Buffer.alloc(0);
     let error = null;
     let closed = null;
+    let processStarted = false;
     let terminationStarted = false;
     let terminationComplete = false;
     let timeout;
@@ -33,6 +34,7 @@ export function runBoundedProcess({
       resolve({
         ...closed,
         error,
+        process_started: processStarted,
         stdout: stdout.toString("utf8"),
         stderr: stderr.toString("utf8"),
         process_group_reaped: !groupExists(child.pid),
@@ -60,6 +62,7 @@ export function runBoundedProcess({
 
     child.stdout.on("data", (chunk) => { stdout = append(stdout, chunk); });
     child.stderr.on("data", (chunk) => { stderr = append(stderr, chunk); });
+    child.on("spawn", () => { processStarted = true; });
     child.on("error", (cause) => { error = cause.message; });
     child.on("close", (exitCode, signal) => {
       closed = { exitCode, signal };

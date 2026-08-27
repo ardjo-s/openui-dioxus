@@ -1,16 +1,4 @@
-import { randomUUID } from "node:crypto";
-import {
-  closeSync,
-  mkdirSync,
-  openSync,
-  readFileSync,
-  readSync,
-  statSync,
-  unlinkSync,
-} from "node:fs";
 import path from "node:path";
-
-import { runBoundedProcess } from "./subprocess.mjs";
 
 const disabledFeatures = [
   "shell_tool",
@@ -38,6 +26,9 @@ export class CodexProviderError extends Error {
     output = "",
     outputBytes = 0,
     usage = null,
+    processStarted = false,
+    threadStarted = false,
+    turnCompleted = false,
   } = {}) {
     super(message);
     this.name = "CodexProviderError";
@@ -48,6 +39,9 @@ export class CodexProviderError extends Error {
     this.output = output;
     this.outputBytes = outputBytes;
     this.usage = usage;
+    this.processStarted = processStarted;
+    this.threadStarted = threadStarted;
+    this.turnCompleted = turnCompleted;
   }
 }
 
@@ -89,7 +83,8 @@ export function buildProviderEnvironment({ codexHome, cwd, source = process.env 
 }
 
 export function parseCodexEvents(source) {
-  const events = source.split("\n").filter(Boolean).map((line) => JSON.parse(line));
+  const events = parseEventLines(source);
+  assertLifecycleEventSchemas(events);
   const completed = events.findLast((event) => event.type === "turn.completed");
   if (!completed?.usage) throw new Error("Codex event stream has no turn.completed usage");
   const threadId = events.find((event) => event.type === "thread.started")?.thread_id ?? null;
@@ -115,106 +110,88 @@ export function parseCodexEvents(source) {
   };
 }
 
-export async function generateWithCodex({
-  prompt,
-  outputPath,
-  codexHome,
-  cwd,
-  command = "codex",
-  model = "gpt-5.6-luna",
-  reasoningEffort = "low",
-  maxResponseBytes,
-  timeoutMs = 180_000,
-}) {
-  const temporaryOutput = `${outputPath}.provider-${randomUUID()}`;
-  closeSync(openSync(temporaryOutput, "wx", 0o600));
-  const environment = buildProviderEnvironment({ codexHome, cwd });
-  mkdirSync(environment.TMPDIR, { recursive: true, mode: 0o700 });
-  const started = performance.now();
-  let result;
-  try {
-    result = await runBoundedProcess({
-      command,
-      args: buildCodexArgs({ outputPath: temporaryOutput, model, reasoningEffort }),
-      cwd,
-      env: environment,
-      input: prompt,
-      maximumBytes: 2 * 1024 * 1024,
-      timeoutMs,
-    });
-    const elapsedMs = performance.now() - started;
-    const eventsRaw = result.stdout ?? "";
-    const stderr = result.stderr ?? "";
-    const outputBytes = statSync(temporaryOutput).size;
-    const output = outputBytes > maxResponseBytes
-      ? readPrefix(temporaryOutput, maxResponseBytes)
-      : readFileSync(temporaryOutput, "utf8");
-    const parsed = safeParseEvents(eventsRaw);
-    if (result.error || result.exitCode !== 0 || !result.process_group_reaped) {
-      const detail = String(result.error ?? stderr ?? `exit ${result.exitCode}`).slice(0, 2000);
-      throw new CodexProviderError(`Codex provider failed: ${detail}`, {
-        eventsRaw,
-        stderr,
-        elapsedMs,
-        output,
-        outputBytes,
-        usage: parsed?.usage ?? null,
-        toolActivity: parsed?.toolActivity ?? [],
-      });
+export function inspectCodexEvents(source) {
+  const events = parseEventLines(source);
+  assertLifecycleEventSchemas(events);
+  const threadStarts = positions(events, "thread.started");
+  const completedTurns = positions(events, "turn.completed");
+  return {
+    thread_started: threadStarts.length > 0,
+    turn_completed: completedTurns.length > 0,
+    thread_start_count: threadStarts.length,
+    turn_completed_count: completedTurns.length,
+    ordered: completedTurns.length === 0
+      || (threadStarts.length > 0
+        && threadStarts.at(-1) < completedTurns[0]
+        && completedTurns.at(-1) === events.length - 1),
+  };
+}
+
+export function verifyProviderEventEvidence({ records, eventSources }) {
+  for (const record of records) {
+    if (record.provider_process_started === true && record.provider_invocation_attempted !== true) {
+      throw new Error("provider process start lacks an invocation attempt");
     }
-    if (!parsed) {
-      throw new CodexProviderError("Codex event parsing failed: no completed usage event", {
-        eventsRaw,
-        stderr,
-        elapsedMs,
-        output,
-        outputBytes,
-      });
+    if (record.provider_thread_started === true && record.provider_process_started !== true) {
+      throw new Error("provider thread start lacks a started process");
     }
-    if (parsed.toolActivity.length) {
-      throw new CodexProviderError(`Codex tool activity is forbidden: ${parsed.toolActivity.join(", ")}`, {
-        eventsRaw,
-        stderr,
-        toolActivity: parsed.toolActivity,
-        elapsedMs,
-        output,
-        outputBytes,
-        usage: parsed.usage,
-      });
+    if (record.provider_completed === true && record.provider_thread_started !== true) {
+      throw new Error("provider completion lacks a started thread");
     }
-    return {
-      output,
-      outputBytes,
-      outputTooLarge: outputBytes > maxResponseBytes,
-      elapsedMs,
-      stderr,
-      eventsRaw,
-      ...parsed,
-    };
-  } finally {
-    try {
-      unlinkSync(temporaryOutput);
-    } catch (error) {
-      if (error.code !== "ENOENT") throw error;
+  }
+  const invocations = records.filter((record) => record.provider_invocation_attempted === true);
+  const expectedFiles = invocations.map((record) => `${record.evidence_stem}.jsonl`).sort();
+  const actualFiles = [...eventSources.keys()].sort();
+  if (new Set(expectedFiles).size !== expectedFiles.length
+    || JSON.stringify(expectedFiles) !== JSON.stringify(actualFiles)) {
+    throw new Error("provider event file inventory differs from invocation records");
+  }
+  const counts = { files: actualFiles.length, thread_starts: 0, completed_turns: 0 };
+  for (const record of invocations) {
+    const state = inspectCodexEvents(eventSources.get(`${record.evidence_stem}.jsonl`));
+    if (state.thread_start_count > 1 || state.turn_completed_count > 1) {
+      throw new Error("provider event stream must contain exactly zero or one thread start and completion");
+    }
+    if (!state.ordered) throw new Error("provider event stream is out of order");
+    if (state.thread_started !== (record.provider_thread_started === true)
+      || state.turn_completed !== (record.provider_completed === true)) {
+      throw new Error("provider event stream differs from its invocation record");
+    }
+    counts.thread_starts += state.thread_start_count;
+    counts.completed_turns += state.turn_completed_count;
+  }
+  return counts;
+}
+
+function parseEventLines(source) {
+  return source.split("\n").filter(Boolean).map((line) => JSON.parse(line));
+}
+
+function assertLifecycleEventSchemas(events) {
+  for (const event of events) {
+    if (event?.type === "thread.started"
+      && (typeof event.thread_id !== "string" || event.thread_id.trim().length === 0)) {
+      throw new Error("invalid thread.started event");
+    }
+    if (event?.type === "turn.completed") {
+      const usage = event.usage;
+      if (!usage || typeof usage !== "object" || Array.isArray(usage)) {
+        throw new Error("invalid turn.completed event");
+      }
+      for (const field of ["input_tokens", "cached_input_tokens", "output_tokens"]) {
+        if (!Number.isSafeInteger(usage[field]) || usage[field] < 0) {
+          throw new Error(`invalid turn.completed usage field: ${field}`);
+        }
+      }
+      for (const [field, value] of Object.entries(usage).filter(([field]) => field.endsWith("_tokens"))) {
+        if (!Number.isSafeInteger(value) || value < 0) {
+          throw new Error(`invalid turn.completed usage field: ${field}`);
+        }
+      }
     }
   }
 }
 
-function safeParseEvents(source) {
-  try {
-    return parseCodexEvents(source);
-  } catch {
-    return null;
-  }
-}
-
-function readPrefix(filePath, maxBytes) {
-  const descriptor = openSync(filePath, "r");
-  try {
-    const buffer = Buffer.alloc(maxBytes);
-    const bytesRead = readSync(descriptor, buffer, 0, maxBytes, 0);
-    return buffer.subarray(0, bytesRead).toString("utf8");
-  } finally {
-    closeSync(descriptor);
-  }
+function positions(events, type) {
+  return events.flatMap((event, index) => event.type === type ? [index] : []);
 }

@@ -1,12 +1,15 @@
-import { generateWithCodex } from "./codex-provider.mjs";
-
 import { encodeExpectedRoute } from "./routes.mjs";
+import { OBSERVABLE_CONTRACT_V2 } from "./observable-contract-v2-scenarios.mjs";
 
 const deterministicFailures = new Set([
   "01-validated-profile-v1:openui",
   "02-preferences-v1:typed-json",
   "compile-03-filter-action-v1:direct-rsx",
   "compile-04-status-dialog-v1:json-render",
+  "h01-validated-profile-v1:openui",
+  "h02-preferences-v1:typed-json",
+  "compile-h03-filter-action-v1:direct-rsx",
+  "compile-h04-status-dialog-v1:json-render",
 ]);
 
 export const repairInstruction = "Return one complete corrected output only.";
@@ -28,35 +31,20 @@ export function fakeGenerate({ route, scheduleScenarioId, attempt, scenario }) {
   };
 }
 
-export async function generateRouteOutput({ provider, route, scheduleScenarioId, attempt, scenario, instructions, userPrompt, rawPath, maximumResponseBytes, timeoutMs }) {
-  if (provider === "fake") return fakeGenerate({ route, scheduleScenarioId, attempt, scenario });
-  if (provider !== "codex") throw new Error(`unknown provider: ${provider}`);
-  const codexHome = process.env.EVAL_CODEX_HOME;
-  const cwd = process.env.EVAL_CODEX_WORKDIR;
-  if (!codexHome || !cwd) throw new Error("EVAL_CODEX_HOME and EVAL_CODEX_WORKDIR are required for provider=codex");
-  const result = await generateWithCodex({
-    prompt: ["SYSTEM INSTRUCTIONS", instructions, "USER REQUEST", userPrompt].join("\n\n"),
-    outputPath: rawPath,
-    codexHome,
-    cwd,
-    command: process.env.EVAL_CODEX_BIN ?? "codex",
-    model: "gpt-5.6-luna",
-    reasoningEffort: "low",
-    maxResponseBytes: maximumResponseBytes,
-    timeoutMs: Math.min(Number(process.env.EVAL_CODEX_TIMEOUT_MS ?? 180_000), timeoutMs),
-  });
-  return {
-    output: result.output,
-    provider_ms: result.elapsedMs,
-    usage_source: result.usage.usage_source,
-    provider_usage: result.usage,
-    response_bytes: result.outputBytes,
-    events_raw: result.eventsRaw,
-    stderr: result.stderr,
-  };
-}
-
-export function repairPrompt(original, output, diagnostics) {
+export function repairPrompt(original, output, diagnostics, { contractVersion = null } = {}) {
+  if (contractVersion === OBSERVABLE_CONTRACT_V2) {
+    return [
+      original,
+      "REPAIR THE PREVIOUS OUTPUT",
+      output,
+      "VALIDATOR DIAGNOSTICS",
+      JSON.stringify({
+        contract_version: contractVersion,
+        failed_checks: diagnostics,
+      }),
+      repairInstruction,
+    ].join("\n\n");
+  }
   return [
     original,
     "REPAIR THE PREVIOUS OUTPUT",
@@ -65,4 +53,11 @@ export function repairPrompt(original, output, diagnostics) {
     JSON.stringify(diagnostics),
     repairInstruction,
   ].join("\n\n");
+}
+
+export function repairPromptTemplate({ contractVersion = null } = {}) {
+  if (contractVersion === OBSERVABLE_CONTRACT_V2) {
+    return `{original}\n\nREPAIR THE PREVIOUS OUTPUT\n\n{output}\n\nVALIDATOR DIAGNOSTICS\n\n{"contract_version":"${OBSERVABLE_CONTRACT_V2}","failed_checks":{diagnostics}}\n\n${repairInstruction}`;
+  }
+  return `{original}\n\nREPAIR THE PREVIOUS OUTPUT\n\n{output}\n\nVALIDATOR OR COMPILER DIAGNOSTICS\n\n{diagnostics}\n\n${repairInstruction}`;
 }

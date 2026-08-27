@@ -7,10 +7,13 @@ workspace_root=$(cd "$repo_root/../.." && pwd)
 source_auth_root=${EVAL_SOURCE_CODEX_HOME:-${CODEX_HOME:-$HOME/.codex}}
 codex_command=${EVAL_CODEX_BIN:-codex}
 evaluation_run=${EVAL_RUN:-canary}
+evaluation_contract_version=${EVAL_CONTRACT_VERSION:-}
+frozen_manifest=${EVAL_FROZEN_MANIFEST:-}
+preflight_only=${EVAL_PREFLIGHT_ONLY:-0}
 case "$evaluation_run" in
-  canary) default_output_directory=$eval_root/evidence/candidate-canary ;;
-  complete-canary) default_output_directory=$eval_root/evidence/candidate-complete-canary ;;
-  complete) default_output_directory=$eval_root/evidence/candidate-complete ;;
+  canary) default_output_directory=$workspace_root/.cache/openui-dioxus-eval/evidence/candidate-canary ;;
+  complete-canary) default_output_directory=$workspace_root/.cache/openui-dioxus-eval/evidence/candidate-complete-canary ;;
+  complete) default_output_directory=$workspace_root/.cache/openui-dioxus-eval/evidence/candidate-complete ;;
   *) echo "Unknown canary run contract: $evaluation_run" >&2; exit 2 ;;
 esac
 if [ -n "${EVAL_OUTPUT_DIR:-}" ]; then
@@ -31,6 +34,32 @@ preflight_failure_record=$output_directory/pre-provider-infrastructure.json
 export CARGO_TARGET_DIR="$shared_target_directory"
 export EVAL_SHARED_CARGO_TARGET_DIR="$shared_target_directory"
 
+if [ "$evaluation_contract_version" != "observable-contract-v2" ]; then
+  echo "Real provider execution requires observable-contract-v2" >&2
+  exit 2
+fi
+if [ "$evaluation_run" != "canary" ]; then
+  echo "observable-contract-v2 provider execution is canary-only" >&2
+  exit 2
+fi
+if [ -z "$frozen_manifest" ]; then
+  echo "observable-contract-v2 requires EVAL_FROZEN_MANIFEST" >&2
+  exit 2
+fi
+case "$output_directory" in
+  /*) ;;
+  *) echo "observable-contract-v2 requires an absolute EVAL_OUTPUT_DIR" >&2; exit 2 ;;
+esac
+case "$output_directory" in
+  "$repo_root"|"$repo_root"/*) echo "observable-contract-v2 evidence must remain outside the reviewed repository" >&2; exit 2 ;;
+esac
+if ! node "$eval_root/scripts/check-external-evidence-path.mjs" \
+  --repo "$repo_root" \
+  --output "$output_directory"; then
+  echo "Refusing unsafe observable-contract-v2 evidence path" >&2
+  exit 2
+fi
+
 if [ ! -f "$source_auth_root/auth.json" ]; then
   echo "ChatGPT Codex authentication not found: $source_auth_root/auth.json" >&2
   exit 2
@@ -44,7 +73,7 @@ if find "$output_directory" -mindepth 1 -print -quit | grep -q .; then
   echo "Refusing to overwrite non-empty canary output: $output_directory" >&2
   exit 2
 fi
-if [ -e "$preflight_storage_record" ]; then
+if [ -e "$preflight_storage_record" ] && [ "$preflight_only" != "1" ]; then
   echo "Refusing to append an existing pre-provider storage record: $preflight_storage_record" >&2
   exit 2
 fi
@@ -57,6 +86,29 @@ storage_gate() {
     --record "$preflight_storage_record" \
     --failure "$preflight_failure_record" \
     --minimum "$minimum_free_bytes" >/dev/null
+}
+
+clean_shared_target() {
+  local cache_root=$workspace_root/.cache/openui-dioxus-eval
+  if [ -L "$cache_root" ] || [ ! -d "$cache_root" ]; then
+    echo "Refusing unsafe evaluation Cargo cache root: $cache_root" >&2
+    exit 2
+  fi
+  if [ -L "$shared_target_directory" ] || [ ! -d "$shared_target_directory" ]; then
+    echo "Refusing unsafe evaluation Cargo target: $shared_target_directory" >&2
+    exit 2
+  fi
+  local canonical_cache_root
+  local canonical_target
+  canonical_cache_root=$(cd -P -- "$cache_root" && pwd)
+  canonical_target=$(cd -P -- "$shared_target_directory" && pwd)
+  case "$canonical_target" in
+    "$canonical_cache_root"/*) ;;
+    *) echo "Refusing to clean a non-evaluation Cargo target: $canonical_target" >&2; exit 2 ;;
+  esac
+  cargo clean \
+    --manifest-path "$eval_root/platform/dioxus/Cargo.toml" \
+    --target-dir "$canonical_target" >/dev/null
 }
 
 umask 077
@@ -74,15 +126,25 @@ cd "$eval_root"
 scripts/bootstrap-tools.sh >/dev/null
 storage_gate post-bootstrap
 npm test >/dev/null
+clean_shared_target
 storage_gate post-tests
 npm run typecheck >/dev/null
 storage_gate post-typecheck
 CARGO_TARGET_DIR="$shared_target_directory" cargo test --manifest-path platform/dioxus/Cargo.toml --features ssr --test platform_contract --quiet >/dev/null
+clean_shared_target
 storage_gate post-dioxus-contract
 bash -n platform/dioxus/run-desktop.sh
 storage_gate post-shell-syntax
 
 playwright_browser_root=$(node --input-type=module -e 'import { chromium } from "playwright"; const executable = chromium.executablePath(); const marker = "/chromium-"; const index = executable.indexOf(marker); if (index < 1) process.exit(2); console.log(executable.slice(0, index));')
+
+runner_arguments=(--run "$evaluation_run" --provider codex --output "$output_directory")
+if [ -n "$evaluation_contract_version" ]; then
+  runner_arguments+=(--contract-version "$evaluation_contract_version")
+fi
+if [ -n "$frozen_manifest" ]; then
+  runner_arguments+=(--manifest "$frozen_manifest")
+fi
 
 env -i \
   PATH="$PATH" \
@@ -93,6 +155,10 @@ env -i \
   CODEX_HOME="$evaluation_auth_root" \
   "$codex_command" login status >/dev/null
 storage_gate post-authentication-check
+
+if [ "$preflight_only" = "1" ]; then
+  exit 0
+fi
 
 env -i \
   PATH="$PATH" \
@@ -111,10 +177,12 @@ env -i \
   EVAL_CODEX_HOME="$evaluation_auth_root" \
   EVAL_CODEX_WORKDIR="$evaluation_workdir" \
   EVAL_CODEX_BIN="$codex_command" \
-  node src/run-canary.mjs --run "$evaluation_run" --provider codex --output "$output_directory"
+  node src/run-canary.mjs "${runner_arguments[@]}"
 
 if [ "$evaluation_run" = "complete" ]; then
   jq -e '.outcome == "INVALID_EVAL" and .operational_preflight_passed == true' "$output_directory/summary.json" >/dev/null
+elif [ "$evaluation_contract_version" = "observable-contract-v2" ]; then
+  test "$(jq -r '.outcome' "$output_directory/summary.json")" = "CANARY_PASS"
 else
   test "$(jq -r '.outcome' "$output_directory/summary.json")" = "PASS"
 fi

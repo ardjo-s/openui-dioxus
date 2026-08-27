@@ -1,11 +1,12 @@
 import assert from "node:assert/strict";
-import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, rm, symlink, writeFile } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 import {
   buildCargoEnvironment,
+  assertDedicatedEvaluationCargoTarget,
   resolveSharedCargoTarget,
   verifyImplementationTreeStability,
 } from "../src/build-isolation.mjs";
@@ -44,6 +45,27 @@ test("all generated Rust routes receive the same explicit Cargo target", () => {
     OPE11_DIRECT_RSX_TARGET_DIR: target,
     OPE11_DIOXUS_TARGET_DIR: target,
   });
+});
+
+test("evaluation Cargo cleanup rejects symlinked targets", async () => {
+  await mkdir(temporaryRoot, { recursive: true });
+  const fixtureRoot = await mkdtemp(path.join(temporaryRoot.pathname, "cargo-clean-boundary-"));
+  const cacheRoot = path.join(fixtureRoot, "evaluation-cache");
+  const targetDirectory = path.join(cacheRoot, "cargo-target");
+  const outsideTarget = path.join(fixtureRoot, "outside-target");
+  try {
+    await mkdir(targetDirectory, { recursive: true });
+    assert.equal((await assertDedicatedEvaluationCargoTarget({ cacheRoot, targetDirectory })).verified, true);
+    await rm(targetDirectory, { recursive: true });
+    await mkdir(outsideTarget);
+    await symlink(outsideTarget, targetDirectory);
+    await assert.rejects(
+      () => assertDedicatedEvaluationCargoTarget({ cacheRoot, targetDirectory }),
+      /must not be a symbolic link/u,
+    );
+  } finally {
+    await rm(fixtureRoot, { recursive: true, force: true });
+  }
 });
 
 test("manifest-stability seam detects an injected root build artifact", async () => {

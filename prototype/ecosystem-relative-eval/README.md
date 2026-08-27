@@ -1,6 +1,11 @@
-# OPE-11 ecosystem-relative evaluation canary
+# OPE-23 observable-contract-v2 evaluation canary
 
-This prototype is the operational gate between the OPE-9 evaluation design and the complete OPE-12 evidence run. It cannot produce a product verdict. Its only outcomes are `PASS` and `CANARY_INVALID`.
+This prototype hardens the operational gate after the immutable OPE-12
+`INVALID_EVAL` run. It cannot produce a product verdict. A real v2 canary emits
+only `CANARY_PASS`, `CANARY_FAIL`, or `CANARY_INVALID`. A deterministic fake v2
+canary is always non-certifying `CANARY_INVALID` evidence. A deterministic fake
+complete preflight remains `INVALID_EVAL` until human evidence exists. Neither
+fake contract creates `PUBLICATION.json`.
 
 ## Compared routes
 
@@ -48,18 +53,29 @@ npm test
 npm run typecheck
 npm run preflight
 npm run preflight:complete
+npm run freeze:v2 -- --output ../../docs/evaluation/ope-23-observable-contract-v2-candidate.json
+EVAL_CONTRACT_VERSION=observable-contract-v2 \
+EVAL_FROZEN_MANIFEST=/absolute/path/to/ope-23-observable-contract-v2-candidate.json \
+EVAL_OUTPUT_DIR=/Users/ardjo/CODE/.cache/openui-dioxus-eval/evidence/ope24-canary \
 npm run canary
-npm run canary:complete
-npm run run:complete
 npm run finalize:complete -- --evidence-dir evidence/candidate-complete --human-evidence human-evidence.json --human-assets human-assets/
-node scripts/verify-evidence.mjs evidence/candidate-canary
+node scripts/verify-evidence.mjs /Users/ardjo/CODE/.cache/openui-dioxus-eval/evidence/ope24-canary
 ```
 
 `npm run preflight` uses deterministic fake outputs and executes the same generated-output Web and Desktop proof path. Unit tests may use frozen reference proofs, but those runs are never promotable.
 
-`npm run canary` requires an existing ChatGPT Codex login. The wrapper creates an isolated temporary Codex home, links only `auth.json`, removes OpenAI API environment variables, disables tools, and starts one ephemeral Codex process per attempt with `gpt-5.6-luna` and low reasoning.
+`npm run canary` requires an existing ChatGPT Codex login, the exact frozen v2
+manifest and sidecar, the reviewed OPE-23 commit and annotated tag, and an
+absolute evidence directory outside the repository. The wrapper creates an
+isolated temporary Codex home, links only `auth.json`, removes OpenAI API
+environment variables, disables tools, and starts one ephemeral Codex process
+per attempt with `gpt-5.6-luna` and low reasoning. The reviewed CLI repeats the
+mandatory preflight before it creates the one-shot claim. It never accepts a
+claim path from the environment or a public helper.
 
-The default real output is `evidence/candidate-canary/`. The runner refuses to overwrite a non-empty output directory.
+The default real output is
+`/Users/ardjo/CODE/.cache/openui-dioxus-eval/evidence/candidate-canary/`. The
+runner rejects in-repository, symbolic-link, or non-empty output directories.
 
 ## Complete-run contract
 
@@ -77,7 +93,10 @@ packets bind both Web and per-Surface Desktop captures. Reference-only
 preflights mark their packet assets as placeholders and cannot be promoted as
 human review evidence.
 
-`npm run canary:complete` is the OPE-20 representative subset. It uses eight
+The former complete-provider commands are not active under
+`observable-contract-v2`. The real-provider wrapper is canary-only until a
+separate reviewed ticket explicitly authorizes a complete run. The historical
+OPE-20 representative subset used eight
 cells copied from the exact 80-cell schedule, spans both cohorts and all four
 routes, and runs the generated-output platform orchestration. Its outer outcome
 is `PASS` only when generation passes and the nested complete-run finalizer
@@ -85,8 +104,8 @@ correctly remains `INVALID_EVAL` because real human and assistive-technology
 evidence is absent. A passing canary promotes only the byte-identical OPE-19
 manifest.
 
-`npm run run:complete` executes the complete 80-cell provider run through the
-same isolated Codex wrapper as the canaries. Human
+The historical complete-run contract executes the complete 80-cell provider run
+through the same isolated Codex boundary only after separate authorization. Human
 and assistive-technology evidence is collected afterward, then
 `finalize:complete` validates and hash-chains it onto the frozen generation
 archive without a second provider run. Every blinded reviewer record must bind

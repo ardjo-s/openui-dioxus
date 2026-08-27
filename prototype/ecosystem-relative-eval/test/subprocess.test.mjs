@@ -22,10 +22,25 @@ test("bounded subprocess kills and reaps the full descendant process group", asy
     });
 
     assert.match(result.error, /exceeded 50 ms/);
+    assert.equal(result.process_started, true);
     assert.equal(result.process_group_reaped, true);
     await new Promise((resolve) => setTimeout(resolve, 2_100));
     await assert.rejects(access(marker));
   } finally {
     await rm(directory, { recursive: true, force: true });
   }
+});
+
+test("bounded subprocess distinguishes a missing executable from a started process", async () => {
+  const result = await runBoundedProcess({
+    command: "/definitely/missing/openui-dioxus-provider",
+    args: [],
+    cwd: new URL("..", import.meta.url),
+    env: { PATH: process.env.PATH },
+    timeoutMs: 1_000,
+    maximumBytes: 1_024,
+  });
+
+  assert.equal(result.process_started, false);
+  assert.match(result.error, /ENOENT/u);
 });
