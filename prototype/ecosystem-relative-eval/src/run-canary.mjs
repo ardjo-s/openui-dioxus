@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { spawnSync } from "node:child_process";
-import { lstat, mkdir, open, readFile, readdir, writeFile } from "node:fs/promises";
+import { lstat, mkdir, open, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
@@ -8,6 +8,7 @@ import { fileURLToPath } from "node:url";
 import { get_encoding } from "tiktoken";
 
 import { verifySecondCatalogFixtures } from "./catalog-fixtures.mjs";
+import { resolveSharedCargoTarget } from "./build-isolation.mjs";
 import { buildBlindedPackets, finalizeDecisionGrade, scanPacketLeaks } from "./complete-run-contract.mjs";
 import { boundedTimeout } from "./deadline.mjs";
 import { CANDIDATE_MARKER, PUBLICATION_MARKER } from "./evidence-publication.mjs";
@@ -21,6 +22,7 @@ import { executeGeneratedPlatformProofs } from "./platform-runner.mjs";
 import { generateRouteOutput, repairPrompt } from "./provider.mjs";
 import { routeExtension, validateRoute } from "./routes.mjs";
 import { assertDecisionNeutral, createForbiddenProductScorer, scanEvidenceDirectory, scanProviderPayload, scanPublicationPayloads } from "./security.mjs";
+import { minimumFreeBytesFromEnvironment, recordStorageGate } from "./storage-gate.mjs";
 import { runBoundedProcess } from "./subprocess.mjs";
 import { buildScenarios } from "../../openui-typed-json-product-eval/src/scenarios.mjs";
 
@@ -61,6 +63,7 @@ async function runEvaluation({ provider, outputDirectory, platformProof = provid
   const contractLabel = contractKey === "complete_canary" ? "complete_run.harness_canary" : contractKey;
   const manifestHash = hashManifest(manifest);
   const deadlineMs = started + runContract.maximum_wall_time_ms;
+  const sharedCargoTarget = resolveSharedCargoTarget({ ambient: process.env, repoRoot: repo, implementationRoot: root });
   await writeJson(path.join(outputDirectory, "candidate-manifest.json"), { ...manifest, hash: manifestHash });
   await writeFile(path.join(outputDirectory, "candidate-manifest.sha256"), `${manifestHash}\n`, { flag: "wx", mode: 0o600 });
   const ope3Import = await verifyOpe3Archive();
@@ -70,9 +73,19 @@ async function runEvaluation({ provider, outputDirectory, platformProof = provid
   const records = [];
   const scanFindings = [];
   let providerError = null;
+  const preProviderStorage = provider === "codex"
+    ? await capturePreProviderStorage({ outputDirectory, sharedCargoTarget })
+    : {
+      required: false,
+      passed: true,
+      provider_attempts: 0,
+      reason: "fake provider performs no external call or generated platform proof",
+      checks: [],
+    };
+  if (!preProviderStorage.passed) providerError = "pre-provider storage gate failed before the first provider call";
 
   try {
-    for (const cell of runContract.schedule) {
+    for (const cell of providerError ? [] : runContract.schedule) {
       if (performance.now() - started > runContract.maximum_wall_time_ms) {
         providerError = "run wall-time ceiling reached before next call";
         break;
@@ -309,6 +322,7 @@ async function runEvaluation({ provider, outputDirectory, platformProof = provid
     && runtimeDiffLines === 0
     && scanFindings.length === 0
     && treeScanFindings.length === 0
+    && preProviderStorage.passed
     && reviewPacketError === null
     && (!completeStage || (reviewPackets.length === finalRecords.length && packetLeakFindings.length === 0))
     && productScorerAccessCount === 0;
@@ -328,9 +342,12 @@ async function runEvaluation({ provider, outputDirectory, platformProof = provid
   let outcome = contractKey === "complete_run"
     ? finalization.outcome
     : operationalPreflightPassed && (contractKey !== "complete_canary" || completeCanaryHumanBlockProved) ? "PASS" : "CANARY_INVALID";
+  const preProviderInfrastructureAbort = provider === "codex" && !preProviderStorage.passed && records.length === 0;
   const summary = {
     outcome,
-    execution_kind: completeStage
+    execution_kind: preProviderInfrastructureAbort
+      ? "pre-provider-infrastructure-abort"
+      : completeStage
       ? contractKey === "complete_canary"
         ? provider === "fake" ? "deterministic-complete-canary" : "real-complete-canary"
         : provider === "fake" ? "deterministic-complete-preflight" : "real-complete-run"
@@ -339,6 +356,8 @@ async function runEvaluation({ provider, outputDirectory, platformProof = provid
     provider,
     model: manifest.provider.model,
     reasoning_effort: manifest.provider.reasoning_effort,
+    pre_provider_storage: preProviderStorage,
+    pre_provider_infrastructure_abort: preProviderInfrastructureAbort,
     manifest_hash: manifestHash,
     manifest_promoted: contractKey !== "complete_run" && outcome === "PASS" && provider === "codex" && platformProof === "generated",
     operational_preflight_passed: operationalPreflightPassed,
@@ -376,6 +395,7 @@ async function runEvaluation({ provider, outputDirectory, platformProof = provid
     canonical_runtime_behavior_diff_lines: runtimeDiffLines,
     trust_controls: {
       pre_provider_scan_findings: scanFindings.length,
+      pre_provider_storage_passed: preProviderStorage.passed,
       publication_credential_scan_findings: treeScanFindings.length,
       generated_output_execution: {
         openui: "validated-data-only",
@@ -423,18 +443,52 @@ async function runEvaluation({ provider, outputDirectory, platformProof = provid
   await writeFile(path.join(outputDirectory, "REPORT.md"), reportText, { flag: "wx", mode: 0o600 });
   const checksumManifestSha256 = await writeChecksums(outputDirectory);
   await writeJson(path.join(outputDirectory, CANDIDATE_MARKER), {
-    status: contractKey === "complete_run"
+    status: preProviderInfrastructureAbort
+      ? "pre-provider-infrastructure-failure"
+      : contractKey === "complete_run"
       ? outcome === "READY_FOR_REVIEW" ? "ready-for-independent-review" : "awaiting-human-evidence"
       : "awaiting-independent-review",
     outcome,
     manifest_hash: manifestHash,
     checksum_manifest_sha256: checksumManifestSha256,
   });
-  if (contractKey !== "complete_run") {
+  if (contractKey !== "complete_run" && !preProviderInfrastructureAbort) {
     await runPublicationStep("review-evidence.mjs", outputDirectory, deadlineMs);
     await runPublicationStep("finalize-evidence.mjs", outputDirectory, deadlineMs);
   }
   return summary;
+}
+
+async function capturePreProviderStorage({ outputDirectory, sharedCargoTarget }) {
+  const externalRecordPath = process.env.EVAL_PRE_PROVIDER_GATE_LOG
+    ? path.resolve(process.env.EVAL_PRE_PROVIDER_GATE_LOG)
+    : null;
+  const archivedRecordPath = path.join(outputDirectory, "pre-provider-storage-gates.jsonl");
+  const recordPath = externalRecordPath ?? archivedRecordPath;
+  const latest = await recordStorageGate({
+    evidenceDirectory: outputDirectory,
+    targetDirectory: sharedCargoTarget,
+    stage: "pre-first-provider-call",
+    minimumFreeBytes: minimumFreeBytesFromEnvironment(),
+    recordPath,
+    failurePath: path.join(outputDirectory, "pre-provider-infrastructure.json"),
+  });
+  const source = await readFile(recordPath, "utf8");
+  if (externalRecordPath) {
+    await writeFile(archivedRecordPath, source, { flag: "wx", mode: 0o600 });
+    await rm(externalRecordPath);
+  }
+  const checks = source.trim().split("\n").filter(Boolean).map(JSON.parse);
+  return {
+    required: true,
+    passed: latest.passed && checks.every((check) => check.passed),
+    provider_attempts: 0,
+    minimum_free_bytes: latest.minimum_free_bytes,
+    shared_cargo_target: sharedCargoTarget,
+    record_count: checks.length,
+    records_sha256: sha(source),
+    checks,
+  };
 }
 
 async function runPublicationStep(script, outputDirectory, deadlineMs) {
@@ -660,6 +714,7 @@ function report(summary) {
     `Execution: ${summary.execution_kind}`,
     `Route cells: ${summary.route_cells}/${summary.expected_route_cells}`,
     `Provider calls: ${summary.calls}/${summary.maximum_calls}`,
+    `Pre-provider storage: ${summary.pre_provider_storage.passed ? "passed" : "failed"}`,
     `Manifest: ${summary.manifest_hash}`,
     `Frozen OPE-3 import: ${summary.ope3_import.verified ? "verified" : "failed"}`,
     `Second catalog fixtures: ${summary.second_catalog.verified ? "verified" : "failed"}`,

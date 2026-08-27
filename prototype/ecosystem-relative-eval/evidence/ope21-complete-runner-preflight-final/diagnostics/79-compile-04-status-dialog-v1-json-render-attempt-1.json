@@ -1,0 +1,10 @@
+{
+  "ok": false,
+  "diagnostics": [
+    {
+      "code": "invalid-stream-line",
+      "path": "line:1",
+      "message": "not one official JSON Patch operation"
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+root = Toolbar("filter_toolbar", "horizontal", [Select("role_select", "Role · variant 2", "role_filter", ["All", "Admin", "Member"], "Admin"), Button("filter_button", "Apply · variant 2", "ApplyFilter", "people")])

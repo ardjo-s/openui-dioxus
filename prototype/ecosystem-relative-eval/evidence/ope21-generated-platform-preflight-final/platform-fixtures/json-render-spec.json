@@ -1,0 +1,153 @@
+{
+  "provenance": {
+    "manifest_hash": "8aedc364174450ec8ed4a157ab16c9881d69522b32ec65488e19946892b5bb07",
+    "source_records": [
+      {
+        "route": "json-render",
+        "scenario_id": "02-preferences-v1",
+        "attempt": 1,
+        "raw_sha256": "370be27d12c24aec4399ccca74ca79876104ab0057804849fba1f49fea9fab4f",
+        "platform_artifact_sha256": "edf783c352e60aee741a36ccd0d2abfbe14ddfe2f871cb6c0614d908c3d7c62a"
+      },
+      {
+        "route": "json-render",
+        "scenario_id": "04-status-dialog-v1",
+        "attempt": 2,
+        "raw_sha256": "4a3a8864e7ee51e26c54df34fb47e71a9fa0d57a72552c21e838f743eb47f0c5",
+        "platform_artifact_sha256": "f4dd1c3e862a5570f60a0313eae0745df655e44fe981c2daebbe73e27a49591e"
+      }
+    ],
+    "binding_sha256": "056b248da0f27a9691c57dffa565a640204e5a4292e1c6c1d34c70aa72bd126d"
+  },
+  "entries": [
+    {
+      "cohort": "runtime-uncertain",
+      "schedule_scenario_id": "02-preferences-v1",
+      "scenario_id": "02-preferences-v1",
+      "family": "preferences",
+      "spec": {
+        "root": "preferences_toolbar",
+        "elements": {
+          "preferences_toolbar": {
+            "type": "Toolbar",
+            "props": {
+              "id": "preferences_toolbar",
+              "orientation": "vertical"
+            },
+            "children": [
+              "notifications_switch",
+              "terms_checkbox",
+              "preferences_button"
+            ]
+          },
+          "notifications_switch": {
+            "type": "Switch",
+            "props": {
+              "id": "notifications_switch",
+              "label": "Enable notifications · variant 1",
+              "state_key": "notifications_enabled",
+              "checked": {
+                "$bindState": "/notifications_enabled"
+              }
+            },
+            "children": []
+          },
+          "terms_checkbox": {
+            "type": "Checkbox",
+            "props": {
+              "id": "terms_checkbox",
+              "label": "Accept terms · variant 1",
+              "state_key": "terms_accepted",
+              "checked": {
+                "$bindState": "/terms_accepted"
+              }
+            },
+            "children": []
+          },
+          "preferences_button": {
+            "type": "Button",
+            "props": {
+              "id": "preferences_button",
+              "label": "Save preferences · variant 1"
+            },
+            "children": [],
+            "on": {
+              "press": {
+                "action": "ApplyFilter",
+                "params": {
+                  "target_id": "preferences"
+                }
+              }
+            }
+          }
+        },
+        "state": {
+          "notifications_enabled": true,
+          "terms_accepted": false
+        }
+      }
+    },
+    {
+      "cohort": "compile-known",
+      "schedule_scenario_id": "compile-04-status-dialog-v1",
+      "scenario_id": "04-status-dialog-v1",
+      "family": "status-dialog",
+      "spec": {
+        "root": "progress_toolbar",
+        "elements": {
+          "progress_toolbar": {
+            "type": "Toolbar",
+            "props": {
+              "id": "progress_toolbar",
+              "orientation": "vertical"
+            },
+            "children": [
+              "sync_dialog"
+            ]
+          },
+          "sync_dialog": {
+            "type": "Dialog",
+            "props": {
+              "id": "sync_dialog",
+              "title": "Syncing workspace · variant 1",
+              "open_state_key": "dialog_open"
+            },
+            "children": [
+              "sync_progress",
+              "sync_button"
+            ]
+          },
+          "sync_progress": {
+            "type": "Progress",
+            "props": {
+              "id": "sync_progress",
+              "label": "Sync progress · variant 1",
+              "value": 20,
+              "max": 100
+            },
+            "children": []
+          },
+          "sync_button": {
+            "type": "Button",
+            "props": {
+              "id": "sync_button",
+              "label": "Acknowledge sync · variant 1"
+            },
+            "children": [],
+            "on": {
+              "press": {
+                "action": "ApplyFilter",
+                "params": {
+                  "target_id": "sync"
+                }
+              }
+            }
+          }
+        },
+        "state": {
+          "dialog_open": true
+        }
+      }
+    }
+  ]
+}

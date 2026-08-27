@@ -1,0 +1,55 @@
+{
+  "platform": "web",
+  "routes": [
+    "openui",
+    "typed-json"
+  ],
+  "surface_count": 4,
+  "manifest_hash": "8aedc364174450ec8ed4a157ab16c9881d69522b32ec65488e19946892b5bb07",
+  "binding_sha256": "12c0cdb89b27727c81c60e76849f1b58e994176ae9e1cde83cc2db017525b58f",
+  "passed": true,
+  "state_action_update_replay": true,
+  "accessibility_contract_version": "ope-15-route-neutral-patterns-v1",
+  "keyboard_operable": true,
+  "focus_visible": true,
+  "feedback_announced": true,
+  "host_receipt_outside_component_coverage": true,
+  "semantic_patterns_verified": true,
+  "accessibility_blocking_findings": 0,
+  "screenshots": [
+    "dioxus-web-1.png",
+    "dioxus-web-2.png",
+    "dioxus-web-3.png",
+    "dioxus-web-4.png"
+  ],
+  "artifacts": [
+    {
+      "route": "openui",
+      "cohort": "runtime-uncertain",
+      "schedule_scenario_id": "01-validated-profile-v1",
+      "scenario_id": "01-validated-profile-v1",
+      "screenshot": "dioxus-web-1.png"
+    },
+    {
+      "route": "typed-json",
+      "cohort": "runtime-uncertain",
+      "schedule_scenario_id": "01-validated-profile-v1",
+      "scenario_id": "01-validated-profile-v1",
+      "screenshot": "dioxus-web-2.png"
+    },
+    {
+      "route": "typed-json",
+      "cohort": "runtime-uncertain",
+      "schedule_scenario_id": "02-preferences-v1",
+      "scenario_id": "02-preferences-v1",
+      "screenshot": "dioxus-web-3.png"
+    },
+    {
+      "route": "openui",
+      "cohort": "compile-known",
+      "schedule_scenario_id": "compile-03-filter-action-v1",
+      "scenario_id": "03-filter-action-v1",
+      "screenshot": "dioxus-web-4.png"
+    }
+  ]
+}

@@ -3,12 +3,15 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { boundedTimeout } from "./deadline.mjs";
+import { buildCargoEnvironment, resolveSharedCargoTarget } from "./build-isolation.mjs";
 import { runBoundedProcess } from "./subprocess.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
+const root = path.resolve(here, "..");
 const repo = path.resolve(here, "../../..");
 const catalog = path.join(repo, "prototype/dioxus-components-catalog-eval");
-const binary = path.join(catalog, "target/debug/catalog-normalize");
+const sharedTarget = resolveSharedCargoTarget({ ambient: process.env, repoRoot: repo, implementationRoot: root });
+const binary = path.join(sharedTarget, "debug/catalog-normalize");
 let ready = false;
 
 export async function ensureNormalizer(deadlineMs = Number.POSITIVE_INFINITY) {
@@ -17,7 +20,7 @@ export async function ensureNormalizer(deadlineMs = Number.POSITIVE_INFINITY) {
     command: "cargo",
     args: ["build", "--quiet", "--manifest-path", path.join(catalog, "Cargo.toml"), "--bin", "catalog-normalize"],
     cwd: repo,
-    env: process.env,
+    env: buildCargoEnvironment(process.env, sharedTarget),
     timeoutMs: boundedTimeout(deadlineMs, 180_000, "catalog normalizer build"),
     maximumBytes: 4 * 1024 * 1024,
   });

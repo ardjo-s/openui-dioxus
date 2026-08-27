@@ -8,6 +8,7 @@ import { buildCandidateManifest, hashManifest } from "../src/manifest.mjs";
 
 const priorEvidence = new URL("../evidence/ope16-canary-9572c9b-final/", import.meta.url);
 const promotedOpe18Evidence = new URL("../evidence/ope18-canary-a3f895f-final/", import.meta.url);
+const invalidOpe20Evidence = new URL("../evidence/ope20-complete-canary-84e30b4-final/", import.meta.url);
 
 test("OPE-19 preserves the promoted OPE-18 evidence byte for byte", async () => {
   assert.equal((await readFile(new URL("candidate-manifest.sha256", promotedOpe18Evidence), "utf8")).trim(), "9623a1457dee64555a2595cd878ddf7a7d13187747206a0ad7c1554b1208190e");
@@ -49,16 +50,59 @@ test("OPE-17 changes only the preregistered rendered-receipt methodology", async
   ]) assert.deepEqual(current.canary[key], prior.canary[key], `canary.${key}`);
 });
 
-test("candidate manifest preserves the OPE-18 canary and freezes the OPE-19 complete runner", async () => {
+test("candidate manifest preserves OPE-20 semantics and freezes OPE-21 execution hardening", async () => {
   const manifest = await buildCandidateManifest();
+  const ope20 = JSON.parse(await readFile(new URL("candidate-manifest.json", invalidOpe20Evidence), "utf8"));
 
-  assert.equal(manifest.version, "ope-19-complete-runner-v1");
-  assert.equal(manifest.preregistration.ticket, "OPE-19");
-  assert.equal(manifest.preregistration.prepared_by, "OPE-18");
-  assert.equal(manifest.preregistration.prior_candidate.outcome, "PASS");
-  assert.equal(manifest.preregistration.prior_candidate.source_commit, "a3f895f");
-  assert.equal(manifest.preregistration.prior_candidate.evidence_commit, "6681f02");
-  assert.equal(manifest.preregistration.prior_candidate.manifest_sha256, "9623a1457dee64555a2595cd878ddf7a7d13187747206a0ad7c1554b1208190e");
+  assert.equal(manifest.version, "ope-21-hardened-complete-runner-v1");
+  assert.equal(manifest.preregistration.ticket, "OPE-21");
+  assert.equal(manifest.preregistration.prepared_by, "OPE-20");
+  assert.equal(manifest.preregistration.prior_candidate.outcome, "CANARY_INVALID");
+  assert.equal(manifest.preregistration.prior_candidate.source_commit, "84e30b4");
+  assert.equal(manifest.preregistration.prior_candidate.evidence_commit, "32f5925");
+  assert.equal(manifest.preregistration.prior_candidate.manifest_sha256, "1973db76a604ed0e4378e0fc0e0775be8f29e9cc8ba957599a0c17870bd4a3e3");
+  assert.deepEqual(manifest.execution_hardening, {
+    version: "ope-21-storage-and-build-isolation-v1",
+    minimum_free_bytes: 4 * 1024 ** 3,
+    minimum_free_gib: 4,
+    gate_stages: [
+      "post-bootstrap",
+      "post-tests",
+      "post-typecheck",
+      "post-dioxus-contract",
+      "post-shell-syntax",
+      "post-authentication-check",
+      "pre-first-provider-call",
+    ],
+    insufficient_space_provider_attempts: 0,
+    shared_cargo_target_outside_repository: true,
+    root_build_target_forbidden: true,
+    implementation_tree_stability_required: true,
+  });
+  const wrapper = await readFile(new URL("../scripts/run-canary.sh", import.meta.url), "utf8");
+  assert.deepEqual(
+    [...wrapper.matchAll(/^storage_gate ([a-z-]+)$/gm)].map((match) => match[1]),
+    manifest.execution_hardening.gate_stages.filter((stage) => stage !== "pre-first-provider-call"),
+  );
+  assert.match(wrapper, /export CARGO_TARGET_DIR="\$shared_target_directory"/);
+  for (const key of [
+    "accessibility_contract",
+    "canary",
+    "cohorts",
+    "complete_run",
+    "evidence_schema",
+    "measurement_policy",
+    "product_outcome_forbidden",
+    "provider",
+    "purpose",
+    "rates",
+    "requirement_applicability",
+    "review_plan",
+    "scoring_thresholds",
+    "source_pins",
+    "stage_scope",
+    "trust_controls",
+  ]) assert.deepEqual(manifest[key], ope20[key], `OPE-20 semantic field: ${key}`);
   assert.equal(manifest.accessibility_contract.version, "ope-15-route-neutral-patterns-v1");
   assert.equal(manifest.accessibility_contract.ownership.nested_component_roots_excluded, true);
   assert.equal(manifest.accessibility_contract.ownership.host_receipts_excluded, true);
@@ -105,7 +149,7 @@ test("candidate manifest preserves the OPE-18 canary and freezes the OPE-19 comp
   assert.deepEqual(manifest.complete_run.harness_canary.allowed_outcomes, ["PASS", "CANARY_INVALID"]);
   const completePairs = new Set(manifest.complete_run.schedule.map((entry) => `${entry.cohort}:${entry.scenario_id}:${entry.route}:${entry.prompt_id}`));
   assert.ok(manifest.complete_run.harness_canary.schedule.every((entry) => completePairs.has(`${entry.cohort}:${entry.scenario_id}:${entry.route}:${entry.prompt_id}`)));
-  assert.match(manifest.input_hashes.ope19_preregistration.sha256, /^[a-f0-9]{64}$/);
+  assert.match(manifest.input_hashes.ope21_preregistration.sha256, /^[a-f0-9]{64}$/);
   assert.deepEqual(
     [...new Set(manifest.canary.schedule.map((entry) => entry.route))].sort(),
     ["direct-rsx", "json-render", "openui", "typed-json"],

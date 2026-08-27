@@ -1,0 +1,8 @@
+
+> openui-dioxus-ecosystem-relative-eval@0.0.0 platform:dioxus:web
+> playwright test --config platform/dioxus/playwright.config.mjs
+
+
+Running 1 test using 1 worker
+·
+  1 passed (9.1s)

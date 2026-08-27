@@ -13,6 +13,7 @@ import { IMPLEMENTATION_FOOTPRINT_POLICY } from "./footprint.mjs";
 import { sha, stableJson } from "./hash.mjs";
 import { repairInstruction } from "./provider.mjs";
 import { routeInstructions, routeUserPrompt } from "./routes.mjs";
+import { DEFAULT_MINIMUM_FREE_BYTES } from "./storage-gate.mjs";
 import { accessibilityContractForSurface } from "./accessibility-contract.mjs";
 import { buildCompleteSchedule, COMPLETE_HUMAN_EVIDENCE_FIELDS } from "./complete-run-contract.mjs";
 
@@ -31,6 +32,18 @@ const comparedPairs = [
   ["json-render", "direct-rsx"],
 ];
 const toolHashCache = new Map();
+const implementationTreeExcluded = new Set([
+  ".tmp",
+  "evidence",
+  "node_modules",
+  "platform/dioxus/target",
+  "platform/react/dist",
+  "prototype",
+]);
+
+export async function hashImplementationTree(absoluteRoot = path.join(repo, "prototype/ecosystem-relative-eval")) {
+  return hashDirectory(absoluteRoot, "prototype/ecosystem-relative-eval", implementationTreeExcluded);
+}
 
 export async function buildCandidateManifest() {
   const scenarios = await buildScenarios();
@@ -110,6 +123,7 @@ export async function buildCandidateManifest() {
     return { scenario_id: scenario.id, sha256: sha(stableJson(contract)), contract };
   });
   const inputHashes = await hashInputs({
+    ope21_preregistration: "docs/evaluation/ope-21-disk-manifest-hardening-preregistration.md",
     ope19_preregistration: "docs/evaluation/ope-19-complete-runner-preregistration.md",
     ope15_preregistration: "docs/evaluation/ope-15-accessible-patterns-preregistration.md",
     ope14_preregistration: "docs/evaluation/ope-14-feedback-ownership-preregistration.md",
@@ -127,16 +141,7 @@ export async function buildCandidateManifest() {
     macos_window_finder: "prototype/openui-typed-json-product-eval/platform/find-macos-window-id.swift",
     screenshot_checker: "prototype/openui-typed-json-product-eval/platform/check-screenshot.py",
   });
-  inputHashes.implementation_tree = await hashTree("prototype/ecosystem-relative-eval", {
-    excluded: new Set([
-      ".tmp",
-      "evidence",
-      "node_modules",
-      "platform/dioxus/target",
-      "platform/react/dist",
-      "prototype",
-    ]),
-  });
+  inputHashes.implementation_tree = await hashImplementationTree();
   inputHashes.platform_evidence = {
     react_web: await hashTree("prototype/ecosystem-relative-eval/evidence/react-web-local"),
     dioxus_web: await hashTree("prototype/ecosystem-relative-eval/evidence/dioxus-web-local"),
@@ -166,21 +171,23 @@ export async function buildCandidateManifest() {
   };
 
   return {
-    version: "ope-19-complete-runner-v1",
+    version: "ope-21-hardened-complete-runner-v1",
     purpose: "non-decision operational canary",
     product_outcome_forbidden: true,
     preregistration: {
-      ticket: "OPE-19",
-      prepared_by: "OPE-18",
-      permitted_change: "add the preregistered complete-run schedule, prompts, runner, human evidence contracts, blinded packet contract, invalidation rules, and derived hashes only",
+      ticket: "OPE-21",
+      prepared_by: "OPE-20",
+      permitted_change: "add the preregistered minimum-free-space gate, shared Cargo target isolation, implementation-tree stability proof, tests, documentation, and derived hashes only",
       prior_candidate: {
-        outcome: "PASS",
-        source_commit: "a3f895f",
-        evidence_commit: "6681f02",
-        evidence_path: "prototype/ecosystem-relative-eval/evidence/ope18-canary-a3f895f-final",
-        manifest_sha256: "9623a1457dee64555a2595cd878ddf7a7d13187747206a0ad7c1554b1208190e",
-        checksum_manifest_sha256: "9c0a378af9203cea0f2769dae84255900397aeed280c5f18f2f4e22900ffa098",
-        independent_review_sha256: "ebcfe05d6e9b67b8f1f61f04cd7f20cb56cf794577d78bcd475b8bf3ce9e0dbd",
+        outcome: "CANARY_INVALID",
+        source_commit: "84e30b4",
+        evidence_commit: "32f5925",
+        closing_commit: "d3cf420",
+        evidence_path: "prototype/ecosystem-relative-eval/evidence/ope20-complete-canary-84e30b4-final",
+        manifest_sha256: "1973db76a604ed0e4378e0fc0e0775be8f29e9cc8ba957599a0c17870bd4a3e3",
+        checksum_manifest_sha256: "335008e3f9bac2c15ffd0ad2d1a3967313ed98a6ab00cb4a31f463744c703363",
+        independent_review_sha256: "c3f4bf5f16008f257c60caf6d21102cd3a9c24192afb2696471124446fc8f5c9",
+        invalid_reason: "generated Dioxus Web and Desktop linking exhausted local disk after the provider window, and Dioxus Web wrote a root target inside the frozen implementation tree",
         pooled_with_new_canary: false,
       },
       unchanged_dimensions: [
@@ -196,6 +203,24 @@ export async function buildCandidateManifest() {
         "trust-controls",
         "evidence-schema",
       ],
+    },
+    execution_hardening: {
+      version: "ope-21-storage-and-build-isolation-v1",
+      minimum_free_bytes: DEFAULT_MINIMUM_FREE_BYTES,
+      minimum_free_gib: DEFAULT_MINIMUM_FREE_BYTES / (1024 ** 3),
+      gate_stages: [
+        "post-bootstrap",
+        "post-tests",
+        "post-typecheck",
+        "post-dioxus-contract",
+        "post-shell-syntax",
+        "post-authentication-check",
+        "pre-first-provider-call",
+      ],
+      insufficient_space_provider_attempts: 0,
+      shared_cargo_target_outside_repository: true,
+      root_build_target_forbidden: true,
+      implementation_tree_stability_required: true,
     },
     accessibility_contract: {
       version: "ope-15-route-neutral-patterns-v1",

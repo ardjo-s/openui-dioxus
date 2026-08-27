@@ -1,0 +1,3 @@
+{"op":"add","path":"/root","value":"progress_toolbar"}
+{"op":"add","path":"/elements","value":{"progress_toolbar":{"type":"Toolbar","props":{"id":"progress_toolbar","orientation":"vertical"},"children":["sync_dialog"]},"sync_dialog":{"type":"Dialog","props":{"id":"sync_dialog","title":"Syncing workspace · variant 1","open_state_key":"dialog_open"},"children":["sync_progress","sync_button"]},"sync_progress":{"type":"Progress","props":{"id":"sync_progress","label":"Sync progress · variant 1","value":20,"max":100},"children":[]},"sync_button":{"type":"Button","props":{"id":"sync_button","label":"Acknowledge sync · variant 1"},"children":[],"on":{"press":{"action":"ApplyFilter","params":{"target_id":"sync"}}}}}}
+{"op":"add","path":"/state","value":{"dialog_open":true}}

@@ -6,10 +6,12 @@ import { fileURLToPath } from "node:url";
 
 import { boundedTimeout } from "./deadline.mjs";
 import { accessibilityContractForSurface, validateRenderedAccessibility } from "./accessibility-contract.mjs";
+import { resolveSharedCargoTarget } from "./build-isolation.mjs";
 import { runBoundedProcess } from "./subprocess.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..");
+const repo = path.resolve(root, "../..");
 const temporaryRoot = path.join(root, ".tmp");
 const probeTemplateRoot = path.join(root, "fixtures", "direct-rsx-probe");
 const maximumBytes = 256 * 1024;
@@ -102,7 +104,7 @@ export function scanSource(source) {
 async function compileAndRender(source, deadlineMs) {
   await mkdir(temporaryRoot, { recursive: true });
   const directory = await mkdtemp(path.join(temporaryRoot, "direct-rsx-"));
-  const targetDir = process.env.EVAL_DIRECT_RSX_TARGET_DIR ?? path.join(root, "platform/dioxus/target");
+  const targetDir = resolveSharedCargoTarget({ ambient: process.env, repoRoot: repo, implementationRoot: root });
   await mkdir(targetDir, { recursive: true });
   const resolvedTargetDir = await realpath(targetDir);
   const releaseTarget = await acquireTargetLock(path.join(resolvedTargetDir, ".ope13-direct-rsx.lock"), deadlineMs);

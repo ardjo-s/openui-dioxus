@@ -1,9 +1,9 @@
 import assert from "node:assert/strict";
-import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
 
-import { runCanary } from "../src/run-canary.mjs";
+import { runCanary, runCompleteCanary } from "../src/run-canary.mjs";
 import { verifyEvidencePublication } from "../src/evidence-publication.mjs";
 import { verifyOpe3Archive } from "../src/ope3.mjs";
 import { assertDecisionNeutral, createForbiddenProductScorer, evaluateEcosystemSignals, scanEvidenceDirectory, scanProviderPayload, scanPublicationPayloads } from "../src/security.mjs";
@@ -71,6 +71,29 @@ test("deterministic canary records every rejected attempt and remains decision-n
     await writeFile(publicationPath, `${JSON.stringify({ ...publication, manifest_hash: "0".repeat(64) }, null, 2)}\n`);
     await assert.rejects(() => verifyEvidencePublication(output), /manifest hash differs/);
   } finally {
+    await rm(output, { recursive: true, force: true });
+  }
+});
+
+test("real-provider contract stops on storage failure with zero provider attempts", { timeout: 60_000 }, async () => {
+  await mkdir(temporaryRoot, { recursive: true });
+  const output = await mkdtemp(path.join(temporaryRoot.pathname, "provider-storage-stop-"));
+  const priorMinimum = process.env.EVAL_MINIMUM_FREE_BYTES;
+  process.env.EVAL_MINIMUM_FREE_BYTES = String(8 * 1024 ** 4);
+  try {
+    const summary = await runCompleteCanary({ provider: "codex", outputDirectory: output, platformProof: "generated" });
+    const failure = JSON.parse(await readFile(path.join(output, "pre-provider-infrastructure.json"), "utf8"));
+
+    assert.equal(summary.outcome, "CANARY_INVALID");
+    assert.equal(summary.calls, 0);
+    assert.equal(summary.external_provider_calls, 0);
+    assert.equal(summary.pre_provider_storage.passed, false);
+    assert.match(summary.provider_error, /storage gate failed/);
+    assert.equal(failure.classification, "PRE_PROVIDER_INFRASTRUCTURE_FAILURE");
+    assert.equal(failure.provider_attempts, 0);
+  } finally {
+    if (priorMinimum === undefined) delete process.env.EVAL_MINIMUM_FREE_BYTES;
+    else process.env.EVAL_MINIMUM_FREE_BYTES = priorMinimum;
     await rm(output, { recursive: true, force: true });
   }
 });

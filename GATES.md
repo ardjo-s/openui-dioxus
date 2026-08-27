@@ -1,5 +1,35 @@
 # Acceptance gates
 
+## OPE-21 deterministic disk and manifest hardening
+
+Current state: completed locally. External provider calls: zero.
+
+- [x] The real-provider wrapper checks the configured minimum free space after each deterministic preflight step.
+- [x] The runner checks the same storage contract immediately before the first provider call.
+- [x] An insufficient-space result retains a machine-readable pre-provider infrastructure record and proves zero provider attempts.
+- [x] One explicit shared Cargo target outside the frozen implementation tree is used by catalog, normalizer, Direct RSX, Dioxus Web, Dioxus Desktop, and contract builds.
+- [x] Generated platform proof leaves no root `target/` in the frozen implementation tree.
+- [x] The implementation-tree manifest is byte-identical before and after generated platform proof.
+- [x] TDD storage seams prove insufficient and sufficient capacity without an external provider call.
+- [x] TDD platform-isolation seam detects an injected root build artifact and verifies restoration.
+- [x] The schedule, prompts, route semantics, repair policy, scoring thresholds, action policy, accessibility contract, and evidence schema remain unchanged from OPE-20.
+- [x] Full deterministic tests, typecheck, Dioxus contract, shell syntax, recursive hashes, credential scan, and two-pass review pass.
+- [x] A new exact candidate manifest is frozen for OPE-22.
+- [x] Changes are committed locally and Linear is synchronized. No provider call, push, PR, merge, publication, or product verdict occurs.
+
+Verification evidence:
+
+- Candidate manifest: `8aedc364174450ec8ed4a157ab16c9881d69522b32ec65488e19946892b5bb07`.
+- Implementation tree before and after generated proof: `73e1166aac54b662ea4fca26e1929a074a0a8282658f745a71f82067520ff502`.
+- Tests: 71/71. Typecheck: passed. Dioxus contract: 1/1. Shell syntax and diff check: passed.
+- Complete fake-provider preflight: 80 cells, 84 retained attempts, zero external provider calls, expected `INVALID_EVAL` from missing human evidence.
+- Generated fake-provider preflight: `PASS`, 8 cells, 12 retained attempts, zero external provider calls, all four real platform executions passed.
+- Review packets: 8. Content-addressed assets: 15. Screenshots: 12. Credential findings: zero.
+- Complete preflight `SHA256SUMS`: `032925ad2e18d99c3b1a79b4a5f64714ed8c9afeb34be49e794117e8f238da81`.
+- Generated preflight `SHA256SUMS`: `73981f555b6cf680c7fc1445efd619658cef1bc8196efbe198de4b9b4811a636`.
+- Independent review: `183b4ca6a7ed5b42e557597e9fec28542b2803736d6503936fed5441eb7ab5d1`.
+- Two-pass review: `docs/evaluation/ope-21-two-pass-review.md`.
+
 ## OPE-20 complete-run harness canary
 
 Current state: completed as `CANARY_INVALID`. The single provider-backed run is

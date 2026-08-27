@@ -4,11 +4,14 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { boundedTimeout } from "./deadline.mjs";
+import { buildCargoEnvironment, resolveSharedCargoTarget } from "./build-isolation.mjs";
 import { runBoundedProcess } from "./subprocess.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
+const root = path.resolve(here, "..");
 const repo = path.resolve(here, "../../..");
 const catalog = path.join(repo, "prototype/dioxus-components-catalog-eval");
+const sharedTarget = resolveSharedCargoTarget({ ambient: process.env, repoRoot: repo, implementationRoot: root });
 let executableVerified = false;
 
 export async function verifySecondCatalogFixtures({ execute = true, deadlineMs = Number.POSITIVE_INFINITY } = {}) {
@@ -38,7 +41,7 @@ export async function verifySecondCatalogFixtures({ execute = true, deadlineMs =
         "rust_ui_catalog",
       ],
       cwd: repo,
-      env: process.env,
+      env: buildCargoEnvironment(process.env, sharedTarget),
       timeoutMs: boundedTimeout(deadlineMs, 240_000, "second-catalog fixture execution"),
       maximumBytes: 4 * 1024 * 1024,
     });

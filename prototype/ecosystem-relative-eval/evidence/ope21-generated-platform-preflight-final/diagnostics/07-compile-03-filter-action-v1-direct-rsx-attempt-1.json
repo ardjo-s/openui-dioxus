@@ -1,0 +1,9 @@
+{
+  "ok": false,
+  "diagnostics": [
+    {
+      "code": "forbidden-source",
+      "message": "\\b(?:std|core|alloc)::"
+    }
+  ]
+}

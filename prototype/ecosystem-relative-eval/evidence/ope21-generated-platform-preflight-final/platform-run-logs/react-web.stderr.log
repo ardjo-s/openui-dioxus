@@ -1,0 +1,5 @@
+[WebServer] 127.0.0.1 - - [27/Aug/2026 11:11:50] "GET / HTTP/1.1" 200 -
+(node:21673) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] 127.0.0.1 - - [27/Aug/2026 11:11:51] "GET / HTTP/1.1" 200 -
+[WebServer] 127.0.0.1 - - [27/Aug/2026 11:11:51] "GET /app.js HTTP/1.1" 200 -

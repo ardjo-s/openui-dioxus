@@ -1,0 +1,431 @@
+{
+  "outcome": "INVALID_EVAL",
+  "execution_kind": "deterministic-complete-preflight",
+  "run_contract": "complete_run",
+  "provider": "fake",
+  "model": "gpt-5.6-luna",
+  "reasoning_effort": "low",
+  "pre_provider_storage": {
+    "required": false,
+    "passed": true,
+    "provider_attempts": 0,
+    "reason": "fake provider performs no external call or generated platform proof",
+    "checks": []
+  },
+  "pre_provider_infrastructure_abort": false,
+  "manifest_hash": "8aedc364174450ec8ed4a157ab16c9881d69522b32ec65488e19946892b5bb07",
+  "manifest_promoted": false,
+  "operational_preflight_passed": true,
+  "finalization": {
+    "outcome": "INVALID_EVAL",
+    "diagnostics": [
+      {
+        "field": "corrections",
+        "code": "missing-evidence"
+      },
+      {
+        "field": "reviews",
+        "code": "missing-evidence"
+      },
+      {
+        "field": "keyboard",
+        "code": "missing-evidence"
+      },
+      {
+        "field": "voiceover",
+        "code": "missing-evidence"
+      },
+      {
+        "field": "talkback",
+        "code": "missing-evidence"
+      },
+      {
+        "field": "mobile",
+        "code": "missing-evidence"
+      },
+      {
+        "field": "replay",
+        "code": "missing-evidence"
+      },
+      {
+        "field": "migration",
+        "code": "missing-evidence"
+      },
+      {
+        "field": "drills",
+        "code": "missing-evidence"
+      },
+      {
+        "field": "costs",
+        "code": "missing-evidence"
+      },
+      {
+        "field": "applicability",
+        "code": "missing-evidence"
+      }
+    ]
+  },
+  "complete_canary_human_block_proved": null,
+  "route_cells": 80,
+  "expected_route_cells": 80,
+  "route_aggregates_comparable": false,
+  "route_aggregate_scope": "operational diagnostics only; route totals cover different scenario and cohort mixes and must not be ranked across routes",
+  "calls": 84,
+  "external_provider_calls": 0,
+  "maximum_calls": 160,
+  "wall_time_ms": 8945.370542,
+  "maximum_wall_time_ms": 14400000,
+  "first_pass_validity": {
+    "openui": 24,
+    "typed-json": 24,
+    "json-render": 24,
+    "direct-rsx": 4
+  },
+  "post_repair_validity": {
+    "openui": 25,
+    "typed-json": 25,
+    "json-render": 25,
+    "direct-rsx": 5
+  },
+  "cumulative_raw_tokens": {
+    "openui": 60170,
+    "typed-json": 68676,
+    "json-render": 139185,
+    "direct-rsx": 10414
+  },
+  "balanced_order": true,
+  "rejected_attempts_retained_and_charged": true,
+  "ope3_import": {
+    "verified": true,
+    "files_verified": 414,
+    "checksum_manifest_sha256": "848fbf33924fda4456da518975e06e133e3c5195e801d4961eec48acacf92001",
+    "summary": {
+      "outcome": "VALID_EVAL",
+      "pairs_complete": 20,
+      "calls": 83,
+      "first_pass_validity": {
+        "openui": 17,
+        "a2ui": 0,
+        "typed-json": 20
+      },
+      "post_repair_validity": {
+        "openui": 19,
+        "a2ui": 12,
+        "typed-json": 20
+      }
+    },
+    "provider_calls": 0
+  },
+  "second_catalog": {
+    "verified": true,
+    "files_verified": 33,
+    "executable_fixtures": true,
+    "inert_replay": true,
+    "copy_on_write_migration": true,
+    "catalog_release_hash": "e87196bd4cc3e813a18d928d2a2cfe07e7053bc009e926e523683c9b96facca4",
+    "adapter_build_id": "ope10-1fac5dd5c04febb1-841ab78c",
+    "source_commit": "7fd792520ba5e3ad5354c26ac4e6816c2d156b7c",
+    "implementation_commit": "2f87a8d0531d483d5b32df6f89b7979ceb4beb74"
+  },
+  "platform_evidence": {
+    "verified": true,
+    "diagnostics": [],
+    "proofs": {
+      "react_web": {
+        "platform": "web",
+        "route": "json-render",
+        "official_runtime": "@json-render/react@0.19.0",
+        "manifest_hash": "frozen-reference-fixtures-v1",
+        "binding_sha256": "17cb5567c7e4770dc7ba09db8f8fd12c26e0e5e19a55b520350655109668f1dc",
+        "passed": true,
+        "state_changed": true,
+        "action_receipt": "receipt:ApplyFilter:preferences",
+        "accessibility_contract_version": "ope-15-route-neutral-patterns-v1",
+        "keyboard_operable": true,
+        "focus_visible": true,
+        "feedback_announced": true,
+        "host_receipt_outside_component_coverage": true,
+        "semantic_patterns_verified": true,
+        "accessibility_blocking_findings": 0,
+        "screenshot": "json-render-react-web.png"
+      },
+      "dioxus_web": {
+        "platform": "web",
+        "routes": [
+          "openui",
+          "typed-json"
+        ],
+        "manifest_hash": "frozen-reference-fixtures-v1",
+        "binding_sha256": "910c7dde468358e904057febc521243467fc69f5fb128b52bf73f082edaf22c7",
+        "passed": true,
+        "state_action_update_replay": true,
+        "accessibility_contract_version": "ope-15-route-neutral-patterns-v1",
+        "keyboard_operable": true,
+        "focus_visible": true,
+        "feedback_announced": true,
+        "host_receipt_outside_component_coverage": true,
+        "semantic_patterns_verified": true,
+        "accessibility_blocking_findings": 0,
+        "screenshots": [
+          "dioxus-web-1.png",
+          "dioxus-web-2.png"
+        ]
+      },
+      "dioxus_desktop": {
+        "platform": "desktop",
+        "routes": [
+          "openui",
+          "typed-json"
+        ],
+        "passed": true,
+        "evidence_complete": true,
+        "marker": "OPE11_DIOXUS_SELF_TEST_PASS surfaces=2",
+        "manifest_hash": "frozen-reference-fixtures-v1",
+        "binding_sha256": "910c7dde468358e904057febc521243467fc69f5fb128b52bf73f082edaf22c7",
+        "accessibility_contract_version": "ope-15-route-neutral-patterns-v1",
+        "screenshot": {
+          "file": "dioxus-desktop.png",
+          "width": 912,
+          "height": 744
+        }
+      }
+    },
+    "artifact_count": 13,
+    "recursive_sha256": "d8d2d8c9b4fd981f161d8edbd778d2710c1521a3a583f690881806589e507355",
+    "source": "frozen-reference-preflight"
+  },
+  "platform_proof_mode": "reference",
+  "review_packets": {
+    "count": 80,
+    "sha256": "1cd132c7b6f7eee71a1dfa950041bac87a74a2a85dcad98d4a7c2a73efc06a68",
+    "leak_findings": [],
+    "immutable_after_opening": true,
+    "asset_mode": "reference-preflight-placeholders",
+    "asset_index_count": 0,
+    "asset_index_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "error": null
+  },
+  "human_evidence": {
+    "provided": false,
+    "sha256": null,
+    "finalization_stage": "src/finalize-complete.mjs"
+  },
+  "canonical_runtime_behavior_diff_lines": 0,
+  "trust_controls": {
+    "pre_provider_scan_findings": 0,
+    "pre_provider_storage_passed": true,
+    "publication_credential_scan_findings": 0,
+    "generated_output_execution": {
+      "openui": "validated-data-only",
+      "typed-json": "validated-data-only",
+      "json-render": "validated-data-rendered-by-official-react-runtime",
+      "direct-rsx": "allowlisted source, sandboxed SSR, and externally blocked Web requests"
+    },
+    "direct_rsx_sandbox": "SSR compile and execution use the macOS deny-network sandbox; interactive Web uses an explicit non-secret environment, rejects direct access to the web-sys feature shim, and blocks external browser requests",
+    "effect_policy": "deny-by-default"
+  },
+  "implementation_footprint": {
+    "policy": {
+      "version": "ope-11-footprint-v1",
+      "base_ref": "codex/ope-10-rust-ui-catalog",
+      "counting": "nonblank physical lines and regular files",
+      "dimensions": {
+        "authorship": [
+          "handwritten",
+          "generated"
+        ],
+        "role": [
+          "test",
+          "catalog",
+          "adapter",
+          "runtime",
+          "platform",
+          "baseline",
+          "support"
+        ]
+      },
+      "generated_files": [
+        "dependency lockfiles",
+        "frozen platform fixture JSON"
+      ],
+      "version_control_method": "git diff --numstat against the frozen base plus an untracked-source check"
+    },
+    "total": {
+      "file_count": 74,
+      "nonblank_lines": 15580,
+      "bytes": 616358
+    },
+    "authorship": {
+      "handwritten": {
+        "file_count": 69,
+        "nonblank_lines": 7665,
+        "bytes": 397637
+      },
+      "generated": {
+        "file_count": 5,
+        "nonblank_lines": 7915,
+        "bytes": 218721
+      }
+    },
+    "role": {
+      "test": {
+        "file_count": 20,
+        "nonblank_lines": 1812,
+        "bytes": 102711
+      },
+      "catalog": {
+        "file_count": 1,
+        "nonblank_lines": 60,
+        "bytes": 2853
+      },
+      "adapter": {
+        "file_count": 2,
+        "nonblank_lines": 208,
+        "bytes": 10331
+      },
+      "runtime": {
+        "file_count": 15,
+        "nonblank_lines": 3343,
+        "bytes": 163319
+      },
+      "platform": {
+        "file_count": 14,
+        "nonblank_lines": 7198,
+        "bytes": 219620
+      },
+      "baseline": {
+        "file_count": 12,
+        "nonblank_lines": 1705,
+        "bytes": 66483
+      },
+      "support": {
+        "file_count": 10,
+        "nonblank_lines": 1254,
+        "bytes": 51041
+      }
+    },
+    "required_categories": {
+      "handwritten": {
+        "file_count": 69,
+        "nonblank_lines": 7665,
+        "bytes": 397637
+      },
+      "generated": {
+        "file_count": 5,
+        "nonblank_lines": 7915,
+        "bytes": 218721
+      },
+      "test": {
+        "file_count": 20,
+        "nonblank_lines": 1812,
+        "bytes": 102711
+      },
+      "catalog": {
+        "file_count": 1,
+        "nonblank_lines": 60,
+        "bytes": 2853
+      },
+      "adapter": {
+        "file_count": 2,
+        "nonblank_lines": 208,
+        "bytes": 10331
+      },
+      "runtime": {
+        "file_count": 15,
+        "nonblank_lines": 3343,
+        "bytes": 163319
+      },
+      "platform": {
+        "file_count": 14,
+        "nonblank_lines": 7198,
+        "bytes": 219620
+      },
+      "baseline": {
+        "file_count": 12,
+        "nonblank_lines": 1705,
+        "bytes": 66483
+      }
+    },
+    "version_control": {
+      "base_ref": "codex/ope-10-rust-ui-catalog",
+      "head_commit": "d3cf4207df84d8c610947f3a9cd7e545bc8398da",
+      "tracked_changed_files": 1260,
+      "added_lines": 154480,
+      "removed_lines": 0,
+      "binary_files": 61,
+      "authorship": {
+        "handwritten": {
+          "files": 1249,
+          "added_lines": 126329,
+          "removed_lines": 0
+        },
+        "generated": {
+          "files": 11,
+          "added_lines": 28151,
+          "removed_lines": 0
+        }
+      },
+      "role": {
+        "test": {
+          "files": 18,
+          "added_lines": 1750,
+          "removed_lines": 0
+        },
+        "catalog": {
+          "files": 1,
+          "added_lines": 60,
+          "removed_lines": 0
+        },
+        "adapter": {
+          "files": 2,
+          "added_lines": 218,
+          "removed_lines": 0
+        },
+        "runtime": {
+          "files": 13,
+          "added_lines": 3327,
+          "removed_lines": 0
+        },
+        "platform": {
+          "files": 14,
+          "added_lines": 7864,
+          "removed_lines": 0
+        },
+        "baseline": {
+          "files": 12,
+          "added_lines": 1867,
+          "removed_lines": 0
+        },
+        "support": {
+          "files": 1200,
+          "added_lines": 139394,
+          "removed_lines": 0
+        }
+      },
+      "untracked_source_files": [
+        "scripts/check-storage.mjs",
+        "src/build-isolation.mjs",
+        "src/storage-gate.mjs",
+        "test/build-isolation.test.mjs",
+        "test/storage-gate.test.mjs"
+      ],
+      "source_entries_measured": 74
+    }
+  },
+  "cost": {
+    "billing_basis": "Deterministic fake provider uses no model calls",
+    "incremental_api_cost_usd": null,
+    "provider_usage": {
+      "measured_records": 0,
+      "input_tokens": 0,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 0,
+      "reasoning_tokens": 0,
+      "total_tokens": 0
+    }
+  },
+  "provider_error": null,
+  "final_product_scorer_accessed": false,
+  "final_product_scorer_access_count": 0
+}

@@ -1,0 +1,3 @@
+{"op":"add","path":"/root","value":"filter_toolbar"}
+{"op":"add","path":"/elements","value":{"filter_toolbar":{"type":"Toolbar","props":{"id":"filter_toolbar","orientation":"horizontal"},"children":["role_select","filter_button"]},"role_select":{"type":"Select","props":{"id":"role_select","label":"Role · variant 4","state_key":"role_filter","options":["All","Admin","Member"],"value":{"$bindState":"/role_filter"}},"children":[]},"filter_button":{"type":"Button","props":{"id":"filter_button","label":"Apply · variant 4"},"children":[],"on":{"press":{"action":"ApplyFilter","params":{"target_id":"people"}}}}}}
+{"op":"add","path":"/state","value":{"role_filter":"All"}}

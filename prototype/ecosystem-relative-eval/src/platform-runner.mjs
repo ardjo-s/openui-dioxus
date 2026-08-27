@@ -1,15 +1,18 @@
 import { createHash } from "node:crypto";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { lstat, mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { verifyPlatformEvidence } from "./platform-evidence.mjs";
 import { buildPlatformProvenance } from "./platform-provenance.mjs";
+import { buildCargoEnvironment, resolveSharedCargoTarget, verifyImplementationTreeStability } from "./build-isolation.mjs";
 import { boundedTimeout } from "./deadline.mjs";
+import { hashImplementationTree } from "./manifest.mjs";
 import { runBoundedProcess } from "./subprocess.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..");
+const repo = path.resolve(root, "../..");
 
 export async function writeGeneratedPlatformFixtures(records, outputDirectory, manifestHash = "deterministic-test-manifest", { scope = "canary" } = {}) {
   const { dioxusRecords, jsonRenderRecords, directRsxRecords } = selectPlatformRecords(records, { scope });
@@ -115,6 +118,12 @@ async function digestFileLabel(file) {
 }
 
 export async function executeGeneratedPlatformProofs({ records, outputDirectory, manifestHash, deadlineMs = Number.POSITIVE_INFINITY, scope = "canary" }) {
+  const sharedTargetDirectory = resolveSharedCargoTarget({ ambient: process.env, repoRoot: repo, implementationRoot: root });
+  await mkdir(sharedTargetDirectory, { recursive: true });
+  const rootTarget = path.join(root, "target");
+  if (await exists(rootTarget)) throw new Error(`root build target exists before generated platform proof: ${rootTarget}`);
+  const implementationTreeBefore = await hashImplementationTree();
+  const cargoEnvironment = buildCargoEnvironment({}, sharedTargetDirectory);
   const fixtures = await writeGeneratedPlatformFixtures(records, outputDirectory, manifestHash, { scope });
   const evidenceRoot = path.join(outputDirectory, "platform-evidence");
   const logRoot = path.join(outputDirectory, "platform-run-logs");
@@ -138,7 +147,7 @@ export async function executeGeneratedPlatformProofs({ records, outputDirectory,
     env: {
       OPE11_DIRECT_RSX_CRATE: fixtures.direct_rsx_crate,
       OPE11_DIRECT_RSX_EVIDENCE_DIR: path.join(evidenceRoot, "direct-rsx-web-local"),
-      OPE11_DIRECT_RSX_TARGET_DIR: process.env.EVAL_DIRECT_RSX_TARGET_DIR ?? path.join(root, "platform/dioxus/target"),
+      ...cargoEnvironment,
     },
     logRoot,
     deadlineMs,
@@ -150,6 +159,7 @@ export async function executeGeneratedPlatformProofs({ records, outputDirectory,
     env: {
       OPE11_DIOXUS_FIXTURE_PATH: fixtures.dioxus_fixture,
       OPE11_DIOXUS_WEB_EVIDENCE_DIR: path.join(evidenceRoot, "dioxus-web-local"),
+      ...cargoEnvironment,
     },
     logRoot,
     deadlineMs,
@@ -161,30 +171,51 @@ export async function executeGeneratedPlatformProofs({ records, outputDirectory,
     env: {
       OPE11_DIOXUS_FIXTURE_PATH: fixtures.dioxus_fixture,
       OPE11_DIOXUS_DESKTOP_EVIDENCE_DIR: path.join(evidenceRoot, "dioxus-desktop-local"),
+      ...cargoEnvironment,
     },
     logRoot,
     deadlineMs,
   }));
-  const proof = await verifyPlatformEvidence({
-    evidenceRoot,
-    expected: {
-      manifest_hash: manifestHash,
-      dioxus_binding_sha256: fixtures.provenance.dioxus.binding_sha256,
-      react_binding_sha256: fixtures.provenance.react.binding_sha256,
-      direct_rsx_binding_sha256: fixtures.provenance.direct_rsx.binding_sha256,
-      dioxus_surface_count: fixtures.surface_counts.dioxus,
-      react_surface_count: fixtures.surface_counts.react,
-      direct_rsx_surface_count: fixtures.surface_counts.direct_rsx,
-    },
+  let proof;
+  try {
+    proof = await verifyPlatformEvidence({
+      evidenceRoot,
+      expected: {
+        manifest_hash: manifestHash,
+        dioxus_binding_sha256: fixtures.provenance.dioxus.binding_sha256,
+        react_binding_sha256: fixtures.provenance.react.binding_sha256,
+        direct_rsx_binding_sha256: fixtures.provenance.direct_rsx.binding_sha256,
+        dioxus_surface_count: fixtures.surface_counts.dioxus,
+        react_surface_count: fixtures.surface_counts.react,
+        direct_rsx_surface_count: fixtures.surface_counts.direct_rsx,
+      },
+    });
+  } catch (error) {
+    proof = {
+      verified: false,
+      diagnostics: [{ code: "platform-evidence", message: String(error.message) }],
+      proofs: {},
+      artifact_count: 0,
+      recursive_sha256: null,
+    };
+  }
+  const implementationTreeAfter = await hashImplementationTree();
+  const implementationTreeStability = verifyImplementationTreeStability({
+    before: implementationTreeBefore,
+    after: implementationTreeAfter,
+    rootTargetExists: await exists(rootTarget),
   });
   const failedExecutions = executions.filter((execution) => !execution.passed);
   return {
     ...proof,
-    verified: proof.verified && failedExecutions.length === 0,
+    verified: proof.verified && failedExecutions.length === 0 && implementationTreeStability.verified,
+    diagnostics: [...(proof.diagnostics ?? []), ...implementationTreeStability.diagnostics],
     source: "generated-canary-outputs",
     fixture_sha256: fixtures.sha256,
     fixture_provenance: fixtures.provenance,
     executions,
+    shared_cargo_target: sharedTargetDirectory,
+    implementation_tree_stability: implementationTreeStability,
   };
 }
 
@@ -268,4 +299,14 @@ export function buildPlatformProcessEnv(id, required, ambient = process.env) {
 
 function digest(value) {
   return createHash("sha256").update(value).digest("hex");
+}
+
+async function exists(candidate) {
+  try {
+    await lstat(candidate);
+    return true;
+  } catch (error) {
+    if (error.code === "ENOENT") return false;
+    throw error;
+  }
 }
