@@ -13,7 +13,7 @@ Current state: completed locally. No external provider call occurred.
 - [x] Fake-provider preflight executes all 80 cells with no external provider call.
 - [x] OPE-13 through OPE-18 evidence remains byte-identical.
 - [x] Full tests, typecheck, diff check, standards review, and intent review pass.
-- [ ] Owned changes and evidence are committed locally and Linear is synchronized.
+- [x] Owned changes and evidence are committed locally and Linear is synchronized.
 
 Verification evidence:
 
