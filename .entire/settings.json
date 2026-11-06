@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "telemetry": false,
+  "checkpoints": {
+    "primary": {
+      "type": "git-refs"
+    }
+  },
+  "strategy_options": {
+    "push_sessions": true,
+    "checkpoint_push_remote": "entire"
+  }
+}
